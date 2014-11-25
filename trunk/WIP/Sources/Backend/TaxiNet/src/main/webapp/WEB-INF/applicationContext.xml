@@ -44,8 +44,8 @@
 
 		<property name="mappingLocations">
 			<list>
-				<value>classpath:TaxiNetUsers.hbm.xml</value>
-				<value>classpath:vn/co/taxinet/orm/District.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/TaxiNetUsers.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/District.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
