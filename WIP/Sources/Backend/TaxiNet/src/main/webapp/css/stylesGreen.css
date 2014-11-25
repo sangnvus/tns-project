@@ -1,0 +1,518 @@
+a:link, a:visited, a:active {
+	font-weight: normal;
+	text-decoration: none;
+}
+
+a:link.btnormal, a:visited.btnormal, a:active.btnormal {
+	background-color: #F0F5E7;
+	border: 1px outset;
+	border-color: #333333;
+	color: #333333;
+	
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: normal;
+	height: 12px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: center;
+	text-decoration: none;
+	width: 70px;
+}
+
+a:link.btnormal2, a:visited.btnormal2, a:active.btnormal2 {
+	background-color: #F0F5E7;
+	border: 1px outset;
+	border-color: #333333;
+	color: #333333;
+	
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: normal;
+	height: 12px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: center;
+	text-decoration: none;
+}
+a:link.btsmall, a:visited.btsmall, a:active.btsmall {
+	background-color: #FFFFFF;
+	border: 1px outset;
+	border-color: #333333 #333333 #333333 #333333;
+	color: #333333;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: normal;
+	height: 12px;
+	padding-left: 3px;
+	padding-right: 3px;
+	text-align: center;
+	text-decoration: none;
+}
+
+/**/
+a:link.highlightblue, a:visited.highlightblue, a:active.highlightblue {
+	color: #0066FF;
+	font-weight: bold;
+}
+
+a:link.highlightgreen, a:visited.highlightgreen, a:active.highlightgreen {
+	color: #228B22;
+	font-weight: bold;
+}
+
+a:link.highlightpink, a:visited.highlightpink, a:active.highlightpink  {
+	color: #FF064A;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #000000;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+a:hover.btnormal {
+	background-color: #DAEBA9;
+	color: #333333;
+}
+
+a:hover.btnormal2 {
+	background-color: #DAEBA9;
+	color: #333333;
+}
+
+a:hover.btsmall {
+	background-color: #C6DBFF;
+	color: #000000;
+}
+
+a:hover.highlightblue {
+	color: #0066FF;
+	font-weight: bold;
+}
+
+a:hover.highlightgreen {
+	color: #228B22;
+	font-weight: bold;
+}
+
+a:hover.highlightpink {
+	color: #FF064A;
+	font-weight: bold;
+}
+
+body.body{
+	scrollbar-3dlight-color: #D6EAAE;
+	scrollbar-3dlight-color: #E9EACE;
+	scrollbar-arrow-color: #DBEDB6;
+	scrollbar-arrow-color: #FFFFFF;
+	scrollbar-base-color: #DCE7C9;
+	scrollbar-darkshadow-color: #EDF6DB;
+	scrollbar-highlight-color: #E9EBCB;
+	scrollbar-highlight-color: #FAFAD2;
+	scrollbar-shadow-color: #EDEDD6;
+	scrollbar-shadow-color: #E6EED7;
+	scrollbar-track-color: #EFF6F3;
+	scrollbar-track-color: #F8F9F1;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div#tbl-container {
+	overflow: auto;
+}
+
+div#tbl-container table th {
+	width: 100px;
+}
+
+div.headertitle {
+	background-color: #D5E2BC;
+}
+
+div.infobox {
+	background-color: #F5F5F5;
+	border-bottom: #6633FF 4px double;
+	border-left: #6633FF 4px double;
+	border-right: #6633FF 4px double;
+	border-top: #6633FF 4px double;
+	left: 470px;
+	padding-bottom: 8px;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 8px;
+	position: absolute;
+	right: 5px;
+	text-align: justify;
+	text-justify: newspaper;
+	top: 65px;
+}
+
+input.{
+	border: 1px solid #DAEBA9;
+}
+
+input.text {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+}
+input.checkbox{
+	border: 0px;
+}
+
+table.buttontop {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+table.buttontop a:link.buttontop, a:visited.buttontop, a:active.buttontop {
+	color: #D3D3D3;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+table.buttontop a:hover.buttontop {
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+table.buttontop td.buttontop {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+table.buttontop td.selected {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+table.buttontop td.unselect {
+	color: #CCCCCC;
+	font-weight: bold;
+}
+
+table.form {
+	border-bottom: medium none;
+	border-left: medium none;
+	border-right: medium none;
+	border-top: medium none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	margin: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	width: 100%;
+}
+
+table.form td {
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+}
+
+table.form td.field {
+	background-color: #F0F5E7;
+	padding-left: 2px;
+	padding-right: 3px;
+}
+
+table.form td.recalc {
+	background-color: #F1FFF0;
+	padding-left: 2px;
+	padding-right: 3px;
+}
+
+table.form th.title {
+	background-color: #C6D8A6;
+	color: #000000;
+	font-weight: bold;
+}
+
+table.form tr {
+}
+
+table.form tr.field {
+	background-color: #F2F2F2;
+}
+
+table.form tr.field td {
+	line: 100%;
+	padding-left: 1pt;
+	padding-right: 4pt;
+}
+
+table.form tr.header {
+}
+
+table.form tr.header td {
+	border-bottom: #C5C5C5 1pt solid;
+	border-left: #C5C5C5 1pt solid;
+	border-right: #C5C5C5 1pt solid;
+	border-top: #C5C5C5 1pt solid;
+	font-weight: normal;
+	padding-right: 3pt;
+	padding-top: 2pt;
+	text-align: left;
+	vertical-align: text-middle;
+}
+
+table.form tr.header th {
+	border-bottom: #C5C5C5 1pt solid;
+	border-left: #C5C5C5 1pt solid;
+	border-right: #C5C5C5 1pt solid;
+	border-top: #C5C5C5 1pt solid;
+	font-weight: normal;
+	padding-right: 3pt;
+	padding-top: 2pt;
+	text-align: left;
+	vertical-align: text-middle;
+}
+
+table.form tr.section {
+	background-color: #FFFFFF;
+}
+
+table.form tr.section th {
+	text-indent: -1pt;
+}
+
+table.form tr.section th {
+	color: #6B8E23;
+	text-indent: -1pt;
+}
+
+table.form tr.section th a:link.section, a:visited.section, a:active.section, a:hover.section {
+	color: #FFFFFF;
+}
+
+table.form tr.separator {
+	height: 3px;
+}
+table.form th.title {
+	background-color: #C6D8A6;
+	color: #000000;
+	font-weight: bold;
+}
+
+table.form tr.Header {
+	COLOR: Black;
+    	BACKGROUND-COLOR: #C6D8A6;
+}
+
+table.FormWithBorder {
+	border-bottom: medium none;
+	border-left: medium none;
+	border-right: medium none;
+	border-top: medium none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	margin: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	width: 100%;
+	border: 1px solid #DAEBA9;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+}
+
+thead th {
+	background-color: #C6DBFF;
+	border-right: #C5C5C5 2pt solid;
+	color: #000000;
+	cursor: default;
+	font-weight: normal;
+	position: relative;
+	text-align: center;
+}
+
+thead th {
+	border-bottom: #C5C5C5 1pt solid;
+	border-left: #C5C5C5 1pt solid;
+	border-right: #C5C5C5 1pt solid;
+	border-top: #C5C5C5 1pt solid;
+	font-weight: normal;
+	padding-right: 1pt;
+	padding-top: 0pt;
+	text-align: left;
+	top: expression(document.getElementById("tbl-container").scrollTop-2);
+	vertical-align: text-top;
+}
+
+thead th.locked {
+	background-color: #C6DBFF;
+	border-right: #C5C5C5 2pt solid;
+	color: #000000;
+	cursor: default;
+	font-weight: normal;
+	position: relative;
+	text-align: center;
+}
+
+thead th.locked {
+	z-index: 30;
+}
+
+.highlightblue{
+	color: #0066FF;
+	font-weight: bold;
+}
+
+.highlightgreen{
+	color: #228B22;
+	font-weight: bold;
+}
+
+.highlightpink{
+	color: #FF064A;
+	font-weight: bold;
+}
+span.HeaderTitle {
+	letter-spacing: 4pt; 
+	PADDING-LEFT: 2pt;
+	FONT-SIZE: larger;
+	COLOR: #676767;
+	font-weight: bold;
+	font-size: 16px;
+}
+.FieldD
+{
+    WIDTH: 50px;
+}
+.FieldDR
+{
+    WIDTH: 105px; text-align: right;
+}
+.FieldDate
+{
+	WIDTH: 70px;
+}
+.FieldDateR
+{
+	WIDTH: 65px; text-align: right;
+}
+.FieldLong
+{
+    WIDTH: 200px
+}
+.Field180
+{
+    WIDTH: 180px;
+}
+.FieldLongR
+{
+    WIDTH: 200px; text-align: right;
+}
+.FieldXLong
+{
+    WIDTH: 260px
+}
+.FieldXLongR
+{
+    WIDTH: 260px; text-align: right;
+}
+.FieldXXLong
+{
+    WIDTH: 690px
+}
+.FieldXXLongR
+{
+    WIDTH: 690px; text-align: right;
+}
+.FieldShort
+{
+    WIDTH: 120px
+}
+.FieldShortR
+{
+    WIDTH: 120px; text-align: right;
+}
+.FieldXShort
+{
+    WIDTH: 50px
+}
+.FieldPostCode
+{
+    WIDTH: 100px
+}
+
+.FieldXShortR
+{
+    WIDTH: 50px; text-align: right;
+}
+.FieldXXShort
+{
+	WIDTH: 18px;
+}
+.FieldXXShortR
+{
+	WIDTH: 18px; text-align: right;
+}
+.FieldWidth30
+{
+    WIDTH: 30px;
+}
+.FieldWidth30R
+{
+    WIDTH: 30px; text-align: right;
+}
+.FieldWidth100
+{
+    WIDTH: 100px
+}
+.FieldWidth100R
+{
+    WIDTH: 100px; text-align: right;
+}
+.FieldWidth90
+{
+    WIDTH: 90px;
+}
+.FieldWidth90R
+{
+    WIDTH: 90px; text-align: right;
+}
+
+.FieldWidth45
+{
+    WIDTH: 45px;
+}
+.FieldWidth45R
+{
+    WIDTH: 45px; text-align: right;
+}
+.FieldWidth60R
+{
+    WIDTH: 60px;text-align: right;
+}
+.FieldWidth114
+{
+    WIDTH: 114px;
+}
+.FieldWidth114R
+{
+    WIDTH: 114px; text-align: right;
+}
+.FieldWidth130
+{
+    WIDTH: 140px;
+}
+.FieldWidth130R
+{
+    WIDTH: 140px; text-align: right;
+}
+.FieldNormal {
+    WIDTH: 180px;
+}
+.FieldNormalR
+{
+    WIDTH: 180px; text-align: right;
+}
