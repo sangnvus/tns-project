@@ -188,7 +188,7 @@ public class MainActivity extends Activity {
 			fragment = new FavoriteTaxiFragment();
 			break;
 		case 6:
-			fragment = new HistoryCallTaxiFragment();
+			fragment = new HistoryTaxiCallFragment();
 			break;
 
 		default:
