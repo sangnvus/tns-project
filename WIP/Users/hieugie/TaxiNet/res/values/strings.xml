@@ -15,6 +15,8 @@
     <string name="phone_number_of_taxi_driver">Số điện thoại</string>
     <string name="name_of_company_of_taxi_driver">Tên công ty</string>
     <string name="bank_account_of_taxi_driver">TK ngân hàng</string>
+    <string name="account">Tài khoản</string>
+    <string name="password">Mật khẩu</string>
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
@@ -40,5 +42,6 @@
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
+    <string name="title_activity_start_up">StartUp</string>
 
 </resources>

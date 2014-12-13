@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 public class MapsFragment extends Fragment {
 	
 	public MapsFragment(){}
-	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -18,4 +17,5 @@ public class MapsFragment extends Fragment {
          
         return rootView;
     }
+
 }
