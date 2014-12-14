@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,19 +8,19 @@
     <RelativeLayout
         android:id="@+id/starting_point_layout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="24dp"
         android:background="@drawable/list_selector" >
 
         <ImageView
             android:id="@+id/starting_point_icon"
-            android:layout_width="25dp"
+            android:layout_width="16dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:contentDescription="@string/desc_list_item_icon"
-            android:src="@drawable/ic_home" />
+            android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/starting_point"
@@ -35,20 +36,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="24dp"
         android:layout_below="@id/starting_point_layout"
         android:background="@drawable/list_selector" >
 
         <ImageView
             android:id="@+id/stopping_point_icon"
-            android:layout_width="25dp"
+            android:layout_width="16dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:contentDescription="@string/desc_list_item_icon"
-            android:src="@drawable/ic_home" />
+            android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/stopping_point"
