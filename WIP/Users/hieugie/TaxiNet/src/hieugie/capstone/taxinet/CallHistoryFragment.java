@@ -6,15 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class HistoryTaxiCallFragment extends Fragment {
+public class CallHistoryFragment extends Fragment {
 	
-	public HistoryTaxiCallFragment(){}
+	public CallHistoryFragment(){}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_history_taxi_call, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_call_history, container, false);
          
         return rootView;
     }
