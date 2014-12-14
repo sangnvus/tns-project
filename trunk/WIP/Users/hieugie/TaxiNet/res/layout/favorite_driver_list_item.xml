@@ -29,7 +29,7 @@
             android:layout_marginTop="2dp"
             android:layout_toRightOf="@id/call_history_icon"
             android:paddingRight="40dp"
-            android:text="@string/drvier"
+            android:text="@string/driver"
             android:textColor="@color/list_item_title"
             android:textSize="18sp" />
 

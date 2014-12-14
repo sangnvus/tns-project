@@ -7,7 +7,7 @@
         android:id="@+id/taxi_company_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-                android:divider="@drawable/divider"
+        android:divider="@drawable/divider"
         android:dividerHeight="1sp" />
 
 </RelativeLayout>

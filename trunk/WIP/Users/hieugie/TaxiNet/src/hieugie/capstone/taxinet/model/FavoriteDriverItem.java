@@ -1,18 +1,28 @@
 package hieugie.capstone.taxinet.model;
 
-public class FavoriteDriverItem {
+import java.io.Serializable;
+
+public class FavoriteDriverItem implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8026349913914275141L;
 	private int id;
 	private String name;
+	private String phone_number;
 	private boolean status;
 
 	public FavoriteDriverItem() {
 		super();
 	}
 
-	public FavoriteDriverItem(int id, String name, boolean status) {
+	public FavoriteDriverItem(int id, String name, String phone_number,
+			boolean status) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.phone_number = phone_number;
 		this.status = status;
 	}
 
@@ -30,6 +40,14 @@ public class FavoriteDriverItem {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPhone_number() {
+		return phone_number;
+	}
+
+	public void setPhone_number(String phone_number) {
+		this.phone_number = phone_number;
 	}
 
 	public boolean isStatus() {
