@@ -174,12 +174,8 @@ public class MainActivity extends Activity {
 		case 0:
 			fragment = new MapsFragment();
 			break;
-		case 1:
-			break;
 		case 2:
 			fragment = new ManageJourneyFragment();
-			break;
-		case 3:
 			break;
 		case 4:
 			fragment = new TaxiCompanyFragment();
@@ -190,7 +186,6 @@ public class MainActivity extends Activity {
 		case 6:
 			fragment = new HistoryTaxiCallFragment();
 			break;
-
 		default:
 			break;
 		}
