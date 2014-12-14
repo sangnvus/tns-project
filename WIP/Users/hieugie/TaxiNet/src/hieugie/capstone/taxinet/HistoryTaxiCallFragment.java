@@ -14,7 +14,7 @@ public class HistoryTaxiCallFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_photos, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_history_taxi_call, container, false);
          
         return rootView;
     }

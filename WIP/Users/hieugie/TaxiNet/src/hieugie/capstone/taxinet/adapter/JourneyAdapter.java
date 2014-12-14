@@ -1,0 +1,48 @@
+package hieugie.capstone.taxinet.adapter;
+
+import hieugie.capstone.taxinet.R;
+import hieugie.capstone.taxinet.model.JourneyItem;
+
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+public class JourneyAdapter extends ArrayAdapter<JourneyItem> {
+	private Context context;
+	private int textViewResourceId;
+	private ArrayList<JourneyItem> journeyItems;
+	private TextView starting_point, stopping_point;
+
+	public JourneyAdapter(Context context, int textViewResourId,
+			ArrayList<JourneyItem> journeyItems) {
+		super(context, textViewResourId, journeyItems);
+		this.context = context;
+		this.textViewResourceId = textViewResourId;
+		this.journeyItems = journeyItems;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View v = convertView;
+		if (v == null) {
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			v = inflater.inflate(textViewResourceId, null);
+		}
+		initialize(v);
+		JourneyItem journeyItem = journeyItems.get(position);
+		starting_point.setText(journeyItem.getStarting_point());
+		stopping_point.setText(journeyItem.getStopping_point());
+		return v;
+	}
+
+	public void initialize(View v) {
+		starting_point = (TextView) v.findViewById(R.id.starting_point);
+		stopping_point = (TextView) v.findViewById(R.id.stopping_point);
+	}
+}
