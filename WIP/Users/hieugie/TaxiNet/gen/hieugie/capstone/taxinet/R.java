@@ -63,7 +63,7 @@ public final class R {
         public static final int counter=0x7f0a0006;
         public static final int details_info=0x7f0a000e;
         public static final int drawer_layout=0x7f0a0000;
-        public static final int favorite_taxi_list=0x7f0a0018;
+        public static final int favorite_taxi_list=0x7f0a0017;
         public static final int frame_container=0x7f0a0001;
         public static final int icon=0x7f0a0004;
         public static final int icon_of_staus_of_taxi_driver=0x7f0a000c;
@@ -74,12 +74,13 @@ public final class R {
         public static final int list_slidermenu=0x7f0a0002;
         public static final int list_title=0x7f0a0008;
         public static final int major_info=0x7f0a0009;
-        public static final int manage_journey_list=0x7f0a0019;
+        public static final int manage_journey_list=0x7f0a0018;
         public static final int name_of_taxi_company=0x7f0a0027;
         public static final int name_of_taxi_driver=0x7f0a000b;
         public static final int note=0x7f0a0012;
         public static final int note_title=0x7f0a0013;
         public static final int note_values=0x7f0a0014;
+        public static final int pager=0x7f0a0019;
         public static final int phone_number=0x7f0a000f;
         public static final int phone_number_value=0x7f0a0010;
         public static final int starting_point=0x7f0a001d;
@@ -93,7 +94,6 @@ public final class R {
         public static final int taxi_company_list=0x7f0a001a;
         public static final int taxi_customer=0x7f0a0024;
         public static final int taxi_driver=0x7f0a0023;
-        public static final int txtLabel=0x7f0a0017;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -131,6 +131,7 @@ public final class R {
         public static final int id_of_taxi_driver=0x7f06000a;
         public static final int name_of_company_of_taxi_driver=0x7f06000c;
         public static final int name_of_taxi_driver=0x7f060009;
+        public static final int note=0x7f060019;
         public static final int password=0x7f06000f;
         public static final int password_hint=0x7f060008;
         public static final int phone_number=0x7f060013;

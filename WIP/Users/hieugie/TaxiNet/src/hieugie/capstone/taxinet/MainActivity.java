@@ -20,7 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -57,26 +57,7 @@ public class MainActivity extends Activity {
 
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 
-		// adding nav drawer items to array
-		// map
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
-				.getResourceId(0, -1)));
-		// journey title
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], true));
-		// manage journey
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
-				.getResourceId(2, -1)));
-		// taxi title
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], true));
-		// list taxi company
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
-				.getResourceId(4, -1)));
-		// favorite taxi driver
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
-				.getResourceId(5, -1), true, "50+"));
-		// history taxi call
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
-				.getResourceId(4, -1)));
+		setNavDrawerItemForCustomer();
 
 		// Recycle the typed array
 		navMenuIcons.recycle();
@@ -117,6 +98,37 @@ public class MainActivity extends Activity {
 			// on first time display view for first nav item
 			displayView(0);
 		}
+	}
+
+	public void setNavDrawerItemForCustomer() {
+		// adding nav drawer items to array
+		// map
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
+				.getResourceId(0, -1)));
+		// journey title
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], true));
+		// manage journey
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
+				.getResourceId(2, -1)));
+		// taxi title
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], true));
+		// list taxi company
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
+				.getResourceId(4, -1)));
+		// favorite taxi driver
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
+				.getResourceId(5, -1), true, "50+"));
+		// history taxi call
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
+				.getResourceId(4, -1)));
+		// other title
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], true));
+		// setting
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons
+				.getResourceId(4, -1)));
+		// request
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[9], navMenuIcons
+				.getResourceId(4, -1)));
 	}
 
 	/**
@@ -184,6 +196,12 @@ public class MainActivity extends Activity {
 			fragment = new FavoriteTaxiFragment();
 			break;
 		case 6:
+			fragment = new CallHistoryFragment();
+			break;
+		case 8:
+			fragment = new CallHistoryFragment();
+			break;
+		case 9:
 			fragment = new CallHistoryFragment();
 			break;
 		default:
