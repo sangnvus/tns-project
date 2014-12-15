@@ -34,6 +34,10 @@
         <item>Danh sách hãng taxi</item>
         <item>Taxi yêu thích</item>
         <item>Lịch sử gọi taxi</item>
+        <item>Khác</item>
+        <item>Cài đặt</item>
+        <item>Danh sách yêu cầu</item>
+        
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -50,5 +54,6 @@
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="title_activity_start_up">StartUp</string>
+    <string name="note">Ghi chú</string>
 
 </resources>
