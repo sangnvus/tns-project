@@ -28,8 +28,8 @@ public class TaxiCompanyFragment extends Fragment {
 				container, false);
 		mTaxiCompanyList = (ListView) rootView
 				.findViewById(R.id.taxi_company_list);
-		taxiCompanyItems.add(new TaxiCompany("Hà nội", "Nha trang"));
-		taxiCompanyItems.add(new TaxiCompany("Hà nội", "Hồ chí minh"));
+		taxiCompanyItems.add(new TaxiCompany("Taxi Mai Linh", "01683449693"));
+		taxiCompanyItems.add(new TaxiCompany("Taxi Nội Bài", "043113"));
 		final TaxiCompanyAdapter taxiCompanyAdapter = new TaxiCompanyAdapter(
 				rootView.getContext(), R.layout.taxi_company_list_item, taxiCompanyItems);
 		mTaxiCompanyList.setAdapter(taxiCompanyAdapter);

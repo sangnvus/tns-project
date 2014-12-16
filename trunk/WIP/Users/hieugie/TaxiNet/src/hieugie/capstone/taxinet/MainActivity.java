@@ -188,13 +188,13 @@ public class MainActivity extends Activity {
 			fragment = new MapsFragment();
 			break;
 		case 2:
-			fragment = new ManageJourneyFragment();
+			fragment = new JourneyFragment();
 			break;
 		case 4:
 			fragment = new TaxiCompanyFragment();
 			break;
 		case 5:
-			fragment = new FavoriteTaxiFragment();
+			fragment = new FavoriteDriverFragment();
 			break;
 		case 6:
 			fragment = new HistoryCallFragment();
