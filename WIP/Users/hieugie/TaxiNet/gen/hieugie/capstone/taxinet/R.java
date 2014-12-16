@@ -56,14 +56,14 @@ public final class R {
         public static final int list_selector=0x7f020009;
     }
     public static final class id {
-        public static final int account_of_taxi_driver=0x7f0a0020;
-        public static final int account_of_taxi_driver_value=0x7f0a0021;
-        public static final int action_edit=0x7f0a002a;
-        public static final int action_settings=0x7f0a002b;
+        public static final int account_of_taxi_driver=0x7f0a0021;
+        public static final int account_of_taxi_driver_value=0x7f0a0022;
+        public static final int action_edit=0x7f0a002b;
+        public static final int action_settings=0x7f0a002c;
         public static final int call=0x7f0a0011;
         public static final int call_history_icon=0x7f0a0009;
-        public static final int call_history_layout=0x7f0a0023;
-        public static final int center_devider=0x7f0a0024;
+        public static final int call_history_layout=0x7f0a0024;
+        public static final int center_devider=0x7f0a0025;
         public static final int counter=0x7f0a0006;
         public static final int details_info=0x7f0a000e;
         public static final int distance_of_taxi_driver=0x7f0a000b;
@@ -73,7 +73,7 @@ public final class R {
         public static final int history_call_list=0x7f0a0017;
         public static final int icon=0x7f0a0004;
         public static final int icon_of_staus_of_taxi_driver=0x7f0a000c;
-        public static final int image_of_driver=0x7f0a001a;
+        public static final int image_of_driver=0x7f0a001b;
         public static final int list=0x7f0a0015;
         public static final int list_item=0x7f0a0005;
         public static final int list_selector_item=0x7f0a0003;
@@ -81,25 +81,26 @@ public final class R {
         public static final int list_slidermenu=0x7f0a0002;
         public static final int list_title=0x7f0a0008;
         public static final int manage_journey_list=0x7f0a0018;
-        public static final int name_of_taxi_company=0x7f0a0029;
+        public static final int name_of_taxi_company=0x7f0a002a;
         public static final int name_of_taxi_driver=0x7f0a000a;
         public static final int note=0x7f0a0012;
         public static final int note_title=0x7f0a0013;
         public static final int note_values=0x7f0a0014;
         public static final int phone_number=0x7f0a000f;
         public static final int phone_number_value=0x7f0a0010;
-        public static final int same_journey_list=0x7f0a0022;
-        public static final int starting_point=0x7f0a001b;
-        public static final int starting_point_icon=0x7f0a001f;
-        public static final int starting_point_layout=0x7f0a001e;
+        public static final int same_journey_list=0x7f0a0023;
+        public static final int starting_point=0x7f0a001c;
+        public static final int starting_point_icon=0x7f0a0020;
+        public static final int starting_point_layout=0x7f0a001f;
         public static final int staus_of_taxi_driver=0x7f0a000d;
-        public static final int stopping_point=0x7f0a001d;
-        public static final int stopping_point_icon=0x7f0a001c;
-        public static final int taxi_company_icon=0x7f0a0028;
-        public static final int taxi_company_layout=0x7f0a0027;
-        public static final int taxi_company_list=0x7f0a0019;
-        public static final int taxi_customer=0x7f0a0026;
-        public static final int taxi_driver=0x7f0a0025;
+        public static final int stopping_point=0x7f0a001e;
+        public static final int stopping_point_icon=0x7f0a001d;
+        public static final int taxi_company_icon=0x7f0a0029;
+        public static final int taxi_company_layout=0x7f0a0028;
+        public static final int taxi_company_list=0x7f0a001a;
+        public static final int taxi_customer=0x7f0a0027;
+        public static final int taxi_driver=0x7f0a0026;
+        public static final int time_request=0x7f0a0019;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -111,16 +112,18 @@ public final class R {
         public static final int fragment_favorite_driver=0x7f030006;
         public static final int fragment_history_call=0x7f030007;
         public static final int fragment_manage_journey=0x7f030008;
-        public static final int fragment_setting=0x7f030009;
-        public static final int fragment_taxi_company=0x7f03000a;
-        public static final int history_call_list_item=0x7f03000b;
-        public static final int journey_item_details=0x7f03000c;
-        public static final int journey_list_item=0x7f03000d;
-        public static final int register_taxi_driver=0x7f03000e;
-        public static final int same_journey_list=0x7f03000f;
-        public static final int same_journey_list_item=0x7f030010;
-        public static final int start_up=0x7f030011;
-        public static final int taxi_company_list_item=0x7f030012;
+        public static final int fragment_request=0x7f030009;
+        public static final int fragment_setting=0x7f03000a;
+        public static final int fragment_taxi_company=0x7f03000b;
+        public static final int history_call_list_item=0x7f03000c;
+        public static final int journey_item_details=0x7f03000d;
+        public static final int journey_list_item=0x7f03000e;
+        public static final int register_taxi_driver=0x7f03000f;
+        public static final int request_list_item=0x7f030010;
+        public static final int same_journey_list=0x7f030011;
+        public static final int same_journey_list_item=0x7f030012;
+        public static final int start_up=0x7f030013;
+        public static final int taxi_company_list_item=0x7f030014;
     }
     public static final class menu {
         public static final int edit_main=0x7f090000;
@@ -138,7 +141,7 @@ public final class R {
         public static final int delete_journey=0x7f06001e;
         /**  Content Description 
          */
-        public static final int desc_list_item_icon=0x7f060020;
+        public static final int desc_list_item_icon=0x7f060022;
         public static final int distace_prompt=0x7f06001f;
         public static final int distance=0x7f060013;
         public static final int drawer_close=0x7f060005;
@@ -148,7 +151,7 @@ public final class R {
         public static final int id_of_taxi_driver=0x7f06000b;
         public static final int name_of_company_of_taxi_driver=0x7f06000d;
         public static final int name_of_taxi_driver=0x7f06000a;
-        public static final int note=0x7f060022;
+        public static final int note=0x7f060024;
         public static final int password=0x7f060010;
         public static final int password_hint=0x7f060009;
         public static final int phone_number=0x7f060015;
@@ -162,8 +165,10 @@ public final class R {
         public static final int stopping_point=0x7f06001a;
         public static final int taxi_customer=0x7f060008;
         public static final int taxi_driver=0x7f060007;
-        public static final int title_activity_start_up=0x7f060021;
+        public static final int time=0x7f060021;
+        public static final int title_activity_start_up=0x7f060023;
         public static final int you_are=0x7f060006;
+        public static final int your_request=0x7f060020;
     }
     public static final class style {
         /** 
