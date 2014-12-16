@@ -1,14 +1,14 @@
 package hieugie.capstone.taxinet.model;
 
-public class TaxiCompanyItem {
+public class TaxiCompany {
 	private String name;
 	private String phone_number;
 
-	public TaxiCompanyItem() {
+	public TaxiCompany() {
 		super();
 	}
 
-	public TaxiCompanyItem(String name, String phone_number) {
+	public TaxiCompany(String name, String phone_number) {
 		super();
 		this.name = name;
 		this.phone_number = phone_number;

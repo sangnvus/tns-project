@@ -1,6 +1,6 @@
 package hieugie.capstone.taxinet;
 
-import hieugie.capstone.taxinet.model.FavoriteDriverItem;
+import hieugie.capstone.taxinet.model.Driver;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -12,13 +12,13 @@ public class FavoriteDriverDetails extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.favorite_driver_item_details);
+		setContentView(R.layout.driver_item_details);
 
 		initalize();
 
 		Bundle bd = getIntent().getExtras();
 		if (bd.getSerializable("favorite driver item") != null) {
-			FavoriteDriverItem favoriteDriverItem = (FavoriteDriverItem) bd
+			Driver favoriteDriverItem = (Driver) bd
 					.getSerializable("favorite driver item");
 			name.setText(favoriteDriverItem.getName());
 			phone_number.setText(favoriteDriverItem.getPhone_number());

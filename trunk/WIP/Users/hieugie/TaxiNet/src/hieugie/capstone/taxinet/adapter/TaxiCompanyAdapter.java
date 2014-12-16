@@ -1,7 +1,7 @@
 package hieugie.capstone.taxinet.adapter;
 
 import hieugie.capstone.taxinet.R;
-import hieugie.capstone.taxinet.model.TaxiCompanyItem;
+import hieugie.capstone.taxinet.model.TaxiCompany;
 
 import java.util.ArrayList;
 
@@ -12,14 +12,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class TaxiCompanyAdapter extends ArrayAdapter<TaxiCompanyItem> {
+public class TaxiCompanyAdapter extends ArrayAdapter<TaxiCompany> {
 	private Context context;
 	private int textViewResourceId;
-	private ArrayList<TaxiCompanyItem> taxiCompanyItems;
+	private ArrayList<TaxiCompany> taxiCompanyItems;
 	private TextView name_of_taxi_company;
 
 	public TaxiCompanyAdapter(Context context, int textViewResourId,
-			ArrayList<TaxiCompanyItem> taxiCompanyItems) {
+			ArrayList<TaxiCompany> taxiCompanyItems) {
 		super(context, textViewResourId, taxiCompanyItems);
 		this.context = context;
 		this.textViewResourceId = textViewResourId;
@@ -35,7 +35,7 @@ public class TaxiCompanyAdapter extends ArrayAdapter<TaxiCompanyItem> {
 			v = inflater.inflate(textViewResourceId, null);
 		}
 		initialize(v);
-		TaxiCompanyItem taxiCompanyItem = taxiCompanyItems.get(position);
+		TaxiCompany taxiCompanyItem = taxiCompanyItems.get(position);
 		name_of_taxi_company.setText(taxiCompanyItem.getName());
 		return v;
 	}

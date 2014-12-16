@@ -1,15 +1,15 @@
 package hieugie.capstone.taxinet.model;
 
-public class JourneyItem {
+public class Journey {
 
 	private String starting_point;
 	private String stopping_point;
 
-	public JourneyItem() {
+	public Journey() {
 		super();
 	}
 
-	public JourneyItem(String starting_point, String stopping_point) {
+	public Journey(String starting_point, String stopping_point) {
 		super();
 		this.starting_point = starting_point;
 		this.stopping_point = stopping_point;

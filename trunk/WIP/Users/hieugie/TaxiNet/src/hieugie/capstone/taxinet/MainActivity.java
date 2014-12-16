@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -196,13 +197,13 @@ public class MainActivity extends Activity{
 			fragment = new FavoriteTaxiFragment();
 			break;
 		case 6:
-			fragment = new CallHistoryFragment();
+			fragment = new HistoryCallFragment();
 			break;
 		case 8:
-			fragment = new CallHistoryFragment();
+			fragment = new SettingFragment();
 			break;
 		case 9:
-			fragment = new CallHistoryFragment();
+			fragment = new SettingFragment();
 			break;
 		default:
 			break;
@@ -249,4 +250,8 @@ public class MainActivity extends Activity{
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
+	public void listDisplay(View v) {
+		Intent it = new Intent(this, ListDisplay.class);
+		startActivity(it);
+	}
 }

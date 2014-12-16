@@ -14,13 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DriverAdapter extends ArrayAdapter<Driver> {
+public class HistoryCallAdapter extends ArrayAdapter<Driver> {
 	private Context context;
 	private int textViewResourceId;
 	private ArrayList<Driver> favoriteDriverItems;
-	private TextView name;
+	private TextView name, status;
+	private ImageView status_icon;
 
-	public DriverAdapter(Context context, int textViewResourId,
+	public HistoryCallAdapter(Context context, int textViewResourId,
 			ArrayList<Driver> favoriteDriverItems) {
 		super(context, textViewResourId, favoriteDriverItems);
 		this.context = context;
@@ -40,10 +41,24 @@ public class DriverAdapter extends ArrayAdapter<Driver> {
 		Driver favoriteDriverItem = favoriteDriverItems
 				.get(position);
 		name.setText(favoriteDriverItem.getName());
+		if (favoriteDriverItem.isStatus()) {
+			status.setText(R.string.avalible);
+			status.setTextColor(Color.GREEN);
+			status_icon.setImageResource(R.drawable.ic_avalible);
+		} else {
+			status.setText(R.string.busy);
+			status.setTextColor(Color.RED);
+			status_icon.setImageResource(R.drawable.ic_busy);
+
+		}
+
 		return v;
 	}
 
 	public void initialize(View v) {
 		name = (TextView) v.findViewById(R.id.name_of_taxi_driver);
+		status = (TextView) v.findViewById(R.id.staus_of_taxi_driver);
+		status_icon = (ImageView) v
+				.findViewById(R.id.icon_of_staus_of_taxi_driver);
 	}
 }

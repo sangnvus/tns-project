@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/call_history_layout"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="80dp"
         android:background="@drawable/list_selector" >
 
         <ImageView
@@ -33,30 +33,29 @@
             android:textColor="@color/list_item_title"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/icon_of_staus_of_taxi_driver"
-            android:layout_width="4dp"
-            android:layout_height="4dp"
-            android:layout_alignBottom="@+id/staus_of_taxi_driver"
-            android:layout_alignTop="@id/staus_of_taxi_driver"
-            android:layout_below="@id/name_of_taxi_driver"
-            android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@id/call_history_icon"
-            android:contentDescription="@string/desc_list_item_icon"
-            android:src="@drawable/ic_avalible" />
-
         <TextView
-            android:id="@id/staus_of_taxi_driver"
+            android:id="@+id/starting_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/name_of_taxi_driver"
-            android:layout_marginLeft="3dp"
-            android:layout_toRightOf="@id/icon_of_staus_of_taxi_driver"
-            android:text="@string/avalible"
-            android:textColor="@color/light_green"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/call_history_icon"
+            android:text="@string/starting_point"
+            android:textColor="@color/list_item_title"
             android:textSize="12sp" />
 
         <TextView
+            android:id="@id/stopping_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/starting_point"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/call_history_icon"
+            android:text="@string/stopping_point"
+            android:textColor="@color/list_item_title"
+            android:textSize="12sp" />
+
+        <Button
             android:id="@+id/call"
             android:layout_width="48dp"
             android:layout_height="48dp"

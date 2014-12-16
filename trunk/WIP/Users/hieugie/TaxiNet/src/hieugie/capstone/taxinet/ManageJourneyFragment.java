@@ -1,7 +1,7 @@
 package hieugie.capstone.taxinet;
 
 import hieugie.capstone.taxinet.adapter.JourneyAdapter;
-import hieugie.capstone.taxinet.model.JourneyItem;
+import hieugie.capstone.taxinet.model.Journey;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class ManageJourneyFragment extends Fragment {
 	}
 
 	private ListView mJourneyList;
-	private ArrayList<JourneyItem> journeyItems = new ArrayList<JourneyItem>();
+	private ArrayList<Journey> journeyItems = new ArrayList<Journey>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,8 +38,8 @@ public class ManageJourneyFragment extends Fragment {
 				container, false);
 		mJourneyList = (ListView) rootView
 				.findViewById(R.id.manage_journey_list);
-		journeyItems.add(new JourneyItem("Hà nội", "Nha trang"));
-		journeyItems.add(new JourneyItem("Hà nội", "Hồ chí minh"));
+		journeyItems.add(new Journey("Hà nội", "Nha trang"));
+		journeyItems.add(new Journey("Hà nội", "Hồ chí minh"));
 		final JourneyAdapter journeyAdapter = new JourneyAdapter(
 				rootView.getContext(), R.layout.journey_list_item, journeyItems);
 		mJourneyList.setAdapter(journeyAdapter);

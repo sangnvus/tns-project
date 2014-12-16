@@ -1,7 +1,7 @@
 package hieugie.capstone.taxinet;
 
 import hieugie.capstone.taxinet.adapter.TaxiCompanyAdapter;
-import hieugie.capstone.taxinet.model.TaxiCompanyItem;
+import hieugie.capstone.taxinet.model.TaxiCompany;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class TaxiCompanyFragment extends Fragment {
 	}
 	
 	private ListView mTaxiCompanyList;
-	private ArrayList<TaxiCompanyItem> taxiCompanyItems = new ArrayList<TaxiCompanyItem>();
+	private ArrayList<TaxiCompany> taxiCompanyItems = new ArrayList<TaxiCompany>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,8 +28,8 @@ public class TaxiCompanyFragment extends Fragment {
 				container, false);
 		mTaxiCompanyList = (ListView) rootView
 				.findViewById(R.id.taxi_company_list);
-		taxiCompanyItems.add(new TaxiCompanyItem("Hà nội", "Nha trang"));
-		taxiCompanyItems.add(new TaxiCompanyItem("Hà nội", "Hồ chí minh"));
+		taxiCompanyItems.add(new TaxiCompany("Hà nội", "Nha trang"));
+		taxiCompanyItems.add(new TaxiCompany("Hà nội", "Hồ chí minh"));
 		final TaxiCompanyAdapter taxiCompanyAdapter = new TaxiCompanyAdapter(
 				rootView.getContext(), R.layout.taxi_company_list_item, taxiCompanyItems);
 		mTaxiCompanyList.setAdapter(taxiCompanyAdapter);

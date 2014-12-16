@@ -22,41 +22,43 @@
             android:contentDescription="@string/desc_list_item_icon"
             android:src="@drawable/ic_launcher" />
 
-        <TextView
-            android:id="@+id/name_of_taxi_driver"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_alignTop="@id/image_of_driver"
-            android:layout_marginTop="2dp"
-            android:layout_toRightOf="@id/image_of_driver"
-            android:paddingRight="40dp"
-            android:text="@string/driver"
-            android:textColor="@color/list_item_title"
-            android:textSize="18sp" />
+            android:layout_toRightOf="@id/image_of_driver" >
 
-        <ImageView
-            android:id="@+id/icon_of_staus_of_taxi_driver"
-            android:layout_width="4dp"
-            android:layout_height="4dp"
-            android:layout_alignBottom="@+id/staus_of_taxi_driver"
-            android:layout_alignTop="@id/staus_of_taxi_driver"
-            android:layout_below="@id/name_of_taxi_driver"
-            android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@id/image_of_driver"
-            android:contentDescription="@string/desc_list_item_icon"
-            android:src="@drawable/ic_avalible" />
+            <TextView
+                android:id="@+id/name_of_taxi_driver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:paddingRight="40dp"
+                android:text="@string/driver"
+                android:textColor="@color/list_item_title"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@id/staus_of_taxi_driver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/name_of_taxi_driver"
-            android:layout_marginLeft="3dp"
-            android:layout_toRightOf="@id/icon_of_staus_of_taxi_driver"
-            android:text="@string/avalible"
-            android:textColor="@color/light_green"
-            android:textSize="12sp" />
+            <ImageView
+                android:id="@+id/icon_of_staus_of_taxi_driver"
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_alignBottom="@+id/staus_of_taxi_driver"
+                android:layout_alignTop="@id/staus_of_taxi_driver"
+                android:layout_below="@id/name_of_taxi_driver"
+                android:contentDescription="@string/desc_list_item_icon"
+                android:src="@drawable/ic_avalible" />
 
+            <TextView
+                android:id="@id/staus_of_taxi_driver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name_of_taxi_driver"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@id/icon_of_staus_of_taxi_driver"
+                android:text="@string/avalible"
+                android:textColor="@color/light_green"
+                android:textSize="12sp" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
