@@ -15,32 +15,84 @@
         android:text="@string/your_request"
         android:textColor="@color/list_item_title" />
 
-    <TextView
-        android:id="@+id/name_of_taxi_driver"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center_vertical"
-        android:text="@string/driver"
-        android:textColor="@color/list_item_title"
-        android:textSize="18sp" />
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/name_of_taxi_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/driver"
+            android:textColor="@color/list_item_title"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/time_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_of_taxi_driver"
+            android:layout_marginLeft="5dp"
+            android:text="@string/time"
+            android:textColor="@color/list_item_title"
+            android:textSize="15sp" />
+
+        <Button
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/cancel" />
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/time_request"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:gravity="center_vertical"
-        android:text="@string/time"
-        android:textColor="@color/list_item_title"
-        android:textSize="15sp" />
-
-    <ListView
-        android:id="@+id/manage_journey_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:divider="@drawable/divider"
-        android:dividerHeight="1sp" />
+        android:background="@drawable/divider"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:text="@string/request_to_you"
+        android:textColor="@color/list_item_title" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/name_of_taxi_driver2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/driver"
+            android:textColor="@color/list_item_title"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/time_request2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_of_taxi_driver2"
+            android:layout_marginLeft="5dp"
+            android:text="@string/time"
+            android:textColor="@color/list_item_title"
+            android:textSize="15sp" />
+
+        <Button
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/cancel" />
+    </RelativeLayout>
 
 </LinearLayout>
