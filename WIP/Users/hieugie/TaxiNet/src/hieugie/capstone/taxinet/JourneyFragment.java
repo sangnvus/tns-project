@@ -7,11 +7,14 @@ import java.util.ArrayList;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 
@@ -22,9 +25,9 @@ import android.widget.ListView;
  */
 
 
-public class ManageJourneyFragment extends Fragment {
+public class JourneyFragment extends Fragment {
 
-	public ManageJourneyFragment() {
+	public JourneyFragment() {
 	}
 
 	private ListView mJourneyList;
@@ -34,7 +37,7 @@ public class ManageJourneyFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View rootView = inflater.inflate(R.layout.fragment_manage_journey,
+		final View rootView = inflater.inflate(R.layout.fragment_manage_journey,
 				container, false);
 		mJourneyList = (ListView) rootView
 				.findViewById(R.id.manage_journey_list);
@@ -44,6 +47,16 @@ public class ManageJourneyFragment extends Fragment {
 				rootView.getContext(), R.layout.journey_list_item, journeyItems);
 		mJourneyList.setAdapter(journeyAdapter);
 		
+		mJourneyList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long duration) {
+					Intent it = new Intent(rootView.getContext(),JourneyDetails.class);
+					it.putExtra("journey item details", journeyItems.get(position));
+					startActivity(it);
+			}
+		});
 		return rootView;
 	}
 	

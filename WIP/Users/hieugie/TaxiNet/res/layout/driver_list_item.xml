@@ -60,7 +60,7 @@
         android:textColor="@color/light_green"
         android:textSize="12sp" />
 
-    <Button
+<!--     <Button
         android:id="@+id/call"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -68,6 +68,6 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
         android:background="@drawable/call_icon"
-        android:textColor="@color/counter_text_color" />
+        android:textColor="@color/counter_text_color" /> -->
 
 </RelativeLayout>

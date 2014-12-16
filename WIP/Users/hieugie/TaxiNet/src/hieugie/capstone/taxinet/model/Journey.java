@@ -1,7 +1,13 @@
 package hieugie.capstone.taxinet.model;
 
-public class Journey {
+import java.io.Serializable;
 
+public class Journey  implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5197493533818090361L;
 	private String starting_point;
 	private String stopping_point;
 
