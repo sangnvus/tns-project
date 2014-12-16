@@ -2,7 +2,7 @@ package hieugie.capstone.taxinet.model;
 
 import java.io.Serializable;
 
-public class FavoriteDriverItem implements Serializable {
+public class Driver implements Serializable {
 
 	/**
 	 * 
@@ -13,11 +13,11 @@ public class FavoriteDriverItem implements Serializable {
 	private String phone_number;
 	private boolean status;
 
-	public FavoriteDriverItem() {
+	public Driver() {
 		super();
 	}
 
-	public FavoriteDriverItem(int id, String name, String phone_number,
+	public Driver(int id, String name, String phone_number,
 			boolean status) {
 		super();
 		this.id = id;

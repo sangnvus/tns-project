@@ -19,12 +19,19 @@
     <string name="password">Mật khẩu</string>
     <string name="busy">• Đang bận</string>
     <string name="avalible">Đang rảnh</string>
+    <string name="distance">Khoảng cách | Giá tiền</string>
     <string name="driver">Tài xế</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="phone_number_value">(04) 3 113</string>
     <string name="remove_favorite">Bỏ ưa thích</string>
     <string name="add_note">Thêm ghi chú</string>
-
+    <string name="starting_point">Điểm đi</string>
+    <string name="stopping_point">Điểm đến</string>
+    <string name="same_journey">Lái xe có cùng hành trình</string>
+    <string name="selected_driver">Lái xe đã chọn</string>
+    <string name="remove_driver">Bỏ chọn lái xe</string>
+    <string name="delete_journey">Xóa hành trình</string>
+<string name="distace_prompt">5KM</string>
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
         <item>Bản đồ</item>
@@ -37,7 +44,18 @@
         <item>Khác</item>
         <item>Cài đặt</item>
         <item>Danh sách yêu cầu</item>
-        
+    </string-array>
+
+    <!-- Distance to show driver -->
+    <string-array name="country_arrays">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->

@@ -1,7 +1,7 @@
 package hieugie.capstone.taxinet;
 
 import hieugie.capstone.taxinet.adapter.DriverAdapter;
-import hieugie.capstone.taxinet.model.FavoriteDriverItem;
+import hieugie.capstone.taxinet.model.Driver;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class FavoriteTaxiFragment extends Fragment {
 	}
 
 	private ListView mFavouriteDriverList;
-	private ArrayList<FavoriteDriverItem> favoriteDriverItems = new ArrayList<FavoriteDriverItem>();
+	private ArrayList<Driver> driverItems = new ArrayList<Driver>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,13 +31,13 @@ public class FavoriteTaxiFragment extends Fragment {
 				container, false);
 		mFavouriteDriverList = (ListView) rootView
 				.findViewById(R.id.favorite_taxi_list);
-		favoriteDriverItems.add(new FavoriteDriverItem(1, "Đào Trung hiếu",
+		driverItems.add(new Driver(1, "Đào Trung hiếu",
 				"01683449693", true));
-		favoriteDriverItems.add(new FavoriteDriverItem(2, "Đinh Quang Dương",
+		driverItems.add(new Driver(2, "Đinh Quang Dương",
 				"043113", false));
 		final DriverAdapter driverAdapter = new DriverAdapter(
-				rootView.getContext(), R.layout.favorite_driver_list_item,
-				favoriteDriverItems);
+				rootView.getContext(), R.layout.driver_list_item,
+				driverItems);
 		mFavouriteDriverList.setAdapter(driverAdapter);
 
 		mFavouriteDriverList.setOnItemClickListener(new OnItemClickListener() {
@@ -48,7 +48,7 @@ public class FavoriteTaxiFragment extends Fragment {
 				Intent it = new Intent(rootView.getContext(),
 						FavoriteDriverDetails.class);
 				it.putExtra("favorite driver item",
-						favoriteDriverItems.get(position));
+						driverItems.get(position));
 				startActivity(it);
 			}
 

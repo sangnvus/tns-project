@@ -1,7 +1,7 @@
 package hieugie.capstone.taxinet.adapter;
 
 import hieugie.capstone.taxinet.R;
-import hieugie.capstone.taxinet.model.JourneyItem;
+import hieugie.capstone.taxinet.model.Journey;
 
 import java.util.ArrayList;
 
@@ -12,14 +12,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class JourneyAdapter extends ArrayAdapter<JourneyItem> {
+public class JourneyAdapter extends ArrayAdapter<Journey> {
 	private Context context;
 	private int textViewResourceId;
-	private ArrayList<JourneyItem> journeyItems;
+	private ArrayList<Journey> journeyItems;
 	private TextView starting_point, stopping_point;
 
 	public JourneyAdapter(Context context, int textViewResourId,
-			ArrayList<JourneyItem> journeyItems) {
+			ArrayList<Journey> journeyItems) {
 		super(context, textViewResourId, journeyItems);
 		this.context = context;
 		this.textViewResourceId = textViewResourId;
@@ -35,7 +35,7 @@ public class JourneyAdapter extends ArrayAdapter<JourneyItem> {
 			v = inflater.inflate(textViewResourceId, null);
 		}
 		initialize(v);
-		JourneyItem journeyItem = journeyItems.get(position);
+		Journey journeyItem = journeyItems.get(position);
 		starting_point.setText(journeyItem.getStarting_point());
 		stopping_point.setText(journeyItem.getStopping_point());
 		return v;

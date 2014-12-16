@@ -23,10 +23,10 @@ public class TabsPagerAdapter extends PagerAdapter {
 		int resId = 0;
 		switch (position) {
 		case 0:
-			resId = R.layout.fragment_call_history;
+			resId = R.layout.fragment_history_call;
 			break;
 		case 1:
-			resId = R.layout.fragment_call_history;
+			resId = R.layout.fragment_history_call;
 			break;
 		}
 

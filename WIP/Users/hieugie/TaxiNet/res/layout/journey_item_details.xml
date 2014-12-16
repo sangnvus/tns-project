@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/list_selector"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/list_selector" >
+
+        <ImageView
+            android:id="@+id/image_of_driver"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:contentDescription="@string/desc_list_item_icon"
+            android:src="@drawable/ic_launcher" />
+
+        <EditText
+            android:id="@+id/starting_point"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignBottom="@id/image_of_driver"
+            android:layout_alignTop="@id/image_of_driver"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/image_of_driver"
+            android:hint="@string/starting_point"
+            android:paddingRight="40dp"
+            android:textColor="@color/list_item_title"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/list_selector" >
+
+        <ImageView
+            android:id="@+id/stopping_point_icon"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:contentDescription="@string/desc_list_item_icon"
+            android:src="@drawable/ic_launcher" />
+
+        <EditText
+            android:id="@+id/stopping_point"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignBottom="@id/stopping_point_icon"
+            android:layout_alignTop="@id/stopping_point_icon"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/stopping_point_icon"
+            android:hint="@string/starting_point"
+            android:paddingRight="40dp"
+            android:textColor="@color/list_item_title"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/divider"
+        android:paddingLeft="20dp"
+        android:text="@string/selected_driver"
+        android:textColor="@color/list_item_title"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/list_selector" >
+
+        <ImageView
+            android:id="@+id/call_history_icon"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:contentDescription="@string/desc_list_item_icon"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/name_of_taxi_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/call_history_icon"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/call_history_icon"
+            android:paddingRight="40dp"
+            android:text="@string/driver"
+            android:textColor="@color/list_item_title"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/distance_of_taxi_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_of_taxi_driver"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@id/call_history_icon"
+            android:text="@string/distance"
+            android:textColor="@color/list_item_title"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/icon_of_staus_of_taxi_driver"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:layout_alignBottom="@+id/staus_of_taxi_driver"
+            android:layout_alignTop="@id/staus_of_taxi_driver"
+            android:layout_below="@id/distance_of_taxi_driver"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/call_history_icon"
+            android:contentDescription="@string/desc_list_item_icon"
+            android:src="@drawable/ic_avalible" />
+
+        <TextView
+            android:id="@id/staus_of_taxi_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/distance_of_taxi_driver"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@id/icon_of_staus_of_taxi_driver"
+            android:text="@string/avalible"
+            android:textColor="@color/light_green"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/call"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/call_icon"
+            android:textColor="@color/counter_text_color" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/divider"
+        android:text="@string/remove_driver"
+        android:textColor="@color/list_item_title" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/divider"
+        android:text="@string/delete_journey"
+        android:textColor="@color/list_item_title" />
+
+</LinearLayout>
