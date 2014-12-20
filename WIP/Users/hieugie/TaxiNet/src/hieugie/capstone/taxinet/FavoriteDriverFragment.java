@@ -33,6 +33,7 @@ public class FavoriteDriverFragment extends Fragment {
 				.findViewById(R.id.favorite_driver_list);
 		driverItems.add(new Driver(1, "Đào Trung hiếu", "01683449693", true));
 		driverItems.add(new Driver(2, "Đinh Quang Dương", "043113", false));
+		driverItems.add(new Driver(3, "Trương Hoàng Hà", "043114", false));
 		final DriverAdapter driverAdapter = new DriverAdapter(
 				rootView.getContext(), R.layout.driver_list_item, driverItems);
 		mFavouriteDriverList.setAdapter(driverAdapter);
