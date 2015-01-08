@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BaseBean implements Serializable {
+	private static final long serialVersionUID = 5902651631626637211L;
 	protected final static String bundleName = "vn.co.taxinet.bean.i18n.MessageResources";
 	private final static Logger log = LogManager.getLogger(BaseBean.class);
 
