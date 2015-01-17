@@ -1,10 +1,6 @@
 package vn.co.taxinet.bean;
 
-import java.io.Serializable;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
