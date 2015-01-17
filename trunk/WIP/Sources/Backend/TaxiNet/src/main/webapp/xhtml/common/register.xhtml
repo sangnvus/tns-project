@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<f:metadata>
+		<f:event listener="#{registerController.init}" type="preRenderView" />
+	</f:metadata>
+</h:head>
+<h:body>
+	<f:view>
+		<h:form id="registerForm" prependId="false">
+			<p:growl id="msg" showDetail="true"/>
+			<center>
+				<p:messages showDetail="true" showSummary="true" autoUpdate="true"></p:messages>
+				<p:panel header="ĐĂNG KÍ TÀI KHOẢN">
+					<h4>TÀI KHOẢN</h4>
+					<h:panelGrid id="register" columns="2">
+						<p:outputLabel for="email" value="#{en.mail}" />
+						<br />
+						<p:inputText id="email" required="true"
+							requiredMessage="Email không hợp lệ"
+							value="#{registerController.emailAddress}"></p:inputText>
+						<p:message for="email" display="icon" />
+						<p:outputLabel for="password" value="#{en.password}" />
+						<br />
+						<p:password id="password" value="#{registerController.password}"
+							required="true" requiredMessage="Mật khẩu không hợp lệ"></p:password>
+						<p:message for="password" display="icon" />
+					</h:panelGrid>
+					<h4>HỒ SƠ</h4>
+					<h:panelGrid id="identity" columns="3">
+						<p:outputLabel for="username" value="Tên" />
+						<p:outputLabel for="surname" value="Ho và tên đệm" />
+						<p:outputLabel></p:outputLabel>
+						<p:inputText id="username" value="#{registerController.userName}"
+							required="true" requiredMessage="Tên không hợp lê"></p:inputText>
+						<p:inputText id="surname"
+							value="#{registerController.userSurName}"></p:inputText>
+						<p:message for="username" display="icon"></p:message>
+						<p:outputLabel for="headerNo" value="Đầu số" />
+						<p:outputLabel for="phoneNo" value="Số điện thoại" />
+						<p:outputLabel></p:outputLabel>
+						<p:selectOneMenu id="headerNo">
+							<f:selectItem itemLabel="0977-Viettel" />
+							<f:selectItem itemLabel="0978-Viettel" />
+						</p:selectOneMenu>
+						<p:inputText id="phoneNo" value="#{registerController.mobileNo}"
+							required="true" requiredMessage="Số điện thoại không hợp lệ">
+							<f:validateLength maximum="11"></f:validateLength>
+						</p:inputText>
+						<p:message for="phoneNo" display="icon" />
+						<p:outputLabel for="languages" value="Ngôn ngữ" />
+						<p:selectOneMenu id="languages" required="true"
+							requiredMessage="Ngôn ngữ không hợp lệ"
+							value="#{registerController.language}">
+							<f:selectItem itemValue="" itemLabel="" />
+							<f:selectItem itemLabel="English" itemValue="en" />
+							<f:selectItem itemLabel="Vietnammese" itemValue="vn" />
+						</p:selectOneMenu>
+						<p:message for="languages" display="icon" />
+					</h:panelGrid>
+					<h4>THANH TOÁN</h4>
+					<h:panelGrid columns="4">
+						<p:outputLabel for="creditcard" value="Số thẻ tín dụng" />
+						<p:outputLabel></p:outputLabel>
+						<p:outputLabel for="cvv" value="CVV" />
+						<p:outputLabel></p:outputLabel>
+						<p:inputText id="creditcard" required="true"
+							requiredMessage="Thẻ tín dụng không hợp lệ"
+							value="#{registerController.creditCard}"></p:inputText>
+						<p:message for="creditcard" display="icon" />
+						<p:inputText id="cvv" required="true"
+							requiredMessage="CVV không hợp lệ"
+							value="#{registerController.cvv}">
+							<f:validateLength maximum="3"></f:validateLength>
+						</p:inputText>
+						<p:message for="cvv" display="icon" />
+						<p:outputLabel for="expiredDate" value="Ngày hết hạn" />
+						<p:outputLabel></p:outputLabel>
+						<p:outputLabel for="zipCode" value="Mã bưu điện"></p:outputLabel>
+						<p:outputLabel></p:outputLabel>
+						<p:calendar required="true" id="expiredDate"
+							requiredMessage="Ngày hết hạn không hợp lệ"
+							value="#{registerController.expiredDate}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:calendar>
+						<p:message for="expiredDate" display="icon" />
+						<p:inputText id="zipCode" required="true"
+							value="#{registerController.zipCode}"
+							requiredMessage="Mã bưu điện không hợp lệ"></p:inputText>
+						<p:message for="zipCode" display="icon"></p:message>
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:commandButton value="Đăng kí" validateClient="true" actionListener="#{registerController.doRegister}"
+						update="registerForm"></p:commandButton>
+					<br />
+					<p:outputLabel value="Please fill out all (*) field" />
+					<br />
+					<br />
+					<p:outputLabel
+						value="By clicking 'Đăng Kí', you agree with TaxiNet's Terms and Conditions" />
+				</p:panel>
+			</center>
+		</h:form>
+	</f:view>
+</h:body>
+</html>
