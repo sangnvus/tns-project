@@ -1,4 +1,4 @@
-package vn.co.taxinet.bean;
+package vn.co.taxinet.bean.rider;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -13,10 +13,10 @@ import javax.inject.Named;
 /**
  * @author Ecchi controller for register.xhtml
  */
-@ManagedBean(name = "registerController", eager = true)
+@ManagedBean(name = "driverRegisterController", eager = true)
 @Named
 @SessionScoped
-public class registerController implements Serializable {
+public class DriverRegisterController implements Serializable {
 	private static final long serialVersionUID = 4300149713167673107L;
 	// properties for register page
 	private String emailAddress;
