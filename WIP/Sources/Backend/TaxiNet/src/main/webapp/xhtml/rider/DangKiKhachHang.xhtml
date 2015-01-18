@@ -40,8 +40,8 @@
 						<p:inputText id="surname"
 							value="#{driverRegisterController.userSurName}"></p:inputText>
 						<p:message for="username" display="icon"></p:message>
-						<p:outputLabel for="headerNo" value="Đầu số" />
-						<p:outputLabel for="phoneNo" value="Số điện thoại" />
+						<p:outputLabel for="headerNo" value="#{msg['riderRegister.phoneHeader']}" />
+						<p:outputLabel for="phoneNo" value="#{msg['riderRegister.phoneNo']}" />
 						<p:outputLabel></p:outputLabel>
 						<p:selectOneMenu id="headerNo">
 							<f:selectItem itemLabel="0977-Viettel" />
@@ -52,7 +52,7 @@
 							<f:validateLength maximum="11"></f:validateLength>
 						</p:inputText>
 						<p:message for="phoneNo" display="icon" />
-						<p:outputLabel for="languages" value="Ngôn ngữ" />
+						<p:outputLabel for="languages" value="#{msg['riderRegister.languages']}" />
 						<p:selectOneMenu id="languages" required="true"
 							requiredMessage="Ngôn ngữ không hợp lệ"
 							value="#{driverRegisterController.language}">
@@ -64,9 +64,9 @@
 					</h:panelGrid>
 					<h4>THANH TOÁN</h4>
 					<h:panelGrid columns="4">
-						<p:outputLabel for="creditcard" value="Số thẻ tín dụng" />
+						<p:outputLabel for="creditcard" value="#{msg['riderRegister.creditcard']}" />
 						<p:outputLabel></p:outputLabel>
-						<p:outputLabel for="cvv" value="CVV" />
+						<p:outputLabel for="cvv" value="#{msg['riderRegister.cvv']}" />
 						<p:outputLabel></p:outputLabel>
 						<p:inputText id="creditcard" required="true"
 							requiredMessage="Thẻ tín dụng không hợp lệ"
@@ -78,9 +78,9 @@
 							<f:validateLength maximum="3"></f:validateLength>
 						</p:inputText>
 						<p:message for="cvv" display="icon" />
-						<p:outputLabel for="expiredDate" value="Ngày hết hạn" />
+						<p:outputLabel for="expiredDate" value="#{msg['riderRegister.expireddate']}" />
 						<p:outputLabel></p:outputLabel>
-						<p:outputLabel for="zipCode" value="Mã bưu điện"></p:outputLabel>
+						<p:outputLabel for="zipCode" value="#{msg['riderRegister.zipCode']}"></p:outputLabel>
 						<p:outputLabel></p:outputLabel>
 						<p:calendar required="true" id="expiredDate"
 							requiredMessage="Ngày hết hạn không hợp lệ"
