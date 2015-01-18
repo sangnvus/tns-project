@@ -8,13 +8,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 
 /**
  * @author Ecchi controller for register.xhtml
  */
 @ManagedBean(name = "driverRegisterController", eager = true)
-@Named
 @SessionScoped
 public class DriverRegisterController implements Serializable {
 	private static final long serialVersionUID = 4300149713167673107L;
