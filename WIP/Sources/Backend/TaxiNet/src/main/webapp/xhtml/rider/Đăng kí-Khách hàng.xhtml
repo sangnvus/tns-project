@@ -19,13 +19,13 @@
 				<p:panel header="ĐĂNG KÍ TÀI KHOẢN">
 					<h4>TÀI KHOẢN</h4>
 					<h:panelGrid id="register" columns="2">
-						<p:outputLabel for="email" value="Email" />
+						<p:outputLabel for="email" value="#{msg['riderRegister.email']}" />
 						<br />
 						<p:inputText id="email" required="true"
 							requiredMessage="Email không hợp lệ"
 							value="#{driverRegisterController.emailAddress}"></p:inputText>
 						<p:message for="email" display="icon" />
-						<p:outputLabel for="password" value="Mật khẩu" />
+						<p:outputLabel for="password" value="#{msg['riderRegister.password']}" />
 						<br />
 						<p:password id="password" value="#{driverRegisterController.password}"
 							required="true" requiredMessage="Mật khẩu không hợp lệ"></p:password>
@@ -33,8 +33,8 @@
 					</h:panelGrid>
 					<h4>HỒ SƠ</h4>
 					<h:panelGrid id="identity" columns="3">
-						<p:outputLabel for="username" value="Tên" />
-						<p:outputLabel for="surname" value="Ho và tên đệm" />
+						<p:outputLabel for="username" value="#{msg['riderRegister.name']}" />
+						<p:outputLabel for="surname" value="#{msg['riderRegister.surname']}" />
 						<p:outputLabel></p:outputLabel>
 						<p:inputText id="username" value="#{driverRegisterController.userName}"
 							required="true" requiredMessage="Tên không hợp lê"></p:inputText>
