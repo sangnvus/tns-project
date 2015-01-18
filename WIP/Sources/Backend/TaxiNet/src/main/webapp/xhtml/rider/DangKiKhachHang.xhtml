@@ -18,15 +18,13 @@
 				<p:messages showDetail="true" showSummary="true" autoUpdate="true"></p:messages>
 				<p:panel header="ĐĂNG KÍ TÀI KHOẢN">
 					<h4>TÀI KHOẢN</h4>
-					<h:panelGrid id="register" columns="2">
+					<h:panelGrid id="register" columns="3">
 						<p:outputLabel for="email" value="#{msg['riderRegister.email']}" />
-						<br />
 						<p:inputText id="email" required="true"
 							requiredMessage="Email không hợp lệ"
 							value="#{driverRegisterController.emailAddress}"></p:inputText>
 						<p:message for="email" display="icon" />
 						<p:outputLabel for="password" value="#{msg['riderRegister.password']}" />
-						<br />
 						<p:password id="password" value="#{driverRegisterController.password}"
 							required="true" requiredMessage="Mật khẩu không hợp lệ"></p:password>
 						<p:message for="password" display="icon" />
