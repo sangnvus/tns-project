@@ -19,13 +19,13 @@
 				<p:panel header="ĐĂNG KÍ TÀI KHOẢN">
 					<h4>TÀI KHOẢN</h4>
 					<h:panelGrid id="register" columns="2">
-						<p:outputLabel for="email" value="#{en.mail}" />
+						<p:outputLabel for="email" value="Email" />
 						<br />
 						<p:inputText id="email" required="true"
 							requiredMessage="Email không hợp lệ"
 							value="#{registerController.emailAddress}"></p:inputText>
 						<p:message for="email" display="icon" />
-						<p:outputLabel for="password" value="#{en.password}" />
+						<p:outputLabel for="password" value="Mật khẩu" />
 						<br />
 						<p:password id="password" value="#{registerController.password}"
 							required="true" requiredMessage="Mật khẩu không hợp lệ"></p:password>
