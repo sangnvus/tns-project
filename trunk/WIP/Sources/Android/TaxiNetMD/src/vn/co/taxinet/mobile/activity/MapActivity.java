@@ -35,7 +35,7 @@ public class MapActivity extends Activity {
 	private ProgressDialog pDialog;
 	// These tags will be used to cancel the requests
 	private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
-
+	String cbb;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
