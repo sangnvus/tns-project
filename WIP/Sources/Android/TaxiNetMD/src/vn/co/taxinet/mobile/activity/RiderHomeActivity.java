@@ -26,12 +26,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
-public class MapActivity extends Activity {
+public class RiderHomeActivity extends Activity {
 
 	// Google Map
 	private GoogleMap googleMap;
 
-	private String TAG = MapActivity.class.getSimpleName();
+	private String TAG = RiderHomeActivity.class.getSimpleName();
 	private ProgressDialog pDialog;
 	// These tags will be used to cancel the requests
 	private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
@@ -39,7 +39,7 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_map);
+		setContentView(R.layout.activity_rider_home);
 
 		pDialog = new ProgressDialog(this);
 		pDialog.setMessage("Loading...");
