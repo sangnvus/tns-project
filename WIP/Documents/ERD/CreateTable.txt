@@ -1,0 +1,363 @@
+CREATE TABLE Bank (
+  BankID         int(10) NOT NULL AUTO_INCREMENT, 
+  BankName       int(10), 
+  CreatedBy      varchar(50), 
+  CreateDate     timestamp NULL, 
+  LastModifiedBy varchar(50), 
+  LastModifyDate timestamp NULL, 
+  PRIMARY KEY (BankID));
+CREATE TABLE CityName (
+  CityID         int(10) NOT NULL, 
+  LanguageCode   int(10) NOT NULL, 
+  CityName       varchar(20) NOT NULL, 
+  CreatedBy      varchar(50), 
+  CreateDate     timestamp NULL, 
+  LastModifiedBy varchar(50), 
+  LastModifyDate timestamp NULL, 
+  PRIMARY KEY (CityID, 
+  LanguageCode));
+CREATE TABLE CurrentStatus (
+  DriverID          varchar(50) NOT NULL, 
+  CurrentLatitude   real, 
+  CurrentLongtitude real, 
+  CurrentStatus     char(2), 
+  PRIMARY KEY (DriverID));
+CREATE TABLE Payment (
+  PaymentID      int(10) NOT NULL AUTO_INCREMENT, 
+  CardNo         varchar(15) NOT NULL UNIQUE, 
+  ExpiredYear    char(4), 
+  ExpiredMonth   char(2), 
+  BankID         int(10) NOT NULL, 
+  CVV            varchar(4), 
+  UserID         varchar(50) NOT NULL, 
+  Type           char(2), 
+  Status         char(2), 
+  CreatedBy      varchar(50), 
+  CreateDate     timestamp NULL, 
+  LastModifiedBy varchar(50), 
+  LastModifyDate timestamp NULL, 
+  PRIMARY KEY (PaymentID));
+CREATE TABLE ReferenceData (
+  GroupCode      varchar(20) NOT NULL, 
+  Code           char(2) NOT NULL, 
+  LanguageCode   int(10) NOT NULL, 
+  Description    varchar(30), 
+  CreatedBy      varchar(50) NOT NULL, 
+  CreateDate     timestamp NOT NULL, 
+  LastModifiedBy varchar(50) NOT NULL, 
+  LastModifyDate timestamp NOT NULL, 
+  PRIMARY KEY (GroupCode, 
+  Code, 
+  LanguageCode));
+CREATE TABLE Langueage (
+  LanguageCode   int(10) NOT NULL AUTO_INCREMENT, 
+  Language       varchar(20), 
+  CreatedBy      varchar(50), 
+  CreatDate      timestamp NULL, 
+  LastModifiedBy varchar(50), 
+  LastModifyDate timestamp NULL, 
+  PRIMARY KEY (LanguageCode));
+CREATE TABLE InvitationLog (
+  DriverID int(10), 
+  RiderID  int(10));
+CREATE TABLE FavoriteDriver (
+  RiderID        int(10) NOT NULL, 
+  DriverID       int(10) NOT NULL, 
+  Status         varchar(20), 
+  CreatedBy      varchar(50) NOT NULL, 
+  CreateDate     timestamp NOT NULL, 
+  LastModifiedBy varchar(50) NOT NULL, 
+  LastModifyDate timestamp NOT NULL, 
+  PRIMARY KEY (RiderID, 
+  DriverID));
+CREATE TABLE Address (
+  AddressID      varchar(50) NOT NULL, 
+  CountryID      int(10) NOT NULL, 
+  CityID         int(10) NOT NULL, 
+  DistrictName   int(10) NOT NULL, 
+  AddressDetail  int(10), 
+  Latitude       real, 
+  Longitude      real, 
+  CreatedBy      varchar(50) NOT NULL, 
+  CreateDate     timestamp NOT NULL, 
+  LastModifiedBy varchar(50) NOT NULL, 
+  LastModifyDate timestamp NOT NULL, 
+  PRIMARY KEY (AddressID));
+CREATE TABLE CarMaker (
+  CarMaker       varchar(20) NOT NULL, 
+  CreatedBy      varchar(50) NOT NULL, 
+  CreateDate     timestamp NOT NULL, 
+  LastModifiedBy varchar(50) NOT NULL, 
+  LastModfyDate  timestamp NOT NULL, 
+  PRIMARY KEY (CarMaker));
+CREATE TABLE Document (
+  DocumentID     int(10) NOT NULL AUTO_INCREMENT, 
+  FileName       varchar(30) NOT NULL, 
+  Link           varchar(255) NOT NULL UNIQUE, 
+  ExpiredMonth   varchar(2) NOT NULL, 
+  ExpiredYear    varchar(4) NOT NULL, 
+  CreatedBy      varchar(50) NOT NULL, 
+  CreateDate     timestamp NOT NULL, 
+  LastModifiedBy varchar(50) NOT NULL, 
+  LastModifyDate timestamp NOT NULL, 
+  PRIMARY KEY (DocumentID));
+CREATE TABLE Driver (
+  DriverID        varchar(50) NOT NULL, 
+  FirstName       varchar(15), 
+  LastName        varchar(15), 
+  MobileNo        int(10), 
+  DriverLisense   int(10) NOT NULL, 
+  CurrentVehicle  int(10), 
+  DriveExperience int(10) NOT NULL, 
+  AddressID       varchar(50) NOT NULL, 
+  InvitationCode  int(10), 
+  CreatedBy       varchar(50) NOT NULL, 
+  CreateDate      timestamp NOT NULL, 
+  LastModifiedBy  varchar(50) NOT NULL, 
+  LastModifyDate  timestamp NOT NULL, 
+  PRIMARY KEY (DriverID));
+CREATE TABLE Rider (
+  RiderID         varchar(50) NOT NULL, 
+  FirstName       varchar(15), 
+  LastName        varchar(15), 
+  MobileNo        int(10), 
+  HomeAddressID   varchar(50) NOT NULL, 
+  OfficeAddressID varchar(50) NOT NULL, 
+  CreatedBy       varchar(50) NOT NULL, 
+  CreateDate      timestamp NOT NULL, 
+  LastModifiedBy  varchar(50) NOT NULL, 
+  LastModifyDate  timestamp NOT NULL, 
+  PRIMARY KEY (RiderID));
+CREATE TABLE Vehicle (
+  VehicleID          int(10) NOT NULL AUTO_INCREMENT, 
+  Plate              varchar(20) NOT NULL UNIQUE, 
+  InteriorColor      varchar(20), 
+  ExteriorColor      varchar(20), 
+  PricePanelID       int(10) NOT NULL, 
+  ProduceYear        varchar(4), 
+  LisencePlatCountry int(10), 
+  LisencePlatState   int(10), 
+  CreatedBy          varchar(50) NOT NULL, 
+  CreatDate          timestamp NOT NULL, 
+  LastModifiedBy     varchar(50) NOT NULL, 
+  LastModifyDate     timestamp NOT NULL, 
+  PRIMARY KEY (VehicleID));
+CREATE TABLE AccountTransaction (
+  UserID         varchar(50) NOT NULL, 
+  DateTime       int(10) NOT NULL, 
+  Amount         int(10), 
+  Type           int(10), 
+  CreatedBy      varchar(50) NOT NULL, 
+  CreateDate     timestamp NOT NULL, 
+  LastModifiedBy varchar(50) NOT NULL, 
+  LastModifyDate timestamp NOT NULL, 
+  PRIMARY KEY (UserID, 
+  DateTime));
+CREATE TABLE Country (
+  Code              int(10) NOT NULL AUTO_INCREMENT, 
+  Name              varchar(20) NOT NULL, 
+  PostalCode        int(10) NOT NULL, 
+  Currency          varchar(10) NOT NULL, 
+  InternationalCode varchar(5) NOT NULL, 
+  CreatedBy         varchar(50) NOT NULL, 
+  CreatDate         timestamp NOT NULL, 
+  LastModifiedBy    varchar(50) NOT NULL, 
+  LastModifyDate    timestamp NOT NULL, 
+  PRIMARY KEY (Code));
+CREATE TABLE Trip (
+  RequestID       varchar(50) NOT NULL, 
+  RiderID         varchar(50) NOT NULL, 
+  DriverID        varchar(50) NOT NULL, 
+  VehicleID       int(10) NOT NULL, 
+  RequestDatetime timestamp NULL, 
+  CountryID       int(10), 
+  FromCity        int(10) NOT NULL, 
+  FromAddress     varchar(50), 
+  ToCity          int(10), 
+  ToAddress       varchar(50), 
+  TimeRequest     int(10), 
+  TimeStart       timestamp NULL, 
+  TImeEnd         timestamp NULL, 
+  StartLatitude   int(10), 
+  StartLongtitude int(10), 
+  EndLatitude     int(10), 
+  EndLongtitude   int(10), 
+  Fee             int(10), 
+  PaymentID       int(10) NOT NULL, 
+  Status          int(10), 
+  CreatedBy       varchar(50) NOT NULL, 
+  CreatDate       timestamp NOT NULL, 
+  LastModifiedBy  varchar(50) NOT NULL, 
+  LastModifyDate  timestamp NOT NULL, 
+  PRIMARY KEY (RequestID));
+CREATE TABLE CompanyParkArea (
+  CompanyID        int(10) NOT NULL, 
+  Latitute         real NOT NULL, 
+  Longtitude       real NOT NULL, 
+  Name             varchar(50) NOT NULL, 
+  NumberOfCar      int(5) NOT NULL, 
+  CreatBy          varchar(50) NOT NULL, 
+  CreatedDate      timestamp NOT NULL, 
+  LastModifyBy     varchar(50) NOT NULL, 
+  LastModifiedDate timestamp NOT NULL, 
+  PRIMARY KEY (CompanyID, 
+  Latitute, 
+  Longtitude));
+CREATE TABLE CarModel (
+  CarModelID     int(10) NOT NULL AUTO_INCREMENT, 
+  CarMaker       varchar(20) NOT NULL, 
+  CarModel       varchar(20) NOT NULL, 
+  CarType        varchar(10) NOT NULL, 
+  Capacity       int(3) NOT NULL, 
+  CreatedBy      varchar(50) NOT NULL, 
+  CreatDate      timestamp NOT NULL, 
+  LastModifiedBy varchar(50) NOT NULL, 
+  LastModifyDate timestamp NOT NULL, 
+  PRIMARY KEY (CarModelID));
+CREATE TABLE PricePanel (
+  PricePanelID   int(10) NOT NULL AUTO_INCREMENT, 
+  CarModelID     int(10) NOT NULL, 
+  CompanyID      int(10) NOT NULL, 
+  Price          int(10), 
+  StartDate      date NOT NULL, 
+  EndDate        date, 
+  OpenKM         int(10), 
+  OpenPrice      int(10), 
+  FirstKM        int(10), 
+  FirstKMPrice   int(10), 
+  NextKM         int(10), 
+  NextKMPrice    int(10), 
+  WaitingPrice   int(10), 
+  CreatedBy      varchar(50) NOT NULL, 
+  CreatDate      timestamp NOT NULL, 
+  LastModifiedBy varchar(50) NOT NULL, 
+  LastModifyDate timestamp NOT NULL, 
+  PRIMARY KEY (PricePanelID));
+CREATE TABLE City (
+  CityID         int(10) NOT NULL, 
+  CountryCode    int(10) NOT NULL, 
+  NorthBoundary  real NOT NULL, 
+  SouthBoundary  real NOT NULL, 
+  WestBoundary   real NOT NULL, 
+  EastBoundary   real NOT NULL, 
+  CreatedBy      varchar(50) NOT NULL, 
+  CreatDate      timestamp NOT NULL, 
+  LastModifiedBy varchar(50) NOT NULL, 
+  LastModifyDate timestamp NOT NULL, 
+  PRIMARY KEY (CityID));
+CREATE TABLE Company (
+  CompanyID            int(10) NOT NULL AUTO_INCREMENT, 
+  Name                 int(10) NOT NULL, 
+  AddressID            varchar(50) NOT NULL, 
+  ParentID             int(10) NOT NULL, 
+  BusinessType         varchar(10) NOT NULL, 
+  OperatingLisence     int(10) NOT NULL, 
+  BusinessRegistration int(10) NOT NULL, 
+  Balance              int(10), 
+  VATNumber            int(10), 
+  MobileNo             int(10), 
+  ServiceCharge        int(10), 
+  Rate                 int(10), 
+  BankNo               int(10), 
+  BankID               int(10), 
+  CurrentPromotionCode int(10), 
+  CreatedBy            varchar(50) NOT NULL, 
+  CreatDate            timestamp NOT NULL, 
+  LastModifiedBy       varchar(50) NOT NULL, 
+  LastModifyDate       timestamp NOT NULL, 
+  PRIMARY KEY (CompanyID));
+CREATE TABLE UserGroup (
+  GroupCode      char(3) NOT NULL, 
+  GroupName      varchar(20) NOT NULL, 
+  CreatedBy      varchar(50) NOT NULL, 
+  CreatDate      timestamp NOT NULL, 
+  LastModifiedBy varchar(50) NOT NULL, 
+  LastModifyDate timestamp NOT NULL, 
+  PRIMARY KEY (GroupCode));
+CREATE TABLE TNUser (
+  UserID          varchar(50) NOT NULL, 
+  Username        varchar(50) NOT NULL UNIQUE, 
+  Password        varchar(40), 
+  Email           varchar(50), 
+  GroupCode       char(3) NOT NULL, 
+  CompanyID       int(10) NOT NULL, 
+  LanguageCode    int(10) NOT NULL, 
+  CountryCode     int(10) NOT NULL, 
+  CityID          int(10), 
+  Status          varchar(10) NOT NULL, 
+  Image           varchar(255), 
+  PostalCode      int(10), 
+  DeactivatedDate date, 
+  CreatedBy       varchar(50) NOT NULL, 
+  CreatDate       timestamp NOT NULL, 
+  LastModifiedBy  varchar(50) NOT NULL, 
+  LastModifyDate  timestamp NOT NULL, 
+  PRIMARY KEY (UserID));
+ALTER TABLE Payment ADD INDEX FKPayment826427 (UserID), ADD CONSTRAINT FKPayment826427 FOREIGN KEY (UserID) REFERENCES TNUser (UserID);
+ALTER TABLE CityName ADD INDEX FKCityName511807 (CityID), ADD CONSTRAINT FKCityName511807 FOREIGN KEY (CityID) REFERENCES City (CityID);
+ALTER TABLE CityName ADD INDEX FKCityName687929 (LanguageCode), ADD CONSTRAINT FKCityName687929 FOREIGN KEY (LanguageCode) REFERENCES Langueage (LanguageCode);
+ALTER TABLE CurrentStatus ADD INDEX FKCurrentSta116496 (DriverID), ADD CONSTRAINT FKCurrentSta116496 FOREIGN KEY (DriverID) REFERENCES Driver (DriverID);
+ALTER TABLE CurrentStatus ADD INDEX FKCurrentSta116497 (DriverID), ADD CONSTRAINT FKCurrentSta116497 FOREIGN KEY (DriverID) REFERENCES Driver (DriverID);
+ALTER TABLE Payment ADD INDEX FKPayment43478 (BankID), ADD CONSTRAINT FKPayment43478 FOREIGN KEY (BankID) REFERENCES Bank (BankID);
+ALTER TABLE Payment ADD INDEX FKPayment826428 (UserID), ADD CONSTRAINT FKPayment826428 FOREIGN KEY (UserID) REFERENCES TNUser (UserID);
+ALTER TABLE Payment ADD INDEX FKPayment43479 (BankID), ADD CONSTRAINT FKPayment43479 FOREIGN KEY (BankID) REFERENCES Bank (BankID);
+ALTER TABLE Trip ADD INDEX FKTrip890581 (FromCity), ADD CONSTRAINT FKTrip890581 FOREIGN KEY (FromCity) REFERENCES City (CityID);
+ALTER TABLE TNUser ADD INDEX FKTNUser883121 (LanguageCode), ADD CONSTRAINT FKTNUser883121 FOREIGN KEY (LanguageCode) REFERENCES Langueage (LanguageCode);
+ALTER TABLE TNUser ADD INDEX FKTNUser954770 (CountryCode), ADD CONSTRAINT FKTNUser954770 FOREIGN KEY (CountryCode) REFERENCES Country (Code);
+ALTER TABLE Address ADD INDEX FKAddress489200 (CityID), ADD CONSTRAINT FKAddress489200 FOREIGN KEY (CityID) REFERENCES City (CityID);
+ALTER TABLE Address ADD INDEX FKAddress765699 (CountryID), ADD CONSTRAINT FKAddress765699 FOREIGN KEY (CountryID) REFERENCES Country (Code);
+ALTER TABLE Rider ADD INDEX FKRider254712 (RiderID), ADD CONSTRAINT FKRider254712 FOREIGN KEY (RiderID) REFERENCES TNUser (UserID);
+ALTER TABLE Driver ADD INDEX FKDriver65846 (CurrentVehicle), ADD CONSTRAINT FKDriver65846 FOREIGN KEY (CurrentVehicle) REFERENCES Vehicle (VehicleID);
+ALTER TABLE Driver ADD INDEX FKDriver71775 (DriverLisense), ADD CONSTRAINT FKDriver71775 FOREIGN KEY (DriverLisense) REFERENCES Document (DocumentID);
+ALTER TABLE Driver ADD INDEX FKDriver818765 (DriveExperience), ADD CONSTRAINT FKDriver818765 FOREIGN KEY (DriveExperience) REFERENCES Document (DocumentID);
+ALTER TABLE Driver ADD INDEX FKDriver643082 (AddressID), ADD CONSTRAINT FKDriver643082 FOREIGN KEY (AddressID) REFERENCES Address (AddressID);
+ALTER TABLE Driver ADD INDEX FKDriver915303 (DriverID), ADD CONSTRAINT FKDriver915303 FOREIGN KEY (DriverID) REFERENCES TNUser (UserID);
+ALTER TABLE Driver ADD INDEX FKDriver915304 (DriverID), ADD CONSTRAINT FKDriver915304 FOREIGN KEY (DriverID) REFERENCES TNUser (UserID);
+ALTER TABLE Rider ADD INDEX FKRider93910 (HomeAddressID), ADD CONSTRAINT FKRider93910 FOREIGN KEY (HomeAddressID) REFERENCES Address (AddressID);
+ALTER TABLE Rider ADD INDEX FKRider254713 (RiderID), ADD CONSTRAINT FKRider254713 FOREIGN KEY (RiderID) REFERENCES TNUser (UserID);
+ALTER TABLE Rider ADD INDEX FKRider5193 (OfficeAddressID), ADD CONSTRAINT FKRider5193 FOREIGN KEY (OfficeAddressID) REFERENCES Address (AddressID);
+ALTER TABLE Vehicle ADD INDEX FKVehicle652544 (PricePanelID), ADD CONSTRAINT FKVehicle652544 FOREIGN KEY (PricePanelID) REFERENCES PricePanel (PricePanelID);
+ALTER TABLE Rider ADD INDEX FKRider5194 (OfficeAddressID), ADD CONSTRAINT FKRider5194 FOREIGN KEY (OfficeAddressID) REFERENCES Address (AddressID);
+ALTER TABLE AccountTransaction ADD INDEX FKAccountTra397365 (UserID), ADD CONSTRAINT FKAccountTra397365 FOREIGN KEY (UserID) REFERENCES TNUser (UserID);
+ALTER TABLE CityName ADD INDEX FKCityName511808 (CityID), ADD CONSTRAINT FKCityName511808 FOREIGN KEY (CityID) REFERENCES City (CityID);
+ALTER TABLE Trip ADD INDEX FKTrip388784 (RiderID), ADD CONSTRAINT FKTrip388784 FOREIGN KEY (RiderID) REFERENCES Rider (RiderID);
+ALTER TABLE Trip ADD INDEX FKTrip684977 (DriverID), ADD CONSTRAINT FKTrip684977 FOREIGN KEY (DriverID) REFERENCES Driver (DriverID);
+ALTER TABLE Trip ADD INDEX FKTrip3936 (VehicleID), ADD CONSTRAINT FKTrip3936 FOREIGN KEY (VehicleID) REFERENCES Vehicle (VehicleID);
+ALTER TABLE Trip ADD INDEX FKTrip890582 (FromCity), ADD CONSTRAINT FKTrip890582 FOREIGN KEY (FromCity) REFERENCES City (CityID);
+ALTER TABLE CompanyParkArea ADD INDEX FKCompanyPar75525 (CompanyID), ADD CONSTRAINT FKCompanyPar75525 FOREIGN KEY (CompanyID) REFERENCES Company (CompanyID);
+ALTER TABLE CityName ADD INDEX FKCityName687930 (LanguageCode), ADD CONSTRAINT FKCityName687930 FOREIGN KEY (LanguageCode) REFERENCES Langueage (LanguageCode);
+ALTER TABLE CarModel ADD INDEX FKCarModel608179 (CarMaker), ADD CONSTRAINT FKCarModel608179 FOREIGN KEY (CarMaker) REFERENCES CarMaker (CarMaker);
+ALTER TABLE PricePanel ADD INDEX FKPricePanel346810 (CompanyID), ADD CONSTRAINT FKPricePanel346810 FOREIGN KEY (CompanyID) REFERENCES Company (CompanyID);
+ALTER TABLE PricePanel ADD INDEX FKPricePanel34435 (CarModelID), ADD CONSTRAINT FKPricePanel34435 FOREIGN KEY (CarModelID) REFERENCES CarModel (CarModelID);
+ALTER TABLE City ADD INDEX FKCity476404 (CountryCode), ADD CONSTRAINT FKCity476404 FOREIGN KEY (CountryCode) REFERENCES Country (Code);
+ALTER TABLE Trip ADD INDEX FKTrip388785 (RiderID), ADD CONSTRAINT FKTrip388785 FOREIGN KEY (RiderID) REFERENCES Rider (RiderID);
+ALTER TABLE Company ADD INDEX FKCompany674280 (BusinessRegistration), ADD CONSTRAINT FKCompany674280 FOREIGN KEY (BusinessRegistration) REFERENCES Document (DocumentID);
+ALTER TABLE Company ADD INDEX FKCompany186490 (AddressID), ADD CONSTRAINT FKCompany186490 FOREIGN KEY (AddressID) REFERENCES Address (AddressID);
+ALTER TABLE Company ADD INDEX FKCompany733049 (OperatingLisence), ADD CONSTRAINT FKCompany733049 FOREIGN KEY (OperatingLisence) REFERENCES Document (DocumentID);
+ALTER TABLE Company ADD INDEX FKCompany704929 (ParentID), ADD CONSTRAINT FKCompany704929 FOREIGN KEY (ParentID) REFERENCES Company (CompanyID);
+ALTER TABLE TNUser ADD INDEX FKTNUser798747 (GroupCode), ADD CONSTRAINT FKTNUser798747 FOREIGN KEY (GroupCode) REFERENCES UserGroup (GroupCode);
+ALTER TABLE TNUser ADD INDEX FKTNUser624 (CompanyID), ADD CONSTRAINT FKTNUser624 FOREIGN KEY (CompanyID) REFERENCES Company (CompanyID);
+ALTER TABLE TNUser ADD INDEX FKTNUser883122 (LanguageCode), ADD CONSTRAINT FKTNUser883122 FOREIGN KEY (LanguageCode) REFERENCES Langueage (LanguageCode);
+ALTER TABLE TNUser ADD INDEX FKTNUser954771 (CountryCode), ADD CONSTRAINT FKTNUser954771 FOREIGN KEY (CountryCode) REFERENCES Country (Code);
+ALTER TABLE Trip ADD INDEX FKTrip684978 (DriverID), ADD CONSTRAINT FKTrip684978 FOREIGN KEY (DriverID) REFERENCES Driver (DriverID);
+ALTER TABLE Trip ADD INDEX FKTrip3937 (VehicleID), ADD CONSTRAINT FKTrip3937 FOREIGN KEY (VehicleID) REFERENCES Vehicle (VehicleID);
+ALTER TABLE Company ADD INDEX FKCompany704930 (ParentID), ADD CONSTRAINT FKCompany704930 FOREIGN KEY (ParentID) REFERENCES Company (CompanyID);
+ALTER TABLE Driver ADD INDEX FKDriver65847 (CurrentVehicle), ADD CONSTRAINT FKDriver65847 FOREIGN KEY (CurrentVehicle) REFERENCES Vehicle (VehicleID);
+ALTER TABLE Driver ADD INDEX FKDriver71776 (DriverLisense), ADD CONSTRAINT FKDriver71776 FOREIGN KEY (DriverLisense) REFERENCES Document (DocumentID);
+ALTER TABLE Driver ADD INDEX FKDriver818766 (DriveExperience), ADD CONSTRAINT FKDriver818766 FOREIGN KEY (DriveExperience) REFERENCES Document (DocumentID);
+ALTER TABLE Address ADD INDEX FKAddress489201 (CityID), ADD CONSTRAINT FKAddress489201 FOREIGN KEY (CityID) REFERENCES City (CityID);
+ALTER TABLE Address ADD INDEX FKAddress765700 (CountryID), ADD CONSTRAINT FKAddress765700 FOREIGN KEY (CountryID) REFERENCES Country (Code);
+ALTER TABLE Driver ADD INDEX FKDriver643083 (AddressID), ADD CONSTRAINT FKDriver643083 FOREIGN KEY (AddressID) REFERENCES Address (AddressID);
+ALTER TABLE Vehicle ADD INDEX FKVehicle652545 (PricePanelID), ADD CONSTRAINT FKVehicle652545 FOREIGN KEY (PricePanelID) REFERENCES PricePanel (PricePanelID);
+ALTER TABLE Company ADD INDEX FKCompany733050 (OperatingLisence), ADD CONSTRAINT FKCompany733050 FOREIGN KEY (OperatingLisence) REFERENCES Document (DocumentID);
+ALTER TABLE Company ADD INDEX FKCompany186491 (AddressID), ADD CONSTRAINT FKCompany186491 FOREIGN KEY (AddressID) REFERENCES Address (AddressID);
+ALTER TABLE Rider ADD INDEX FKRider93911 (HomeAddressID), ADD CONSTRAINT FKRider93911 FOREIGN KEY (HomeAddressID) REFERENCES Address (AddressID);
+ALTER TABLE TNUser ADD INDEX FKTNUser625 (CompanyID), ADD CONSTRAINT FKTNUser625 FOREIGN KEY (CompanyID) REFERENCES Company (CompanyID);
+ALTER TABLE CompanyParkArea ADD INDEX FKCompanyPar75526 (CompanyID), ADD CONSTRAINT FKCompanyPar75526 FOREIGN KEY (CompanyID) REFERENCES Company (CompanyID);
+ALTER TABLE CarModel ADD INDEX FKCarModel608180 (CarMaker), ADD CONSTRAINT FKCarModel608180 FOREIGN KEY (CarMaker) REFERENCES CarMaker (CarMaker);
+ALTER TABLE Company ADD INDEX FKCompany674281 (BusinessRegistration), ADD CONSTRAINT FKCompany674281 FOREIGN KEY (BusinessRegistration) REFERENCES Document (DocumentID);
+ALTER TABLE City ADD INDEX FKCity476405 (CountryCode), ADD CONSTRAINT FKCity476405 FOREIGN KEY (CountryCode) REFERENCES Country (Code);
+ALTER TABLE AccountTransaction ADD INDEX FKAccountTra397366 (UserID), ADD CONSTRAINT FKAccountTra397366 FOREIGN KEY (UserID) REFERENCES TNUser (UserID);
+ALTER TABLE PricePanel ADD INDEX FKPricePanel346811 (CompanyID), ADD CONSTRAINT FKPricePanel346811 FOREIGN KEY (CompanyID) REFERENCES Company (CompanyID);
+ALTER TABLE TNUser ADD INDEX FKTNUser798748 (GroupCode), ADD CONSTRAINT FKTNUser798748 FOREIGN KEY (GroupCode) REFERENCES UserGroup (GroupCode);
+ALTER TABLE PricePanel ADD INDEX FKPricePanel34436 (CarModelID), ADD CONSTRAINT FKPricePanel34436 FOREIGN KEY (CarModelID) REFERENCES CarModel (CarModelID);
