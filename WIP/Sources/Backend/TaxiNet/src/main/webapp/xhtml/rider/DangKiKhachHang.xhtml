@@ -14,9 +14,8 @@
 <h:body>
 	<f:view>
 		<h:form id="registerForm" prependId="false">
-			<p:growl id="msg" showDetail="true"/>
+			<p:growl id="msg" showDetail="false"/>
 			<center>
-				<p:messages showDetail="true" showSummary="true" autoUpdate="true"></p:messages>
 				<p:panel header="ĐĂNG KÍ TÀI KHOẢN">
 					<h4>TÀI KHOẢN</h4>
 					<h:panelGrid id="register" columns="1">
@@ -24,11 +23,11 @@
 						<p:inputText id="email" required="true"
 							requiredMessage="Email không hợp lệ"
 							value="#{driverRegisterController.emailAddress}"></p:inputText>
-						<p:message for="email" display="icon" />
+						<p:message for="email" showDetail="true"/>
 						<p:outputLabel for="password" value="#{msg['riderRegister.password']}" />
 						<p:password id="password" value="#{driverRegisterController.password}"
 							required="true" requiredMessage="Mật khẩu không hợp lệ"></p:password>
-						<p:message for="password" display="icon" />
+						<p:message for="password" showDetail="true" />
 					</h:panelGrid>
 					<h4>HỒ SƠ</h4>
 					<h:panelGrid id="identity" columns="3">
@@ -39,7 +38,7 @@
 							required="true" requiredMessage="Tên không hợp lê"></p:inputText>
 						<p:inputText id="surname"
 							value="#{driverRegisterController.userSurName}"></p:inputText>
-						<p:message for="username" display="icon"></p:message>
+						<p:message for="username" showDetail="true"></p:message>
 						<p:outputLabel for="headerNo" value="#{msg['riderRegister.phoneHeader']}" />
 						<p:outputLabel for="phoneNo" value="#{msg['riderRegister.phoneNo']}" />
 						<p:outputLabel></p:outputLabel>
@@ -51,7 +50,7 @@
 							required="true" requiredMessage="Số điện thoại không hợp lệ">
 							<f:validateLength maximum="11"></f:validateLength>
 						</p:inputText>
-						<p:message for="phoneNo" display="icon" />
+						<p:message for="phoneNo" showDetail="true"/>
 						<p:outputLabel for="languages" value="#{msg['riderRegister.languages']}" />
 						<p:selectOneMenu id="languages" required="true"
 							requiredMessage="Ngôn ngữ không hợp lệ"
@@ -60,7 +59,7 @@
 							<f:selectItem itemLabel="English" itemValue="en" />
 							<f:selectItem itemLabel="Vietnammese" itemValue="vn" />
 						</p:selectOneMenu>
-						<p:message for="languages" display="icon" />
+						<p:message for="languages" showDetail="true" />
 					</h:panelGrid>
 					<h4>THANH TOÁN</h4>
 					<h:panelGrid columns="4">
@@ -71,13 +70,13 @@
 						<p:inputText id="creditcard" required="true"
 							requiredMessage="Thẻ tín dụng không hợp lệ"
 							value="#{driverRegisterController.creditCard}"></p:inputText>
-						<p:message for="creditcard" display="icon" />
+						<p:message for="creditcard" showDetail="true"/>
 						<p:inputText id="cvv" required="true"
 							requiredMessage="CVV không hợp lệ"
 							value="#{driverRegisterController.cvv}">
 							<f:validateLength maximum="3"></f:validateLength>
 						</p:inputText>
-						<p:message for="cvv" display="icon" />
+						<p:message for="cvv" showDetail="true" />
 						<p:outputLabel for="expiredDate" value="#{msg['riderRegister.expireddate']}" />
 						<p:outputLabel></p:outputLabel>
 						<p:outputLabel for="zipCode" value="#{msg['riderRegister.zipCode']}"></p:outputLabel>
@@ -87,11 +86,11 @@
 							value="#{driverRegisterController.expiredDate}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</p:calendar>
-						<p:message for="expiredDate" display="icon" />
+						<p:message for="expiredDate" showDetail="true"/>
 						<p:inputText id="zipCode" required="true"
 							value="#{driverRegisterController.zipCode}"
 							requiredMessage="Mã bưu điện không hợp lệ"></p:inputText>
-						<p:message for="zipCode" display="icon"></p:message>
+						<p:message for="zipCode" showDetail="true"></p:message>
 					</h:panelGrid>
 					<br />
 					<br />
