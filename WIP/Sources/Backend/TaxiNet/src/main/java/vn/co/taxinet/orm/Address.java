@@ -10,17 +10,13 @@
 
 package vn.co.taxinet.orm;
 
-import java.io.Serializable;
-
-import org.hibernate.annotations.Table;
-import org.hibernate.annotations.Tables;
-import org.hibernate.id.GUIDGenerator;
 
 /**
  * @author DEV
  *
  */
 public class Address extends BaseEntity {
+	private static final long serialVersionUID = 826333374099751687L;
 	private String street;
 	private String houseNo;
 	/**
