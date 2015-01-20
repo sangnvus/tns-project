@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<p:megaMenu orientation="horizontal">
+		<p:menuitem value="Home" url="../feeagent/DaiLy-Home.xhtml"
+			style="background:orange"></p:menuitem>
+		<p:menuitem value="Lịch sử giao dịch" url=""></p:menuitem>
+	</p:megaMenu>
+	<h:panelGrid columns="2">
+		<p:outputLabel for="accountName" value="Tài khoản đăng nhập" />
+		<p:inputText id="accountName" />
+		<p:outputLabel for="userName" value="Tên khách hàng/doanh nghiệp" />
+		<p:inputText id="userName" />
+	</h:panelGrid>
+	<br />
+	<center>
+		<p:commandButton value="Tìm kiếm"></p:commandButton>
+	</center>
+	<br> </br>
+	<p:dataTable id="account-list" paginator="true" rows="10"
+		paginatorPosition="bottom"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+		<p:column headerText="STT" style="text-align:left" width="35">
+		</p:column>
+		<p:column headerText="Tài khoản đăng nhập" style="text-align:left">
+		</p:column>
+		<p:column headerText="Tên khách hàng/doanh nghiệp" style="text-align:left">
+		</p:column>
+		<p:column headerText="Địa chỉ" style="text-align:left">
+		</p:column>
+		<p:column headerText="Số điện thoại" style="text-align:left">
+		</p:column>
+		<p:column headerText="Tác vụ" style="text-align:left">
+		</p:column>
+	</p:dataTable>
+</h:body>
+</html>
