@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" lang="vi">
+<head>
+	<title>Taxi Net</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="common/v1/css/main.css" />
+	<script type="text/javascript" src="common/v1/jquery/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+	<div id="menu-vertical" style="display: none;">
+		<ul>
+			<li><a href="">Home</a></li>
+			<li><a href="">Our Cities</a></li>
+			<li><a href="">Be a driver</a></li>
+			<li><a href="">App Features</a></li>
+			<li><a href="">Safety</a></li>
+			<li><a href="">Business</a></li>
+			<li><a href="">About Us</a></li>
+			<li><a href="">Help Center</a></li>
+			<li><a href="">Careers</a></li>
+		</ul>
+	</div>
+	<div id="main">
+
+		<div id="header">
+			<div class="logo"><a href=""><img src="common/v1/image/logo.png" /></a></div>
+			<div class="menu-horizontal">
+				<div class="menu left">
+					<a class="icon-menu" id="button" >Menu</a>
+				</div>
+				<div class="right">
+					<a class="signin" href="">Đăng nhập</a>
+					<a class="signup" href="">Đăng ký</a>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="body" class="page-register">
+			<div class="section-register">
+				<div class="header-register">
+					<p>Đăng ký để gọi Taxi</p>
+					<p>Welcome to TaxiNet, the easiest way to get around at the tap of a button.</p>
+					<p>Create your account and get moving in minutes.</p>
+				</div>
+				<form id="register_acc" class="form-register-acc">
+					<table class="form-register">
+						<tr><td><div class="title">Tài khoản</div></td><td align="right" style="padding-top: 10px;"><span class="note">* <em>Các trường bắt buộc</em></span></td></tr>
+						<tr>
+							<td colspan="2">
+								<label for="register_email">Email (*): </label>
+								<input type="email" id="register_email" class="text1" name="email" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<label for="register_pass">Mật khẩu (*): </label>
+								<input type="password" id="register_pass" class="text1" name="password" />
+							</td>
+						</tr>
+						<tr><td colspan="2"><div class="title">Hồ sơ</div></td></tr>
+						<tr>
+							<td>
+								<label for="label">Tên (*): </label>
+								<input type="text" id="register_lastname" name="register_lastname" class="text2" value="Sang"/>
+							</td>
+							<td>
+								<label for="label">&nbsp;</label>
+								<input type="text" id="register_name" name="register_name" class="text2" value="Nguyễn Văn Sang"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="register_email">Số điện thoại (*): </label>
+								<select id="code-area" class="text2">
+									<option value="04">04</option>
+									<option value="08">08</option>
+									<option value="0320">0320</option>
+									<option value="0321">0321</option>
+								</select>
+							</td>
+							<td>
+								<label for="label">&nbsp;</label>
+								<input type="text" id="register_phone" class="text2" name="phone"  value="7722728"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<label for="register_lang">Ngôn ngữ (*): </label>
+								<select id="lang" class="text1">
+									<option value="01">English</option>
+									<option value="02">Viet Nam</option>
+									<option value="03">Chinesse</option>
+									<option value="04">Japanes</option>
+								</select>
+							</td>
+						</tr>
+						<tr><td colspan="2"><div class="title">Thanh toán</div></td></tr>
+						<tr>
+							<td>
+								<label for="register_creditcode">Số thẻ tín dụng (*): </label>
+								<input type="text" id="register_creditcode" class="text2" name="creditcode" />
+							</td>
+							<td>
+								<label for="register_cvv">CVV (*): </label>
+								<input type="text" id="register_cvv" class="text2" name="cvv" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="register_date">Ngày hết hạn(*): </label>
+								<input type="text" id="register_date" class="text2" name="date" />
+							</td>
+							<td>
+								<label for="register_endcode">Mã bưu điện (*): </label>
+								<input type="text" id="register_endcode" class="text2" name="endcode" />
+							</td>
+						</tr>
+						<tr><td colspan="2"><div class="title">Thêm mã khuyến mại</div></td></tr>
+						<tr>
+							<td colspan="2" class="button-reg">
+								<input type="submit" value="Đăng ký" name="btnSend" class="dsq-button" />
+							</td>
+						</tr>
+						<tr><td colspan="2" style="text-align: center; font-size: 15px;">By clicking “Đăng Ký” , you agree to TaxiNet's</td></tr>
+					</table>
+				</form>
+				<div class="clear">.</div>
+			</div>
+				<div class="clear">.</div>
+		</div>
+
+		<div id="footer" class="footer" >
+			<div class="menu-footer">
+				<ul>
+					<li><a href="">Giới thiệu</a></li>
+					<li><a href="">Hỗ trợ</a></li>
+					<li><a href="">Nghề nghiệp</a></li>
+				</ul>
+			</div>
+			<div class="footer-info">
+				<div class="infos">
+					<p>© 2015, Bản quyền thuộc công ty ABC</p>
+					<p>Địa chỉ: TTQ164, Tân Xuân, Xuân Đỉnh, Từ Liêm, Hà Nội</p>
+					<p>Liên hệ: <a href="mailto: taxinetvn@gmail.com">taxinetvn@gmail.com</a></p>
+				</div>
+				<div class="link-app"><a class="app-store" href="">&nbsp;</a><a class="google-play" href="">&nbsp;</a><a class="window-phone" href="">&nbsp;</a></div>
+			</div>
+			<div class="clear">.</div>
+		</div>
+
+	</div><!--main -->
+
+	<script language="JavaScript" src="common/v1/js/main.js"></script>
+</body>
+</html>
+
