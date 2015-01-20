@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<f:metadata>
+		<f:event listener="#{driverRegisterController.init}"
+			type="preRenderView" />
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<f:view>
+		<h:form id="registerForm" prependId="false">
+			<p:growl id="msg" showDetail="true" />
+			<p:panel header="topbar">
+				<h:div class="logo"></h:div>
+				<h:div class="ads"></h:div>
+				<h:div class="loginleft"></h:div>
+			</p:panel>
+			<p:panel header="navbar">
+				<h:div class="navbar">
+					<h:ul class="navtabs">
+						<h:li>
+							<h:a class="navtabs" href="" target="_blank"> Trang chủ</h:a>
+						</h:li>
+						<h:li>
+							<h:a class="navtabs" href="" target="_blank"> Lịch sử giao dịch</h:a>
+						</h:li>
+					</h:ul>
+				</h:div>
+			</p:panel>
+			<center>
+				<p:messages showDetail="true" showSummary="true" autoUpdate="true"></p:messages>
+				<p:panel header="main">
+					<h4>Đại lý khu vực Hà Nội</h4>
+					<h:panelGrid id="register" columns="2">
+						<p:outputLabel for="username" value="Tài khoản đăng nhập :" />
+						<p:inputText id="username" required="true"
+							value="Số ĐT hoặc Tài Khoản FB"
+							requiredMessage="Tài khoản không tồn tại"></p:inputText>
+						<p:outputLabel for="customerName"
+							value="Tên khách hàng / doanh nghiệp :" />
+						<p:inputText id="customerName" required="true"
+							requiredMessage="Tên khách hàng/doanh nghiệp không tồn tại"></p:inputText>
+					</h:panelGrid>
+					<p:button value="Tìm kiếm">
+					</p:button>
+
+					<p:dataTable var="agent" value="#{dt.agents}"
+						emptyMessage="Tài khoản không tồn tại">
+						<p:column headerText="STT">
+							<h:outputText value="#{agent.autonumber}" />
+						</p:column>
+
+						<p:column headerText="Tài khoản đăng nhập">
+							<h:outputText value="#{agent.account}" />
+						</p:column>
+
+						<p:column headerText="Tên lái xe/tổ chức">
+							<h:outputText value="#{agent.name}" />
+						</p:column>
+
+						<p:column headerText="Địa chỉ">
+							<h:outputText value="#{agent.address}" />
+						</p:column>
+
+						<p:column headerText="Số điện thoại">
+							<h:outputText value="#{agent.phone}" />
+						</p:column>
+
+						<p:column headerText="Nạp tài khoản">
+							<p:link outcome="napTaiKhoan" value="Tác vụ">
+							</p:link>
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+			</center>
+			<p:panel header="bottom">
+			Taxinet@Project ver 2015
+			<br></br>
+			Thông tin liên hệ : taxinet@gmail.com
+			</p:panel>
+		</h:form>
+	</f:view>
+</h:body>
+</html>
+
