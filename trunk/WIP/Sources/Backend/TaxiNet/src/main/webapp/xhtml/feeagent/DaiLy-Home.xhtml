@@ -35,7 +35,8 @@
 		</p:column>
 		<p:column headerText="Tài khoản đăng nhập" style="text-align:left">
 		</p:column>
-		<p:column headerText="Tên khách hàng/doanh nghiệp" style="text-align:left">
+		<p:column headerText="Tên khách hàng/doanh nghiệp"
+			style="text-align:left">
 		</p:column>
 		<p:column headerText="Địa chỉ" style="text-align:left">
 		</p:column>
@@ -44,5 +45,29 @@
 		<p:column headerText="Tác vụ" style="text-align:left">
 		</p:column>
 	</p:dataTable>
+
+	<!-- dialog for charge  -->
+	<p:dialog widgetVar="charge-dialog" resizable="false" modal="true"
+		header="Nạp tiền tài khoản cho khách hàng">
+		<h:panelGrid columns="2">
+			<p:outputLabel for="dialog-username" value="Tên khách hàng"/>
+			<p:inputText id="dialog-username" readonly="true" />
+			<p:outputLabel for="dialog-accountname" value="Tên tài khoản đăng nhập"/>
+			<p:inputText id="dialog-accountname" readonly="true"/>
+			<p:outputLabel for="dialog-address" value="Địa chỉ"/>
+			<p:inputText id="dialog-address" readonly="true" />
+			<p:outputLabel for="dialog-phoneno" value="Số điện thoại"/>
+			<p:inputText id="dialog-phoneno" readonly="true"/>
+			<p:outputLabel for="dialog-balance" value="Số dư hiện tại"/>
+			<p:inputText id="dialog-balance" readonly="true"/>
+			<p:outputLabel for="dialog-staff" value="Nhân viên thu ngân"/>
+			<p:inputText id="dialog-staff" readonly="true"/>
+			<p:outputLabel for="dialog-charge-fee" value="Số tiền nạp"/>
+			<p:inputText id="dialog-charge-fee"/>
+			<p:commandButton value="Xác nhận"></p:commandButton>
+			<p:commandButton value="Thoát" />
+		</h:panelGrid>
+	</p:dialog>
+	<!-- @author Duong -->
 </h:body>
 </html>
