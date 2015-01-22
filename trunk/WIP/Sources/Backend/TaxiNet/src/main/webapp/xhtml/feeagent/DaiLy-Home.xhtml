@@ -8,6 +8,7 @@
 
 <h:head>
 	<f:metadata>
+		<f:event listener="#{feeAgentHomeController.initData}" type="preRenderView"></f:event>
 	</f:metadata>
 	<title>TaxiNet</title>
 </h:head>
@@ -15,17 +16,22 @@
 	<p:megaMenu orientation="horizontal">
 		<p:menuitem value="Home" url="../feeagent/DaiLy-Home.xhtml"
 			style="background:orange"></p:menuitem>
-		<p:menuitem value="Lịch sử giao dịch" url=""></p:menuitem>
+		<p:menuitem value="Lịch sử giao dịch"
+			url="../feeagent/DaiLy-LichSuGiaoDich.xhtml"></p:menuitem>
 	</p:megaMenu>
 	<h:panelGrid columns="2">
 		<p:outputLabel for="accountName" value="Tài khoản đăng nhập" />
-		<p:inputText id="accountName" />
+		<p:inputText id="accountName"
+			value="#{feeAgentHomeController.accountSearchName}" />
 		<p:outputLabel for="userName" value="Tên khách hàng/doanh nghiệp" />
-		<p:inputText id="userName" />
+		<p:inputText id="userName"
+			value="#{feeAgentHomeController.userSearchName}" />
 	</h:panelGrid>
 	<br />
 	<center>
-		<p:commandButton value="Tìm kiếm"></p:commandButton>
+		<p:commandButton value="Tìm kiếm"
+			actionListener="#{feeAgentHomeController.doSearchAllUser}"
+			update="account-list"></p:commandButton>
 	</center>
 	<br> </br>
 	<p:dataTable id="account-list" paginator="true" rows="10"
@@ -50,21 +56,22 @@
 	<p:dialog widgetVar="charge-dialog" resizable="false" modal="true"
 		header="Nạp tiền tài khoản cho khách hàng">
 		<h:panelGrid columns="2">
-			<p:outputLabel for="dialog-username" value="Tên khách hàng"/>
+			<p:outputLabel for="dialog-username" value="Tên khách hàng" />
 			<p:inputText id="dialog-username" readonly="true" />
-			<p:outputLabel for="dialog-accountname" value="Tên tài khoản đăng nhập"/>
-			<p:inputText id="dialog-accountname" readonly="true"/>
-			<p:outputLabel for="dialog-address" value="Địa chỉ"/>
+			<p:outputLabel for="dialog-accountname"
+				value="Tên tài khoản đăng nhập" />
+			<p:inputText id="dialog-accountname" readonly="true" />
+			<p:outputLabel for="dialog-address" value="Địa chỉ" />
 			<p:inputText id="dialog-address" readonly="true" />
-			<p:outputLabel for="dialog-phoneno" value="Số điện thoại"/>
-			<p:inputText id="dialog-phoneno" readonly="true"/>
-			<p:outputLabel for="dialog-balance" value="Số dư hiện tại"/>
-			<p:inputText id="dialog-balance" readonly="true"/>
-			<p:outputLabel for="dialog-staff" value="Nhân viên thu ngân"/>
-			<p:inputText id="dialog-staff" readonly="true"/>
-			<p:outputLabel for="dialog-charge-fee" value="Số tiền nạp"/>
-			<p:inputText id="dialog-charge-fee"/>
-			<p:commandButton value="Xác nhận"></p:commandButton>
+			<p:outputLabel for="dialog-phoneno" value="Số điện thoại" />
+			<p:inputText id="dialog-phoneno" readonly="true" />
+			<p:outputLabel for="dialog-balance" value="Số dư hiện tại" />
+			<p:inputText id="dialog-balance" readonly="true" />
+			<p:outputLabel for="dialog-staff" value="Nhân viên thu ngân" />
+			<p:inputText id="dialog-staff" readonly="true" />
+			<p:outputLabel for="dialog-charge-fee" value="Số tiền nạp" />
+			<p:inputText id="dialog-charge-fee" />
+			<p:commandButton value="Xác nhận" actionListener="#{feeAgentHomeController.doChargeFeeForSelectedUser}"></p:commandButton>
 			<p:commandButton value="Thoát" />
 		</h:panelGrid>
 	</p:dialog>
