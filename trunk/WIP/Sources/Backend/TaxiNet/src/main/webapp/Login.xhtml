@@ -6,14 +6,13 @@
    xmlns:p="http://primefaces.org/ui">
  
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>Insert title here</title>
 </h:head>
 <body>
 <h:form>
 <table> 
 	 <tr><td colspan="2"><h:messages errorClass="errorMessage" /></td></tr>
-	
 	<tr><td><p:outputLabel value="#{msg['login.userName']}" /></td>	
 		<td> <p:inputText size="50" value="#{loginForm.userName}"  id="userName"
 		 		required="true" requiredMessage="#{msg['login.username.error']}"/>
