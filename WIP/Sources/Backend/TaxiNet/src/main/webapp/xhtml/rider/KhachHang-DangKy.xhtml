@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<f:metadata>
-		<f:event listener="#{driverRegisterController.init}" type="preRenderView" />
+		<f:event listener="#{riderRegisterController.init}" type="preRenderView" />
 	</f:metadata>
 	<title>TaxiNet</title>
 </h:head>
@@ -22,10 +22,10 @@
 						<p:outputLabel for="email" value="#{msg['riderRegister.email']}" />
 						<p:inputText id="email" required="true"
 							requiredMessage="Email không hợp lệ"
-							value="#{driverRegisterController.emailAddress}"></p:inputText>
+							value="#{riderRegisterController.emailAddress}"></p:inputText>
 						<p:message for="email" showDetail="true"/>
 						<p:outputLabel for="password" value="#{msg['riderRegister.password']}" />
-						<p:password id="password" value="#{driverRegisterController.password}"
+						<p:password id="password" value="#{riderRegisterController.password}"
 							required="true" requiredMessage="Mật khẩu không hợp lệ"></p:password>
 						<p:message for="password" showDetail="true" />
 					</h:panelGrid>
@@ -34,10 +34,10 @@
 						<p:outputLabel for="username" value="#{msg['riderRegister.name']}" />
 						<p:outputLabel for="surname" value="#{msg['riderRegister.surname']}" />
 						<p:outputLabel></p:outputLabel>
-						<p:inputText id="username" value="#{driverRegisterController.userName}"
+						<p:inputText id="username" value="#{riderRegisterController.userName}"
 							required="true" requiredMessage="Tên không hợp lê"></p:inputText>
 						<p:inputText id="surname"
-							value="#{driverRegisterController.userSurName}"></p:inputText>
+							value="#{riderRegisterController.userSurName}"></p:inputText>
 						<p:message for="username" showDetail="true"></p:message>
 						<p:outputLabel for="headerNo" value="#{msg['riderRegister.phoneHeader']}" />
 						<p:outputLabel for="phoneNo" value="#{msg['riderRegister.phoneNo']}" />
@@ -46,7 +46,7 @@
 							<f:selectItem itemLabel="0977-Viettel" />
 							<f:selectItem itemLabel="0978-Viettel" />
 						</p:selectOneMenu>
-						<p:inputText id="phoneNo" value="#{driverRegisterController.mobileNo}"
+						<p:inputText id="phoneNo" value="#{riderRegisterController.mobileNo}"
 							required="true" requiredMessage="Số điện thoại không hợp lệ">
 							<f:validateLength maximum="11"></f:validateLength>
 						</p:inputText>
@@ -54,7 +54,7 @@
 						<p:outputLabel for="languages" value="#{msg['riderRegister.languages']}" />
 						<p:selectOneMenu id="languages" required="true"
 							requiredMessage="Ngôn ngữ không hợp lệ"
-							value="#{driverRegisterController.language}">
+							value="#{riderRegisterController.language}">
 							<f:selectItem itemValue="" itemLabel="" />
 							<f:selectItem itemLabel="English" itemValue="en" />
 							<f:selectItem itemLabel="Vietnammese" itemValue="vn" />
@@ -69,11 +69,11 @@
 						<p:outputLabel></p:outputLabel>
 						<p:inputText id="creditcard" required="true"
 							requiredMessage="Thẻ tín dụng không hợp lệ"
-							value="#{driverRegisterController.creditCard}"></p:inputText>
+							value="#{riderRegisterController.creditCard}"></p:inputText>
 						<p:message for="creditcard" showDetail="true"/>
 						<p:inputText id="cvv" required="true"
 							requiredMessage="CVV không hợp lệ"
-							value="#{driverRegisterController.cvv}">
+							value="#{riderRegisterController.cvv}">
 							<f:validateLength maximum="3"></f:validateLength>
 						</p:inputText>
 						<p:message for="cvv" showDetail="true" />
@@ -83,18 +83,18 @@
 						<p:outputLabel></p:outputLabel>
 						<p:calendar required="true" id="expiredDate"
 							requiredMessage="Ngày hết hạn không hợp lệ"
-							value="#{driverRegisterController.expiredDate}">
+							value="#{riderRegisterController.expiredDate}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</p:calendar>
 						<p:message for="expiredDate" showDetail="true"/>
 						<p:inputText id="zipCode" required="true"
-							value="#{driverRegisterController.zipCode}"
+							value="#{riderRegisterController.zipCode}"
 							requiredMessage="Mã bưu điện không hợp lệ"></p:inputText>
 						<p:message for="zipCode" showDetail="true"></p:message>
 					</h:panelGrid>
 					<br />
 					<br />
-					<p:commandButton value="Đăng kí" validateClient="true" actionListener="#{driverRegisterController.doRegister}"
+					<p:commandButton value="Đăng kí" validateClient="true" actionListener="#{riderRegisterController.doRegister}"
 						update="registerForm"></p:commandButton>
 					<br />
 					<p:outputLabel value="Please fill out all (*) field" />
