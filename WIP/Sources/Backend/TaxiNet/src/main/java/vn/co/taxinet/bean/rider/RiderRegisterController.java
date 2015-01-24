@@ -12,9 +12,9 @@ import javax.faces.context.FacesContext;
 /**
  * @author Ecchi controller for register.xhtml
  */
-@ManagedBean(name = "driverRegisterController", eager = true)
+@ManagedBean(name = "riderRegisterController", eager = true)
 @SessionScoped
-public class DriverRegisterController implements Serializable {
+public class RiderRegisterController implements Serializable {
 	private static final long serialVersionUID = 4300149713167673107L;
 	// properties for register page
 	private String emailAddress;
