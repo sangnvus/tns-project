@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edt_rider_register_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/rider_login_email"
@@ -12,11 +12,11 @@
         android:ems="10" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/edt_rider_register_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/rider_login_password"
-        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignLeft="@+id/edt_rider_register_password"
         android:ems="10" />
 
     <TextView
@@ -34,14 +34,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rider_login_email"
         android:layout_marginTop="30dp"
-        android:layout_toLeftOf="@+id/editText1"
+        android:layout_toLeftOf="@+id/edt_rider_register_email"
         android:text="@string/password" />
 
     <Button
         android:id="@+id/btn_rider_login"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
+        android:layout_below="@+id/edt_rider_register_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text="@string/rider_login" />
@@ -64,5 +64,13 @@
         android:layout_alignBottom="@+id/btn_rider_register"
         android:layout_alignRight="@+id/btn_rider_login"
         android:text="@string/rider_forgot_password" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/common_signin_btn_text_focus_dark" />
 
 </RelativeLayout>
