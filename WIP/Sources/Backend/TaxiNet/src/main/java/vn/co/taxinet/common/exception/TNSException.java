@@ -15,7 +15,8 @@ package vn.co.taxinet.common.exception;
  * attributes such as the location and system exception (if exists).
  */
 public abstract class TNSException extends Exception {
-    private String location = null;
+	private static final long serialVersionUID = 4907332684307180702L;
+	private String location = null;
     private Throwable throwable = null;
 
     public TNSException() {
