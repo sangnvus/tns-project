@@ -170,7 +170,7 @@ public class RiderHomeActivity extends Activity {
 	}
 
 	public void callTaxiFirms(View v) {
-		Intent it = new Intent(RiderHomeActivity.this, TaxiFirmActivity.class);
+		Intent it = new Intent(RiderHomeActivity.this, TaxiCompanyActivity.class);
 		startActivity(it);
 	}
 

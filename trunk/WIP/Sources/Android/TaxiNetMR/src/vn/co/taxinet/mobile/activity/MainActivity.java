@@ -1,23 +1,50 @@
 package vn.co.taxinet.mobile.activity;
 
+import java.util.ArrayList;
+
 import vn.co.taxinet.mobile.R;
-import android.content.Intent;
+import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
+import vn.co.taxinet.mobile.model.NavDrawerItem;
+import vn.co.taxinet.mobile.slidemenu.FavoriteDriverFragment;
+import vn.co.taxinet.mobile.slidemenu.HistoryCallFragment;
+import vn.co.taxinet.mobile.slidemenu.JourneyFragment;
+import vn.co.taxinet.mobile.slidemenu.MapsFragment;
+import vn.co.taxinet.mobile.slidemenu.SettingFragment;
+import vn.co.taxinet.mobile.slidemenu.TaxiCompanyFragment;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-/**
- * An activity representing a single Item detail screen. This activity is only
- * used on handset devices. On tablet-size devices, item details are presented
- * side-by-side with a list of items in a {@link ItemListActivity}.
- * <p>
- * This activity is mostly just a 'shell' activity containing nothing more than
- * a {@link ItemDetailFragment}.
- */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
 
+	private DrawerLayout mDrawerLayout;
+	private ListView mDrawerList;
+	private ActionBarDrawerToggle mDrawerToggle;
+
+	// nav drawer title
+	private CharSequence mDrawerTitle;
+
+	// used to store app title
+	private CharSequence mTitle;
+
+	// slide menu items
+	private String[] navMenuTitles;
+	private TypedArray navMenuIcons;
+
+	private ArrayList<NavDrawerItem> navDrawerItems;
+	private NavDrawerListAdapter adapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,54 +53,210 @@ public class MainActivity extends FragmentActivity {
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		// savedInstanceState is non-null when there is fragment state
-		// saved from previous configurations of this activity
-		// (e.g. when rotating the screen from portrait to landscape).
-		// In this case, the fragment will automatically be re-added
-		// to its container so we don't need to manually add it.
-		// For more information, see the Fragments API guide at:
-		//
-		// http://developer.android.com/guide/components/fragments.html
-		//
-//		if (savedInstanceState == null) {
-//			// Create the detail fragment and add it to the activity
-//			// using a fragment transaction.
-//			Bundle arguments = new Bundle();
-//			arguments.putString(ItemDetailFragment.ARG_ITEM_ID, getIntent()
-//					.getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
-//			ItemDetailFragment fragment = new ItemDetailFragment();
-//			fragment.setArguments(arguments);
-//			getSupportFragmentManager().beginTransaction()
-//					.add(R.id.item_detail_container, fragment).commit();
-//		}
 		
-		findViewById(R.id.btcall).setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						showCallOptions();
-					}
-				});
+		mTitle = mDrawerTitle = getTitle();
+
+		// load slide menu items
+		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+
+		// nav drawer icons from resources
+		navMenuIcons = getResources()
+				.obtainTypedArray(R.array.nav_drawer_icons);
+
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+
+		navDrawerItems = new ArrayList<NavDrawerItem>();
+
+		setNavDrawerItemForCustomer();
+
+		// Recycle the typed array
+		navMenuIcons.recycle();
+
+		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+
+		// setting the nav drawer list adapter
+		adapter = new NavDrawerListAdapter(getApplicationContext(),
+				navDrawerItems);
+		mDrawerList.setAdapter(adapter);
+
+		// enabling action bar app icon and behaving it as toggle button
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+				R.drawable.ic_drawer, // nav menu toggle icon
+				R.string.app_name, // nav drawer open - description for
+									// accessibility
+				R.string.app_name // nav drawer close - description for
+									// accessibility
+		) {
+			public void onDrawerClosed(View view) {
+				getActionBar().setTitle(mTitle);
+				// calling onPrepareOptionsMenu() to show action bar icons
+				invalidateOptionsMenu();
+			}
+
+			public void onDrawerOpened(View drawerView) {
+				getActionBar().setTitle(mDrawerTitle);
+				// calling onPrepareOptionsMenu() to hide action bar icons
+				invalidateOptionsMenu();
+			}
+		};
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+		if (savedInstanceState == null) {
+			// on first time display view for first nav item
+			displayView(0);
+		}
 
 	}
-	private void showCallOptions() {
-		
+	public void setNavDrawerItemForCustomer() {
+		// adding nav drawer items to array
+		// map
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
+				.getResourceId(0, -1)));
+		// journey title
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], true));
+		// manage journey
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
+				.getResourceId(2, -1)));
+		// taxi title
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], true));
+		// list taxi company
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
+				.getResourceId(4, -1)));
+		// favorite taxi driver
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
+				.getResourceId(5, -1), true, "50+"));
+		// history taxi call
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
+				.getResourceId(4, -1)));
+		// other title
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], true));
+		// setting
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons
+				.getResourceId(4, -1)));
+		// request
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[9], navMenuIcons
+				.getResourceId(4, -1)));
 	}
+
+	/**
+	 * Slide menu item click listener
+	 * */
+	private class SlideMenuClickListener implements
+			ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			// display view for selected nav drawer item
+			displayView(position);
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-			NavUtils.navigateUpTo(this,
-					new Intent(this, ItemListActivity.class));
+		// toggle nav drawer on selecting action bar app icon/title
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		return super.onOptionsItemSelected(item);
+		// Handle action bar actions click
+		switch (item.getItemId()) {
+		case R.id.action_refresh:
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	/* *
+	 * Called when invalidateOptionsMenu() is triggered
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// if nav drawer is opened, hide the action items
+		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	/**
+	 * Diplaying fragment view for selected nav drawer list item
+	 * */
+	private void displayView(int position) {
+		// update the main content by replacing fragments
+		Fragment fragment = null;
+		switch (position) {
+		case 0:
+			fragment = new MapsFragment();
+			break;
+		case 2:
+			fragment = new JourneyFragment();
+			break;
+		case 4:
+			fragment = new TaxiCompanyFragment();
+			break;
+		case 5:
+			fragment = new FavoriteDriverFragment();
+			break;
+		case 6:
+			fragment = new HistoryCallFragment();
+			break;
+		case 8:
+			fragment = new SettingFragment();
+			break;
+		case 9:
+			fragment = new SettingFragment();
+			break;
+		default:
+			break;
+		}
+
+		if (fragment != null) {
+			FragmentManager fragmentManager = getFragmentManager();
+			fragmentManager.beginTransaction()
+					.replace(R.id.frame_container, fragment).commit();
+
+			// update selected item and title, then close the drawer
+			mDrawerList.setItemChecked(position, true);
+			mDrawerList.setSelection(position);
+			setTitle(navMenuTitles[position]);
+			mDrawerLayout.closeDrawer(mDrawerList);
+		} else {
+			// error in creating fragment
+			Log.e("MainActivity", "Error in creating fragment");
+		}
+	}
+
+	@Override
+	public void setTitle(CharSequence title) {
+		mTitle = title;
+		getActionBar().setTitle(mTitle);
+	}
+
+	/**
+	 * When using the ActionBarDrawerToggle, you must call it during
+	 * onPostCreate() and onConfigurationChanged()...
+	 */
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		// Sync the toggle state after onRestoreInstanceState has occurred.
+		mDrawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		// Pass any configuration change to the drawer toggls
+		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 }

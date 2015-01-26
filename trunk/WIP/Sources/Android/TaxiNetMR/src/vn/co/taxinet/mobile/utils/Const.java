@@ -7,4 +7,5 @@ public class Const {
 	public static final String URL_IMAGE = "http://api.androidhive.info/volley/volley-image.jpg";
 	public static final String URL_IMAGE2 = "http://api.androidhive.info/volley/volley-image.jpg";
 	public static final String URL_GET_TERM = "http://api.androidhive.info/volley/volley-image.jpg";
+	public static final String URL_GET_PROMOTION = "http://api.androidhive.info/volley/volley-image.jpg";
 }
