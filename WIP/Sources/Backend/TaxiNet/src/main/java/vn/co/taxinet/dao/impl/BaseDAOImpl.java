@@ -4,13 +4,9 @@ import java.io.Serializable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import vn.co.taxinet.bo.impl.AuthenticationBOImpl;
-import vn.co.taxinet.common.log.LoggerHelper;
 
 @Transactional
 public class BaseDAOImpl implements Serializable {
