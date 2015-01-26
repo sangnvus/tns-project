@@ -12,8 +12,6 @@ package vn.co.taxinet.dao;
 
 import java.io.Serializable;
 
-import org.hibernate.Session;
-
 public interface BaseDAO extends Serializable {
   
     /**
