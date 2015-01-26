@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 26, 2015 10:07:01 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Country" table="country" catalog="taxinet">
+        <id name="code" type="java.lang.Integer">
+            <column name="Code" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="Name" length="20" not-null="true" />
+        </property>
+        <property name="postalCode" type="int">
+            <column name="PostalCode" not-null="true" />
+        </property>
+        <property name="currency" type="string">
+            <column name="Currency" length="10" not-null="true" />
+        </property>
+        <property name="internationalCode" type="string">
+            <column name="InternationalCode" length="5" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="creatDate" type="timestamp">
+            <column name="CreatDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifyDate" type="timestamp">
+            <column name="LastModifyDate" length="0" not-null="true" />
+        </property>
+        <set name="taxinetuserses" table="taxinetusers" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryCode" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
+        </set>
+        <set name="cities" table="city" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryCode" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.City" />
+        </set>
+        <set name="taxinetuserses_1" table="taxinetusers" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryCode" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
+        </set>
+        <set name="cities_1" table="city" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryCode" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.City" />
+        </set>
+        <set name="addresses" table="address" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Address" />
+        </set>
+        <set name="addresses_1" table="address" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Address" />
+        </set>
+    </class>
+</hibernate-mapping>

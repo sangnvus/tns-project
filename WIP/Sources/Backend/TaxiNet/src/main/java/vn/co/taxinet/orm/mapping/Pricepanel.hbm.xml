@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 26, 2015 10:07:01 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Pricepanel" table="pricepanel" catalog="taxinet">
+        <id name="pricePanelId" type="java.lang.Integer">
+            <column name="PricePanelID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="carmodel" class="vn.co.taxinet.orm.Carmodel" fetch="select">
+            <column name="CarModelID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
+            <column name="CompanyID" not-null="true" />
+        </many-to-one>
+        <property name="price" type="java.lang.Integer">
+            <column name="Price" />
+        </property>
+        <property name="startDate" type="date">
+            <column name="StartDate" length="0" not-null="true" />
+        </property>
+        <property name="endDate" type="date">
+            <column name="EndDate" length="0" />
+        </property>
+        <property name="openKm" type="java.lang.Integer">
+            <column name="OpenKM" />
+        </property>
+        <property name="openPrice" type="java.lang.Integer">
+            <column name="OpenPrice" />
+        </property>
+        <property name="firstKm" type="java.lang.Integer">
+            <column name="FirstKM" />
+        </property>
+        <property name="firstKmprice" type="java.lang.Integer">
+            <column name="FirstKMPrice" />
+        </property>
+        <property name="nextKm" type="java.lang.Integer">
+            <column name="NextKM" />
+        </property>
+        <property name="nextKmprice" type="java.lang.Integer">
+            <column name="NextKMPrice" />
+        </property>
+        <property name="waitingPrice" type="java.lang.Integer">
+            <column name="WaitingPrice" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="creatDate" type="timestamp">
+            <column name="CreatDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifyDate" type="timestamp">
+            <column name="LastModifyDate" length="0" not-null="true" />
+        </property>
+        <set name="vehicles" table="vehicle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PricePanelID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Vehicle" />
+        </set>
+        <set name="vehicles_1" table="vehicle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PricePanelID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Vehicle" />
+        </set>
+    </class>
+</hibernate-mapping>
