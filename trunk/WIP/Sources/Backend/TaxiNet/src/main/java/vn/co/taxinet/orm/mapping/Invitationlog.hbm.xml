@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 26, 2015 10:07:01 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Invitationlog" table="invitationlog" catalog="taxinet">
+        <composite-id name="id" class="vn.co.taxinet.orm.InvitationlogId">
+            <key-property name="driverId" type="java.lang.Integer">
+                <column name="DriverID" />
+            </key-property>
+            <key-property name="riderId" type="java.lang.Integer">
+                <column name="RiderID" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 26, 2015 10:07:01 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Carmaker" table="carmaker" catalog="taxinet">
+        <id name="carMaker" type="string">
+            <column name="CarMaker" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createDate" type="timestamp">
+            <column name="CreateDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModfyDate" type="timestamp">
+            <column name="LastModfyDate" length="0" not-null="true" />
+        </property>
+        <set name="carmodels" table="carmodel" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CarMaker" length="20" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Carmodel" />
+        </set>
+        <set name="carmodels_1" table="carmodel" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CarMaker" length="20" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Carmodel" />
+        </set>
+    </class>
+</hibernate-mapping>

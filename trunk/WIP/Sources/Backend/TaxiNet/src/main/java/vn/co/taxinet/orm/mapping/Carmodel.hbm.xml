@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 26, 2015 10:07:01 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Carmodel" table="carmodel" catalog="taxinet">
+        <id name="carModelId" type="java.lang.Integer">
+            <column name="CarModelID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="carmaker" class="vn.co.taxinet.orm.Carmaker" fetch="select">
+            <column name="CarMaker" length="20" not-null="true" />
+        </many-to-one>
+        <property name="carModel" type="string">
+            <column name="CarModel" length="20" not-null="true" />
+        </property>
+        <property name="carType" type="string">
+            <column name="CarType" length="10" not-null="true" />
+        </property>
+        <property name="capacity" type="int">
+            <column name="Capacity" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="creatDate" type="timestamp">
+            <column name="CreatDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifyDate" type="timestamp">
+            <column name="LastModifyDate" length="0" not-null="true" />
+        </property>
+        <set name="pricepanels" table="pricepanel" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CarModelID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Pricepanel" />
+        </set>
+        <set name="pricepanels_1" table="pricepanel" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CarModelID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Pricepanel" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 26, 2015 10:07:01 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Address" table="address" catalog="taxinet">
+        <id name="addressId" type="string">
+            <column name="AddressID" length="50" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="city" class="vn.co.taxinet.orm.City" fetch="select">
+            <column name="CityID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="country" class="vn.co.taxinet.orm.Country" fetch="select">
+            <column name="CountryID" not-null="true" />
+        </many-to-one>
+        <property name="districtName" type="int">
+            <column name="DistrictName" not-null="true" />
+        </property>
+        <property name="addressDetail" type="java.lang.Integer">
+            <column name="AddressDetail" />
+        </property>
+        <property name="latitude" type="java.lang.Double">
+            <column name="Latitude" precision="22" scale="0" />
+        </property>
+        <property name="longitude" type="java.lang.Double">
+            <column name="Longitude" precision="22" scale="0" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createDate" type="timestamp">
+            <column name="CreateDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifyDate" type="timestamp">
+            <column name="LastModifyDate" length="0" not-null="true" />
+        </property>
+        <set name="ridersForOfficeAddressId" table="rider" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OfficeAddressID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Rider" />
+        </set>
+        <set name="ridersForHomeAddressId" table="rider" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="HomeAddressID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Rider" />
+        </set>
+        <set name="drivers" table="driver" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AddressID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Driver" />
+        </set>
+        <set name="drivers_1" table="driver" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AddressID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Driver" />
+        </set>
+        <set name="ridersForHomeAddressId_1" table="rider" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="HomeAddressID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Rider" />
+        </set>
+        <set name="ridersForOfficeAddressId_1" table="rider" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OfficeAddressID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Rider" />
+        </set>
+        <set name="companies" table="company" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AddressID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Company" />
+        </set>
+        <set name="companies_1" table="company" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AddressID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Company" />
+        </set>
+    </class>
+</hibernate-mapping>

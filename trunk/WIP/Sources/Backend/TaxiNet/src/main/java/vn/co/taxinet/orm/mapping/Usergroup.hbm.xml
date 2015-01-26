@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 26, 2015 10:07:01 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Usergroup" table="usergroup" catalog="taxinet">
+        <id name="groupCode" type="string">
+            <column name="GroupCode" length="3" />
+            <generator class="assigned" />
+        </id>
+        <property name="groupName" type="string">
+            <column name="GroupName" length="20" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="creatDate" type="timestamp">
+            <column name="CreatDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifyDate" type="timestamp">
+            <column name="LastModifyDate" length="0" not-null="true" />
+        </property>
+        <set name="taxinetuserses" table="taxinetusers" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="GroupCode" length="3" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
+        </set>
+        <set name="taxinetuserses_1" table="taxinetusers" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="GroupCode" length="3" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
+        </set>
+    </class>
+</hibernate-mapping>
