@@ -1,34 +1,75 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 24, 2014 10:20:48 PM by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 26, 2015 8:37:34 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="vn.co.taxinet.orm.City" table="CITY" lazy="false">
-        <id name="guid" type="java.lang.String">
-            <column name="GUID" length="50" sql-type="VARCHAR" />
+    <class name="vn.co.taxinet.orm.City" table="city" catalog="taxinet">
+        <id name="cityId" type="int">
+            <column name="CityID" />
             <generator class="assigned" />
         </id>
-        <property name="name" type="java.lang.String">
-            <column name="NAME" />
+        <many-to-one name="country" class="vn.co.taxinet.orm.Country" fetch="select">
+            <column name="CountryCode" not-null="true" />
+        </many-to-one>
+        <property name="northBoundary" type="double">
+            <column name="NorthBoundary" precision="22" scale="0" not-null="true" />
         </property>
-        <list name="district" inverse="false" table="DISTRICT" lazy="true">
+        <property name="southBoundary" type="double">
+            <column name="SouthBoundary" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="westBoundary" type="double">
+            <column name="WestBoundary" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="eastBoundary" type="double">
+            <column name="EastBoundary" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="creatDate" type="timestamp">
+            <column name="CreatDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifyDate" type="timestamp">
+            <column name="LastModifyDate" length="0" not-null="true" />
+        </property>
+        <set name="addresses" table="address" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="GUID" />
+                <column name="CityID" not-null="true" />
             </key>
-            <list-index></list-index>
-            <one-to-many class="vn.co.taxinet.orm.District" />
-        </list>
-        <property name="createdDate" type="java.util.Date">
-            <column name="CREATED_DATE" />
-        </property>
-        <property name="createdBy" type="java.lang.String">
-            <column name="CREATED_BY" length="50" sql-type="VARCHAR"/>
-        </property>
-        <property name="lastModifiedDate" type="java.util.Date">
-            <column name="LAST_MODIFIED_DATE" />
-        </property>
-        <property name="lastModifiedBy" type="java.lang.String">
-            <column name="LAST_MODIFIED_BY" length="50" sql-type="VARCHAR" />
-        </property>        
+            <one-to-many class="vn.co.taxinet.orm.Address" />
+        </set>
+        <set name="addresses_1" table="address" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CityID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Address" />
+        </set>
+        <set name="citynames" table="cityname" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CityID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Cityname" />
+        </set>
+        <set name="trips" table="trip" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FromCity" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Trip" />
+        </set>
+        <set name="trips_1" table="trip" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FromCity" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Trip" />
+        </set>
+        <set name="citynames_1" table="cityname" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CityID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Cityname" />
+        </set>
     </class>
 </hibernate-mapping>
