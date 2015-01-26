@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="16"
+        android:minSdkVersion="14"
         android:targetSdkVersion="16" />
 
     <application
@@ -21,11 +21,6 @@
         <activity
             android:name="vn.co.taxinet.mobile.activity.MainActivity"
             android:label="@string/title_main" >
-        </activity>
-        <activity
-            android:name="vn.co.taxinet.mobile.activity.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,9 +28,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="vn.co.taxinet.mobile.activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="vn.co.taxinet.mobile.activity.RiderPromotionActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
             android:name="vn.co.taxinet.mobile.activity.CallDialogActivity"
-            android:label="@string/title_activity_call_dialog"
-            android:parentActivityName="android.support.v4.app.FragmentActivity" >
+            android:label="@string/title_activity_call_dialog" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.support.v4.app.FragmentActivity" />
