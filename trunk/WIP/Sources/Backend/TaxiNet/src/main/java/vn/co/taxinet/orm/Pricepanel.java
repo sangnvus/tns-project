@@ -1,6 +1,6 @@
 package vn.co.taxinet.orm;
 
-// Generated Jan 23, 2015 10:11:00 AM by Hibernate Tools 4.0.0
+// Generated Jan 26, 2015 2:47:29 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Pricepanel implements java.io.Serializable {
 
-	private int pricePanelId;
+	private Integer pricePanelId;
 	private Carmodel carmodel;
 	private Company company;
 	private Integer price;
@@ -72,11 +72,11 @@ public class Pricepanel implements java.io.Serializable {
 		this.vehicles_1 = vehicles_1;
 	}
 
-	public int getPricePanelId() {
+	public Integer getPricePanelId() {
 		return this.pricePanelId;
 	}
 
-	public void setPricePanelId(int pricePanelId) {
+	public void setPricePanelId(Integer pricePanelId) {
 		this.pricePanelId = pricePanelId;
 	}
 
