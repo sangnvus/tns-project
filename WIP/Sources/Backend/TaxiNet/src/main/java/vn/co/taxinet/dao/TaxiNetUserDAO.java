@@ -10,8 +10,6 @@
 
 package vn.co.taxinet.dao;
 
-import org.hibernate.Session;
-
 import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
