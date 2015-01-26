@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/list_selector"
+    android:orientation="vertical" >
+
+   <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@drawable/list_selector" >
+
+    <ImageView
+        android:id="@+id/call_history_icon"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="12dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/name_of_taxi_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/call_history_icon"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/call_history_icon"
+        android:paddingRight="40dp"
+        android:text="@string/driver"
+        android:textColor="@color/list_item_title"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/distance_of_taxi_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_of_taxi_driver"
+        android:layout_marginLeft="3dp"
+        android:layout_toRightOf="@id/call_history_icon"
+        android:text="@string/distance"
+        android:textColor="@color/list_item_title"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/icon_of_staus_of_taxi_driver"
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        android:layout_alignBottom="@+id/staus_of_taxi_driver"
+        android:layout_alignTop="@id/staus_of_taxi_driver"
+        android:layout_below="@id/distance_of_taxi_driver"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/call_history_icon"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_avalible" />
+
+    <TextView
+        android:id="@id/staus_of_taxi_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/distance_of_taxi_driver"
+        android:layout_marginLeft="3dp"
+        android:layout_toRightOf="@id/icon_of_staus_of_taxi_driver"
+        android:text="@string/avalible"
+        android:textColor="@color/light_green"
+        android:textSize="12sp" />
+
+<!--     <Button
+        android:id="@+id/call"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/call_icon"
+        android:textColor="@color/counter_text_color" /> -->
+
+</RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/details_info"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/divider" >
+
+        <TextView
+            android:id="@+id/phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/phone_number"
+            android:textColor="@color/list_item_title"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/phone_number_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phone_number"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/phone_number_value"
+            android:textColor="@color/list_item_title"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/call"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/call_icon"
+            android:textColor="@color/counter_text_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/divider" >
+
+        <TextView
+            android:id="@+id/note_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/note"
+            android:textColor="@color/list_item_title"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/note_values"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/note_title"
+            android:layout_marginLeft="40dp"
+            android:background="@android:color/transparent"
+            android:hint="@string/add_note"
+            android:minLines="3" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/note"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/divider" >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:text="@string/remove_favorite"
+            android:textColor="@color/list_item_title" />
+    </RelativeLayout>
+
+</LinearLayout>
