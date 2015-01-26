@@ -18,7 +18,8 @@ import vn.co.taxinet.common.log.LoggerHelper;
  * Automatically log an ERROR message to log file when created.
  */
 public class SystemException extends TNSException {
-    private static final LoggerHelper logger = new LoggerHelper(SystemException.class);
+	private static final long serialVersionUID = 2972125851605200670L;
+	private static final LoggerHelper logger = new LoggerHelper(SystemException.class);
 
     public SystemException() {
         super();

@@ -19,7 +19,9 @@ import vn.co.taxinet.common.log.LoggerHelper;
  * Automatically log an ERROR message to log file when created.
  */
 public class FunctionalException extends TNSException {
-    private static final LoggerHelper logger = new LoggerHelper(FunctionalException.class);
+	private static final long serialVersionUID = -8344910539056069240L;
+
+	private static final LoggerHelper logger = new LoggerHelper(FunctionalException.class);
 
     private String msgKey = null;
     private Object[] values = null;
