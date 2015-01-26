@@ -1,6 +1,6 @@
 package vn.co.taxinet.orm;
 
-// Generated Jan 23, 2015 10:11:00 AM by Hibernate Tools 4.0.0
+// Generated Jan 26, 2015 2:47:29 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Payment implements java.io.Serializable {
 
-	private int paymentId;
+	private Integer paymentId;
 	private Bank bank;
 	private TaxiNetUsers taxinetusers;
 	private String cardNo;
@@ -57,11 +57,11 @@ public class Payment implements java.io.Serializable {
 		this.trips_1 = trips_1;
 	}
 
-	public int getPaymentId() {
+	public Integer getPaymentId() {
 		return this.paymentId;
 	}
 
-	public void setPaymentId(int paymentId) {
+	public void setPaymentId(Integer paymentId) {
 		this.paymentId = paymentId;
 	}
 

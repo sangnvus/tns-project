@@ -1,6 +1,6 @@
 package vn.co.taxinet.orm;
 
-// Generated Jan 23, 2015 10:11:00 AM by Hibernate Tools 4.0.0
+// Generated Jan 26, 2015 2:47:29 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Country implements java.io.Serializable {
 
-	private int code;
+	private Integer code;
 	private String name;
 	private int postalCode;
 	private String currency;
@@ -65,11 +65,11 @@ public class Country implements java.io.Serializable {
 		this.addresses_1 = addresses_1;
 	}
 
-	public int getCode() {
+	public Integer getCode() {
 		return this.code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(Integer code) {
 		this.code = code;
 	}
 
