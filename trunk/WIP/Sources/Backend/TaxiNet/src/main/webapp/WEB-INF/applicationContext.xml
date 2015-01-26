@@ -38,14 +38,36 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop><!-- create -->
 			</props>
 		</property>
 
 		<property name="mappingLocations">
 			<list>
+				<value>classpath:vn/co/taxinet/orm/mapping/Accounttransaction.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Address.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Bank.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Carmaker.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Carmodel.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/City.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Cityname.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Company.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Companyparkarea.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Country.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Currentstatus.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Document.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Driver.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Favoritedriver.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Invitationlog.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Language.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Payment.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Pricepanel.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Referencedata.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Rider.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/TaxiNetUsers.hbm.xml</value>
-				<value>classpath:vn/co/taxinet/orm/mapping/District.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Trip.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Usergroup.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Vehicle.hbm.xml</value>		
 			</list>
 		</property>
 	</bean>
