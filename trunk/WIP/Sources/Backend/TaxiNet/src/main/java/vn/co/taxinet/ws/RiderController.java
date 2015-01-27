@@ -17,7 +17,7 @@ public class RiderController {
 	    private final AtomicLong counter = new AtomicLong();
 	    @Autowired
 	    private AuthenticationBO authenticationBO;
-	    
+	    //Add them spring-webmvc and spring-bean to build path of the project
 	    @RequestMapping("/login")
 	    public TNUser login(@RequestParam(value="userName", defaultValue="") String userName) {
 	    	TNUser userInfo = new TNUser();
