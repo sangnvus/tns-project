@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/rider_login_password"
         android:layout_alignLeft="@+id/edt_rider_register_password"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/rider_login_email"
@@ -44,7 +45,7 @@
         android:layout_below="@+id/edt_rider_register_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="@string/rider_login" />
+        android:text="Login" />
 
     <Button
         android:id="@+id/btn_rider_register"
@@ -54,7 +55,7 @@
         android:layout_below="@+id/btn_rider_login"
         android:layout_marginTop="20dp"
         android:layout_toLeftOf="@+id/btn_rider_forgot_password"
-        android:text="@string/rider_register" />
+        android:text="Register" />
 
     <Button
         android:id="@+id/btn_rider_forgot_password"
@@ -63,7 +64,7 @@
         android:layout_alignBaseline="@+id/btn_rider_register"
         android:layout_alignBottom="@+id/btn_rider_register"
         android:layout_alignRight="@+id/btn_rider_login"
-        android:text="@string/rider_forgot_password" />
+        android:text="Forgot Password" />
 
     <ImageView
         android:id="@+id/imageView1"
