@@ -19,7 +19,7 @@
         android:layout_alignBottom="@+id/rider_login_password"
         android:layout_alignLeft="@+id/et_password"
         android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/rider_login_email"
