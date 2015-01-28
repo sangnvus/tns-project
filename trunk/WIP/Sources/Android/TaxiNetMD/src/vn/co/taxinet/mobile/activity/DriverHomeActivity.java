@@ -26,32 +26,39 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
-public class RiderHomeActivity extends Activity {
+public class DriverHomeActivity extends Activity {
 
 	// Google Map
 	private GoogleMap googleMap;
 
-	private String TAG = RiderHomeActivity.class.getSimpleName();
+	private String TAG = DriverHomeActivity.class.getSimpleName();
 	private ProgressDialog pDialog;
 	// These tags will be used to cancel the requests
 	private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 	String cbb = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_rider_home);
+		setContentView(R.layout.activity_driver_home);
 
-		pDialog = new ProgressDialog(this);
-		pDialog.setMessage("Loading...");
-		pDialog.setCancelable(false);
+//		pDialog = new ProgressDialog(this);
+//		pDialog.setMessage("Loading...");
+//		pDialog.setCancelable(false);
+		
 		try {
 			// Loading map
 			initilizeMap();
-
+			settingMap();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void settingMap(){
+		googleMap.setMyLocationEnabled(true);
+		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 	}
 
 	private void showProgressDialog() {
@@ -90,8 +97,7 @@ public class RiderHomeActivity extends Activity {
 	private void makeJsonObjReq() {
 		showProgressDialog();
 		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,
-				Const.URL_JSON_OBJECT, null,
-				new Response.Listener<JSONObject>() {
+				Const.URL_IMAGE, null, new Response.Listener<JSONObject>() {
 
 					@Override
 					public void onResponse(JSONObject response) {
@@ -99,7 +105,7 @@ public class RiderHomeActivity extends Activity {
 						Toast.makeText(getApplicationContext(),
 								response.toString(), Toast.LENGTH_LONG).show();
 						hideProgressDialog();
-						
+
 					}
 				}, new Response.ErrorListener() {
 
