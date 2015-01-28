@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 26, 2015 8:37:34 PM by Hibernate Tools 4.0.0 -->
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="vn.co.taxinet.orm.TaxiNetUsers" table="taxinetusers" catalog="taxinet">
         <id name="userId" type="string">
             <column name="UserID" length="50" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="usergroup" class="vn.co.taxinet.orm.Usergroup" fetch="select">
+        <many-to-one name="usergroup" class="vn.co.taxinet.orm.UserGroup" fetch="select">
             <column name="GroupCode" length="3" not-null="true" />
         </many-to-one>
         <many-to-one name="language" class="vn.co.taxinet.orm.Language" fetch="select">
@@ -72,7 +72,7 @@
             <key>
                 <column name="UserID" length="50" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.Accounttransaction" />
+            <one-to-many class="vn.co.taxinet.orm.AccountTransaction" />
         </set>
         <one-to-one name="driver" class="vn.co.taxinet.orm.Driver"></one-to-one>
         <one-to-one name="rider" class="vn.co.taxinet.orm.Rider"></one-to-one>
@@ -80,7 +80,7 @@
             <key>
                 <column name="UserID" length="50" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.Accounttransaction" />
+            <one-to-many class="vn.co.taxinet.orm.AccountTransaction" />
         </set>
     </class>
 </hibernate-mapping>

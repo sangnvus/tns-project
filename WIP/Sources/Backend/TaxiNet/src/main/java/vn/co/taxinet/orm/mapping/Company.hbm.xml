@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 26, 2015 10:07:01 AM by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="vn.co.taxinet.orm.Company" table="company" catalog="taxinet">
         <id name="companyId" type="java.lang.Integer">
@@ -78,7 +78,7 @@
             <key>
                 <column name="CompanyID" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.Pricepanel" />
+            <one-to-many class="vn.co.taxinet.orm.PricePanel" />
         </set>
         <set name="companies" table="company" inverse="true" lazy="true" fetch="select">
             <key>
@@ -90,13 +90,13 @@
             <key>
                 <column name="CompanyID" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.Pricepanel" />
+            <one-to-many class="vn.co.taxinet.orm.PricePanel" />
         </set>
         <set name="companyparkareas" table="companyparkarea" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="CompanyID" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.Companyparkarea" />
+            <one-to-many class="vn.co.taxinet.orm.CompanyParkArea" />
         </set>
         <set name="companies_1" table="company" inverse="true" lazy="true" fetch="select">
             <key>
@@ -108,7 +108,7 @@
             <key>
                 <column name="CompanyID" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.Companyparkarea" />
+            <one-to-many class="vn.co.taxinet.orm.CompanyParkArea" />
         </set>
     </class>
 </hibernate-mapping>

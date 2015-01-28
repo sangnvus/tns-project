@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 26, 2015 10:07:01 AM by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="vn.co.taxinet.orm.Pricepanel" table="pricepanel" catalog="taxinet">
+    <class name="vn.co.taxinet.orm.PricePanel" table="pricepanel" catalog="taxinet">
         <id name="pricePanelId" type="java.lang.Integer">
             <column name="PricePanelID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="carmodel" class="vn.co.taxinet.orm.Carmodel" fetch="select">
+        <many-to-one name="carmodel" class="vn.co.taxinet.orm.CarModel" fetch="select">
             <column name="CarModelID" not-null="true" />
         </many-to-one>
         <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">

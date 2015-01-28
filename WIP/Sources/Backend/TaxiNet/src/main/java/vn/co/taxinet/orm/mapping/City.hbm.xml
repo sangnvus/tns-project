@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 26, 2015 8:37:34 PM by Hibernate Tools 4.0.0 -->
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="vn.co.taxinet.orm.City" table="city" catalog="taxinet">
         <id name="cityId" type="int">
@@ -51,7 +51,7 @@
             <key>
                 <column name="CityID" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.Cityname" />
+            <one-to-many class="vn.co.taxinet.orm.CityName" />
         </set>
         <set name="trips" table="trip" inverse="true" lazy="true" fetch="select">
             <key>
@@ -69,7 +69,7 @@
             <key>
                 <column name="CityID" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.Cityname" />
+            <one-to-many class="vn.co.taxinet.orm.CityName" />
         </set>
     </class>
 </hibernate-mapping>
