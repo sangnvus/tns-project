@@ -14,45 +14,45 @@
 	<f:view>
 		<h:form id="feeagent-history" prependId="false">
 			<p:megaMenu orientation="horizontal">
-				<p:menuitem value="Home" url="../feeagent/DaiLy-Home.xhtml"></p:menuitem>
-				<p:menuitem value="Lịch sử giao dịch"
+				<p:menuitem value="#{msg['feeAgent.homePage']}" url="../feeagent/DaiLy-Home.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['feeAgent.transactionHistory']}"
 					url="../feeagent/DaiLy-LichSuGiaoDich.xhtml"
 					style="background:orange"></p:menuitem>
 			</p:megaMenu>
 			<center>
 				<h:panelGrid columns="5">
-					<p:outputLabel for="account-name" value="Tài khoản đăng nhập" />
+					<p:outputLabel for="account-name" value="#{msg['feeAgent.account']}" />
 					<p:inputText id="account-name" value="#{feeAgentHistoryController.accountSearchName}"/>
 					<p:outputLabel></p:outputLabel>
-					<p:outputLabel for="username" value="Tên người sử dụng" />
+					<p:outputLabel for="username" value="#{msg['feeAgent.username']}" />
 					<p:inputText id="username" value="#{feeAgentHistoryController.userSearchName}"/>
-					<p:outputLabel for="from-date" value="Từ ngày" />
+					<p:outputLabel for="from-date" value="#{msg['feeAgent.fromDate']}" />
 					<p:calendar id="from-date" value="#{feeAgentHistoryController.fromDate}">
 						<f:convertDateTime pattern="dd-MM-yyyy" />
 					</p:calendar>
 					<p:outputLabel></p:outputLabel>
-					<p:outputLabel for="to-date" value="Đến ngày" />
+					<p:outputLabel for="to-date" value="#{msg['feeAgent.toDate']}" />
 					<p:calendar id="to-date" value="#{feeAgentHistoryController.toDate}">
 						<f:convertDateTime pattern="dd-MM-yyyy" />
 					</p:calendar>
 					<p:outputLabel></p:outputLabel>
 					<p:outputLabel></p:outputLabel>
-					<p:commandButton value="Tra cứu" style="margin-top:10px;margin-bottom:20px;"></p:commandButton>
+					<p:commandButton value="#{msg['feeAgent.search']}" style="margin-top:10px;margin-bottom:20px;"></p:commandButton>
 					<p:outputLabel></p:outputLabel>
 					<p:outputLabel></p:outputLabel>
 				</h:panelGrid>
 				<p:dataTable id="feeagent-history-list" paginator="true"
 					paginatorPosition="bottom" rows="10"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-					<p:column headerText="STT" width="35" style="text-align:left;">
+					<p:column headerText="#{msg['feeAgent.autonumber']}" width="35" style="text-align:left;">
 					</p:column>
-					<p:column headerText="Tài khoản đăng nhập" style="text-align:left;">
+					<p:column headerText="#{msg['feeAgent.account']}" style="text-align:left;">
 					</p:column>
-					<p:column headerText="Tên người sử dụng" style="text-align:left;">
+					<p:column headerText="#{msg['feeAgent.username']}" style="text-align:left;">
 					</p:column>
-					<p:column headerText="Ngày tháng nộp tiền" style="text-align:left;">
+					<p:column headerText="#{msg['feeAgent.depositDate']}" style="text-align:left;">
 					</p:column>
-					<p:column headerText="Nhân viên thu ngân" style="text-align:left;">
+					<p:column headerText="#{msg['feeAgent.cashier']}" style="text-align:left;">
 					</p:column>
 				</p:dataTable>
 			</center>
