@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/edit_menu"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/edit"/>
+    
+    <item
+        android:id="@+id/save_menu"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/save"/>
+    
+    <item
+        android:id="@+id/cancel_menu"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/cancel"/>
+
+</menu>
