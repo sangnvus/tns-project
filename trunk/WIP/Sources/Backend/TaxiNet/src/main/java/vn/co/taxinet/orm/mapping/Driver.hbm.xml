@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 26, 2015 10:07:01 AM by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="vn.co.taxinet.orm.Driver" table="driver" catalog="taxinet">
         <id name="driverId" type="string">
@@ -47,7 +47,7 @@
         <property name="lastModifyDate" type="timestamp">
             <column name="LastModifyDate" length="0" not-null="true" />
         </property>
-        <one-to-one name="currentstatus" class="vn.co.taxinet.orm.Currentstatus"></one-to-one>
+        <one-to-one name="currentstatus" class="vn.co.taxinet.orm.CurrentStatus"></one-to-one>
         <set name="trips" table="trip" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="DriverID" length="50" not-null="true" />
