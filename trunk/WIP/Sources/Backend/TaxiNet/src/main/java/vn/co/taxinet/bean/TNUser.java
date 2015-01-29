@@ -8,7 +8,7 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean(name="TNUser",eager=true)
 @RequestScoped
 public class TNUser implements Serializable {
-
+	private static final long serialVersionUID = 6467633664262930828L;
 	private String userName;
 	 
 	public String getUserName() {
