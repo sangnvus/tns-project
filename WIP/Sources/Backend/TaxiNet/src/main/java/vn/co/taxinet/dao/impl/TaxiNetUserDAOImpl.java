@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
@@ -37,6 +38,16 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 			user = result.get(0) ;
 		}
 		return user;
+	}
+
+	public boolean registerTaxiNetUser(TaxiNetUsers user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean registerRider(Rider rider) {
+		// TODO Auto-generated method stub
+		return false;
 	}	
 
 }
