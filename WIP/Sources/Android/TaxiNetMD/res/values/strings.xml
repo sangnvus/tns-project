@@ -38,5 +38,66 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="confirm_code">Confirm Code</string>
     <string name="guideline_get_password">* Enter you email or number, we will re-create password for you</string>
+    <string name="your_request">Your request</string>
+    <string name="request_to_you">Request to you</string>
+    <string name="time">03:12</string>
+    <string name="note">Note</string>
+    <string name="desc_list_item_icon">Note</string>
+    <string name="driver">Driver</string>
+    <string name="distance">Distance | Price</string>
+    <string name="busy">• Busy</string>
+    <string name="avalible">• Avalible</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="phone_number_value">(04) 3 113</string>
+    <string name="remove_favorite">Remove Favorite</string>
+    <string name="add_note">Add Note</string>
+    <string name="starting_point">Starting point</string>
+    <string name="stopping_point">Stopping point</string>
+    <string name="same_journey">Same Journey</string>
+    <string name="selected_driver">Selected Driver</string>
+    <string name="remove_driver">Remove Driver</string>
+    <string name="delete_journey">Delete Journey</string>
+    <string name="distace_prompt">5KM</string>
+    <string name="action_edit">Edit</string>
+    <string name="taxi">Taxi</string>
+    <string name="taxi_truck">Taxi</string>
+    <string name="place">Place</string>
+    <string name="packing_place">Packing Place</string>
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Profile</item>
+        <item>Map</item>
+        <item>Find Chip Trip</item>
+        <item>Share Chip Trip</item>
+        <item>Book Taxi</item>
+        <item>Pay</item>
+        <item>Promotion</item>
+        <item>History Call</item>
+        <item>Support</item>
+        <item>About</item>
+    </string-array>
+
+    <!-- Distance to show driver -->
+    <string-array name="country_arrays">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_fb</item>
+        <item>@drawable/ic_fb</item>
+        <item>@drawable/ic_fb</item>
+        <item>@drawable/ic_fb</item>
+        <item>@drawable/ic_fb</item>
+        <item>@drawable/ic_fb</item>
+    </array>
 
 </resources>
