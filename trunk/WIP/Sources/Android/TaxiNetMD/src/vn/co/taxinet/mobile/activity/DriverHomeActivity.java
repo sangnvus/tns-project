@@ -9,11 +9,14 @@ import org.json.JSONObject;
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.utils.Const;
-import android.app.Activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.InflateException;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -26,8 +29,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
-public class DriverHomeActivity extends Activity {
+public class DriverHomeActivity extends Fragment {
 
+	private View rootView;
 	// Google Map
 	private GoogleMap googleMap;
 
@@ -38,25 +42,35 @@ public class DriverHomeActivity extends Activity {
 	String cbb = null;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_driver_home);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-//		pDialog = new ProgressDialog(this);
-//		pDialog.setMessage("Loading...");
-//		pDialog.setCancelable(false);
+		if (rootView != null) {
+	        ViewGroup parent = (ViewGroup) rootView.getParent();
+	        if (parent != null)
+	            parent.removeView(rootView);
+	    }
+	    try {
+	    	rootView = inflater.inflate(R.layout.fragment_home, container, false);
+	    	try {
+				// Loading map
+				initilizeMap();
+				settingMap();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	    } catch (InflateException e) {
+	        /* map is already there, just return view as it is */
+	    	Log.e("như lìn", "Như lìn" + e.getMessage());
+	    }
+	    return rootView;
 		
-		try {
-			// Loading map
-			initilizeMap();
-			settingMap();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+//		View rootView = inflater.inflate(R.layout.fragment_home,
+//				container, false);
+//		return rootView;
 	}
-	
-	public void settingMap(){
+
+	public void settingMap() {
 		googleMap.setMyLocationEnabled(true);
 		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 	}
@@ -81,7 +95,7 @@ public class DriverHomeActivity extends Activity {
 
 			// check if map is created successfully or not
 			if (googleMap == null) {
-				Toast.makeText(getApplicationContext(),
+				Toast.makeText(getActivity().getApplicationContext(),
 						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
 						.show();
 			}
@@ -89,7 +103,7 @@ public class DriverHomeActivity extends Activity {
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 		initilizeMap();
 	}
@@ -102,7 +116,7 @@ public class DriverHomeActivity extends Activity {
 					@Override
 					public void onResponse(JSONObject response) {
 						Log.d(TAG, response.toString());
-						Toast.makeText(getApplicationContext(),
+						Toast.makeText(getActivity().getApplicationContext(),
 								response.toString(), Toast.LENGTH_LONG).show();
 						hideProgressDialog();
 
@@ -155,7 +169,7 @@ public class DriverHomeActivity extends Activity {
 					@Override
 					public void onResponse(JSONArray response) {
 						Log.d(TAG, response.toString());
-						Toast.makeText(getApplicationContext(),
+						Toast.makeText(rootView.getContext(),
 								response.toString(), Toast.LENGTH_LONG).show();
 						hideProgressDialog();
 					}
@@ -176,6 +190,15 @@ public class DriverHomeActivity extends Activity {
 
 	public void denoVolley(View v) {
 		makeJsonArryReq();
+	}
+	
+	@Override
+	public void onDestroyView() {
+	    super.onDestroyView();
+	    MapFragment f = (MapFragment) getFragmentManager()
+	                                         .findFragmentById(R.id.map);
+	    if (f != null) 
+	        getFragmentManager().beginTransaction().remove(f).commit();
 	}
 
 }
