@@ -11,6 +11,7 @@
 package vn.co.taxinet.bo;
 
 import vn.co.taxinet.bean.TNUser;
+import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
  * Contain all authentication services
@@ -27,4 +28,13 @@ public interface AuthenticationBO {
 	 * @return
 	 */
 	boolean authenticate(TNUser tnUser);
+	
+	/**
+	 * @author Ecchi
+	 * register user informations
+	 * return true if success
+	 * @param rider
+	 * @return boolean
+	 */
+	boolean userRegistration(TaxiNetUsers user);
 }
