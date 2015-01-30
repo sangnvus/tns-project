@@ -1,6 +1,8 @@
 package vn.co.taxinet.bean;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,8 +15,11 @@ import vn.co.taxinet.common.ResourceKeys;
  * @author DEV
  * 
  */
+@ManagedBean(name="loginForm",eager=true)
+@RequestScoped
 public class LoginBean extends BaseBean implements ResourceKeys {
 	private final static Logger log = LogManager.getLogger(LoginBean.class);
+	//@ManagedProperty(value = "#{authenticationService}")
 	private AuthenticationBO authenticationBO;
 	@ManagedProperty(value = "#{param.userName}")
 	private String userName;
