@@ -1,5 +1,6 @@
 package vn.co.taxinet.bean.rider;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,6 +9,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
+import vn.co.taxinet.bo.AuthenticationBO;
+import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
  * @author Ecchi controller for register.xhtml
@@ -27,7 +33,8 @@ public class RiderRegisterController implements Serializable {
 	private String cvv;
 	private Date expiredDate;
 	private String zipCode;
-
+	private AuthenticationBO authenticationBO;
+	//private TaxiNetUserDAO taxiNetUserDAO;
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
@@ -50,16 +57,39 @@ public class RiderRegisterController implements Serializable {
 			zipCode = "";
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
-	public void doRegister(){
-		//TODO validate information
-		//TODO send information through webservice and receive user's role
-		//TODO redirect to main.xhtml with user's role
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Succesfull", "Account created"));
+	public void doRegister() {
+		// TODO validate information
+		// TODO send information through webservice and receive user's role
+		// TODO redirect to main.xhtml with user's role
+		if (!emailAddress.matches(EMAIL_PATTERN)) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Invalid Email Address"));
+		} else {
+			// TODO set thông tin cho object user
+			TaxiNetUsers user = new TaxiNetUsers();
+			user.getLanguage().setLanguage(language);
+			//TODO đăng kí thông tin user vào các bảng
+			if (authenticationBO.userRegistration(user)) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("Succesfull", "Account created"));
+				try {
+					HttpServletRequest request = (HttpServletRequest) FacesContext
+							.getCurrentInstance().getExternalContext().getRequest();
+					request.getSession().setAttribute("username", emailAddress);
+					request.getSession().setAttribute("password", password);
+					FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 	}
+
 	// getter/setter
 	public String getUserName() {
 		return userName;
