@@ -10,8 +10,10 @@
 
 package vn.co.taxinet.bo;
 
+import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.orm.Rider;
-
+/**
+ */
 public interface RiderBO {
-	public Rider register(Object obj);
+	public Rider register(Rider rider) throws TNSException;
 }
