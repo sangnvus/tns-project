@@ -3,6 +3,9 @@
  */
 package vn.co.taxinet.dao.impl;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +27,15 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 	@Transactional(readOnly=true)
 	public TaxiNetUsers select(String uid) {
 		Session session = getSessionFactory().getCurrentSession();
+		String hql = " FROM TaxiNetUsers U WHERE U.username = :userName";
+		Query query = session.createQuery(hql);
+		query.setParameter("userName", uid);
 		// TODO Auto-generated method stub
-		TaxiNetUsers user = (TaxiNetUsers) session.get(TaxiNetUsers.class, uid);
+		List<TaxiNetUsers> result = query.list();
+		TaxiNetUsers user = null;
+		if(!result.isEmpty()) {
+			user = result.get(0) ;
+		}
 		return user;
 	}	
 
