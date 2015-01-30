@@ -1,7 +1,7 @@
 package vn.co.taxinet.bo;
 
-import vn.co.taxinet.orm.Rider;
+import vn.co.taxinet.orm.Driver;
 
 public interface DriverBO {
-	public Rider register(Object obj);
+	public Driver register(Driver obj);
 }

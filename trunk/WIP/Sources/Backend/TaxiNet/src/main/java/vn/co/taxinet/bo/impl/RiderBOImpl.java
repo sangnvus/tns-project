@@ -1,13 +1,100 @@
 package vn.co.taxinet.bo.impl;
 
+import java.util.UUID;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import vn.co.taxinet.bo.RiderBO;
+import vn.co.taxinet.common.Constants;
+import vn.co.taxinet.common.exception.FunctionalException;
+import vn.co.taxinet.common.exception.SystemException;
+import vn.co.taxinet.common.exception.TNSException;
+import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.orm.Address;
 import vn.co.taxinet.orm.Rider;
+import vn.co.taxinet.orm.TaxiNetUsers;
+import vn.co.taxinet.utils.Utility;
 
+@Service(value = "riderBO")
+@Transactional
 public class RiderBOImpl implements RiderBO {
+	private final static String THIS = "RiderBOImpl";
+	private static final Logger logger = LogManager
+			.getLogger(RiderBOImpl.class);
+	// Refer to taxiNetUserDAO declared in ApplicationContext of Spring
+	@Autowired
+	private TaxiNetUserDAO taxiNetUserDAO;
 
-	public Rider register(Object obj) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Rider register(Rider rider) throws TNSException {
+		final String begin = " BEGIN: params ({0}, {1}) ";
+		logger.info(begin, rider.getFirstName(), rider.getLastName());
+		try {
+			// Insert parent tables first, then insert child tables
+			// 1. Insert user table
+			// Check if user name exist in DB
+			TaxiNetUsers user = rider.getTaxinetusers();
+			TaxiNetUsers oldUser = taxiNetUserDAO.select(user.getUsername());
+			if (oldUser != null) {
+				throw new FunctionalException(THIS, "Rider User is existing",
+						Constants.Errors.DUPLICATED_ERROR);
+			}
+			UUID id = UUID.randomUUID();
+			user.setUserId(id.toString());
+			// User Name always is in lower case
+			user.setUsername(user.getUsername().toLowerCase());
+			user.setCreatDate(Utility.getCurrentDateTime());
+			user.setCreatedBy(user.getUsername());
+			user.setLastModifyDate(Utility.getCurrentDateTime());
+			user.setLastModifiedBy(user.getUsername());
+			taxiNetUserDAO.insert(user);
+
+			// 2. Insert Home Address if not null
+			if (rider.getAddressByHomeAddressId() != null) {
+				UUID homeAddressId = UUID.randomUUID();
+				Address homeAddress = rider.getAddressByHomeAddressId();
+				homeAddress.setAddressId(homeAddressId.toString());
+				homeAddress.setCreateDate(Utility.getCurrentDateTime());
+				homeAddress.setLastModifyDate(Utility.getCurrentDateTime());
+				homeAddress.setCreatedBy(user.getUsername());
+				homeAddress.setLastModifiedBy(user.getUsername());
+				taxiNetUserDAO.insert(homeAddress);
+
+			}
+
+			// 3. Insert Office Address if not null
+			if (rider.getAddressByOfficeAddressId() != null) {
+				UUID officeAddressId = UUID.randomUUID();
+				Address offAddress = rider.getAddressByHomeAddressId();
+				offAddress.setAddressId(officeAddressId.toString());
+				offAddress.setCreateDate(Utility.getCurrentDateTime());
+				offAddress.setLastModifyDate(Utility.getCurrentDateTime());
+				offAddress.setCreatedBy(user.getUsername());
+				offAddress.setLastModifiedBy(user.getUsername());
+				taxiNetUserDAO.insert(offAddress);
+			}
+
+			// 4. Insert data into Rider table
+			rider.setRiderId(id.toString());
+			rider.setCreateDate(Utility.getCurrentDateTime());
+			rider.setLastModifyDate(Utility.getCurrentDateTime());
+			rider.setCreatedBy(user.getUsername());
+			rider.setLastModifiedBy(user.getUsername());
+			taxiNetUserDAO.insert(user);
+		} catch (TNSException tnex) {
+			throw tnex;
+		} catch (Throwable t) {
+			throw new SystemException(THIS, t);
+		}
+		// 5. Return
+		logger.info(" END: params ({0}, {1} )", rider.getFirstName(),
+				rider.getLastName());
+		return rider;
 	}
 
 }
