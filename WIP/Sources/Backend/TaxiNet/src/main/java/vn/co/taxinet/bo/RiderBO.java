@@ -10,6 +10,8 @@
 
 package vn.co.taxinet.bo;
 
-public class CustomerBO {
+import vn.co.taxinet.orm.Rider;
 
+public interface RiderBO {
+	public Rider register(Object obj);
 }
