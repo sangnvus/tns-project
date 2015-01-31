@@ -20,7 +20,7 @@ import vn.co.taxinet.orm.TaxiNetUsers;
  */
 @ManagedBean(name = "riderRegisterController", eager = true)
 @SessionScoped
-public class RiderRegisterController implements Serializable {
+public class RiderRegisterBean implements Serializable {
 	private static final long serialVersionUID = 4300149713167673107L;
 	// properties for register page
 	private String emailAddress;
