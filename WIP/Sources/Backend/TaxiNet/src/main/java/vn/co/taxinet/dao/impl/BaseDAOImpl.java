@@ -2,6 +2,8 @@ package vn.co.taxinet.dao.impl;
 
 import java.io.Serializable;
 
+import javax.naming.InitialContext;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
@@ -20,8 +22,15 @@ public class BaseDAOImpl implements Serializable {
     /**
 	 * @return the sessionFactory
 	 */
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
+	protected SessionFactory getSessionFactory() {
+		try {
+			return (SessionFactory) new InitialContext()
+					.lookup("SessionFactory");
+		} catch (Exception e) {
+			logger.error("Could not locate SessionFactory in JNDI", e);
+			throw new IllegalStateException(
+					"Could not locate SessionFactory in JNDI");
+		}
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
