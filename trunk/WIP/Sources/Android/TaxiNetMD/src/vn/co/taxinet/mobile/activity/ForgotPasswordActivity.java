@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-public class DriverForgotPasswordActivity extends Activity {
+public class ForgotPasswordActivity extends Activity {
 
 	private EditText mInfo;
 	private String info;
@@ -27,8 +27,8 @@ public class DriverForgotPasswordActivity extends Activity {
 		info = mInfo.getText().toString();
 		boolean checkInfo = mDriverForgotPasswordBO.checkInfo(info);
 		if (checkInfo) {
-			Intent it = new Intent(DriverForgotPasswordActivity.this,
-					DriverResetPasswordActivity.class);
+			Intent it = new Intent(ForgotPasswordActivity.this,
+					ResetPasswordActivity.class);
 			startActivity(it);
 		}
 	}

@@ -21,11 +21,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-public class DriverTermActivity extends Activity {
+public class TermActivity extends Activity {
 
 	private String tag_json_obj = "get_term";
 	private ProgressDialog pDialog;
-	private String TAG = DriverTermActivity.class.getSimpleName();
+	private String TAG = TermActivity.class.getSimpleName();
 	private String term;
 	private TextView mTerm;
 

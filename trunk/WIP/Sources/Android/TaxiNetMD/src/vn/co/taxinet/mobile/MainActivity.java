@@ -2,11 +2,11 @@ package vn.co.taxinet.mobile;
 
 import java.util.ArrayList;
 
-import vn.co.taxinet.mobile.activity.DriverHomeActivity;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
 import vn.co.taxinet.mobile.adapter.TitleNavigationAdapter;
 import vn.co.taxinet.mobile.fragment.FavoriteDriverFragment;
 import vn.co.taxinet.mobile.fragment.HistoryCallFragment;
+import vn.co.taxinet.mobile.fragment.MapsFragment;
 import vn.co.taxinet.mobile.fragment.JourneyFragment;
 import vn.co.taxinet.mobile.fragment.ProfileFragment;
 import vn.co.taxinet.mobile.fragment.SettingFragment;
@@ -232,10 +232,10 @@ public class MainActivity extends Activity implements
 			fragment = new ProfileFragment();
 			break;
 		case 1:
-			fragment = new DriverHomeActivity();
+			fragment = new MapsFragment();
 			break;
 		case 2:
-			fragment = new DriverHomeActivity();
+			fragment = new MapsFragment();
 			break;
 		case 3:
 			fragment = new JourneyFragment();

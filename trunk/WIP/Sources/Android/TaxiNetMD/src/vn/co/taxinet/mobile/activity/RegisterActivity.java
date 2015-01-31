@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 
-public class DriverRegisterActivity extends Activity {
+public class RegisterActivity extends Activity {
 
 	private CheckBox mCbTerm;
 
@@ -20,8 +20,8 @@ public class DriverRegisterActivity extends Activity {
 	}
 
 	public void term(View v) {
-		Intent it = new Intent(DriverRegisterActivity.this,
-				DriverTermActivity.class);
+		Intent it = new Intent(RegisterActivity.this,
+				TermActivity.class);
 		startActivityForResult(it, 1);
 	}
 	

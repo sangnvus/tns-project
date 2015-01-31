@@ -22,7 +22,7 @@ public class StartActivity extends Activity {
 	}
 
 	public void skipAndStart(View v) {
-		Intent it = new Intent(StartActivity.this, DriverLoginActivity.class);
+		Intent it = new Intent(StartActivity.this, LoginActivity.class);
 		startActivity(it);
 		finish();
 	}
