@@ -1,6 +1,5 @@
 package vn.co.taxinet.bean.rider;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,11 +8,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 import vn.co.taxinet.bo.AuthenticationBO;
-import vn.co.taxinet.dao.TaxiNetUserDAO;
-import vn.co.taxinet.orm.TaxiNetUsers;
+import vn.co.taxinet.bo.RiderBO;
+import vn.co.taxinet.common.exception.TNSException;
+import vn.co.taxinet.orm.Rider;
 
 /**
  * @author Ecchi controller for register.xhtml
@@ -34,6 +33,7 @@ public class RiderRegisterBean implements Serializable {
 	private Date expiredDate;
 	private String zipCode;
 	private AuthenticationBO authenticationBO;
+	private RiderBO riderBo;
 	//private TaxiNetUserDAO taxiNetUserDAO;
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -65,28 +65,44 @@ public class RiderRegisterBean implements Serializable {
 		// TODO validate information
 		// TODO send information through webservice and receive user's role
 		// TODO redirect to main.xhtml with user's role
-		if (!emailAddress.matches(EMAIL_PATTERN)) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Invalid Email Address"));
-		} else {
-			// TODO set thông tin cho object user
-			TaxiNetUsers user = new TaxiNetUsers();
-			user.getLanguage().setLanguage(language);
-			//TODO đăng kí thông tin user vào các bảng
-			if (authenticationBO.userRegistration(user)) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage("Succesfull", "Account created"));
+		// TODO validate information
+				// TODO send information through webservice and receive user's role
+				// TODO redirect to main.xhtml with user's role
+				int cvvNumber;
+				int zipCodeNumber = 0;
+				if (!emailAddress.matches(EMAIL_PATTERN)) {
+					// thông báo lỗi đến người dùng
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage("Error", "Email không hợp lệ"));
+				}
 				try {
-					HttpServletRequest request = (HttpServletRequest) FacesContext
-							.getCurrentInstance().getExternalContext().getRequest();
-					request.getSession().setAttribute("username", emailAddress);
-					request.getSession().setAttribute("password", password);
-					FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-				} catch (IOException e) {
+					//kiểm tra thông tin CVV và zip code
+					cvvNumber = Integer.parseInt(cvv);
+					zipCodeNumber = Integer.parseInt(zipCode);
+				} catch (Exception ex) {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage("Error", "CVV không hợp lệ"));
+				}
+				Rider newRider = new Rider();
+				newRider.getTaxinetusers().setEmail(emailAddress);
+				newRider.getTaxinetusers().setPassword(password);
+				newRider.getTaxinetusers().setUsername(emailAddress);
+				newRider.getTaxinetusers().setPostalCode(zipCodeNumber);
+				
+				Rider registerRider;
+				try {
+					registerRider = riderBo.register(newRider);
+					if(registerRider != null ){
+						//success và redirect qua trang khác
+					} else {
+						//thông báo lỗi
+					}
+					
+				} catch (TNSException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-		}
+
 
 	}
 
