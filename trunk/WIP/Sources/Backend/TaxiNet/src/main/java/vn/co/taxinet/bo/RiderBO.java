@@ -13,7 +13,16 @@ package vn.co.taxinet.bo;
 import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.orm.Rider;
 /**
+ * @author Ecchi
+ *
  */
 public interface RiderBO {
+	/**
+	 * @author Ecchi
+	 * @param rider
+	 * @return
+	 * @throws TNSException
+	 */
 	public Rider register(Rider rider) throws TNSException;
+	
 }
