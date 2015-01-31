@@ -3,13 +3,34 @@ package vn.co.taxinet.common;
 
 import java.util.Locale;
 
-public interface Constants {
+public interface Constants {	
 	public static final String STR_DATE_FORMAT = "";
 	public static final Locale DEFAULT_LOCALE =null;
 	public static final String STR_DATE_TIME_FORMAT = "";
 	public static final String COMMA_SYMBOL =",";
 	public static final double MAX_VAL_MONEY = 0.0;
 	public static final String STR_MONEY_FORMAT= "";
+	//These are used for Reference Data
+	public interface GroupCode {
+		public static final String USER_ROLE = "GROUPUSER";
+		public static final String USER_STATUS = "USERSTATUS";
+		public static final String SERVICE_CHARGE = "SERVICECHARGE";
+		public static final String DRIVER_STATUS = "DRIVERSTATUS";
+		public static final String BUSINESS_TYPE ="BUSINESSTYPE";
+	}
+	//These are used for Reference Data
+	public interface GroupUser{
+		public static final String RIDER = "RD";
+		public static final String DRIVER = "DR";
+	}
+	public interface BusinessType {
+		public static final String TAXI_COM = "TS";
+		public static final String PRIVATE_TAXI = "PT";
+	}
+	public interface ServiceCharge {
+		public static final String MONTHLY = "MO";
+		public static final String TRIP_BASED = "TB";
+	}
     /* error keys definition */
     public interface Errors {
     	public static final String DUPLICATED_ERROR = "001";
