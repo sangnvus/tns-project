@@ -1,5 +1,5 @@
 package vn.co.taxinet.dao;
 
-public interface RiderDAO {
+public interface RiderDAO extends BaseDAO{
 
 }

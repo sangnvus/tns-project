@@ -1,5 +1,5 @@
 package vn.co.taxinet.dao;
 
-public interface InvitationLogDAO {
+public interface InvitationLogDAO extends BaseDAO {
 
 }

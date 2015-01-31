@@ -1,45 +1,43 @@
 package vn.co.taxinet.dao.impl;
 
-// Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
-
-import java.util.List;
-import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
 
 import vn.co.taxinet.dao.ReferenceDataDAO;
 import vn.co.taxinet.orm.ReferenceData;
 import vn.co.taxinet.orm.ReferenceDataID;
 import static org.hibernate.criterion.Example.create;
 
-/**
- * Home object for domain model class ReferenceData.
- * @see vn.co.taxinet.dao.ReferenceData
- * @author Hibernate Tools
- */
-public class ReferenceDataDAOImpl implements ReferenceDataDAO{
+import java.util.List;
 
-	private static final Log log = LogFactory.getLog(ReferenceDataDAOImpl.class);
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-	private final SessionFactory sessionFactory = getSessionFactory();
+@Service(value="referenceDataDAO")
+@Transactional
+public class ReferenceDataDAOImpl extends BaseDAOImpl implements ReferenceDataDAO {
+	private static final Logger log = LogManager.getLogger(ReferenceDataDAOImpl.class);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8297833297307435151L;
 
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
+	@Transactional(readOnly=true)
+	public List<ReferenceData> selectAll() {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = " FROM ReferenceData R ";
+		Query query = session.createQuery(hql);
+		List<ReferenceData> result = query.list();
+		return result;
 	}
 
 	public void persist(ReferenceData transientInstance) {
 		log.debug("persisting ReferenceData instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -50,7 +48,7 @@ public class ReferenceDataDAOImpl implements ReferenceDataDAO{
 	public void attachDirty(ReferenceData instance) {
 		log.debug("attaching dirty ReferenceData instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -61,7 +59,7 @@ public class ReferenceDataDAOImpl implements ReferenceDataDAO{
 	public void attachClean(ReferenceData instance) {
 		log.debug("attaching clean ReferenceData instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -72,7 +70,7 @@ public class ReferenceDataDAOImpl implements ReferenceDataDAO{
 	public void delete(ReferenceData persistentInstance) {
 		log.debug("deleting ReferenceData instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -83,7 +81,7 @@ public class ReferenceDataDAOImpl implements ReferenceDataDAO{
 	public ReferenceData merge(ReferenceData detachedInstance) {
 		log.debug("merging ReferenceData instance");
 		try {
-			ReferenceData result = (ReferenceData) sessionFactory
+			ReferenceData result = (ReferenceData) getSessionFactory()
 					.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -96,7 +94,7 @@ public class ReferenceDataDAOImpl implements ReferenceDataDAO{
 	public ReferenceData findById(ReferenceDataID id) {
 		log.debug("getting ReferenceData instance with id: " + id);
 		try {
-			ReferenceData instance = (ReferenceData) sessionFactory
+			ReferenceData instance = (ReferenceData) getSessionFactory()
 					.getCurrentSession().get("vn.co.taxinet.dao.ReferenceData",
 							id);
 			if (instance == null) {
@@ -114,7 +112,7 @@ public class ReferenceDataDAOImpl implements ReferenceDataDAO{
 	public List<ReferenceData> findByExample(ReferenceData instance) {
 		log.debug("finding ReferenceData instance by example");
 		try {
-			List<ReferenceData> results = (List<ReferenceData>) sessionFactory
+			List<ReferenceData> results = (List<ReferenceData>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.ReferenceData")
 					.add(create(instance)).list();

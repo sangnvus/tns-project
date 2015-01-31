@@ -1,5 +1,5 @@
 package vn.co.taxinet.dao;
 
-public interface PaymentDAO {
+public interface PaymentDAO extends BaseDAO {
 
 }

@@ -3,11 +3,10 @@ package vn.co.taxinet.dao.impl;
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
 import java.util.List;
-import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.AccountTransactionDAO;
@@ -19,29 +18,19 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.AccountTransaction
  * @author Hibernate Tools
  */
+@Service("accountTransactionDAO")
 @Transactional
 public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTransactionDAO{
-
-	private static final Log log = LogFactory
-			.getLog(AccountTransactionDAOImpl.class);
-
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 582893727580502426L;
+	private static final Logger log = LogManager.getLogger(AccountTransactionDAOImpl.class);
 
 	public void persist(AccountTransaction transientInstance) {
 		log.debug("persisting AccountTransaction instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -52,7 +41,7 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 	public void attachDirty(AccountTransaction instance) {
 		log.debug("attaching dirty AccountTransaction instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -63,7 +52,7 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 	public void attachClean(AccountTransaction instance) {
 		log.debug("attaching clean AccountTransaction instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -74,7 +63,7 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 	public void delete(AccountTransaction persistentInstance) {
 		log.debug("deleting AccountTransaction instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -85,7 +74,7 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 	public AccountTransaction merge(AccountTransaction detachedInstance) {
 		log.debug("merging AccountTransaction instance");
 		try {
-			AccountTransaction result = (AccountTransaction) sessionFactory
+			AccountTransaction result = (AccountTransaction) getSessionFactory()
 					.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -98,7 +87,7 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 	public AccountTransaction findById(java.lang.Integer id) {
 		log.debug("getting AccountTransaction instance with id: " + id);
 		try {
-			AccountTransaction instance = (AccountTransaction) sessionFactory
+			AccountTransaction instance = (AccountTransaction) getSessionFactory()
 					.getCurrentSession().get(
 							"vn.co.taxinet.dao.AccountTransaction", id);
 			if (instance == null) {
@@ -116,7 +105,7 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 	public List<AccountTransaction> findByExample(AccountTransaction instance) {
 		log.debug("finding AccountTransaction instance by example");
 		try {
-			List<AccountTransaction> results = (List<AccountTransaction>) sessionFactory
+			List<AccountTransaction> results = (List<AccountTransaction>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.AccountTransaction")
 					.add(create(instance)).list();

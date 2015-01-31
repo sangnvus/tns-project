@@ -3,11 +3,10 @@ package vn.co.taxinet.dao.impl;
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
 import java.util.List;
-import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.InvitationLogDAO;
@@ -20,28 +19,20 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.InvitationLog
  * @author Hibernate Tools
  */
+@Service(value="invitationLogDAO")
 @Transactional
-public class InvitationLogDAOImpl implements InvitationLogDAO{
+public class InvitationLogDAOImpl extends BaseDAOImpl implements InvitationLogDAO{
 
-	private static final Log log = LogFactory.getLog(InvitationLogDAOImpl.class);
-
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8977552420279486169L;
+	private static final Logger log = LogManager.getLogger(InvitationLogDAOImpl.class);
 
 	public void persist(InvitationLog transientInstance) {
 		log.debug("persisting InvitationLog instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -52,7 +43,7 @@ public class InvitationLogDAOImpl implements InvitationLogDAO{
 	public void attachDirty(InvitationLog instance) {
 		log.debug("attaching dirty InvitationLog instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -63,7 +54,7 @@ public class InvitationLogDAOImpl implements InvitationLogDAO{
 	public void attachClean(InvitationLog instance) {
 		log.debug("attaching clean InvitationLog instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -74,7 +65,7 @@ public class InvitationLogDAOImpl implements InvitationLogDAO{
 	public void delete(InvitationLog persistentInstance) {
 		log.debug("deleting InvitationLog instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -85,7 +76,7 @@ public class InvitationLogDAOImpl implements InvitationLogDAO{
 	public InvitationLog merge(InvitationLog detachedInstance) {
 		log.debug("merging InvitationLog instance");
 		try {
-			InvitationLog result = (InvitationLog) sessionFactory
+			InvitationLog result = (InvitationLog) getSessionFactory()
 					.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -98,7 +89,7 @@ public class InvitationLogDAOImpl implements InvitationLogDAO{
 	public InvitationLog findById(InvitationLogID id) {
 		log.debug("getting InvitationLog instance with id: " + id);
 		try {
-			InvitationLog instance = (InvitationLog) sessionFactory
+			InvitationLog instance = (InvitationLog) getSessionFactory()
 					.getCurrentSession().get("vn.co.taxinet.dao.InvitationLog",
 							id);
 			if (instance == null) {
@@ -116,7 +107,7 @@ public class InvitationLogDAOImpl implements InvitationLogDAO{
 	public List<InvitationLog> findByExample(InvitationLog instance) {
 		log.debug("finding InvitationLog instance by example");
 		try {
-			List<InvitationLog> results = (List<InvitationLog>) sessionFactory
+			List<InvitationLog> results = (List<InvitationLog>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.InvitationLog")
 					.add(create(instance)).list();

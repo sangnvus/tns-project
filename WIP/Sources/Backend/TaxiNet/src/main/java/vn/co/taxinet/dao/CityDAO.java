@@ -1,5 +1,5 @@
 package vn.co.taxinet.dao;
 
-public interface CityDAO {
+public interface CityDAO extends BaseDAO {
 
 }

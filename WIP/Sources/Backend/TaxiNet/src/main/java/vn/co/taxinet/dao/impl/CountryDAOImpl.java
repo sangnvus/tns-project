@@ -4,10 +4,10 @@ package vn.co.taxinet.dao.impl;
 
 import java.util.List;
 import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.CountryDAO;
@@ -19,28 +19,18 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.Country
  * @author Hibernate Tools
  */
+@Service(value="countryDAO")
 @Transactional
-public class CountryDAOImpl implements CountryDAO{
+public class CountryDAOImpl extends BaseDAOImpl implements CountryDAO{
 
-	private static final Log log = LogFactory.getLog(CountryDAOImpl.class);
+	private static final Logger log = LogManager.getLogger(CountryDAOImpl.class);
 
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+	
 
 	public void persist(Country transientInstance) {
 		log.debug("persisting Country instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -51,7 +41,7 @@ public class CountryDAOImpl implements CountryDAO{
 	public void attachDirty(Country instance) {
 		log.debug("attaching dirty Country instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -62,7 +52,7 @@ public class CountryDAOImpl implements CountryDAO{
 	public void attachClean(Country instance) {
 		log.debug("attaching clean Country instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -73,7 +63,7 @@ public class CountryDAOImpl implements CountryDAO{
 	public void delete(Country persistentInstance) {
 		log.debug("deleting Country instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -84,7 +74,7 @@ public class CountryDAOImpl implements CountryDAO{
 	public Country merge(Country detachedInstance) {
 		log.debug("merging Country instance");
 		try {
-			Country result = (Country) sessionFactory.getCurrentSession()
+			Country result = (Country) getSessionFactory().getCurrentSession()
 					.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -97,7 +87,7 @@ public class CountryDAOImpl implements CountryDAO{
 	public Country findById(java.lang.Integer id) {
 		log.debug("getting Country instance with id: " + id);
 		try {
-			Country instance = (Country) sessionFactory.getCurrentSession()
+			Country instance = (Country) getSessionFactory().getCurrentSession()
 					.get("vn.co.taxinet.dao.Country", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -114,7 +104,7 @@ public class CountryDAOImpl implements CountryDAO{
 	public List<Country> findByExample(Country instance) {
 		log.debug("finding Country instance by example");
 		try {
-			List<Country> results = (List<Country>) sessionFactory
+			List<Country> results = (List<Country>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.Country")
 					.add(create(instance)).list();

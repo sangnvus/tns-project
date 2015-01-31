@@ -4,10 +4,10 @@ package vn.co.taxinet.dao.impl;
 
 import java.util.List;
 import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.CityDAO;
@@ -19,28 +19,15 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.City
  * @author Hibernate Tools
  */
+@Service(value="cityDAO")
 @Transactional
-public class CityDAOImpl implements CityDAO{
-
-	private static final Log log = LogFactory.getLog(CityDAOImpl.class);
-
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+public class CityDAOImpl extends BaseDAOImpl implements CityDAO{
+	private static final Logger log = LogManager.getLogger(CityDAOImpl.class);
 
 	public void persist(City transientInstance) {
 		log.debug("persisting City instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -51,7 +38,7 @@ public class CityDAOImpl implements CityDAO{
 	public void attachDirty(City instance) {
 		log.debug("attaching dirty City instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -62,7 +49,7 @@ public class CityDAOImpl implements CityDAO{
 	public void attachClean(City instance) {
 		log.debug("attaching clean City instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -73,7 +60,7 @@ public class CityDAOImpl implements CityDAO{
 	public void delete(City persistentInstance) {
 		log.debug("deleting City instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -84,7 +71,7 @@ public class CityDAOImpl implements CityDAO{
 	public City merge(City detachedInstance) {
 		log.debug("merging City instance");
 		try {
-			City result = (City) sessionFactory.getCurrentSession().merge(
+			City result = (City) getSessionFactory().getCurrentSession().merge(
 					detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -97,7 +84,7 @@ public class CityDAOImpl implements CityDAO{
 	public City findById(int id) {
 		log.debug("getting City instance with id: " + id);
 		try {
-			City instance = (City) sessionFactory.getCurrentSession().get(
+			City instance = (City) getSessionFactory().getCurrentSession().get(
 					"vn.co.taxinet.dao.City", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -114,7 +101,7 @@ public class CityDAOImpl implements CityDAO{
 	public List<City> findByExample(City instance) {
 		log.debug("finding City instance by example");
 		try {
-			List<City> results = (List<City>) sessionFactory
+			List<City> results = (List<City>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.City")
 					.add(create(instance)).list();

@@ -3,11 +3,10 @@ package vn.co.taxinet.dao.impl;
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
 import java.util.List;
-import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.CompanyParkAreaDAO;
@@ -19,28 +18,15 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.CompanyParkArea
  * @author Hibernate Tools
  */
+@Service(value="companyParkAreaDAO")
 @Transactional
-public class CompanyParkAreaDAOImpl implements CompanyParkAreaDAO{
-
-	private static final Log log = LogFactory.getLog(CompanyParkAreaDAOImpl.class);
-
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+public class CompanyParkAreaDAOImpl extends BaseDAOImpl implements CompanyParkAreaDAO{
+	private static final Logger log = LogManager.getLogger(CompanyParkAreaDAOImpl.class);
 
 	public void persist(CompanyParkArea transientInstance) {
 		log.debug("persisting CompanyParkArea instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -51,7 +37,7 @@ public class CompanyParkAreaDAOImpl implements CompanyParkAreaDAO{
 	public void attachDirty(CompanyParkArea instance) {
 		log.debug("attaching dirty CompanyParkArea instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -62,7 +48,7 @@ public class CompanyParkAreaDAOImpl implements CompanyParkAreaDAO{
 	public void attachClean(CompanyParkArea instance) {
 		log.debug("attaching clean CompanyParkArea instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -73,7 +59,7 @@ public class CompanyParkAreaDAOImpl implements CompanyParkAreaDAO{
 	public void delete(CompanyParkArea persistentInstance) {
 		log.debug("deleting CompanyParkArea instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -84,8 +70,8 @@ public class CompanyParkAreaDAOImpl implements CompanyParkAreaDAO{
 	public CompanyParkArea merge(CompanyParkArea detachedInstance) {
 		log.debug("merging CompanyParkArea instance");
 		try {
-			CompanyParkArea result = (CompanyParkArea) sessionFactory
-					.getCurrentSession().merge(detachedInstance);
+			CompanyParkArea result = (CompanyParkArea) 
+					getSessionFactory().getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -97,8 +83,8 @@ public class CompanyParkAreaDAOImpl implements CompanyParkAreaDAO{
 	public CompanyParkArea findById(java.lang.Integer id) {
 		log.debug("getting CompanyParkArea instance with id: " + id);
 		try {
-			CompanyParkArea instance = (CompanyParkArea) sessionFactory
-					.getCurrentSession().get(
+			CompanyParkArea instance = (CompanyParkArea) 
+					getSessionFactory().getCurrentSession().get(
 							"vn.co.taxinet.dao.CompanyParkArea", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -115,8 +101,8 @@ public class CompanyParkAreaDAOImpl implements CompanyParkAreaDAO{
 	public List<CompanyParkArea> findByExample(CompanyParkArea instance) {
 		log.debug("finding CompanyParkArea instance by example");
 		try {
-			List<CompanyParkArea> results = (List<CompanyParkArea>) sessionFactory
-					.getCurrentSession()
+			List<CompanyParkArea> results = (List<CompanyParkArea>) 
+					getSessionFactory().getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.CompanyParkArea")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
