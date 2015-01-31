@@ -3,11 +3,10 @@ package vn.co.taxinet.dao.impl;
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
 import java.util.List;
-import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.BankDAO;
@@ -19,28 +18,21 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.Bank
  * @author Hibernate Tools
  */
+@Service(value="bankDAO")
 @Transactional
-public class BankDAOImpl implements BankDAO{
+public class BankDAOImpl extends BaseDAOImpl implements BankDAO{
 
-	private static final Log log = LogFactory.getLog(BankDAOImpl.class);
-
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5877403130882234325L;
+	private static final Logger log = LogManager.getLogger(BankDAOImpl.class);
+	
 
 	public void persist(Bank transientInstance) {
 		log.debug("persisting Bank instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -51,7 +43,7 @@ public class BankDAOImpl implements BankDAO{
 	public void attachDirty(Bank instance) {
 		log.debug("attaching dirty Bank instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -62,7 +54,7 @@ public class BankDAOImpl implements BankDAO{
 	public void attachClean(Bank instance) {
 		log.debug("attaching clean Bank instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -73,7 +65,7 @@ public class BankDAOImpl implements BankDAO{
 	public void delete(Bank persistentInstance) {
 		log.debug("deleting Bank instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -84,7 +76,7 @@ public class BankDAOImpl implements BankDAO{
 	public Bank merge(Bank detachedInstance) {
 		log.debug("merging Bank instance");
 		try {
-			Bank result = (Bank) sessionFactory.getCurrentSession().merge(
+			Bank result = (Bank) getSessionFactory().getCurrentSession().merge(
 					detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -97,7 +89,7 @@ public class BankDAOImpl implements BankDAO{
 	public Bank findById(java.lang.Integer id) {
 		log.debug("getting Bank instance with id: " + id);
 		try {
-			Bank instance = (Bank) sessionFactory.getCurrentSession().get(
+			Bank instance = (Bank) getSessionFactory().getCurrentSession().get(
 					"vn.co.taxinet.dao.Bank", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -114,7 +106,7 @@ public class BankDAOImpl implements BankDAO{
 	public List<Bank> findByExample(Bank instance) {
 		log.debug("finding Bank instance by example");
 		try {
-			List<Bank> results = (List<Bank>) sessionFactory
+			List<Bank> results = (List<Bank>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.Bank")
 					.add(create(instance)).list();

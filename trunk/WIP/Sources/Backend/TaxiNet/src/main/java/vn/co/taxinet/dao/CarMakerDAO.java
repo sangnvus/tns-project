@@ -1,5 +1,5 @@
 package vn.co.taxinet.dao;
 
-public interface CarMakerDAO {
+public interface CarMakerDAO extends BaseDAO {
 
 }

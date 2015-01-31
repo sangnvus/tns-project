@@ -4,10 +4,10 @@ package vn.co.taxinet.dao.impl;
 
 import java.util.List;
 import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.TripDAO;
@@ -19,28 +19,19 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.Trip
  * @author Hibernate Tools
  */
+@Service(value="tripDAO")
 @Transactional
-public class TripDAOImpl implements TripDAO{
-
-	private static final Log log = LogFactory.getLog(TripDAOImpl.class);
-
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
-
+public class TripDAOImpl extends BaseDAOImpl implements TripDAO{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4960737215923716888L;
+	private static final Logger log = LogManager.getLogger(TripDAOImpl.class);
+	
 	public void persist(Trip transientInstance) {
 		log.debug("persisting Trip instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -51,7 +42,7 @@ public class TripDAOImpl implements TripDAO{
 	public void attachDirty(Trip instance) {
 		log.debug("attaching dirty Trip instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -62,7 +53,7 @@ public class TripDAOImpl implements TripDAO{
 	public void attachClean(Trip instance) {
 		log.debug("attaching clean Trip instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -73,7 +64,7 @@ public class TripDAOImpl implements TripDAO{
 	public void delete(Trip persistentInstance) {
 		log.debug("deleting Trip instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -84,7 +75,7 @@ public class TripDAOImpl implements TripDAO{
 	public Trip merge(Trip detachedInstance) {
 		log.debug("merging Trip instance");
 		try {
-			Trip result = (Trip) sessionFactory.getCurrentSession().merge(
+			Trip result = (Trip) getSessionFactory().getCurrentSession().merge(
 					detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -97,7 +88,7 @@ public class TripDAOImpl implements TripDAO{
 	public Trip findById(java.lang.String id) {
 		log.debug("getting Trip instance with id: " + id);
 		try {
-			Trip instance = (Trip) sessionFactory.getCurrentSession().get(
+			Trip instance = (Trip) getSessionFactory().getCurrentSession().get(
 					"vn.co.taxinet.dao.Trip", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -114,7 +105,7 @@ public class TripDAOImpl implements TripDAO{
 	public List<Trip> findByExample(Trip instance) {
 		log.debug("finding Trip instance by example");
 		try {
-			List<Trip> results = (List<Trip>) sessionFactory
+			List<Trip> results = (List<Trip>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.Trip")
 					.add(create(instance)).list();

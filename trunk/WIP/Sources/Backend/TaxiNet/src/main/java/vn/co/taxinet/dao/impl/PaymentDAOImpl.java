@@ -4,10 +4,11 @@ package vn.co.taxinet.dao.impl;
 
 import java.util.List;
 import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.PaymentDAO;
 import vn.co.taxinet.orm.Payment;
@@ -18,27 +19,20 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.Payment
  * @author Hibernate Tools
  */
-public class PaymentDAOImpl implements PaymentDAO{
+@Service(value="paymentDAO")
+@Transactional
+public class PaymentDAOImpl extends BaseDAOImpl implements PaymentDAO{
 
-	private static final Log log = LogFactory.getLog(PaymentDAOImpl.class);
-
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 790448166071964395L;
+	private static final Logger log = LogManager.getLogger(PaymentDAOImpl.class);
 
 	public void persist(Payment transientInstance) {
 		log.debug("persisting Payment instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -49,7 +43,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 	public void attachDirty(Payment instance) {
 		log.debug("attaching dirty Payment instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -60,7 +54,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 	public void attachClean(Payment instance) {
 		log.debug("attaching clean Payment instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -71,7 +65,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 	public void delete(Payment persistentInstance) {
 		log.debug("deleting Payment instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -82,7 +76,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 	public Payment merge(Payment detachedInstance) {
 		log.debug("merging Payment instance");
 		try {
-			Payment result = (Payment) sessionFactory.getCurrentSession()
+			Payment result = (Payment) getSessionFactory().getCurrentSession()
 					.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -95,7 +89,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 	public Payment findById(java.lang.Integer id) {
 		log.debug("getting Payment instance with id: " + id);
 		try {
-			Payment instance = (Payment) sessionFactory.getCurrentSession()
+			Payment instance = (Payment) getSessionFactory().getCurrentSession()
 					.get("vn.co.taxinet.dao.Payment", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -112,7 +106,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 	public List<Payment> findByExample(Payment instance) {
 		log.debug("finding Payment instance by example");
 		try {
-			List<Payment> results = (List<Payment>) sessionFactory
+			List<Payment> results = (List<Payment>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.Payment")
 					.add(create(instance)).list();

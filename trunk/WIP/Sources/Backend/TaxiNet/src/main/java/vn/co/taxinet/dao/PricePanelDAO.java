@@ -1,5 +1,5 @@
 package vn.co.taxinet.dao;
 
-public interface PricePanelDAO {
+public interface PricePanelDAO extends BaseDAO {
 
 }

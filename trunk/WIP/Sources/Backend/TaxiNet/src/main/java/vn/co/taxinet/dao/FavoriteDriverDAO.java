@@ -1,5 +1,5 @@
 package vn.co.taxinet.dao;
 
-public interface FavoriteDriverDAO {
+public interface FavoriteDriverDAO extends BaseDAO {
 
 }

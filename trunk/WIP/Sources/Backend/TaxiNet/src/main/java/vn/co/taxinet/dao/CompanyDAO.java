@@ -1,5 +1,5 @@
 package vn.co.taxinet.dao;
 
-public interface CompanyDAO {
+public interface CompanyDAO extends BaseDAO {
 
 }

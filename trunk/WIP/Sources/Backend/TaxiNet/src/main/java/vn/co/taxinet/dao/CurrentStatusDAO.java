@@ -1,5 +1,5 @@
 package vn.co.taxinet.dao;
 
-public interface CurrentStatusDAO {
+public interface CurrentStatusDAO extends BaseDAO {
 
 }

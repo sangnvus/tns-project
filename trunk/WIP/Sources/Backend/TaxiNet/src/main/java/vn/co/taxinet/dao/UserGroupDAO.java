@@ -1,5 +1,5 @@
 package vn.co.taxinet.dao;
 
-public interface UserGroupDAO {
+public interface UserGroupDAO extends BaseDAO {
 
 }

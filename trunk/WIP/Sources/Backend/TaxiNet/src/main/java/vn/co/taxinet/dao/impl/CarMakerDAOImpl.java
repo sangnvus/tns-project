@@ -3,11 +3,11 @@ package vn.co.taxinet.dao.impl;
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
 import java.util.List;
-import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.CarMakerDAO;
@@ -19,28 +19,15 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.CarMaker
  * @author Hibernate Tools
  */
+@Service(value="carMakerDAO")
 @Transactional
-public class CarMakerDAOImpl implements CarMakerDAO{
-
-	private static final Log log = LogFactory.getLog(CarMakerDAOImpl.class);
-
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+public class CarMakerDAOImpl extends BaseDAOImpl implements CarMakerDAO{
+	private static final Logger log = LogManager.getLogger(CarMakerDAOImpl.class);
 
 	public void persist(CarMaker transientInstance) {
 		log.debug("persisting CarMaker instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -51,7 +38,7 @@ public class CarMakerDAOImpl implements CarMakerDAO{
 	public void attachDirty(CarMaker instance) {
 		log.debug("attaching dirty CarMaker instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -62,7 +49,7 @@ public class CarMakerDAOImpl implements CarMakerDAO{
 	public void attachClean(CarMaker instance) {
 		log.debug("attaching clean CarMaker instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -73,7 +60,7 @@ public class CarMakerDAOImpl implements CarMakerDAO{
 	public void delete(CarMaker persistentInstance) {
 		log.debug("deleting CarMaker instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -84,7 +71,7 @@ public class CarMakerDAOImpl implements CarMakerDAO{
 	public CarMaker merge(CarMaker detachedInstance) {
 		log.debug("merging CarMaker instance");
 		try {
-			CarMaker result = (CarMaker) sessionFactory.getCurrentSession()
+			CarMaker result = (CarMaker) getSessionFactory().getCurrentSession()
 					.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -97,7 +84,7 @@ public class CarMakerDAOImpl implements CarMakerDAO{
 	public CarMaker findById(java.lang.String id) {
 		log.debug("getting CarMaker instance with id: " + id);
 		try {
-			CarMaker instance = (CarMaker) sessionFactory.getCurrentSession()
+			CarMaker instance = (CarMaker) getSessionFactory().getCurrentSession()
 					.get("vn.co.taxinet.dao.CarMaker", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -114,7 +101,7 @@ public class CarMakerDAOImpl implements CarMakerDAO{
 	public List<CarMaker> findByExample(CarMaker instance) {
 		log.debug("finding CarMaker instance by example");
 		try {
-			List<CarMaker> results = (List<CarMaker>) sessionFactory
+			List<CarMaker> results = (List<CarMaker>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.CarMaker")
 					.add(create(instance)).list();

@@ -4,10 +4,11 @@ package vn.co.taxinet.dao.impl;
 
 import java.util.List;
 import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.RiderDAO;
 import vn.co.taxinet.orm.Rider;
@@ -18,27 +19,16 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.Rider
  * @author Hibernate Tools
  */
-public class RiderDAOImpl implements RiderDAO{
+@Service(value="riderDAO")
+@Transactional
+public class RiderDAOImpl extends BaseDAOImpl implements RiderDAO{
 
-	private static final Log log = LogFactory.getLog(RiderDAOImpl.class);
-
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+	private static final Logger log = LogManager.getLogger(RiderDAOImpl.class);
 
 	public void persist(Rider transientInstance) {
 		log.debug("persisting Rider instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -49,7 +39,7 @@ public class RiderDAOImpl implements RiderDAO{
 	public void attachDirty(Rider instance) {
 		log.debug("attaching dirty Rider instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -60,7 +50,7 @@ public class RiderDAOImpl implements RiderDAO{
 	public void attachClean(Rider instance) {
 		log.debug("attaching clean Rider instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -71,7 +61,7 @@ public class RiderDAOImpl implements RiderDAO{
 	public void delete(Rider persistentInstance) {
 		log.debug("deleting Rider instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -82,7 +72,7 @@ public class RiderDAOImpl implements RiderDAO{
 	public Rider merge(Rider detachedInstance) {
 		log.debug("merging Rider instance");
 		try {
-			Rider result = (Rider) sessionFactory.getCurrentSession().merge(
+			Rider result = (Rider) getSessionFactory().getCurrentSession().merge(
 					detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -95,7 +85,7 @@ public class RiderDAOImpl implements RiderDAO{
 	public Rider findById(java.lang.String id) {
 		log.debug("getting Rider instance with id: " + id);
 		try {
-			Rider instance = (Rider) sessionFactory.getCurrentSession().get(
+			Rider instance = (Rider) getSessionFactory().getCurrentSession().get(
 					"vn.co.taxinet.dao.Rider", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -112,7 +102,7 @@ public class RiderDAOImpl implements RiderDAO{
 	public List<Rider> findByExample(Rider instance) {
 		log.debug("finding Rider instance by example");
 		try {
-			List<Rider> results = (List<Rider>) sessionFactory
+			List<Rider> results = (List<Rider>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.Rider")
 					.add(create(instance)).list();

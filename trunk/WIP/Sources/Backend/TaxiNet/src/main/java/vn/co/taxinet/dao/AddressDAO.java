@@ -11,7 +11,7 @@ import vn.co.taxinet.orm.Address;
  * @author DEV
  *
  */
-public interface AddressDAO {
+public interface AddressDAO extends BaseDAO {
 
 	List<Address> getAddresses(Address address);
 }

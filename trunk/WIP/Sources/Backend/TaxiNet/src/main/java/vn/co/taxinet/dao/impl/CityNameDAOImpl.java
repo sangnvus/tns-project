@@ -3,11 +3,10 @@ package vn.co.taxinet.dao.impl;
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
 import java.util.List;
-import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.CityNameDAO;
@@ -20,28 +19,16 @@ import static org.hibernate.criterion.Example.create;
  * @see vn.co.taxinet.dao.CityName
  * @author Hibernate Tools
  */
+@Service(value="cityNameDAO")
 @Transactional
-public class CityNameDAOImpl implements CityNameDAO{
+public class CityNameDAOImpl extends BaseDAOImpl implements CityNameDAO{
 
-	private static final Log log = LogFactory.getLog(CityNameDAOImpl.class);
-
-	private final SessionFactory sessionFactory = getSessionFactory();
-
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext()
-					.lookup("SessionFactory");
-		} catch (Exception e) {
-			log.error("Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException(
-					"Could not locate SessionFactory in JNDI");
-		}
-	}
+	private static final Logger log = LogManager.getLogger(CityNameDAOImpl.class);
 
 	public void persist(CityName transientInstance) {
 		log.debug("persisting CityName instance");
 		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
+			getSessionFactory().getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -52,7 +39,7 @@ public class CityNameDAOImpl implements CityNameDAO{
 	public void attachDirty(CityName instance) {
 		log.debug("attaching dirty CityName instance");
 		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
+			getSessionFactory().getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -63,7 +50,7 @@ public class CityNameDAOImpl implements CityNameDAO{
 	public void attachClean(CityName instance) {
 		log.debug("attaching clean CityName instance");
 		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -74,7 +61,7 @@ public class CityNameDAOImpl implements CityNameDAO{
 	public void delete(CityName persistentInstance) {
 		log.debug("deleting CityName instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			getSessionFactory().getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -85,7 +72,7 @@ public class CityNameDAOImpl implements CityNameDAO{
 	public CityName merge(CityName detachedInstance) {
 		log.debug("merging CityName instance");
 		try {
-			CityName result = (CityName) sessionFactory.getCurrentSession()
+			CityName result = (CityName) getSessionFactory().getCurrentSession()
 					.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -98,7 +85,7 @@ public class CityNameDAOImpl implements CityNameDAO{
 	public CityName findById(CityNameID id) {
 		log.debug("getting CityName instance with id: " + id);
 		try {
-			CityName instance = (CityName) sessionFactory.getCurrentSession()
+			CityName instance = (CityName) getSessionFactory().getCurrentSession()
 					.get("vn.co.taxinet.dao.CityName", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -115,7 +102,7 @@ public class CityNameDAOImpl implements CityNameDAO{
 	public List<CityName> findByExample(CityName instance) {
 		log.debug("finding CityName instance by example");
 		try {
-			List<CityName> results = (List<CityName>) sessionFactory
+			List<CityName> results = (List<CityName>) getSessionFactory()
 					.getCurrentSession()
 					.createCriteria("vn.co.taxinet.dao.CityName")
 					.add(create(instance)).list();
