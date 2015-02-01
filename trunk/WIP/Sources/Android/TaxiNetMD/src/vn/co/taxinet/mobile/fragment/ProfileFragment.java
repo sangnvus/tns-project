@@ -1,7 +1,7 @@
 package vn.co.taxinet.mobile.fragment;
 
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.bo.DriderProfileBO;
+import vn.co.taxinet.mobile.bo.ProfileBO;
 import vn.co.taxinet.mobile.utils.Const;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ public class ProfileFragment extends Fragment {
 	private EditText mEmail, mPhone, mPassword, mFirstName, mLastName;
 	private MenuItem mSaveMenu, mEditMenu, mCancelMenu;
 	private String email, phone, password, firstName, lastName;
-	private DriderProfileBO bo;
+	private ProfileBO bo;
 	private View rootView;
 
 	@Override
@@ -52,7 +52,7 @@ public class ProfileFragment extends Fragment {
 		mPassword = (EditText) rootView.findViewById(R.id.et_password);
 		mFirstName = (EditText) rootView.findViewById(R.id.et_first_name);
 		mLastName = (EditText) rootView.findViewById(R.id.et_last_name);
-		bo = new DriderProfileBO();
+		bo = new ProfileBO();
 
 	}
 

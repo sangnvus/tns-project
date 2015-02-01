@@ -1,6 +1,6 @@
 package vn.co.taxinet.mobile.bo;
 
-public class DriverForgotPasswordBO {
+public class ForgotPasswordBO {
 
 	/**
 	 * 
