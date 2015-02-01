@@ -48,7 +48,7 @@
             <column name="BankID" />
         </property>
         <property name="currentPromotionCode" type="string">
-            <column name="CurrentPromotionCode" length="20" />
+            <column name="CurrentPromotionCode"  length="20" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />

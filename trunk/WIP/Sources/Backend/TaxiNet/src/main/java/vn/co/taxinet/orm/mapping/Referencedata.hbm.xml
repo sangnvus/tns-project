@@ -27,8 +27,8 @@
         <property name="lastModifiedBy" type="string">
             <column name="LastModifiedBy" length="50" not-null="true" />
         </property>
-        <property name="lastModifyDate" type="timestamp">
-            <column name="LastModifyDate" length="0" not-null="true" />
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

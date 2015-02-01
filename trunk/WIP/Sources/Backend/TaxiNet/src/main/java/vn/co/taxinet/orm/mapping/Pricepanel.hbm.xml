@@ -26,35 +26,38 @@
         <property name="openKm" type="java.lang.Integer">
             <column name="OpenKM" />
         </property>
-        <property name="openPrice" type="java.lang.Integer">
-            <column name="OpenPrice" />
+        <property name="openPrice" type="java.lang.Double">
+            <column name="OpenPrice"  precision="22" scale="0" />
         </property>
         <property name="firstKm" type="java.lang.Integer">
             <column name="FirstKM" />
         </property>
-        <property name="firstKmprice" type="java.lang.Integer">
-            <column name="FirstKMPrice" />
+        <property name="firstKmprice" type="java.lang.Double">
+            <column name="FirstKMPrice" precision="22" scale="0" />
         </property>
         <property name="nextKm" type="java.lang.Integer">
             <column name="NextKM" />
         </property>
-        <property name="nextKmprice" type="java.lang.Integer">
-            <column name="NextKMPrice" />
+        <property name="nextKmprice" type="java.lang.Double">
+            <column name="NextKMPrice" precision="22" scale="0" />
         </property>
-        <property name="waitingPrice" type="java.lang.Integer">
-            <column name="WaitingPrice" />
+        <property name="waitingPrice" type="java.lang.Double">
+            <column name="WaitingPrice" precision="22" scale="0" />
+        </property>
+        <property name="returnTripPrice" type="java.lang.Double">
+            <column name="ReturnTripPrice" precision="22" scale="0" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
         </property>
-        <property name="creatDate" type="timestamp">
-            <column name="CreatDate" length="0" not-null="true" />
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
         </property>
         <property name="lastModifiedBy" type="string">
             <column name="LastModifiedBy" length="50" not-null="true" />
         </property>
-        <property name="lastModifyDate" type="timestamp">
-            <column name="LastModifyDate" length="0" not-null="true" />
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
         <set name="vehicles" table="vehicle" inverse="true" lazy="true" fetch="select">
             <key>

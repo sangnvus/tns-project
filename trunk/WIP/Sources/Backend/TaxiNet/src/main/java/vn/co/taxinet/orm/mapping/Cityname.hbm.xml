@@ -8,15 +8,15 @@
             <key-property name="cityId" type="int">
                 <column name="CityID" />
             </key-property>
-            <key-property name="languageCode" type="string">
-                <column name="LanguageCode" length="4" />
+            <key-property name="languageCode" type="int">
+                <column name="LanguageCode" />
             </key-property>
         </composite-id>
         <many-to-one name="city" class="vn.co.taxinet.orm.City" update="false" insert="false" fetch="select">
             <column name="CityID" not-null="true" />
         </many-to-one>
         <many-to-one name="language" class="vn.co.taxinet.orm.Language" update="false" insert="false" fetch="select">
-            <column name="LanguageCode" length="4" not-null="true" />
+            <column name="LanguageCode" not-null="true" />
         </many-to-one>
         <property name="cityName" type="string">
             <column name="CityName" length="20" not-null="true" />
