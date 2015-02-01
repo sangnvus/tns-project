@@ -45,22 +45,22 @@ public class RiderBOImpl implements RiderBO {
 						Constants.Errors.DUPLICATED_ERROR);
 			}
 			UUID id = UUID.randomUUID();
-			user.setUserId(id.toString());
+			user.setUserID(id.toString());
 			// User Name always is in lower case
 			user.setUsername(user.getUsername().toLowerCase());
-			user.setCreatDate(Utility.getCurrentDateTime());
+			user.setCreatedDate(Utility.getCurrentDateTime());
 			user.setCreatedBy(user.getUsername());
-			user.setLastModifyDate(Utility.getCurrentDateTime());
+			user.setLastModifiedDate(Utility.getCurrentDateTime());
 			user.setLastModifiedBy(user.getUsername());
 			taxiNetUserDAO.insert(user);
 
 			// 2. Insert Home Address if not null
-			if (rider.getAddressByHomeAddressId() != null) {
+			if (rider.getAddressByHomeAddressID() != null) {
 				UUID homeAddressId = UUID.randomUUID();
-				Address homeAddress = rider.getAddressByHomeAddressId();
-				homeAddress.setAddressId(homeAddressId.toString());
-				homeAddress.setCreateDate(Utility.getCurrentDateTime());
-				homeAddress.setLastModifyDate(Utility.getCurrentDateTime());
+				Address homeAddress = rider.getAddressByHomeAddressID();
+				homeAddress.setAddressID(homeAddressId.toString());
+				homeAddress.setCreatedDate(Utility.getCurrentDateTime());
+				homeAddress.setLastModifiedDate(Utility.getCurrentDateTime());
 				homeAddress.setCreatedBy(user.getUsername());
 				homeAddress.setLastModifiedBy(user.getUsername());
 				taxiNetUserDAO.insert(homeAddress);
@@ -68,21 +68,21 @@ public class RiderBOImpl implements RiderBO {
 			}
 
 			// 3. Insert Office Address if not null
-			if (rider.getAddressByOfficeAddressId() != null) {
+			if (rider.getAddressByOfficeAddressID() != null) {
 				UUID officeAddressId = UUID.randomUUID();
-				Address offAddress = rider.getAddressByHomeAddressId();
-				offAddress.setAddressId(officeAddressId.toString());
-				offAddress.setCreateDate(Utility.getCurrentDateTime());
-				offAddress.setLastModifyDate(Utility.getCurrentDateTime());
+				Address offAddress = rider.getAddressByHomeAddressID();
+				offAddress.setAddressID(officeAddressId.toString());
+				offAddress.setCreatedDate(Utility.getCurrentDateTime());
+				offAddress.setLastModifiedDate(Utility.getCurrentDateTime());
 				offAddress.setCreatedBy(user.getUsername());
 				offAddress.setLastModifiedBy(user.getUsername());
 				taxiNetUserDAO.insert(offAddress);
 			}
 
 			// 4. Insert data into Rider table
-			rider.setRiderId(id.toString());
-			rider.setCreateDate(Utility.getCurrentDateTime());
-			rider.setLastModifyDate(Utility.getCurrentDateTime());
+			rider.setRiderID(id.toString());
+			rider.setCreatedDate(Utility.getCurrentDateTime());
+			rider.setLastModifiedDate(Utility.getCurrentDateTime());
 			rider.setCreatedBy(user.getUsername());
 			rider.setLastModifiedBy(user.getUsername());
 			taxiNetUserDAO.insert(rider);

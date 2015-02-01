@@ -1,5 +1,6 @@
 package vn.co.taxinet.bean.rider;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,6 +9,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import vn.co.taxinet.bo.AuthenticationBO;
 import vn.co.taxinet.bo.RiderBO;
@@ -34,7 +37,7 @@ public class RiderRegisterBean implements Serializable {
 	private String zipCode;
 	private AuthenticationBO authenticationBO;
 	private RiderBO riderBo;
-	//private TaxiNetUserDAO taxiNetUserDAO;
+	// private TaxiNetUserDAO taxiNetUserDAO;
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
@@ -59,50 +62,83 @@ public class RiderRegisterBean implements Serializable {
 	}
 
 	/**
-	 * 
+	 * @author Ecchi. event for Register button if success, redirect to login
+	 *         page
 	 */
 	public void doRegister() {
 		// TODO validate information
 		// TODO send information through webservice and receive user's role
 		// TODO redirect to main.xhtml with user's role
 		// TODO validate information
-				// TODO send information through webservice and receive user's role
-				// TODO redirect to main.xhtml with user's role
-				int cvvNumber;
-				int zipCodeNumber = 0;
-				if (!emailAddress.matches(EMAIL_PATTERN)) {
-					// thông báo lỗi đến người dùng
-					FacesContext.getCurrentInstance().addMessage(null,
-							new FacesMessage("Error", "Email không hợp lệ"));
-				}
-				try {
-					//kiểm tra thông tin CVV và zip code
-					cvvNumber = Integer.parseInt(cvv);
-					zipCodeNumber = Integer.parseInt(zipCode);
-				} catch (Exception ex) {
-					FacesContext.getCurrentInstance().addMessage(null,
-							new FacesMessage("Error", "CVV không hợp lệ"));
-				}
-				Rider newRider = new Rider();
-				newRider.getTaxinetusers().setEmail(emailAddress);
-				newRider.getTaxinetusers().setPassword(password);
-				newRider.getTaxinetusers().setUsername(emailAddress);
-				newRider.getTaxinetusers().setPostalCode(zipCodeNumber);
-				
-				Rider registerRider;
-				try {
-					registerRider = riderBo.register(newRider);
-					if(registerRider != null ){
-						//success và redirect qua trang khác
-					} else {
-						//thông báo lỗi
-					}
-					
-				} catch (TNSException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		// TODO send information through webservice and receive user's role
+		// TODO redirect to main.xhtml with user's role
+		int cvvNumber = 0;
+		int zipCodeNumber = 0;
+		int phoneNumber = 0;
+		if (!emailAddress.matches(EMAIL_PATTERN)) {
+			// thông báo lỗi đến người dùng
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Email không hợp lệ"));
+		}
+		// kiểm tra tính hợp lệ của CVV, Số điện thoại và Zip Code
+		try {
+			// kiểm tra thông tin CVV
+			cvvNumber = Integer.parseInt(cvv);
+		} catch (NumberFormatException ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "CVV không hợp lệ"));
+		} catch (Exception ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "CVV không hợp lệ"));
+		}
 
+		try {
+			// kiểm tra thông tin zipCode
+			zipCodeNumber = Integer.parseInt(zipCode);
+		} catch (NumberFormatException ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Zip Code không hợp lệ"));
+		} catch (Exception ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Zip Code không hợp lệ"));
+		}
+
+		try {
+			// kiểm tra thông tin của số điện thoại
+			phoneNumber = Integer.parseInt(mobileNo);
+		} catch (NumberFormatException ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Số điện thoại không hợp lệ"));
+		} catch (Exception ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Số điện thoại không hợp lệ"));
+		}
+		// set thông tin cho đối tượng đươc truyền xuống
+		Rider newRider = new Rider();
+		newRider.getTaxinetusers().setEmail(emailAddress);
+		newRider.getTaxinetusers().setPassword(password);
+		newRider.getTaxinetusers().setUsername(emailAddress);
+		newRider.getTaxinetusers().setPostalCode(zipCode);
+		newRider.setMobileNo(phoneNumber);
+		newRider.setFirstName(userName);
+		newRider.setLastName(userSurName);
+		// userGroup aka loại người dùng chưa biết
+		try {
+			riderBo.register(newRider);
+			//nếu thành công thì chuyển qua trang login
+			HttpServletRequest request = (HttpServletRequest) FacesContext
+					.getCurrentInstance().getExternalContext().getRequest();
+			HttpSession session = request.getSession();
+			session.setAttribute("username", emailAddress);
+			session.setAttribute("password", password);
+			FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+		} catch (TNSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
