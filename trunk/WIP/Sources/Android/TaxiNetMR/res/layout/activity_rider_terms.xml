@@ -17,9 +17,8 @@
 
     <TextView
         android:id="@+id/term"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/bt_accept"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/ic_app"
@@ -28,12 +27,5 @@
         android:padding="10dp"
         android:scrollbars="vertical"
         android:text="@string/term" />
-
-    <Button
-        android:id="@+id/bt_accept"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/accept" />
 
 </RelativeLayout>
