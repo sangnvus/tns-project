@@ -15,7 +15,7 @@
             <column name="CreatedBy" length="50" not-null="true" />
         </property>
         <property name="createdDate" type="timestamp">
-            <column name="CreatedDate" length="0" not-null="true"/>
+            <column name="CreatedDate" length="0" not-null="true" />
         </property>
         <property name="lastModifiedBy" type="string">
             <column name="LastModifiedBy" length="50" not-null="true" />
