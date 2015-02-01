@@ -11,12 +11,12 @@
             <key-property name="code" type="string">
                 <column name="Code" length="2" />
             </key-property>
-            <key-property name="languageCode" type="int">
-                <column name="LanguageCode" />
+            <key-property name="languageCode" type="string">
+                <column name="LanguageCode" lenght="4"/>
             </key-property>
         </composite-id>
         <property name="description" type="string">
-            <column name="Description" length="30" />
+            <column name="Description" length="50" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />

@@ -20,8 +20,8 @@
         <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
             <column name="ParentID" not-null="true" />
         </many-to-one>
-        <property name="name" type="int">
-            <column name="Name" not-null="true" />
+        <property name="name" type="string">
+            <column name="Name" length="100" not-null="true" />
         </property>
         <property name="businessType" type="string">
             <column name="BusinessType" length="10" not-null="true" />
@@ -29,14 +29,14 @@
         <property name="balance" type="java.lang.Integer">
             <column name="Balance" />
         </property>
-        <property name="vatnumber" type="java.lang.Integer">
-            <column name="VATNumber" />
+        <property name="vatnumber" type="string">
+            <column name="VATNumber" length="20" />
         </property>
-        <property name="mobileNo" type="java.lang.Integer">
-            <column name="MobileNo" />
+        <property name="mobileNo" type="string">
+            <column name="MobileNo" length="20" />
         </property>
-        <property name="serviceCharge" type="java.lang.Integer">
-            <column name="ServiceCharge" />
+        <property name="serviceCharge" type="string">
+            <column name="ServiceCharge" length="5" />
         </property>
         <property name="rate" type="java.lang.Integer">
             <column name="Rate" />
@@ -47,20 +47,20 @@
         <property name="bankId" type="java.lang.Integer">
             <column name="BankID" />
         </property>
-        <property name="currentPromotionCode" type="java.lang.Integer">
-            <column name="CurrentPromotionCode" />
+        <property name="currentPromotionCode" type="string">
+            <column name="CurrentPromotionCode" length="20" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
         </property>
-        <property name="creatDate" type="timestamp">
-            <column name="CreatDate" length="0" not-null="true" />
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
         </property>
         <property name="lastModifiedBy" type="string">
             <column name="LastModifiedBy" length="50" not-null="true" />
         </property>
-        <property name="lastModifyDate" type="timestamp">
-            <column name="LastModifyDate" length="0" not-null="true" />
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
         <set name="taxinetuserses" table="taxinetusers" inverse="true" lazy="true" fetch="select">
             <key>

@@ -12,13 +12,13 @@
             <column name="GroupCode" length="3" not-null="true" />
         </many-to-one>
         <many-to-one name="language" class="vn.co.taxinet.orm.Language" fetch="select">
-            <column name="LanguageCode" not-null="true" />
+            <column name="LanguageCode" length="4" not-null="true" />
         </many-to-one>
         <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
             <column name="CompanyID" not-null="true" />
         </many-to-one>
         <many-to-one name="country" class="vn.co.taxinet.orm.Country" fetch="select">
-            <column name="CountryCode" not-null="true" />
+            <column name="CountryCode" length="4" not-null="true" />
         </many-to-one>
         <property name="username" type="string">
             <column name="Username" length="50" not-null="true" unique="true" />
@@ -38,8 +38,8 @@
         <property name="image" type="string">
             <column name="Image" />
         </property>
-        <property name="postalCode" type="java.lang.Integer">
-            <column name="PostalCode" />
+        <property name="postalCode" type="string">
+            <column name="PostalCode" length="5" />
         </property>
         <property name="deactivatedDate" type="date">
             <column name="DeactivatedDate" length="0" />
@@ -47,14 +47,14 @@
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
         </property>
-        <property name="creatDate" type="timestamp">
-            <column name="CreatDate" length="0" not-null="true" />
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
         </property>
         <property name="lastModifiedBy" type="string">
             <column name="LastModifiedBy" length="50" not-null="true" />
         </property>
-        <property name="lastModifyDate" type="timestamp">
-            <column name="LastModifyDate" length="0" not-null="true" />
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
         <set name="payments" table="payment" inverse="true" lazy="true" fetch="select">
             <key>

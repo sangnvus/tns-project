@@ -12,16 +12,16 @@
             <column name="BankName" />
         </property>
         <property name="createdBy" type="string">
-            <column name="CreatedBy" length="50" />
+            <column name="CreatedBy" length="50" not-null="true" />
         </property>
-        <property name="createDate" type="timestamp">
-            <column name="CreateDate" length="0" />
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true"/>
         </property>
         <property name="lastModifiedBy" type="string">
-            <column name="LastModifiedBy" length="50" />
+            <column name="LastModifiedBy" length="50" not-null="true" />
         </property>
-        <property name="lastModifyDate" type="timestamp">
-            <column name="LastModifyDate" length="0" />
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
         <set name="payments" table="payment" inverse="true" lazy="true" fetch="select">
             <key>

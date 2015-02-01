@@ -23,14 +23,14 @@
         <property name="numberOfCar" type="int">
             <column name="NumberOfCar" not-null="true" />
         </property>
-        <property name="creatBy" type="string">
-            <column name="CreatBy" length="50" not-null="true" />
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
         </property>
         <property name="createdDate" type="timestamp">
             <column name="CreatedDate" length="0" not-null="true" />
         </property>
-        <property name="lastModifyBy" type="string">
-            <column name="LastModifyBy" length="50" not-null="true" />
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
         </property>
         <property name="lastModifiedDate" type="timestamp">
             <column name="LastModifiedDate" length="0" not-null="true" />
