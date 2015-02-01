@@ -7,31 +7,31 @@ package vn.co.taxinet.orm;
  */
 public class InvitationLogID implements java.io.Serializable {
 
-	private Integer driverId;
-	private Integer riderId;
+	private Integer driverID;
+	private Integer riderID;
 
 	public InvitationLogID() {
 	}
 
-	public InvitationLogID(Integer driverId, Integer riderId) {
-		this.driverId = driverId;
-		this.riderId = riderId;
+	public InvitationLogID(Integer driverID, Integer riderID) {
+		this.driverID = driverID;
+		this.riderID = riderID;
 	}
 
-	public Integer getDriverId() {
-		return this.driverId;
+	public Integer getDriverID() {
+		return this.driverID;
 	}
 
-	public void setDriverId(Integer driverId) {
-		this.driverId = driverId;
+	public void setDriverID(Integer driverID) {
+		this.driverID = driverID;
 	}
 
-	public Integer getRiderId() {
-		return this.riderId;
+	public Integer getRiderID() {
+		return this.riderID;
 	}
 
-	public void setRiderId(Integer riderId) {
-		this.riderId = riderId;
+	public void setRiderID(Integer riderID) {
+		this.riderID = riderID;
 	}
 
 	public boolean equals(Object other) {
@@ -43,21 +43,21 @@ public class InvitationLogID implements java.io.Serializable {
 			return false;
 		InvitationLogID castOther = (InvitationLogID) other;
 
-		return ((this.getDriverId() == castOther.getDriverId()) || (this
-				.getDriverId() != null && castOther.getDriverId() != null && this
-				.getDriverId().equals(castOther.getDriverId())))
-				&& ((this.getRiderId() == castOther.getRiderId()) || (this
-						.getRiderId() != null && castOther.getRiderId() != null && this
-						.getRiderId().equals(castOther.getRiderId())));
+		return ((this.getDriverID() == castOther.getDriverID()) || (this
+				.getDriverID() != null && castOther.getDriverID() != null && this
+				.getDriverID().equals(castOther.getDriverID())))
+				&& ((this.getRiderID() == castOther.getRiderID()) || (this
+						.getRiderID() != null && castOther.getRiderID() != null && this
+						.getRiderID().equals(castOther.getRiderID())));
 	}
 
 	public int hashCode() {
 		int result = 17;
 
 		result = 37 * result
-				+ (getDriverId() == null ? 0 : this.getDriverId().hashCode());
+				+ (getDriverID() == null ? 0 : this.getDriverID().hashCode());
 		result = 37 * result
-				+ (getRiderId() == null ? 0 : this.getRiderId().hashCode());
+				+ (getRiderID() == null ? 0 : this.getRiderID().hashCode());
 		return result;
 	}
 

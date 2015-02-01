@@ -9,12 +9,12 @@ public class ReferenceDataID implements java.io.Serializable {
 
 	private String groupCode;
 	private String code;
-	private int languageCode;
+	private String languageCode;
 
 	public ReferenceDataID() {
 	}
 
-	public ReferenceDataID(String groupCode, String code, int languageCode) {
+	public ReferenceDataID(String groupCode, String code, String languageCode) {
 		this.groupCode = groupCode;
 		this.code = code;
 		this.languageCode = languageCode;
@@ -36,11 +36,11 @@ public class ReferenceDataID implements java.io.Serializable {
 		this.code = code;
 	}
 
-	public int getLanguageCode() {
+	public String getLanguageCode() {
 		return this.languageCode;
 	}
 
-	public void setLanguageCode(int languageCode) {
+	public void setLanguageCode(String languageCode) {
 		this.languageCode = languageCode;
 	}
 
@@ -59,7 +59,10 @@ public class ReferenceDataID implements java.io.Serializable {
 				&& ((this.getCode() == castOther.getCode()) || (this.getCode() != null
 						&& castOther.getCode() != null && this.getCode()
 						.equals(castOther.getCode())))
-				&& (this.getLanguageCode() == castOther.getLanguageCode());
+				&& ((this.getLanguageCode() == castOther.getLanguageCode()) || (this
+						.getLanguageCode() != null
+						&& castOther.getLanguageCode() != null && this
+						.getLanguageCode().equals(castOther.getLanguageCode())));
 	}
 
 	public int hashCode() {
@@ -69,7 +72,10 @@ public class ReferenceDataID implements java.io.Serializable {
 				+ (getGroupCode() == null ? 0 : this.getGroupCode().hashCode());
 		result = 37 * result
 				+ (getCode() == null ? 0 : this.getCode().hashCode());
-		result = 37 * result + this.getLanguageCode();
+		result = 37
+				* result
+				+ (getLanguageCode() == null ? 0 : this.getLanguageCode()
+						.hashCode());
 		return result;
 	}
 

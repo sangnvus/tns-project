@@ -11,25 +11,25 @@ import java.util.Set;
  */
 public class Company implements java.io.Serializable {
 
-	private Integer companyId;
+	private Integer companyID;
 	private Document documentByOperatingLisence;
 	private Document documentByBusinessRegistration;
 	private Address address;
 	private Company company;
-	private int name;
+	private String name;
 	private String businessType;
 	private Integer balance;
-	private Integer vatnumber;
-	private Integer mobileNo;
-	private Integer serviceCharge;
+	private String vatnumber;
+	private String mobileNo;
+	private String serviceCharge;
 	private Integer rate;
 	private Integer bankNo;
-	private Integer bankId;
-	private Integer currentPromotionCode;
+	private Integer bankID;
+	private String currentPromotionCode;
 	private String createdBy;
-	private Date creatDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<TaxiNetUsers> taxinetuserses = new HashSet<TaxiNetUsers>(0);
 	private Set<TaxiNetUsers> taxinetuserses_1 = new HashSet<TaxiNetUsers>(0);
 	private Set<PricePanel> pricePanels = new HashSet<PricePanel>(0);
@@ -46,8 +46,9 @@ public class Company implements java.io.Serializable {
 
 	public Company(Document documentByOperatingLisence,
 			Document documentByBusinessRegistration, Address address,
-			Company company, int name, String businessType, String createdBy,
-			Date creatDate, String lastModifiedBy, Date lastModifyDate) {
+			Company company, String name, String businessType,
+			String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate) {
 		this.documentByOperatingLisence = documentByOperatingLisence;
 		this.documentByBusinessRegistration = documentByBusinessRegistration;
 		this.address = address;
@@ -55,18 +56,18 @@ public class Company implements java.io.Serializable {
 		this.name = name;
 		this.businessType = businessType;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Company(Document documentByOperatingLisence,
 			Document documentByBusinessRegistration, Address address,
-			Company company, int name, String businessType, Integer balance,
-			Integer vatnumber, Integer mobileNo, Integer serviceCharge,
-			Integer rate, Integer bankNo, Integer bankId,
-			Integer currentPromotionCode, String createdBy, Date creatDate,
-			String lastModifiedBy, Date lastModifyDate,
+			Company company, String name, String businessType, Integer balance,
+			String vatnumber, String mobileNo, String serviceCharge,
+			Integer rate, Integer bankNo, Integer bankID,
+			String currentPromotionCode, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate,
 			Set<TaxiNetUsers> taxinetuserses,
 			Set<TaxiNetUsers> taxinetuserses_1, Set<PricePanel> pricePanels,
 			Set<Company> companies, Set<PricePanel> pricepanels_1,
@@ -84,12 +85,12 @@ public class Company implements java.io.Serializable {
 		this.serviceCharge = serviceCharge;
 		this.rate = rate;
 		this.bankNo = bankNo;
-		this.bankId = bankId;
+		this.bankID = bankID;
 		this.currentPromotionCode = currentPromotionCode;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.taxinetuserses = taxinetuserses;
 		this.taxinetuserses_1 = taxinetuserses_1;
 		this.pricePanels = pricePanels;
@@ -100,12 +101,12 @@ public class Company implements java.io.Serializable {
 		this.companyparkareas_1 = companyparkareas_1;
 	}
 
-	public Integer getCompanyId() {
-		return this.companyId;
+	public Integer getCompanyID() {
+		return this.companyID;
 	}
 
-	public void setCompanyId(Integer companyId) {
-		this.companyId = companyId;
+	public void setCompanyID(Integer companyID) {
+		this.companyID = companyID;
 	}
 
 	public Document getDocumentByOperatingLisence() {
@@ -142,11 +143,11 @@ public class Company implements java.io.Serializable {
 		this.company = company;
 	}
 
-	public int getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	public void setName(int name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -166,27 +167,27 @@ public class Company implements java.io.Serializable {
 		this.balance = balance;
 	}
 
-	public Integer getVatnumber() {
+	public String getVatnumber() {
 		return this.vatnumber;
 	}
 
-	public void setVatnumber(Integer vatnumber) {
+	public void setVatnumber(String vatnumber) {
 		this.vatnumber = vatnumber;
 	}
 
-	public Integer getMobileNo() {
+	public String getMobileNo() {
 		return this.mobileNo;
 	}
 
-	public void setMobileNo(Integer mobileNo) {
+	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 
-	public Integer getServiceCharge() {
+	public String getServiceCharge() {
 		return this.serviceCharge;
 	}
 
-	public void setServiceCharge(Integer serviceCharge) {
+	public void setServiceCharge(String serviceCharge) {
 		this.serviceCharge = serviceCharge;
 	}
 
@@ -206,19 +207,19 @@ public class Company implements java.io.Serializable {
 		this.bankNo = bankNo;
 	}
 
-	public Integer getBankId() {
-		return this.bankId;
+	public Integer getBankID() {
+		return this.bankID;
 	}
 
-	public void setBankId(Integer bankId) {
-		this.bankId = bankId;
+	public void setBankID(Integer bankID) {
+		this.bankID = bankID;
 	}
 
-	public Integer getCurrentPromotionCode() {
+	public String getCurrentPromotionCode() {
 		return this.currentPromotionCode;
 	}
 
-	public void setCurrentPromotionCode(Integer currentPromotionCode) {
+	public void setCurrentPromotionCode(String currentPromotionCode) {
 		this.currentPromotionCode = currentPromotionCode;
 	}
 
@@ -230,12 +231,12 @@ public class Company implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatDate() {
-		return this.creatDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreatDate(Date creatDate) {
-		this.creatDate = creatDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -246,12 +247,12 @@ public class Company implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<TaxiNetUsers> getTaxinetuserses() {

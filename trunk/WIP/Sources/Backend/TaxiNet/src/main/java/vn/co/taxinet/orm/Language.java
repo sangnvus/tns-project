@@ -11,12 +11,12 @@ import java.util.Set;
  */
 public class Language implements java.io.Serializable {
 
-	private Integer languageCode;
+	private String languageCode;
 	private String language;
 	private String createdBy;
-	private Date creatDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<CityName> cityNames = new HashSet<CityName>(0);
 	private Set<CityName> citynames_1 = new HashSet<CityName>(0);
 	private Set<TaxiNetUsers> taxinetuserses = new HashSet<TaxiNetUsers>(0);
@@ -25,35 +25,37 @@ public class Language implements java.io.Serializable {
 	public Language() {
 	}
 
-	public Language(String language, String createdBy, Date creatDate,
-			String lastModifiedBy, Date lastModifyDate) {
+	public Language(String languageCode, String language, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
+		this.languageCode = languageCode;
 		this.language = language;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Language(String language, String createdBy, Date creatDate,
-			String lastModifiedBy, Date lastModifyDate,
+	public Language(String languageCode, String language, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
 			Set<CityName> cityNames, Set<CityName> citynames_1,
 			Set<TaxiNetUsers> taxinetuserses, Set<TaxiNetUsers> taxinetuserses_1) {
+		this.languageCode = languageCode;
 		this.language = language;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.cityNames = cityNames;
 		this.citynames_1 = citynames_1;
 		this.taxinetuserses = taxinetuserses;
 		this.taxinetuserses_1 = taxinetuserses_1;
 	}
 
-	public Integer getLanguageCode() {
+	public String getLanguageCode() {
 		return this.languageCode;
 	}
 
-	public void setLanguageCode(Integer languageCode) {
+	public void setLanguageCode(String languageCode) {
 		this.languageCode = languageCode;
 	}
 
@@ -73,12 +75,12 @@ public class Language implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatDate() {
-		return this.creatDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreatDate(Date creatDate) {
-		this.creatDate = creatDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -89,12 +91,12 @@ public class Language implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<CityName> getCitynames() {

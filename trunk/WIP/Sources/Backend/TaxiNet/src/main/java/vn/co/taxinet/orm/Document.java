@@ -11,15 +11,15 @@ import java.util.Set;
  */
 public class Document implements java.io.Serializable {
 
-	private Integer documentId;
+	private Integer documentID;
 	private String fileName;
 	private String link;
 	private String expiredMonth;
 	private String expiredYear;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<Company> companiesForBusinessRegistration = new HashSet<Company>(
 			0);
 	private Set<Company> companiesForOperatingLisence = new HashSet<Company>(0);
@@ -36,21 +36,21 @@ public class Document implements java.io.Serializable {
 	}
 
 	public Document(String fileName, String link, String expiredMonth,
-			String expiredYear, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModifyDate) {
+			String expiredYear, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate) {
 		this.fileName = fileName;
 		this.link = link;
 		this.expiredMonth = expiredMonth;
 		this.expiredYear = expiredYear;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Document(String fileName, String link, String expiredMonth,
-			String expiredYear, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModifyDate,
+			String expiredYear, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate,
 			Set<Company> companiesForBusinessRegistration,
 			Set<Company> companiesForOperatingLisence,
 			Set<Driver> driversForDriverLisense,
@@ -64,9 +64,9 @@ public class Document implements java.io.Serializable {
 		this.expiredMonth = expiredMonth;
 		this.expiredYear = expiredYear;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.companiesForBusinessRegistration = companiesForBusinessRegistration;
 		this.companiesForOperatingLisence = companiesForOperatingLisence;
 		this.driversForDriverLisense = driversForDriverLisense;
@@ -77,12 +77,12 @@ public class Document implements java.io.Serializable {
 		this.companiesForBusinessRegistration_1 = companiesForBusinessRegistration_1;
 	}
 
-	public Integer getDocumentId() {
-		return this.documentId;
+	public Integer getDocumentID() {
+		return this.documentID;
 	}
 
-	public void setDocumentId(Integer documentId) {
-		this.documentId = documentId;
+	public void setDocumentID(Integer documentID) {
+		this.documentID = documentID;
 	}
 
 	public String getFileName() {
@@ -125,12 +125,12 @@ public class Document implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -141,12 +141,12 @@ public class Document implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<Company> getCompaniesForBusinessRegistration() {

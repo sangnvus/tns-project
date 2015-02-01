@@ -12,38 +12,38 @@ public class ReferenceData implements java.io.Serializable {
 	private ReferenceDataID id;
 	private String description;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 
 	public ReferenceData() {
 	}
 
-	public ReferenceData(ReferenceDataID id, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModifyDate) {
+	public ReferenceData(ReferenceDataID id, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
 		this.id = id;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public ReferenceData(ReferenceDataID id, String description,
-			String createdBy, Date createDate, String lastModifiedBy,
-			Date lastModifyDate) {
+			String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate) {
 		this.id = id;
 		this.description = description;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public ReferenceDataID getId() {
+	public ReferenceDataID getID() {
 		return this.id;
 	}
 
-	public void setId(ReferenceDataID id) {
+	public void setID(ReferenceDataID id) {
 		this.id = id;
 	}
 
@@ -63,12 +63,12 @@ public class ReferenceData implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -79,12 +79,12 @@ public class ReferenceData implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 }

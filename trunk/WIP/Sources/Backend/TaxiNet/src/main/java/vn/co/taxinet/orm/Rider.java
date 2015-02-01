@@ -11,68 +11,68 @@ import java.util.Set;
  */
 public class Rider implements java.io.Serializable {
 
-	private String riderId;
-	private Address addressByHomeAddressId;
+	private String riderID;
+	private Address addressByHomeAddressID;
 	private TaxiNetUsers taxiNetUsers;
-	private Address addressByOfficeAddressId;
+	private Address addressByOfficeAddressID;
 	private String firstName;
 	private String lastName;
 	private Integer mobileNo;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<Trip> trips = new HashSet<Trip>(0);
 	private Set<Trip> trips_1 = new HashSet<Trip>(0);
 
 	public Rider() {
 	}
 
-	public Rider(Address addressByHomeAddressId, TaxiNetUsers taxiNetUsers,
-			Address addressByOfficeAddressId, String createdBy,
-			Date createDate, String lastModifiedBy, Date lastModifyDate) {
-		this.addressByHomeAddressId = addressByHomeAddressId;
+	public Rider(Address addressByHomeAddressID, TaxiNetUsers taxiNetUsers,
+			Address addressByOfficeAddressID, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
+		this.addressByHomeAddressID = addressByHomeAddressID;
 		this.taxiNetUsers = taxiNetUsers;
-		this.addressByOfficeAddressId = addressByOfficeAddressId;
+		this.addressByOfficeAddressID = addressByOfficeAddressID;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Rider(Address addressByHomeAddressId, TaxiNetUsers taxiNetUsers,
-			Address addressByOfficeAddressId, String firstName,
+	public Rider(Address addressByHomeAddressID, TaxiNetUsers taxiNetUsers,
+			Address addressByOfficeAddressID, String firstName,
 			String lastName, Integer mobileNo, String createdBy,
-			Date createDate, String lastModifiedBy, Date lastModifyDate,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
 			Set<Trip> trips, Set<Trip> trips_1) {
-		this.addressByHomeAddressId = addressByHomeAddressId;
+		this.addressByHomeAddressID = addressByHomeAddressID;
 		this.taxiNetUsers = taxiNetUsers;
-		this.addressByOfficeAddressId = addressByOfficeAddressId;
+		this.addressByOfficeAddressID = addressByOfficeAddressID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobileNo = mobileNo;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.trips = trips;
 		this.trips_1 = trips_1;
 	}
 
-	public String getRiderId() {
-		return this.riderId;
+	public String getRiderID() {
+		return this.riderID;
 	}
 
-	public void setRiderId(String riderId) {
-		this.riderId = riderId;
+	public void setRiderID(String riderID) {
+		this.riderID = riderID;
 	}
 
-	public Address getAddressByHomeAddressId() {
-		return this.addressByHomeAddressId;
+	public Address getAddressByHomeAddressID() {
+		return this.addressByHomeAddressID;
 	}
 
-	public void setAddressByHomeAddressId(Address addressByHomeAddressId) {
-		this.addressByHomeAddressId = addressByHomeAddressId;
+	public void setAddressByHomeAddressID(Address addressByHomeAddressID) {
+		this.addressByHomeAddressID = addressByHomeAddressID;
 	}
 
 	public TaxiNetUsers getTaxinetusers() {
@@ -83,12 +83,12 @@ public class Rider implements java.io.Serializable {
 		this.taxiNetUsers = taxiNetUsers;
 	}
 
-	public Address getAddressByOfficeAddressId() {
-		return this.addressByOfficeAddressId;
+	public Address getAddressByOfficeAddressID() {
+		return this.addressByOfficeAddressID;
 	}
 
-	public void setAddressByOfficeAddressId(Address addressByOfficeAddressId) {
-		this.addressByOfficeAddressId = addressByOfficeAddressId;
+	public void setAddressByOfficeAddressID(Address addressByOfficeAddressID) {
+		this.addressByOfficeAddressID = addressByOfficeAddressID;
 	}
 
 	public String getFirstName() {
@@ -123,12 +123,12 @@ public class Rider implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -139,12 +139,12 @@ public class Rider implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<Trip> getTrips() {

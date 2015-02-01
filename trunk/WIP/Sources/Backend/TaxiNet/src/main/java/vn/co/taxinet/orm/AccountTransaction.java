@@ -9,49 +9,49 @@ import java.util.Date;
  */
 public class AccountTransaction implements java.io.Serializable {
 
-	private Integer transactionId;
+	private Integer transactionID;
 	private TaxiNetUsers taxiNetUsers;
 	private int dateTime;
-	private Integer amount;
-	private Integer type;
+	private Double amount;
+	private String type;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 
 	public AccountTransaction() {
 	}
 
 	public AccountTransaction(TaxiNetUsers taxiNetUsers, int dateTime,
-			String createdBy, Date createDate, String lastModifiedBy,
-			Date lastModifyDate) {
+			String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate) {
 		this.taxiNetUsers = taxiNetUsers;
 		this.dateTime = dateTime;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public AccountTransaction(TaxiNetUsers taxiNetUsers, int dateTime,
-			Integer amount, Integer type, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModifyDate) {
+			double amount, String type, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate) {
 		this.taxiNetUsers = taxiNetUsers;
 		this.dateTime = dateTime;
 		this.amount = amount;
 		this.type = type;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Integer getTransactionId() {
-		return this.transactionId;
+	public Integer getTransactionID() {
+		return this.transactionID;
 	}
 
-	public void setTransactionId(Integer transactionId) {
-		this.transactionId = transactionId;
+	public void setTransactionID(Integer transactionID) {
+		this.transactionID = transactionID;
 	}
 
 	public TaxiNetUsers getTaxinetusers() {
@@ -70,19 +70,19 @@ public class AccountTransaction implements java.io.Serializable {
 		this.dateTime = dateTime;
 	}
 
-	public Integer getAmount() {
+	public Double getAmount() {
 		return this.amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
-	public Integer getType() {
+	public String getType() {
 		return this.type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -94,12 +94,12 @@ public class AccountTransaction implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -110,12 +110,12 @@ public class AccountTransaction implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 }

@@ -11,23 +11,23 @@ import java.util.Set;
  */
 public class TaxiNetUsers implements java.io.Serializable {
 
-	private String userId;
+	private String userID;
 	private UserGroup userGroup;
 	private Language language;
 	private Company company;
 	private Country country;
-	private String username;
+	private String userName;
 	private String password;
 	private String email;
-	private Integer cityId;
+	private Integer cityID;
 	private String status;
 	private String image;
-	private Integer postalCode;
+	private String postalCode;
 	private Date deactivatedDate;
 	private String createdBy;
-	private Date creatDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<Payment> payments = new HashSet<Payment>(0);
 	private Set<Payment> payments_1 = new HashSet<Payment>(0);
 	private Set<AccountTransaction> accountTransactions = new HashSet<AccountTransaction>(
@@ -40,49 +40,49 @@ public class TaxiNetUsers implements java.io.Serializable {
 	public TaxiNetUsers() {
 	}
 
-	public TaxiNetUsers(String userId, UserGroup userGroup, Language language,
-			Company company, Country country, String username, String status,
-			String createdBy, Date creatDate, String lastModifiedBy,
-			Date lastModifyDate) {
-		this.userId = userId;
+	public TaxiNetUsers(String userID, UserGroup userGroup, Language language,
+			Company company, Country country, String userName, String status,
+			String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate) {
+		this.userID = userID;
 		this.userGroup = userGroup;
 		this.language = language;
 		this.company = company;
 		this.country = country;
-		this.username = username;
+		this.userName = userName;
 		this.status = status;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public TaxiNetUsers(String userId, UserGroup userGroup, Language language,
-			Company company, Country country, String username, String password,
-			String email, Integer cityId, String status, String image,
-			Integer postalCode, Date deactivatedDate, String createdBy,
-			Date creatDate, String lastModifiedBy, Date lastModifyDate,
+	public TaxiNetUsers(String userID, UserGroup userGroup, Language language,
+			Company company, Country country, String userName, String password,
+			String email, Integer cityID, String status, String image,
+			String postalCode, Date deactivatedDate, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
 			Set<Payment> payments, Set<Payment> payments_1,
 			Set<AccountTransaction> accountTransactions, Driver driver,
 			Rider rider,
 			Set<AccountTransaction> accounttransactions_1) {
-		this.userId = userId;
+		this.userID = userID;
 		this.userGroup = userGroup;
 		this.language = language;
 		this.company = company;
 		this.country = country;
-		this.username = username;
+		this.userName = userName;
 		this.password = password;
 		this.email = email;
-		this.cityId = cityId;
+		this.cityID = cityID;
 		this.status = status;
 		this.image = image;
 		this.postalCode = postalCode;
 		this.deactivatedDate = deactivatedDate;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.payments = payments;
 		this.payments_1 = payments_1;
 		this.accountTransactions = accountTransactions;
@@ -93,12 +93,12 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.accounttransactions_1 = accounttransactions_1;
 	}
 
-	public String getUserId() {
-		return this.userId;
+	public String getUserID() {
+		return this.userID;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
 
 	public UserGroup getUsergroup() {
@@ -134,11 +134,11 @@ public class TaxiNetUsers implements java.io.Serializable {
 	}
 
 	public String getUsername() {
-		return this.username;
+		return this.userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -157,12 +157,12 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.email = email;
 	}
 
-	public Integer getCityId() {
-		return this.cityId;
+	public Integer getCityID() {
+		return this.cityID;
 	}
 
-	public void setCityId(Integer cityId) {
-		this.cityId = cityId;
+	public void setCityID(Integer cityID) {
+		this.cityID = cityID;
 	}
 
 	public String getStatus() {
@@ -181,11 +181,11 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.image = image;
 	}
 
-	public Integer getPostalCode() {
+	public String getPostalCode() {
 		return this.postalCode;
 	}
 
-	public void setPostalCode(Integer postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 
@@ -205,12 +205,12 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatDate() {
-		return this.creatDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreatDate(Date creatDate) {
-		this.creatDate = creatDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -221,12 +221,12 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<Payment> getPayments() {

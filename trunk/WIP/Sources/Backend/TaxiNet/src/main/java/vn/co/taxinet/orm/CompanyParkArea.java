@@ -9,40 +9,40 @@ import java.util.Date;
  */
 public class CompanyParkArea implements java.io.Serializable {
 
-	private Integer parkAreaId;
+	private Integer parkAreaID;
 	private Company company;
 	private double latitute;
 	private double longtitude;
 	private String name;
 	private int numberOfCar;
-	private String creatBy;
+	private String createdBy;
 	private Date createdDate;
-	private String lastModifyBy;
+	private String lastModifiedBy;
 	private Date lastModifiedDate;
 
 	public CompanyParkArea() {
 	}
 
 	public CompanyParkArea(Company company, double latitute, double longtitude,
-			String name, int numberOfCar, String creatBy, Date createdDate,
-			String lastModifyBy, Date lastModifiedDate) {
+			String name, int numberOfCar, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate) {
 		this.company = company;
 		this.latitute = latitute;
 		this.longtitude = longtitude;
 		this.name = name;
 		this.numberOfCar = numberOfCar;
-		this.creatBy = creatBy;
+		this.createdBy = createdBy;
 		this.createdDate = createdDate;
-		this.lastModifyBy = lastModifyBy;
+		this.lastModifiedBy = lastModifiedBy;
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Integer getParkAreaId() {
-		return this.parkAreaId;
+	public Integer getParkAreaID() {
+		return this.parkAreaID;
 	}
 
-	public void setParkAreaId(Integer parkAreaId) {
-		this.parkAreaId = parkAreaId;
+	public void setParkAreaID(Integer parkAreaID) {
+		this.parkAreaID = parkAreaID;
 	}
 
 	public Company getCompany() {
@@ -85,12 +85,12 @@ public class CompanyParkArea implements java.io.Serializable {
 		this.numberOfCar = numberOfCar;
 	}
 
-	public String getCreatBy() {
-		return this.creatBy;
+	public String getCreatedBy() {
+		return this.createdBy;
 	}
 
-	public void setCreatBy(String creatBy) {
-		this.creatBy = creatBy;
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	public Date getCreatedDate() {
@@ -101,12 +101,12 @@ public class CompanyParkArea implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	public String getLastModifyBy() {
-		return this.lastModifyBy;
+	public String getLastModifiedBy() {
+		return this.lastModifiedBy;
 	}
 
-	public void setLastModifyBy(String lastModifyBy) {
-		this.lastModifyBy = lastModifyBy;
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
 	}
 
 	public Date getLastModifiedDate() {

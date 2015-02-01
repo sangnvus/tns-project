@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Payment implements java.io.Serializable {
 
-	private Integer paymentId;
+	private Integer paymentID;
 	private Bank bank;
 	private TaxiNetUsers taxiNetUsers;
 	private String cardNo;
@@ -21,25 +21,31 @@ public class Payment implements java.io.Serializable {
 	private String type;
 	private String status;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<Trip> trips = new HashSet<Trip>(0);
 	private Set<Trip> trips_1 = new HashSet<Trip>(0);
 
 	public Payment() {
 	}
 
-	public Payment(Bank bank, TaxiNetUsers taxiNetUsers, String cardNo) {
+	public Payment(Bank bank, TaxiNetUsers taxiNetUsers, String cardNo,
+			String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate) {
 		this.bank = bank;
 		this.taxiNetUsers = taxiNetUsers;
 		this.cardNo = cardNo;
+		this.createdBy = createdBy;
+		this.createdDate = createdDate;
+		this.lastModifiedBy = lastModifiedBy;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Payment(Bank bank, TaxiNetUsers taxiNetUsers, String cardNo,
 			String expiredYear, String expiredMonth, String cvv, String type,
-			String status, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModifyDate, Set<Trip> trips,
+			String status, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate, Set<Trip> trips,
 			Set<Trip> trips_1) {
 		this.bank = bank;
 		this.taxiNetUsers = taxiNetUsers;
@@ -50,19 +56,19 @@ public class Payment implements java.io.Serializable {
 		this.type = type;
 		this.status = status;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.trips = trips;
 		this.trips_1 = trips_1;
 	}
 
-	public Integer getPaymentId() {
-		return this.paymentId;
+	public Integer getPaymentID() {
+		return this.paymentID;
 	}
 
-	public void setPaymentId(Integer paymentId) {
-		this.paymentId = paymentId;
+	public void setPaymentID(Integer paymentID) {
+		this.paymentID = paymentID;
 	}
 
 	public Bank getBank() {
@@ -137,12 +143,12 @@ public class Payment implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -153,12 +159,12 @@ public class Payment implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<Trip> getTrips() {

@@ -16,11 +16,11 @@ public class InvitationLog implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public InvitationLogID getId() {
+	public InvitationLogID getID() {
 		return this.id;
 	}
 
-	public void setId(InvitationLogID id) {
+	public void setID(InvitationLogID id) {
 		this.id = id;
 	}
 

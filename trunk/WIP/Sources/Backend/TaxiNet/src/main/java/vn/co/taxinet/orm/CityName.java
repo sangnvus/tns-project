@@ -14,31 +14,31 @@ public class CityName implements java.io.Serializable {
 	private Language language;
 	private String cityName;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 
 	public CityName() {
 	}
 
 	public CityName(CityNameID id, City city, Language language,
-			String cityName, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModifyDate) {
+			String cityName, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate) {
 		this.id = id;
 		this.city = city;
 		this.language = language;
 		this.cityName = cityName;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public CityNameID getId() {
+	public CityNameID getID() {
 		return this.id;
 	}
 
-	public void setId(CityNameID id) {
+	public void setID(CityNameID id) {
 		this.id = id;
 	}
 
@@ -74,12 +74,12 @@ public class CityName implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -90,12 +90,12 @@ public class CityName implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 }

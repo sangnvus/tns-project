@@ -11,36 +11,36 @@ import java.util.Set;
  */
 public class Bank implements java.io.Serializable {
 
-	private Integer bankId;
+	private Integer bankID;
 	private Integer bankName;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<Payment> payments = new HashSet<Payment>(0);
 	private Set<Payment> payments_1 = new HashSet<Payment>(0);
 
 	public Bank() {
 	}
 
-	public Bank(Integer bankName, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModifyDate, Set<Payment> payments,
+	public Bank(Integer bankName, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate, Set<Payment> payments,
 			Set<Payment> payments_1) {
 		this.bankName = bankName;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.payments = payments;
 		this.payments_1 = payments_1;
 	}
 
-	public Integer getBankId() {
-		return this.bankId;
+	public Integer getBankID() {
+		return this.bankID;
 	}
 
-	public void setBankId(Integer bankId) {
-		this.bankId = bankId;
+	public void setBankID(Integer bankID) {
+		this.bankID = bankID;
 	}
 
 	public Integer getBankName() {
@@ -59,12 +59,12 @@ public class Bank implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -75,12 +75,12 @@ public class Bank implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<Payment> getPayments() {

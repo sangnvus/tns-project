@@ -11,15 +11,15 @@ import java.util.Set;
  */
 public class Country implements java.io.Serializable {
 
-	private Integer code;
+	private String code;
 	private String name;
-	private int postalCode;
+	private String postalCode;
 	private String currency;
 	private String internationalCode;
 	private String createdBy;
-	private Date creatDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<TaxiNetUsers> taxinetuserses = new HashSet<TaxiNetUsers>(0);
 	private Set<City> cities = new HashSet<City>(0);
 	private Set<TaxiNetUsers> taxinetuserses_1 = new HashSet<TaxiNetUsers>(0);
@@ -30,33 +30,35 @@ public class Country implements java.io.Serializable {
 	public Country() {
 	}
 
-	public Country(String name, int postalCode, String currency,
-			String internationalCode, String createdBy, Date creatDate,
-			String lastModifiedBy, Date lastModifyDate) {
+	public Country(String code, String name, String postalCode,
+			String currency, String internationalCode, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
+		this.code = code;
 		this.name = name;
 		this.postalCode = postalCode;
 		this.currency = currency;
 		this.internationalCode = internationalCode;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Country(String name, int postalCode, String currency,
-			String internationalCode, String createdBy, Date creatDate,
-			String lastModifiedBy, Date lastModifyDate,
+	public Country(String code, String name, String postalCode,
+			String currency, String internationalCode, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
 			Set<TaxiNetUsers> taxinetuserses, Set<City> cities,
 			Set<TaxiNetUsers> taxinetuserses_1, Set<City> cities_1,
 			Set<Address> addresses, Set<Address> addresses_1) {
+		this.code = code;
 		this.name = name;
 		this.postalCode = postalCode;
 		this.currency = currency;
 		this.internationalCode = internationalCode;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.taxinetuserses = taxinetuserses;
 		this.cities = cities;
 		this.taxinetuserses_1 = taxinetuserses_1;
@@ -65,11 +67,11 @@ public class Country implements java.io.Serializable {
 		this.addresses_1 = addresses_1;
 	}
 
-	public Integer getCode() {
+	public String getCode() {
 		return this.code;
 	}
 
-	public void setCode(Integer code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
@@ -81,11 +83,11 @@ public class Country implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public int getPostalCode() {
+	public String getPostalCode() {
 		return this.postalCode;
 	}
 
-	public void setPostalCode(int postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 
@@ -113,12 +115,12 @@ public class Country implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatDate() {
-		return this.creatDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreatDate(Date creatDate) {
-		this.creatDate = creatDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -129,12 +131,12 @@ public class Country implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<TaxiNetUsers> getTaxinetuserses() {
