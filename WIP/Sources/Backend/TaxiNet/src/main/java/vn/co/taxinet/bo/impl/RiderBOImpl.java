@@ -31,7 +31,7 @@ public class RiderBOImpl implements RiderBO {
 	private TaxiNetUserDAO taxiNetUserDAO;
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Rider register(Rider rider) throws TNSException {
+	public void register(Rider rider) throws TNSException {
 		final String begin = " BEGIN: params ({0}, {1}) ";
 		logger.info(begin, rider.getFirstName(), rider.getLastName());
 		try {
@@ -85,7 +85,7 @@ public class RiderBOImpl implements RiderBO {
 			rider.setLastModifyDate(Utility.getCurrentDateTime());
 			rider.setCreatedBy(user.getUsername());
 			rider.setLastModifiedBy(user.getUsername());
-			taxiNetUserDAO.insert(user);
+			taxiNetUserDAO.insert(rider);
 		} catch (TNSException tnex) {
 			throw tnex;
 		} catch (Throwable t) {
@@ -94,7 +94,6 @@ public class RiderBOImpl implements RiderBO {
 		// 5. Return
 		logger.info(" END: params ({0}, {1} )", rider.getFirstName(),
 				rider.getLastName());
-		return rider;
 	}
 
 }
