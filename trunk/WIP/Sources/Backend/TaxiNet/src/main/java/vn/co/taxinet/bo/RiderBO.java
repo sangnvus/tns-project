@@ -23,6 +23,6 @@ public interface RiderBO {
 	 * @return
 	 * @throws TNSException
 	 */
-	public Rider register(Rider rider) throws TNSException;
+	public void register(Rider rider) throws TNSException;
 	
 }
