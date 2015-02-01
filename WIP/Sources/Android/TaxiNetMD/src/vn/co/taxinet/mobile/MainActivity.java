@@ -203,7 +203,7 @@ public class MainActivity extends Activity implements
 		}
 		// Handle action bar actions click
 		switch (item.getItemId()) {
-		case R.id.taxi:
+		case R.id.accept:
 			Toast.makeText(this, "alo", Toast.LENGTH_LONG).show();
 			return true;
 		default:

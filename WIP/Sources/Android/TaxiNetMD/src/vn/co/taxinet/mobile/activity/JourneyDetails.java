@@ -38,7 +38,7 @@ public class JourneyDetails extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.edit_main, menu);
+		inflater.inflate(R.menu.menu_profile, menu);
 		return true;
 	}
 
@@ -46,7 +46,7 @@ public class JourneyDetails extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-		case R.id.action_edit:
+		case R.id.accept:
 			starting_point.setEnabled(true);
 			stopping_point.setEnabled(true);
 			Toast.makeText(getApplicationContext(), "Đã có thể chỉnh sửa",

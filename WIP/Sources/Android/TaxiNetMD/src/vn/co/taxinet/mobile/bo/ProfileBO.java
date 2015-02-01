@@ -9,7 +9,7 @@ import vn.co.taxinet.mobile.utils.Validator;
  * @createDate 20/1/2014
  */
 
-public class DriderProfileBO {
+public class ProfileBO {
 
 	private Validator emailValidator = new Validator();
 	
