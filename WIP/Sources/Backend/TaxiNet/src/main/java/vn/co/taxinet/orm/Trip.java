@@ -9,14 +9,14 @@ import java.util.Date;
  */
 public class Trip implements java.io.Serializable {
 
-	private String requestID;
+	private String requestId;
 	private Rider rider;
 	private Vehicle vehicle;
 	private Driver driver;
 	private City city;
 	private Payment payment;
 	private Date requestDatetime;
-	private Integer countryID;
+	private Integer countryId;
 	private String fromAddress;
 	private Integer toCity;
 	private String toAddress;
@@ -37,10 +37,10 @@ public class Trip implements java.io.Serializable {
 	public Trip() {
 	}
 
-	public Trip(String requestID, Rider rider, Vehicle vehicle, Driver driver,
+	public Trip(String requestId, Rider rider, Vehicle vehicle, Driver driver,
 			City city, Payment payment, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate) {
-		this.requestID = requestID;
+		this.requestId = requestId;
 		this.rider = rider;
 		this.vehicle = vehicle;
 		this.driver = driver;
@@ -52,22 +52,22 @@ public class Trip implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Trip(String requestID, Rider rider, Vehicle vehicle, Driver driver,
+	public Trip(String requestId, Rider rider, Vehicle vehicle, Driver driver,
 			City city, Payment payment, Date requestDatetime,
-			Integer countryID, String fromAddress, Integer toCity,
+			Integer countryId, String fromAddress, Integer toCity,
 			String toAddress, Integer timeRequest, Date timeStart,
 			Date timeEnd, Double startLatitude, Double startLongtitude,
 			Double endLatitude, Double endLongtitude, Double fee,
 			String status, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate) {
-		this.requestID = requestID;
+		this.requestId = requestId;
 		this.rider = rider;
 		this.vehicle = vehicle;
 		this.driver = driver;
 		this.city = city;
 		this.payment = payment;
 		this.requestDatetime = requestDatetime;
-		this.countryID = countryID;
+		this.countryId = countryId;
 		this.fromAddress = fromAddress;
 		this.toCity = toCity;
 		this.toAddress = toAddress;
@@ -86,12 +86,12 @@ public class Trip implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public String getRequestID() {
-		return this.requestID;
+	public String getRequestId() {
+		return this.requestId;
 	}
 
-	public void setRequestID(String requestID) {
-		this.requestID = requestID;
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
 	}
 
 	public Rider getRider() {
@@ -142,12 +142,12 @@ public class Trip implements java.io.Serializable {
 		this.requestDatetime = requestDatetime;
 	}
 
-	public Integer getCountryID() {
-		return this.countryID;
+	public Integer getCountryId() {
+		return this.countryId;
 	}
 
-	public void setCountryID(Integer countryID) {
-		this.countryID = countryID;
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
 	}
 
 	public String getFromAddress() {

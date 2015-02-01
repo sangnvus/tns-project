@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Document implements java.io.Serializable {
 
-	private Integer documentID;
+	private Integer documentId;
 	private String fileName;
 	private String link;
 	private String expiredMonth;
@@ -77,12 +77,12 @@ public class Document implements java.io.Serializable {
 		this.companiesForBusinessRegistration_1 = companiesForBusinessRegistration_1;
 	}
 
-	public Integer getDocumentID() {
-		return this.documentID;
+	public Integer getDocumentId() {
+		return this.documentId;
 	}
 
-	public void setDocumentID(Integer documentID) {
-		this.documentID = documentID;
+	public void setDocumentId(Integer documentId) {
+		this.documentId = documentId;
 	}
 
 	public String getFileName() {

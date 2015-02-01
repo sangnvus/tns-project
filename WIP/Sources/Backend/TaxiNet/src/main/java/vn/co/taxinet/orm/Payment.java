@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Payment implements java.io.Serializable {
 
-	private Integer paymentID;
+	private Integer paymentId;
 	private Bank bank;
 	private TaxiNetUsers taxiNetUsers;
 	private String cardNo;
@@ -63,12 +63,12 @@ public class Payment implements java.io.Serializable {
 		this.trips_1 = trips_1;
 	}
 
-	public Integer getPaymentID() {
-		return this.paymentID;
+	public Integer getPaymentId() {
+		return this.paymentId;
 	}
 
-	public void setPaymentID(Integer paymentID) {
-		this.paymentID = paymentID;
+	public void setPaymentId(Integer paymentId) {
+		this.paymentId = paymentId;
 	}
 
 	public Bank getBank() {

@@ -38,11 +38,11 @@ public class FavoriteDriver implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public FavoriteDriverID getID() {
+	public FavoriteDriverID getId() {
 		return this.id;
 	}
 
-	public void setID(FavoriteDriverID id) {
+	public void setId(FavoriteDriverID id) {
 		this.id = id;
 	}
 

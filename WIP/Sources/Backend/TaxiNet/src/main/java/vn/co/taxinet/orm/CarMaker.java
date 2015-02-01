@@ -32,8 +32,8 @@ public class CarMaker implements java.io.Serializable {
 	}
 
 	public CarMaker(String carMaker, String createdBy, Date createdDate,
-			String lastModifiedBy, Date lastModifiedDate, Set<CarModel> carModels,
-			Set<CarModel> carmodels_1) {
+			String lastModifiedBy, Date lastModifiedDate,
+			Set<CarModel> carModels, Set<CarModel> carmodels_1) {
 		this.carMaker = carMaker;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;

@@ -39,11 +39,11 @@ public class ReferenceData implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public ReferenceDataID getID() {
+	public ReferenceDataID getId() {
 		return this.id;
 	}
 
-	public void setID(ReferenceDataID id) {
+	public void setId(ReferenceDataID id) {
 		this.id = id;
 	}
 

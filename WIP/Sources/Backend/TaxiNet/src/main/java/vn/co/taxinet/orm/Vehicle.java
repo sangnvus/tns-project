@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Vehicle implements java.io.Serializable {
 
-	private Integer vehicleID;
+	private Integer vehicleId;
 	private PricePanel pricePanel;
 	private String plate;
 	private String interiorColor;
@@ -66,12 +66,12 @@ public class Vehicle implements java.io.Serializable {
 		this.trips_1 = trips_1;
 	}
 
-	public Integer getVehicleID() {
-		return this.vehicleID;
+	public Integer getVehicleId() {
+		return this.vehicleId;
 	}
 
-	public void setVehicleID(Integer vehicleID) {
-		this.vehicleID = vehicleID;
+	public void setVehicleId(Integer vehicleId) {
+		this.vehicleId = vehicleId;
 	}
 
 	public PricePanel getPricepanel() {

@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Driver implements java.io.Serializable {
 
-	private String driverID;
+	private String driverId;
 	private TaxiNetUsers taxiNetUsers;
 	private Document documentByDriverLisense;
 	private Vehicle vehicle;
@@ -72,12 +72,12 @@ public class Driver implements java.io.Serializable {
 		this.trips_1 = trips_1;
 	}
 
-	public String getDriverID() {
-		return this.driverID;
+	public String getDriverId() {
+		return this.driverId;
 	}
 
-	public void setDriverID(String driverID) {
-		this.driverID = driverID;
+	public void setDriverId(String driverId) {
+		this.driverId = driverId;
 	}
 
 	public TaxiNetUsers getTaxinetusers() {

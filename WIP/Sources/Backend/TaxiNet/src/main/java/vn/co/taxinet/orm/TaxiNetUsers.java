@@ -11,15 +11,15 @@ import java.util.Set;
  */
 public class TaxiNetUsers implements java.io.Serializable {
 
-	private String userID;
+	private String userId;
 	private UserGroup userGroup;
 	private Language language;
 	private Company company;
 	private Country country;
-	private String userName;
+	private String username;
 	private String password;
 	private String email;
-	private Integer cityID;
+	private Integer cityId;
 	private String status;
 	private String image;
 	private String postalCode;
@@ -40,16 +40,16 @@ public class TaxiNetUsers implements java.io.Serializable {
 	public TaxiNetUsers() {
 	}
 
-	public TaxiNetUsers(String userID, UserGroup userGroup, Language language,
-			Company company, Country country, String userName, String status,
+	public TaxiNetUsers(String userId, UserGroup userGroup, Language language,
+			Company company, Country country, String username, String status,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate) {
-		this.userID = userID;
+		this.userId = userId;
 		this.userGroup = userGroup;
 		this.language = language;
 		this.company = company;
 		this.country = country;
-		this.userName = userName;
+		this.username = username;
 		this.status = status;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
@@ -57,24 +57,24 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public TaxiNetUsers(String userID, UserGroup userGroup, Language language,
-			Company company, Country country, String userName, String password,
-			String email, Integer cityID, String status, String image,
+	public TaxiNetUsers(String userId, UserGroup userGroup, Language language,
+			Company company, Country country, String username, String password,
+			String email, Integer cityId, String status, String image,
 			String postalCode, Date deactivatedDate, String createdBy,
 			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
 			Set<Payment> payments, Set<Payment> payments_1,
 			Set<AccountTransaction> accountTransactions, Driver driver,
 			Rider rider,
 			Set<AccountTransaction> accounttransactions_1) {
-		this.userID = userID;
+		this.userId = userId;
 		this.userGroup = userGroup;
 		this.language = language;
 		this.company = company;
 		this.country = country;
-		this.userName = userName;
+		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.cityID = cityID;
+		this.cityId = cityId;
 		this.status = status;
 		this.image = image;
 		this.postalCode = postalCode;
@@ -93,12 +93,12 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.accounttransactions_1 = accounttransactions_1;
 	}
 
-	public String getUserID() {
-		return this.userID;
+	public String getUserId() {
+		return this.userId;
 	}
 
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public UserGroup getUsergroup() {
@@ -134,11 +134,11 @@ public class TaxiNetUsers implements java.io.Serializable {
 	}
 
 	public String getUsername() {
-		return this.userName;
+		return this.username;
 	}
 
-	public void setUsername(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -157,12 +157,12 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.email = email;
 	}
 
-	public Integer getCityID() {
-		return this.cityID;
+	public Integer getCityId() {
+		return this.cityId;
 	}
 
-	public void setCityID(Integer cityID) {
-		this.cityID = cityID;
+	public void setCityId(Integer cityId) {
+		this.cityId = cityId;
 	}
 
 	public String getStatus() {

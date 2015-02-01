@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Company implements java.io.Serializable {
 
-	private Integer companyID;
+	private Integer companyId;
 	private Document documentByOperatingLisence;
 	private Document documentByBusinessRegistration;
 	private Address address;
@@ -24,7 +24,7 @@ public class Company implements java.io.Serializable {
 	private String serviceCharge;
 	private Integer rate;
 	private Integer bankNo;
-	private Integer bankID;
+	private Integer bankId;
 	private String currentPromotionCode;
 	private String createdBy;
 	private Date createdDate;
@@ -65,7 +65,7 @@ public class Company implements java.io.Serializable {
 			Document documentByBusinessRegistration, Address address,
 			Company company, String name, String businessType, Integer balance,
 			String vatnumber, String mobileNo, String serviceCharge,
-			Integer rate, Integer bankNo, Integer bankID,
+			Integer rate, Integer bankNo, Integer bankId,
 			String currentPromotionCode, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate,
 			Set<TaxiNetUsers> taxinetuserses,
@@ -85,7 +85,7 @@ public class Company implements java.io.Serializable {
 		this.serviceCharge = serviceCharge;
 		this.rate = rate;
 		this.bankNo = bankNo;
-		this.bankID = bankID;
+		this.bankId = bankId;
 		this.currentPromotionCode = currentPromotionCode;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
@@ -101,12 +101,12 @@ public class Company implements java.io.Serializable {
 		this.companyparkareas_1 = companyparkareas_1;
 	}
 
-	public Integer getCompanyID() {
-		return this.companyID;
+	public Integer getCompanyId() {
+		return this.companyId;
 	}
 
-	public void setCompanyID(Integer companyID) {
-		this.companyID = companyID;
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
 	}
 
 	public Document getDocumentByOperatingLisence() {
@@ -207,12 +207,12 @@ public class Company implements java.io.Serializable {
 		this.bankNo = bankNo;
 	}
 
-	public Integer getBankID() {
-		return this.bankID;
+	public Integer getBankId() {
+		return this.bankId;
 	}
 
-	public void setBankID(Integer bankID) {
-		this.bankID = bankID;
+	public void setBankId(Integer bankId) {
+		this.bankId = bankId;
 	}
 
 	public String getCurrentPromotionCode() {
