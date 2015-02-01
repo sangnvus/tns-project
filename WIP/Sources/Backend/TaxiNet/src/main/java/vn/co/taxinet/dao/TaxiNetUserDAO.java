@@ -10,6 +10,8 @@
 
 package vn.co.taxinet.dao;
 
+import java.util.List;
+
 import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
 
@@ -20,20 +22,24 @@ import vn.co.taxinet.orm.TaxiNetUsers;
 public interface TaxiNetUserDAO extends BaseDAO {
 
 	TaxiNetUsers select(String uid);
-	
+
 	/**
-	 * @author Ecchi
-	 * function register for ALL USER
+	 * @author Ecchi function register for ALL USER
 	 * @param user
 	 * @return boolean
 	 */
 	boolean registerTaxiNetUser(TaxiNetUsers user);
-	
+
 	/**
-	 * @author Ecchi
-	 * function register for RIDER
+	 * @author Ecchi function register for RIDER
 	 * @param rider
 	 * @return boolean
 	 */
 	boolean registerRider(Rider rider);
+
+	/**
+	 * @author Ecchi
+	 * @return all users ( rider, driver, taxigroup )
+	 */
+	List<TaxiNetUsers> listAllUsers(String username, String email);
 }
