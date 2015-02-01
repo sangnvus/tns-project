@@ -11,15 +11,15 @@ import java.util.Set;
  */
 public class CarModel implements java.io.Serializable {
 
-	private Integer carModelId;
+	private Integer carModelID;
 	private CarMaker carMaker;
 	private String carModel;
 	private String carType;
 	private int capacity;
 	private String createdBy;
-	private Date creatDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<PricePanel> pricePanels = new HashSet<PricePanel>(0);
 	private Set<PricePanel> pricepanels_1 = new HashSet<PricePanel>(0);
 
@@ -27,40 +27,40 @@ public class CarModel implements java.io.Serializable {
 	}
 
 	public CarModel(CarMaker carMaker, String carModel, String carType,
-			int capacity, String createdBy, Date creatDate,
-			String lastModifiedBy, Date lastModifyDate) {
+			int capacity, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate) {
 		this.carMaker = carMaker;
 		this.carModel = carModel;
 		this.carType = carType;
 		this.capacity = capacity;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public CarModel(CarMaker carMaker, String carModel, String carType,
-			int capacity, String createdBy, Date creatDate,
-			String lastModifiedBy, Date lastModifyDate,
+			int capacity, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate,
 			Set<PricePanel> pricePanels, Set<PricePanel> pricepanels_1) {
 		this.carMaker = carMaker;
 		this.carModel = carModel;
 		this.carType = carType;
 		this.capacity = capacity;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.pricePanels = pricePanels;
 		this.pricepanels_1 = pricepanels_1;
 	}
 
-	public Integer getCarModelId() {
-		return this.carModelId;
+	public Integer getCarModelID() {
+		return this.carModelID;
 	}
 
-	public void setCarModelId(Integer carModelId) {
-		this.carModelId = carModelId;
+	public void setCarModelID(Integer carModelID) {
+		this.carModelID = carModelID;
 	}
 
 	public CarMaker getCarmaker() {
@@ -103,12 +103,12 @@ public class CarModel implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatDate() {
-		return this.creatDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreatDate(Date creatDate) {
-		this.creatDate = creatDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -119,12 +119,12 @@ public class CarModel implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<PricePanel> getPricepanels() {

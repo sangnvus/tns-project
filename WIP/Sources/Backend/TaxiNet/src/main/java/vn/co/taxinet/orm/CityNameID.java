@@ -7,30 +7,30 @@ package vn.co.taxinet.orm;
  */
 public class CityNameID implements java.io.Serializable {
 
-	private int cityId;
-	private int languageCode;
+	private int cityID;
+	private String languageCode;
 
 	public CityNameID() {
 	}
 
-	public CityNameID(int cityId, int languageCode) {
-		this.cityId = cityId;
+	public CityNameID(int cityID, String languageCode) {
+		this.cityID = cityID;
 		this.languageCode = languageCode;
 	}
 
-	public int getCityId() {
-		return this.cityId;
+	public int getCityID() {
+		return this.cityID;
 	}
 
-	public void setCityId(int cityId) {
-		this.cityId = cityId;
+	public void setCityID(int cityID) {
+		this.cityID = cityID;
 	}
 
-	public int getLanguageCode() {
+	public String getLanguageCode() {
 		return this.languageCode;
 	}
 
-	public void setLanguageCode(int languageCode) {
+	public void setLanguageCode(String languageCode) {
 		this.languageCode = languageCode;
 	}
 
@@ -43,15 +43,21 @@ public class CityNameID implements java.io.Serializable {
 			return false;
 		CityNameID castOther = (CityNameID) other;
 
-		return (this.getCityId() == castOther.getCityId())
-				&& (this.getLanguageCode() == castOther.getLanguageCode());
+		return (this.getCityID() == castOther.getCityID())
+				&& ((this.getLanguageCode() == castOther.getLanguageCode()) || (this
+						.getLanguageCode() != null
+						&& castOther.getLanguageCode() != null && this
+						.getLanguageCode().equals(castOther.getLanguageCode())));
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result + this.getCityId();
-		result = 37 * result + this.getLanguageCode();
+		result = 37 * result + this.getCityID();
+		result = 37
+				* result
+				+ (getLanguageCode() == null ? 0 : this.getLanguageCode()
+						.hashCode());
 		return result;
 	}
 

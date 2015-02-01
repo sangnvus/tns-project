@@ -13,32 +13,32 @@ public class CarMaker implements java.io.Serializable {
 
 	private String carMaker;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModfyDate;
+	private Date lastModifiedDate;
 	private Set<CarModel> carModels = new HashSet<CarModel>(0);
 	private Set<CarModel> carmodels_1 = new HashSet<CarModel>(0);
 
 	public CarMaker() {
 	}
 
-	public CarMaker(String carMaker, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModfyDate) {
+	public CarMaker(String carMaker, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate) {
 		this.carMaker = carMaker;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModfyDate = lastModfyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public CarMaker(String carMaker, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModfyDate, Set<CarModel> carModels,
+	public CarMaker(String carMaker, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate, Set<CarModel> carModels,
 			Set<CarModel> carmodels_1) {
 		this.carMaker = carMaker;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModfyDate = lastModfyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.carModels = carModels;
 		this.carmodels_1 = carmodels_1;
 	}
@@ -59,12 +59,12 @@ public class CarMaker implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -75,12 +75,12 @@ public class CarMaker implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModfyDate() {
-		return this.lastModfyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModfyDate(Date lastModfyDate) {
-		this.lastModfyDate = lastModfyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<CarModel> getCarmodels() {

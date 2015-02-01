@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Address implements java.io.Serializable {
 
-	private String addressId;
+	private String addressID;
 	private City city;
 	private Country country;
 	private int districtName;
@@ -19,44 +19,44 @@ public class Address implements java.io.Serializable {
 	private Double latitude;
 	private Double longitude;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
-	private Set<Rider> ridersForOfficeAddressId = new HashSet<Rider>(0);
-	private Set<Rider> ridersForHomeAddressId = new HashSet<Rider>(0);
+	private Date lastModifiedDate;
+	private Set<Rider> ridersForOfficeAddressID = new HashSet<Rider>(0);
+	private Set<Rider> ridersForHomeAddressID = new HashSet<Rider>(0);
 	private Set<Driver> drivers = new HashSet<Driver>(0);
 	private Set<Driver> drivers_1 = new HashSet<Driver>(0);
-	private Set<Rider> ridersForHomeAddressId_1 = new HashSet<Rider>(0);
-	private Set<Rider> ridersForOfficeAddressId_1 = new HashSet<Rider>(0);
+	private Set<Rider> ridersForHomeAddressID_1 = new HashSet<Rider>(0);
+	private Set<Rider> ridersForOfficeAddressID_1 = new HashSet<Rider>(0);
 	private Set<Company> companies = new HashSet<Company>(0);
 	private Set<Company> companies_1 = new HashSet<Company>(0);
 
 	public Address() {
 	}
 
-	public Address(String addressId, City city, Country country,
-			int districtName, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModifyDate) {
-		this.addressId = addressId;
+	public Address(String addressID, City city, Country country,
+			int districtName, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate) {
+		this.addressID = addressID;
 		this.city = city;
 		this.country = country;
 		this.districtName = districtName;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Address(String addressId, City city, Country country,
+	public Address(String addressID, City city, Country country,
 			int districtName, Integer addressDetail, Double latitude,
-			Double longitude, String createdBy, Date createDate,
-			String lastModifiedBy, Date lastModifyDate,
-			Set<Rider> ridersForOfficeAddressId,
-			Set<Rider> ridersForHomeAddressId, Set<Driver> drivers,
-			Set<Driver> drivers_1, Set<Rider> ridersForHomeAddressId_1,
-			Set<Rider> ridersForOfficeAddressId_1, Set<Company> companies,
+			Double longitude, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate,
+			Set<Rider> ridersForOfficeAddressID,
+			Set<Rider> ridersForHomeAddressID, Set<Driver> drivers,
+			Set<Driver> drivers_1, Set<Rider> ridersForHomeAddressID_1,
+			Set<Rider> ridersForOfficeAddressID_1, Set<Company> companies,
 			Set<Company> companies_1) {
-		this.addressId = addressId;
+		this.addressID = addressID;
 		this.city = city;
 		this.country = country;
 		this.districtName = districtName;
@@ -64,25 +64,25 @@ public class Address implements java.io.Serializable {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
-		this.ridersForOfficeAddressId = ridersForOfficeAddressId;
-		this.ridersForHomeAddressId = ridersForHomeAddressId;
+		this.lastModifiedDate = lastModifiedDate;
+		this.ridersForOfficeAddressID = ridersForOfficeAddressID;
+		this.ridersForHomeAddressID = ridersForHomeAddressID;
 		this.drivers = drivers;
 		this.drivers_1 = drivers_1;
-		this.ridersForHomeAddressId_1 = ridersForHomeAddressId_1;
-		this.ridersForOfficeAddressId_1 = ridersForOfficeAddressId_1;
+		this.ridersForHomeAddressID_1 = ridersForHomeAddressID_1;
+		this.ridersForOfficeAddressID_1 = ridersForOfficeAddressID_1;
 		this.companies = companies;
 		this.companies_1 = companies_1;
 	}
 
-	public String getAddressId() {
-		return this.addressId;
+	public String getAddressID() {
+		return this.addressID;
 	}
 
-	public void setAddressId(String addressId) {
-		this.addressId = addressId;
+	public void setAddressID(String addressID) {
+		this.addressID = addressID;
 	}
 
 	public City getCity() {
@@ -141,12 +141,12 @@ public class Address implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -157,28 +157,28 @@ public class Address implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Set<Rider> getRidersForOfficeAddressId() {
-		return this.ridersForOfficeAddressId;
+	public Set<Rider> getRidersForOfficeAddressID() {
+		return this.ridersForOfficeAddressID;
 	}
 
-	public void setRidersForOfficeAddressId(Set<Rider> ridersForOfficeAddressId) {
-		this.ridersForOfficeAddressId = ridersForOfficeAddressId;
+	public void setRidersForOfficeAddressID(Set<Rider> ridersForOfficeAddressID) {
+		this.ridersForOfficeAddressID = ridersForOfficeAddressID;
 	}
 
-	public Set<Rider> getRidersForHomeAddressId() {
-		return this.ridersForHomeAddressId;
+	public Set<Rider> getRidersForHomeAddressID() {
+		return this.ridersForHomeAddressID;
 	}
 
-	public void setRidersForHomeAddressId(Set<Rider> ridersForHomeAddressId) {
-		this.ridersForHomeAddressId = ridersForHomeAddressId;
+	public void setRidersForHomeAddressID(Set<Rider> ridersForHomeAddressID) {
+		this.ridersForHomeAddressID = ridersForHomeAddressID;
 	}
 
 	public Set<Driver> getDrivers() {
@@ -197,21 +197,21 @@ public class Address implements java.io.Serializable {
 		this.drivers_1 = drivers_1;
 	}
 
-	public Set<Rider> getRidersForHomeAddressId_1() {
-		return this.ridersForHomeAddressId_1;
+	public Set<Rider> getRidersForHomeAddressID_1() {
+		return this.ridersForHomeAddressID_1;
 	}
 
-	public void setRidersForHomeAddressId_1(Set<Rider> ridersForHomeAddressId_1) {
-		this.ridersForHomeAddressId_1 = ridersForHomeAddressId_1;
+	public void setRidersForHomeAddressID_1(Set<Rider> ridersForHomeAddressID_1) {
+		this.ridersForHomeAddressID_1 = ridersForHomeAddressID_1;
 	}
 
-	public Set<Rider> getRidersForOfficeAddressId_1() {
-		return this.ridersForOfficeAddressId_1;
+	public Set<Rider> getRidersForOfficeAddressID_1() {
+		return this.ridersForOfficeAddressID_1;
 	}
 
-	public void setRidersForOfficeAddressId_1(
-			Set<Rider> ridersForOfficeAddressId_1) {
-		this.ridersForOfficeAddressId_1 = ridersForOfficeAddressId_1;
+	public void setRidersForOfficeAddressID_1(
+			Set<Rider> ridersForOfficeAddressID_1) {
+		this.ridersForOfficeAddressID_1 = ridersForOfficeAddressID_1;
 	}
 
 	public Set<Company> getCompanies() {

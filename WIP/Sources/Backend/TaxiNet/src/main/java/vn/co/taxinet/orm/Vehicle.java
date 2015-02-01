@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Vehicle implements java.io.Serializable {
 
-	private Integer vehicleId;
+	private Integer vehicleID;
 	private PricePanel pricePanel;
 	private String plate;
 	private String interiorColor;
@@ -19,10 +19,11 @@ public class Vehicle implements java.io.Serializable {
 	private String produceYear;
 	private Integer lisencePlatCountry;
 	private Integer lisencePlatState;
+	private Integer level;
 	private String createdBy;
-	private Date creatDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<Driver> drivers = new HashSet<Driver>(0);
 	private Set<Driver> drivers_1 = new HashSet<Driver>(0);
 	private Set<Trip> trips = new HashSet<Trip>(0);
@@ -32,21 +33,21 @@ public class Vehicle implements java.io.Serializable {
 	}
 
 	public Vehicle(PricePanel pricePanel, String plate, String createdBy,
-			Date creatDate, String lastModifiedBy, Date lastModifyDate) {
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
 		this.pricePanel = pricePanel;
 		this.plate = plate;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Vehicle(PricePanel pricePanel, String plate, String interiorColor,
 			String exteriorColor, String produceYear,
 			Integer lisencePlatCountry, Integer lisencePlatState,
-			String createdBy, Date creatDate, String lastModifiedBy,
-			Date lastModifyDate, Set<Driver> drivers, Set<Driver> drivers_1,
-			Set<Trip> trips, Set<Trip> trips_1) {
+			Integer level, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate, Set<Driver> drivers,
+			Set<Driver> drivers_1, Set<Trip> trips, Set<Trip> trips_1) {
 		this.pricePanel = pricePanel;
 		this.plate = plate;
 		this.interiorColor = interiorColor;
@@ -54,22 +55,23 @@ public class Vehicle implements java.io.Serializable {
 		this.produceYear = produceYear;
 		this.lisencePlatCountry = lisencePlatCountry;
 		this.lisencePlatState = lisencePlatState;
+		this.level = level;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.drivers = drivers;
 		this.drivers_1 = drivers_1;
 		this.trips = trips;
 		this.trips_1 = trips_1;
 	}
 
-	public Integer getVehicleId() {
-		return this.vehicleId;
+	public Integer getVehicleID() {
+		return this.vehicleID;
 	}
 
-	public void setVehicleId(Integer vehicleId) {
-		this.vehicleId = vehicleId;
+	public void setVehicleID(Integer vehicleID) {
+		this.vehicleID = vehicleID;
 	}
 
 	public PricePanel getPricepanel() {
@@ -128,6 +130,14 @@ public class Vehicle implements java.io.Serializable {
 		this.lisencePlatState = lisencePlatState;
 	}
 
+	public Integer getLevel() {
+		return this.level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
 	public String getCreatedBy() {
 		return this.createdBy;
 	}
@@ -136,12 +146,12 @@ public class Vehicle implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatDate() {
-		return this.creatDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreatDate(Date creatDate) {
-		this.creatDate = creatDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -152,12 +162,12 @@ public class Vehicle implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<Driver> getDrivers() {

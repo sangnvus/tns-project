@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Driver implements java.io.Serializable {
 
-	private String driverId;
+	private String driverID;
 	private TaxiNetUsers taxiNetUsers;
 	private Document documentByDriverLisense;
 	private Vehicle vehicle;
@@ -22,9 +22,9 @@ public class Driver implements java.io.Serializable {
 	private Integer mobileNo;
 	private Integer invitationCode;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private CurrentStatus currentStatus;
 	private Set<Trip> trips = new HashSet<Trip>(0);
 	private Set<Trip> trips_1 = new HashSet<Trip>(0);
@@ -34,24 +34,24 @@ public class Driver implements java.io.Serializable {
 
 	public Driver(TaxiNetUsers taxiNetUsers, Document documentByDriverLisense,
 			Address address, Document documentByDriveExperience,
-			String createdBy, Date createDate, String lastModifiedBy,
-			Date lastModifyDate) {
+			String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate) {
 		this.taxiNetUsers = taxiNetUsers;
 		this.documentByDriverLisense = documentByDriverLisense;
 		this.address = address;
 		this.documentByDriveExperience = documentByDriveExperience;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Driver(TaxiNetUsers taxiNetUsers, Document documentByDriverLisense,
 			Vehicle vehicle, Address address,
 			Document documentByDriveExperience, String firstName,
 			String lastName, Integer mobileNo, Integer invitationCode,
-			String createdBy, Date createDate, String lastModifiedBy,
-			Date lastModifyDate, CurrentStatus currentStatus, Set<Trip> trips,
+			String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate, CurrentStatus currentStatus, Set<Trip> trips,
 			Set<Trip> trips_1) {
 		this.taxiNetUsers = taxiNetUsers;
 		this.documentByDriverLisense = documentByDriverLisense;
@@ -63,21 +63,21 @@ public class Driver implements java.io.Serializable {
 		this.mobileNo = mobileNo;
 		this.invitationCode = invitationCode;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.currentStatus = currentStatus;
 		this.trips = trips;
 		this.currentStatus = currentStatus;
 		this.trips_1 = trips_1;
 	}
 
-	public String getDriverId() {
-		return this.driverId;
+	public String getDriverID() {
+		return this.driverID;
 	}
 
-	public void setDriverId(String driverId) {
-		this.driverId = driverId;
+	public void setDriverID(String driverID) {
+		this.driverID = driverID;
 	}
 
 	public TaxiNetUsers getTaxinetusers() {
@@ -160,12 +160,12 @@ public class Driver implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -176,12 +176,12 @@ public class Driver implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<Trip> getTrips() {

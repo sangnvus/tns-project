@@ -11,16 +11,16 @@ import java.util.Set;
  */
 public class City implements java.io.Serializable {
 
-	private int cityId;
+	private int cityID;
 	private Country country;
 	private double northBoundary;
 	private double southBoundary;
 	private double westBoundary;
 	private double eastBoundary;
 	private String createdBy;
-	private Date creatDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<Address> addresses = new HashSet<Address>(0);
 	private Set<Address> addresses_1 = new HashSet<Address>(0);
 	private Set<CityName> cityNames = new HashSet<CityName>(0);
@@ -31,38 +31,38 @@ public class City implements java.io.Serializable {
 	public City() {
 	}
 
-	public City(int cityId, Country country, double northBoundary,
+	public City(int cityID, Country country, double northBoundary,
 			double southBoundary, double westBoundary, double eastBoundary,
-			String createdBy, Date creatDate, String lastModifiedBy,
-			Date lastModifyDate) {
-		this.cityId = cityId;
+			String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate) {
+		this.cityID = cityID;
 		this.country = country;
 		this.northBoundary = northBoundary;
 		this.southBoundary = southBoundary;
 		this.westBoundary = westBoundary;
 		this.eastBoundary = eastBoundary;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public City(int cityId, Country country, double northBoundary,
+	public City(int cityID, Country country, double northBoundary,
 			double southBoundary, double westBoundary, double eastBoundary,
-			String createdBy, Date creatDate, String lastModifiedBy,
-			Date lastModifyDate, Set<Address> addresses,
+			String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate, Set<Address> addresses,
 			Set<Address> addresses_1, Set<CityName> cityNames, Set<Trip> trips,
 			Set<Trip> trips_1, Set<CityName> citynames_1) {
-		this.cityId = cityId;
+		this.cityID = cityID;
 		this.country = country;
 		this.northBoundary = northBoundary;
 		this.southBoundary = southBoundary;
 		this.westBoundary = westBoundary;
 		this.eastBoundary = eastBoundary;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.addresses = addresses;
 		this.addresses_1 = addresses_1;
 		this.cityNames = cityNames;
@@ -71,12 +71,12 @@ public class City implements java.io.Serializable {
 		this.citynames_1 = citynames_1;
 	}
 
-	public int getCityId() {
-		return this.cityId;
+	public int getCityID() {
+		return this.cityID;
 	}
 
-	public void setCityId(int cityId) {
-		this.cityId = cityId;
+	public void setCityID(int cityID) {
+		this.cityID = cityID;
 	}
 
 	public Country getCountry() {
@@ -127,12 +127,12 @@ public class City implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatDate() {
-		return this.creatDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreatDate(Date creatDate) {
-		this.creatDate = creatDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -143,12 +143,12 @@ public class City implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<Address> getAddresses() {

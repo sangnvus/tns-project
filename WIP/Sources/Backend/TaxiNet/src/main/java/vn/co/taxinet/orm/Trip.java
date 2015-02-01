@@ -9,14 +9,14 @@ import java.util.Date;
  */
 public class Trip implements java.io.Serializable {
 
-	private String requestId;
+	private String requestID;
 	private Rider rider;
 	private Vehicle vehicle;
 	private Driver driver;
 	private City city;
 	private Payment payment;
 	private Date requestDatetime;
-	private Integer countryId;
+	private Integer countryID;
 	private String fromAddress;
 	private Integer toCity;
 	private String toAddress;
@@ -30,44 +30,44 @@ public class Trip implements java.io.Serializable {
 	private Double fee;
 	private String status;
 	private String createdBy;
-	private Date creatDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 
 	public Trip() {
 	}
 
-	public Trip(String requestId, Rider rider, Vehicle vehicle, Driver driver,
-			City city, Payment payment, String createdBy, Date creatDate,
-			String lastModifiedBy, Date lastModifyDate) {
-		this.requestId = requestId;
+	public Trip(String requestID, Rider rider, Vehicle vehicle, Driver driver,
+			City city, Payment payment, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate) {
+		this.requestID = requestID;
 		this.rider = rider;
 		this.vehicle = vehicle;
 		this.driver = driver;
 		this.city = city;
 		this.payment = payment;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Trip(String requestId, Rider rider, Vehicle vehicle, Driver driver,
+	public Trip(String requestID, Rider rider, Vehicle vehicle, Driver driver,
 			City city, Payment payment, Date requestDatetime,
-			Integer countryId, String fromAddress, Integer toCity,
+			Integer countryID, String fromAddress, Integer toCity,
 			String toAddress, Integer timeRequest, Date timeStart,
 			Date timeEnd, Double startLatitude, Double startLongtitude,
 			Double endLatitude, Double endLongtitude, Double fee,
-			String status, String createdBy, Date creatDate,
-			String lastModifiedBy, Date lastModifyDate) {
-		this.requestId = requestId;
+			String status, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate) {
+		this.requestID = requestID;
 		this.rider = rider;
 		this.vehicle = vehicle;
 		this.driver = driver;
 		this.city = city;
 		this.payment = payment;
 		this.requestDatetime = requestDatetime;
-		this.countryId = countryId;
+		this.countryID = countryID;
 		this.fromAddress = fromAddress;
 		this.toCity = toCity;
 		this.toAddress = toAddress;
@@ -81,17 +81,17 @@ public class Trip implements java.io.Serializable {
 		this.fee = fee;
 		this.status = status;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public String getRequestId() {
-		return this.requestId;
+	public String getRequestID() {
+		return this.requestID;
 	}
 
-	public void setRequestId(String requestId) {
-		this.requestId = requestId;
+	public void setRequestID(String requestID) {
+		this.requestID = requestID;
 	}
 
 	public Rider getRider() {
@@ -142,12 +142,12 @@ public class Trip implements java.io.Serializable {
 		this.requestDatetime = requestDatetime;
 	}
 
-	public Integer getCountryId() {
-		return this.countryId;
+	public Integer getCountryID() {
+		return this.countryID;
 	}
 
-	public void setCountryId(Integer countryId) {
-		this.countryId = countryId;
+	public void setCountryID(Integer countryID) {
+		this.countryID = countryID;
 	}
 
 	public String getFromAddress() {
@@ -254,12 +254,12 @@ public class Trip implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatDate() {
-		return this.creatDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreatDate(Date creatDate) {
-		this.creatDate = creatDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -270,12 +270,12 @@ public class Trip implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 }

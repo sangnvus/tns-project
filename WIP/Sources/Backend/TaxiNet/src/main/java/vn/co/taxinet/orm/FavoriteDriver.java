@@ -12,37 +12,37 @@ public class FavoriteDriver implements java.io.Serializable {
 	private FavoriteDriverID id;
 	private String status;
 	private String createdBy;
-	private Date createDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 
 	public FavoriteDriver() {
 	}
 
 	public FavoriteDriver(FavoriteDriverID id, String createdBy,
-			Date createDate, String lastModifiedBy, Date lastModifyDate) {
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
 		this.id = id;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public FavoriteDriver(FavoriteDriverID id, String status, String createdBy,
-			Date createDate, String lastModifiedBy, Date lastModifyDate) {
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
 		this.id = id;
 		this.status = status;
 		this.createdBy = createdBy;
-		this.createDate = createDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public FavoriteDriverID getId() {
+	public FavoriteDriverID getID() {
 		return this.id;
 	}
 
-	public void setId(FavoriteDriverID id) {
+	public void setID(FavoriteDriverID id) {
 		this.id = id;
 	}
 
@@ -62,12 +62,12 @@ public class FavoriteDriver implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreateDate() {
-		return this.createDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -78,12 +78,12 @@ public class FavoriteDriver implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 }

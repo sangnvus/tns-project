@@ -14,9 +14,9 @@ public class UserGroup implements java.io.Serializable {
 	private String groupCode;
 	private String groupName;
 	private String createdBy;
-	private Date creatDate;
+	private Date createdDate;
 	private String lastModifiedBy;
-	private Date lastModifyDate;
+	private Date lastModifiedDate;
 	private Set<TaxiNetUsers> taxinetuserses = new HashSet<TaxiNetUsers>(0);
 	private Set<TaxiNetUsers> taxinetuserses_1 = new HashSet<TaxiNetUsers>(0);
 
@@ -24,24 +24,24 @@ public class UserGroup implements java.io.Serializable {
 	}
 
 	public UserGroup(String groupCode, String groupName, String createdBy,
-			Date creatDate, String lastModifiedBy, Date lastModifyDate) {
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
 		this.groupCode = groupCode;
 		this.groupName = groupName;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public UserGroup(String groupCode, String groupName, String createdBy,
-			Date creatDate, String lastModifiedBy, Date lastModifyDate,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
 			Set<TaxiNetUsers> taxinetuserses, Set<TaxiNetUsers> taxinetuserses_1) {
 		this.groupCode = groupCode;
 		this.groupName = groupName;
 		this.createdBy = createdBy;
-		this.creatDate = creatDate;
+		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
-		this.lastModifyDate = lastModifyDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.taxinetuserses = taxinetuserses;
 		this.taxinetuserses_1 = taxinetuserses_1;
 	}
@@ -70,12 +70,12 @@ public class UserGroup implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatDate() {
-		return this.creatDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreatDate(Date creatDate) {
-		this.creatDate = creatDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getLastModifiedBy() {
@@ -86,12 +86,12 @@ public class UserGroup implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public Date getLastModifyDate() {
-		return this.lastModifyDate;
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastModifyDate(Date lastModifyDate) {
-		this.lastModifyDate = lastModifyDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public Set<TaxiNetUsers> getTaxinetuserses() {
