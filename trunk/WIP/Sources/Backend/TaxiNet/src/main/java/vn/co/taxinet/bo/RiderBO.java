@@ -25,4 +25,5 @@ public interface RiderBO {
 	 */
 	public void register(Rider rider) throws TNSException;
 	
+	public void test(Rider rider);
 }
