@@ -14,5 +14,11 @@ public class Const {
 	public static final String URL_LOGIN_AUTHEN = "";
 	public static final String SUCCESS = "SUCCESS";
 	public static final String EMPTY_ERROR = "EMPTY_ERROR";
+	public static final String EMAIL_ERROR = "EMAIL_ERROR";
+	public static final String PHONE_NUMBER_ERROR = "PHONE_NUMBER_ERROR";
+	public static final String FIRST_NAME_ERROR = "FIRST_NAME_ERROR";
+	public static final String LAST_NAME_ERROR = "LAST_NAME_ERROR";
+	public static final String PASSWORD_ERROR = "PASSWORD_ERROR";
 	public static final String ACCOUNT_ERROR = "ACCOUNT_ERROR";
+	
 }

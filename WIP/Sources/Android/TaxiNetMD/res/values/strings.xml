@@ -71,12 +71,11 @@
     <string-array name="nav_drawer_items">
         <item>Profile</item>
         <item>Map</item>
-        <item>Find Chip Trip</item>
-        <item>Share Chip Trip</item>
-        <item>Book Taxi</item>
+        <item>Registration trip Promotions</item>
+        <item>VIP Rider</item>
+        <item>History Call</item>
         <item>Pay</item>
         <item>Promotion</item>
-        <item>History Call</item>
         <item>Support</item>
         <item>About</item>
     </string-array>

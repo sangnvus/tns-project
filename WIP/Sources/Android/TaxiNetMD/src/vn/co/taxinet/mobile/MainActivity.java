@@ -59,10 +59,14 @@ public class MainActivity extends Activity implements
 	// Navigation adapter
 	private TitleNavigationAdapter adapterNav;
 
+	private FragmentManager fragmentManager;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		fragmentManager = getFragmentManager();
 		createSpinnerMenu();
 
 		createSlideMenu(savedInstanceState);
@@ -79,10 +83,11 @@ public class MainActivity extends Activity implements
 
 		// Spinner title navigation data
 		navSpinner = new ArrayList<SpinnerNavItem>();
-		navSpinner.add(new SpinnerNavItem("Local", R.drawable.ic_launcher));
-		navSpinner.add(new SpinnerNavItem("My Places", R.drawable.ic_launcher));
-		navSpinner.add(new SpinnerNavItem("Checkins", R.drawable.ic_launcher));
-		navSpinner.add(new SpinnerNavItem("Latitude", R.drawable.ic_launcher));
+		navSpinner.add(new SpinnerNavItem("Taxi", R.drawable.ic_launcher));
+		navSpinner.add(new SpinnerNavItem("Truck", R.drawable.ic_launcher));
+		navSpinner.add(new SpinnerNavItem("Place", R.drawable.ic_launcher));
+		navSpinner.add(new SpinnerNavItem("Packing Place",
+				R.drawable.ic_launcher));
 
 		// title drop down adapter
 		adapterNav = new TitleNavigationAdapter(getApplicationContext(),
@@ -131,13 +136,13 @@ public class MainActivity extends Activity implements
 									// accessibility
 		) {
 			public void onDrawerClosed(View view) {
-				getActionBar().setTitle(mTitle);
+//				getActionBar().setTitle(mTitle);
 				// calling onPrepareOptionsMenu() to show action bar icons
 				invalidateOptionsMenu();
 			}
 
 			public void onDrawerOpened(View drawerView) {
-				getActionBar().setTitle(mDrawerTitle);
+//				getActionBar().setTitle(mDrawerTitle);
 				// calling onPrepareOptionsMenu() to hide action bar icons
 				invalidateOptionsMenu();
 			}
@@ -170,8 +175,6 @@ public class MainActivity extends Activity implements
 				.getResourceId(0, -1)));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons
 				.getResourceId(0, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[9], navMenuIcons
-				.getResourceId(0, -1)));
 	}
 
 	/**
@@ -189,7 +192,6 @@ public class MainActivity extends Activity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -202,7 +204,7 @@ public class MainActivity extends Activity implements
 		// Handle action bar actions click
 		switch (item.getItemId()) {
 		case R.id.taxi:
-			Toast.makeText(this, "fuck", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "alo", Toast.LENGTH_LONG).show();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -215,8 +217,8 @@ public class MainActivity extends Activity implements
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
-		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-		menu.findItem(R.id.taxi).setVisible(!drawerOpen);
+//		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+//		menu.findItem(R.id.taxi).setVisible(!drawerOpen);
 		mDrawerList.setSelection(0);
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -235,7 +237,7 @@ public class MainActivity extends Activity implements
 			fragment = new MapsFragment();
 			break;
 		case 2:
-			fragment = new MapsFragment();
+			fragment = new JourneyFragment();
 			break;
 		case 3:
 			fragment = new JourneyFragment();
@@ -260,14 +262,18 @@ public class MainActivity extends Activity implements
 		}
 
 		if (fragment != null) {
-			FragmentManager fragmentManager = getFragmentManager();
-			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).commit();
+			Fragment f = getFragmentManager().findFragmentById(
+					R.id.frame_container);
+			if (!(f instanceof MapsFragment && position == 1)) {
+				fragmentManager.beginTransaction()
+						.replace(R.id.frame_container, fragment).commit();
+			} else {
 
-			// update selected item and title, then close the drawer
+			} // update selected item and title, then close the drawer
 			mDrawerList.setItemChecked(position, true);
 			mDrawerList.setSelection(position);
-			setTitle(navMenuTitles[position]);
+			// setTitle(navMenuTitles[position]);
+			setTitle("");
 			mDrawerLayout.closeDrawer(mDrawerList);
 		} else {
 			// error in creating fragment
@@ -302,7 +308,13 @@ public class MainActivity extends Activity implements
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		// TODO Auto-generated method stub
+		Toast.makeText(this, "Postion " + itemPosition, Toast.LENGTH_LONG)
+				.show();
 		return false;
+	}
+
+	@Override
+	public void onBackPressed() {
+
 	}
 }
