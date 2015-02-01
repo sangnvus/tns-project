@@ -20,7 +20,7 @@ import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
 import vn.co.taxinet.utils.Utility;
 
-@Service(value = "riderBO")
+@Service
 public class RiderBOImpl implements RiderBO {
 	private final static String THIS = "RiderBOImpl";
 	private static final Logger logger = LogManager
@@ -28,7 +28,7 @@ public class RiderBOImpl implements RiderBO {
 	// Refer to taxiNetUserDAO declared in ApplicationContext of Spring
 	@Autowired
 	private TaxiNetUserDAO taxiNetUserDAO;
-
+	
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void register(Rider rider) throws TNSException {
 		final String begin = " BEGIN: params ({0}, {1}) ";
