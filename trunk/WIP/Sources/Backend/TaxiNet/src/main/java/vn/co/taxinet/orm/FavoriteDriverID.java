@@ -7,31 +7,31 @@ package vn.co.taxinet.orm;
  */
 public class FavoriteDriverID implements java.io.Serializable {
 
-	private int riderID;
-	private int driverID;
+	private int riderId;
+	private int driverId;
 
 	public FavoriteDriverID() {
 	}
 
-	public FavoriteDriverID(int riderID, int driverID) {
-		this.riderID = riderID;
-		this.driverID = driverID;
+	public FavoriteDriverID(int riderId, int driverId) {
+		this.riderId = riderId;
+		this.driverId = driverId;
 	}
 
-	public int getRiderID() {
-		return this.riderID;
+	public int getRiderId() {
+		return this.riderId;
 	}
 
-	public void setRiderID(int riderID) {
-		this.riderID = riderID;
+	public void setRiderId(int riderId) {
+		this.riderId = riderId;
 	}
 
-	public int getDriverID() {
-		return this.driverID;
+	public int getDriverId() {
+		return this.driverId;
 	}
 
-	public void setDriverID(int driverID) {
-		this.driverID = driverID;
+	public void setDriverId(int driverId) {
+		this.driverId = driverId;
 	}
 
 	public boolean equals(Object other) {
@@ -43,15 +43,15 @@ public class FavoriteDriverID implements java.io.Serializable {
 			return false;
 		FavoriteDriverID castOther = (FavoriteDriverID) other;
 
-		return (this.getRiderID() == castOther.getRiderID())
-				&& (this.getDriverID() == castOther.getDriverID());
+		return (this.getRiderId() == castOther.getRiderId())
+				&& (this.getDriverId() == castOther.getDriverId());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result + this.getRiderID();
-		result = 37 * result + this.getDriverID();
+		result = 37 * result + this.getRiderId();
+		result = 37 * result + this.getDriverId();
 		return result;
 	}
 

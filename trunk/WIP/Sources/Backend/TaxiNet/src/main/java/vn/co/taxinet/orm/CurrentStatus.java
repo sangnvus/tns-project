@@ -7,7 +7,7 @@ package vn.co.taxinet.orm;
  */
 public class CurrentStatus implements java.io.Serializable {
 
-	private String driverID;
+	private String driverId;
 	private Driver driver;
 	private Double currentLatitude;
 	private Double currentLongtitude;
@@ -28,12 +28,12 @@ public class CurrentStatus implements java.io.Serializable {
 		this.currentStatus = currentStatus;
 	}
 
-	public String getDriverID() {
-		return this.driverID;
+	public String getDriverId() {
+		return this.driverId;
 	}
 
-	public void setDriverID(String driverID) {
-		this.driverID = driverID;
+	public void setDriverId(String driverId) {
+		this.driverId = driverId;
 	}
 
 	public Driver getDriver() {

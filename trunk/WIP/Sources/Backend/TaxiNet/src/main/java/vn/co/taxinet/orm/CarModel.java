@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class CarModel implements java.io.Serializable {
 
-	private Integer carModelID;
+	private Integer carModelId;
 	private CarMaker carMaker;
 	private String carModel;
 	private String carType;
@@ -55,12 +55,12 @@ public class CarModel implements java.io.Serializable {
 		this.pricepanels_1 = pricepanels_1;
 	}
 
-	public Integer getCarModelID() {
-		return this.carModelID;
+	public Integer getCarModelId() {
+		return this.carModelId;
 	}
 
-	public void setCarModelID(Integer carModelID) {
-		this.carModelID = carModelID;
+	public void setCarModelId(Integer carModelId) {
+		this.carModelId = carModelId;
 	}
 
 	public CarMaker getCarmaker() {

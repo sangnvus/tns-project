@@ -34,11 +34,11 @@ public class CityName implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public CityNameID getID() {
+	public CityNameID getId() {
 		return this.id;
 	}
 
-	public void setID(CityNameID id) {
+	public void setId(CityNameID id) {
 		this.id = id;
 	}
 

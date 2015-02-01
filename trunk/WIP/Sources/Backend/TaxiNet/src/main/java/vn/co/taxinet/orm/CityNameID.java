@@ -7,23 +7,23 @@ package vn.co.taxinet.orm;
  */
 public class CityNameID implements java.io.Serializable {
 
-	private int cityID;
+	private int cityId;
 	private String languageCode;
 
 	public CityNameID() {
 	}
 
-	public CityNameID(int cityID, String languageCode) {
-		this.cityID = cityID;
+	public CityNameID(int cityId, String languageCode) {
+		this.cityId = cityId;
 		this.languageCode = languageCode;
 	}
 
-	public int getCityID() {
-		return this.cityID;
+	public int getCityId() {
+		return this.cityId;
 	}
 
-	public void setCityID(int cityID) {
-		this.cityID = cityID;
+	public void setCityId(int cityId) {
+		this.cityId = cityId;
 	}
 
 	public String getLanguageCode() {
@@ -43,7 +43,7 @@ public class CityNameID implements java.io.Serializable {
 			return false;
 		CityNameID castOther = (CityNameID) other;
 
-		return (this.getCityID() == castOther.getCityID())
+		return (this.getCityId() == castOther.getCityId())
 				&& ((this.getLanguageCode() == castOther.getLanguageCode()) || (this
 						.getLanguageCode() != null
 						&& castOther.getLanguageCode() != null && this
@@ -53,7 +53,7 @@ public class CityNameID implements java.io.Serializable {
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result + this.getCityID();
+		result = 37 * result + this.getCityId();
 		result = 37
 				* result
 				+ (getLanguageCode() == null ? 0 : this.getLanguageCode()

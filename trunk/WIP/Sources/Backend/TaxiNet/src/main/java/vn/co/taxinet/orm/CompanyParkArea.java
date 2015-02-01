@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class CompanyParkArea implements java.io.Serializable {
 
-	private Integer parkAreaID;
+	private Integer parkAreaId;
 	private Company company;
 	private double latitute;
 	private double longtitude;
@@ -37,12 +37,12 @@ public class CompanyParkArea implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Integer getParkAreaID() {
-		return this.parkAreaID;
+	public Integer getParkAreaId() {
+		return this.parkAreaId;
 	}
 
-	public void setParkAreaID(Integer parkAreaID) {
-		this.parkAreaID = parkAreaID;
+	public void setParkAreaId(Integer parkAreaId) {
+		this.parkAreaId = parkAreaId;
 	}
 
 	public Company getCompany() {

@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Bank implements java.io.Serializable {
 
-	private Integer bankID;
+	private Integer bankId;
 	private Integer bankName;
 	private String createdBy;
 	private Date createdDate;
@@ -23,9 +23,17 @@ public class Bank implements java.io.Serializable {
 	public Bank() {
 	}
 
+	public Bank(String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate) {
+		this.createdBy = createdBy;
+		this.createdDate = createdDate;
+		this.lastModifiedBy = lastModifiedBy;
+		this.lastModifiedDate = lastModifiedDate;
+	}
+	
 	public Bank(Integer bankName, String createdBy, Date createdDate,
-			String lastModifiedBy, Date lastModifiedDate, Set<Payment> payments,
-			Set<Payment> payments_1) {
+			String lastModifiedBy, Date lastModifiedDate,
+			Set<Payment> payments, Set<Payment> payments_1) {
 		this.bankName = bankName;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
@@ -35,12 +43,12 @@ public class Bank implements java.io.Serializable {
 		this.payments_1 = payments_1;
 	}
 
-	public Integer getBankID() {
-		return this.bankID;
+	public Integer getBankId() {
+		return this.bankId;
 	}
 
-	public void setBankID(Integer bankID) {
-		this.bankID = bankID;
+	public void setBankId(Integer bankId) {
+		this.bankId = bankId;
 	}
 
 	public Integer getBankName() {

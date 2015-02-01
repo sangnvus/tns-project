@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class City implements java.io.Serializable {
 
-	private int cityID;
+	private int cityId;
 	private Country country;
 	private double northBoundary;
 	private double southBoundary;
@@ -31,11 +31,11 @@ public class City implements java.io.Serializable {
 	public City() {
 	}
 
-	public City(int cityID, Country country, double northBoundary,
+	public City(int cityId, Country country, double northBoundary,
 			double southBoundary, double westBoundary, double eastBoundary,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate) {
-		this.cityID = cityID;
+		this.cityId = cityId;
 		this.country = country;
 		this.northBoundary = northBoundary;
 		this.southBoundary = southBoundary;
@@ -47,13 +47,13 @@ public class City implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public City(int cityID, Country country, double northBoundary,
+	public City(int cityId, Country country, double northBoundary,
 			double southBoundary, double westBoundary, double eastBoundary,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate, Set<Address> addresses,
 			Set<Address> addresses_1, Set<CityName> cityNames, Set<Trip> trips,
 			Set<Trip> trips_1, Set<CityName> citynames_1) {
-		this.cityID = cityID;
+		this.cityId = cityId;
 		this.country = country;
 		this.northBoundary = northBoundary;
 		this.southBoundary = southBoundary;
@@ -71,12 +71,12 @@ public class City implements java.io.Serializable {
 		this.citynames_1 = citynames_1;
 	}
 
-	public int getCityID() {
-		return this.cityID;
+	public int getCityId() {
+		return this.cityId;
 	}
 
-	public void setCityID(int cityID) {
-		this.cityID = cityID;
+	public void setCityId(int cityId) {
+		this.cityId = cityId;
 	}
 
 	public Country getCountry() {
