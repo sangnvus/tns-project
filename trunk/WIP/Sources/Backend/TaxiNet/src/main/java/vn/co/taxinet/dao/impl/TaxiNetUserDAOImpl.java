@@ -3,6 +3,7 @@
  */
 package vn.co.taxinet.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -25,7 +26,7 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public TaxiNetUsers select(String uid) {
 		Session session = getSessionFactory().getCurrentSession();
 		String hql = " FROM TaxiNetUsers U WHERE U.username = :userName";
@@ -34,8 +35,8 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		// TODO Auto-generated method stub
 		List<TaxiNetUsers> result = query.list();
 		TaxiNetUsers user = null;
-		if(!result.isEmpty()) {
-			user = result.get(0) ;
+		if (!result.isEmpty()) {
+			user = result.get(0);
 		}
 		return user;
 	}
@@ -48,6 +49,24 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 	public boolean registerRider(Rider rider) {
 		// TODO Auto-generated method stub
 		return false;
-	}	
+	}
 
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.TaxiNetUserDAO#listAllUsers()
+	 */
+	public List<TaxiNetUsers> listAllUsers(String username, String email) {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "FROM TaxiNetUsers U WHERE U.username = :username AND U.email = :email";
+		Query query = session.createQuery(hql);
+		query.setParameter("userName", username.toLowerCase());
+		query.setParameter("email", email);
+		List<TaxiNetUsers> listUsers = query.list();
+		if (listUsers.size() > 0) {
+			return listUsers;
+		} else
+			return new ArrayList<TaxiNetUsers>();
+
+	}
+	
+	
 }
