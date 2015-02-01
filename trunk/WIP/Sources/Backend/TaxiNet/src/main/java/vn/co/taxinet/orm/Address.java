@@ -14,8 +14,8 @@ public class Address implements java.io.Serializable {
 	private String addressId;
 	private City city;
 	private Country country;
-	private int districtName;
-	private Integer addressDetail;
+	private String districtName;
+	private String addressDetail;
 	private Double latitude;
 	private Double longitude;
 	private String createdBy;
@@ -35,7 +35,7 @@ public class Address implements java.io.Serializable {
 	}
 
 	public Address(String addressId, City city, Country country,
-			int districtName, String createdBy, Date createdDate,
+			String districtName, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate) {
 		this.addressId = addressId;
 		this.city = city;
@@ -48,7 +48,7 @@ public class Address implements java.io.Serializable {
 	}
 
 	public Address(String addressId, City city, Country country,
-			int districtName, Integer addressDetail, Double latitude,
+			String districtName, String addressDetail, Double latitude,
 			Double longitude, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate,
 			Set<Rider> ridersForOfficeAddressId,
@@ -101,19 +101,19 @@ public class Address implements java.io.Serializable {
 		this.country = country;
 	}
 
-	public int getDistrictName() {
+	public String getDistrictName() {
 		return this.districtName;
 	}
 
-	public void setDistrictName(int districtName) {
+	public void setDistrictName(String districtName) {
 		this.districtName = districtName;
 	}
 
-	public Integer getAddressDetail() {
+	public String getAddressDetail() {
 		return this.addressDetail;
 	}
 
-	public void setAddressDetail(Integer addressDetail) {
+	public void setAddressDetail(String addressDetail) {
 		this.addressDetail = addressDetail;
 	}
 

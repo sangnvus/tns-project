@@ -11,6 +11,7 @@ import java.util.Set;
  */
 public class CarMaker implements java.io.Serializable {
 
+	private Integer carMakerId;
 	private String carMaker;
 	private String createdBy;
 	private Date createdDate;
@@ -41,6 +42,14 @@ public class CarMaker implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 		this.carModels = carModels;
 		this.carmodels_1 = carmodels_1;
+	}
+
+	public Integer getCarMakerId() {
+		return this.carMakerId;
+	}
+
+	public void setCarMakerId(Integer carMakerId) {
+		this.carMakerId = carMakerId;
 	}
 
 	public String getCarMaker() {
