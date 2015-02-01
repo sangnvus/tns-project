@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import vn.co.taxinet.bo.AuthenticationBO;
 import vn.co.taxinet.bo.RiderBO;
 import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.orm.Rider;
+import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
  * @author Ecchi controller for register.xhtml
@@ -36,7 +38,8 @@ public class RiderRegisterBean implements Serializable {
 	private Date expiredDate;
 	private String zipCode;
 	private AuthenticationBO authenticationBO;
-	private RiderBO riderBo;
+	@ManagedProperty(value = "#{riderBO}")
+	private RiderBO riderBO;
 	// private TaxiNetUserDAO taxiNetUserDAO;
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -115,16 +118,25 @@ public class RiderRegisterBean implements Serializable {
 		}
 		// set thông tin cho đối tượng đươc truyền xuống
 		Rider newRider = new Rider();
+		
+//		TaxiNetUsers users = newRider.getTaxinetusers();
+//		users.setEmail(emailAddress);
+//		users.setPassword(password);
+//		users.setUsername(emailAddress);
+//		users.setPostalCode(zipCodeNumber);
+		newRider.setTaxinetusers(new TaxiNetUsers());
 		newRider.getTaxinetusers().setEmail(emailAddress);
 		newRider.getTaxinetusers().setPassword(password);
 		newRider.getTaxinetusers().setUsername(emailAddress);
-		newRider.getTaxinetusers().setPostalCode(zipCode);
+		newRider.getTaxinetusers().setPostalCode(zipCodeNumber);
 		newRider.setMobileNo(phoneNumber);
 		newRider.setFirstName(userName);
 		newRider.setLastName(userSurName);
 		// userGroup aka loại người dùng chưa biết
 		try {
-			riderBo.register(newRider);
+			//riderBo.test(newRider);
+			riderBO.test(new Rider());
+			//riderBo.register(newRider);
 			//nếu thành công thì chuyển qua trang login
 			HttpServletRequest request = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
@@ -132,9 +144,6 @@ public class RiderRegisterBean implements Serializable {
 			session.setAttribute("username", emailAddress);
 			session.setAttribute("password", password);
 			FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-		} catch (TNSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -223,4 +232,21 @@ public class RiderRegisterBean implements Serializable {
 		this.password = password;
 	}
 
+	public AuthenticationBO getAuthenticationBO() {
+		return authenticationBO;
+	}
+
+	public void setAuthenticationBO(AuthenticationBO authenticationBO) {
+		this.authenticationBO = authenticationBO;
+	}
+
+	public RiderBO getRiderBO() {
+		return riderBO;
+	}
+
+	public void setRiderBO(RiderBO riderBO) {
+		this.riderBO = riderBO;
+	}
+	
+	
 }
