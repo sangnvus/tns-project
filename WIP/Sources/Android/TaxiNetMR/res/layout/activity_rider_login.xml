@@ -45,7 +45,7 @@
         android:layout_below="@+id/edt_rider_register_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="Login" />
+        android:text="@string/login" />
 
     <Button
         android:id="@+id/btn_rider_register"
@@ -55,7 +55,7 @@
         android:layout_below="@+id/btn_rider_login"
         android:layout_marginTop="20dp"
         android:layout_toLeftOf="@+id/btn_rider_forgot_password"
-        android:text="Register" />
+        android:text="@string/register" />
 
     <Button
         android:id="@+id/btn_rider_forgot_password"
@@ -64,7 +64,7 @@
         android:layout_alignBaseline="@+id/btn_rider_register"
         android:layout_alignBottom="@+id/btn_rider_register"
         android:layout_alignRight="@+id/btn_rider_login"
-        android:text="Forgot Password" />
+        android:text="@string/forgot_password" />
 
     <ImageView
         android:id="@+id/imageView1"
