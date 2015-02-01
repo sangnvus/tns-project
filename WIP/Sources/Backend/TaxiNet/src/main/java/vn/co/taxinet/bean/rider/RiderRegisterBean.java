@@ -7,15 +7,14 @@ import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import vn.co.taxinet.bo.AuthenticationBO;
 import vn.co.taxinet.bo.RiderBO;
-import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
 
@@ -38,7 +37,7 @@ public class RiderRegisterBean implements Serializable {
 	private Date expiredDate;
 	private String zipCode;
 	private AuthenticationBO authenticationBO;
-	@ManagedProperty(value = "#{riderBO}")
+	@Inject
 	private RiderBO riderBO;
 	// private TaxiNetUserDAO taxiNetUserDAO;
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -128,7 +127,7 @@ public class RiderRegisterBean implements Serializable {
 		newRider.getTaxinetusers().setEmail(emailAddress);
 		newRider.getTaxinetusers().setPassword(password);
 		newRider.getTaxinetusers().setUsername(emailAddress);
-		newRider.getTaxinetusers().setPostalCode(zipCodeNumber);
+		newRider.getTaxinetusers().setPostalCode(zipCode);
 		newRider.setMobileNo(phoneNumber);
 		newRider.setFirstName(userName);
 		newRider.setLastName(userSurName);
