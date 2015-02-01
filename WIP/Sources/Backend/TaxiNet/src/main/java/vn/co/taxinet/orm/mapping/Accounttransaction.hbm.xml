@@ -14,23 +14,23 @@
         <property name="dateTime" type="int">
             <column name="DateTime" not-null="true" />
         </property>
-        <property name="amount" type="java.lang.Integer">
-            <column name="Amount" />
+        <property name="amount" type="java.lang.Double">
+            <column name="Amount" precision="22" scale="0" />
         </property>
-        <property name="type" type="java.lang.Integer">
-            <column name="Type" />
+        <property name="type" type="string">
+            <column name="Type" length="4" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
         </property>
-        <property name="createDate" type="timestamp">
-            <column name="CreateDate" length="0" not-null="true" />
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
         </property>
         <property name="lastModifiedBy" type="string">
             <column name="LastModifiedBy" length="50" not-null="true" />
         </property>
-        <property name="lastModifyDate" type="timestamp">
-            <column name="LastModifyDate" length="0" not-null="true" />
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

@@ -4,15 +4,15 @@
 <!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="vn.co.taxinet.orm.Country" table="country" catalog="taxinet">
-        <id name="code" type="java.lang.Integer">
-            <column name="Code" />
-            <generator class="identity" />
+        <id name="code" type="string">
+            <column name="Code" length="4" />
+            <generator class="assigned" />
         </id>
         <property name="name" type="string">
             <column name="Name" length="20" not-null="true" />
         </property>
-        <property name="postalCode" type="int">
-            <column name="PostalCode" not-null="true" />
+        <property name="postalCode" type="string">
+            <column name="PostalCode" length="5" not-null="true" />
         </property>
         <property name="currency" type="string">
             <column name="Currency" length="10" not-null="true" />
@@ -23,48 +23,48 @@
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
         </property>
-        <property name="creatDate" type="timestamp">
-            <column name="CreatDate" length="0" not-null="true" />
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
         </property>
         <property name="lastModifiedBy" type="string">
             <column name="LastModifiedBy" length="50" not-null="true" />
         </property>
-        <property name="lastModifyDate" type="timestamp">
-            <column name="LastModifyDate" length="0" not-null="true" />
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
         <set name="taxinetuserses" table="taxinetusers" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CountryCode" not-null="true" />
+                <column name="CountryCode" length="4" not-null="true" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
         </set>
         <set name="cities" table="city" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CountryCode" not-null="true" />
+                <column name="CountryCode" length="4" not-null="true" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.City" />
         </set>
         <set name="taxinetuserses_1" table="taxinetusers" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CountryCode" not-null="true" />
+                <column name="CountryCode" length="4" not-null="true" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
         </set>
         <set name="cities_1" table="city" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CountryCode" not-null="true" />
+                <column name="CountryCode" length="4" not-null="true" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.City" />
         </set>
         <set name="addresses" table="address" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CountryID" not-null="true" />
+                <column name="CountryID" length="4" not-null="true" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Address" />
         </set>
         <set name="addresses_1" table="address" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CountryID" not-null="true" />
+                <column name="CountryID" length="4" not-null="true" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Address" />
         </set>

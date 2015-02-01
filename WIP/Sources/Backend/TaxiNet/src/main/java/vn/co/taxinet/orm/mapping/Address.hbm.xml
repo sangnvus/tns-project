@@ -12,7 +12,7 @@
             <column name="CityID" not-null="true" />
         </many-to-one>
         <many-to-one name="country" class="vn.co.taxinet.orm.Country" fetch="select">
-            <column name="CountryID" not-null="true" />
+            <column name="CountryID" length="4" not-null="true" />
         </many-to-one>
         <property name="districtName" type="int">
             <column name="DistrictName" not-null="true" />
@@ -29,14 +29,14 @@
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
         </property>
-        <property name="createDate" type="timestamp">
-            <column name="CreateDate" length="0" not-null="true" />
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
         </property>
         <property name="lastModifiedBy" type="string">
             <column name="LastModifiedBy" length="50" not-null="true" />
         </property>
-        <property name="lastModifyDate" type="timestamp">
-            <column name="LastModifyDate" length="0" not-null="true" />
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
         <set name="ridersForOfficeAddressId" table="rider" inverse="true" lazy="true" fetch="select">
             <key>
