@@ -15,7 +15,7 @@ public class RegisterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_driver_register);
+		setContentView(R.layout.activity_register);
 		mCbTerm = (CheckBox) findViewById(R.id.cb_term);
 	}
 

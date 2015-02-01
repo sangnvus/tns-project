@@ -18,7 +18,7 @@ public class ForgotPasswordActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_driver_forgot_password);
+		setContentView(R.layout.activity_forgot_password);
 		mInfo = (EditText) findViewById(R.id.et_info);
 		mDriverForgotPasswordBO = new DriverForgotPasswordBO();
 	}

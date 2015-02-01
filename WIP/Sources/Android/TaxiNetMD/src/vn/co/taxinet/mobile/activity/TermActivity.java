@@ -33,7 +33,7 @@ public class TermActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_driver_terms);
+		setContentView(R.layout.activity_terms);
 		mTerm = (TextView) findViewById(R.id.term);
 //		getTerm();
 

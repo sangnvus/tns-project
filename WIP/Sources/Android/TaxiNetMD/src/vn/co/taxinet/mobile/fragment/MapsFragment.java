@@ -49,7 +49,7 @@ public class MapsFragment extends Fragment {
 				parent.removeView(rootView);
 		}
 		try {
-			rootView = inflater.inflate(R.layout.fragment_home, container,
+			rootView = inflater.inflate(R.layout.fragment_map, container,
 					false);
 			try {
 				// Loading map
