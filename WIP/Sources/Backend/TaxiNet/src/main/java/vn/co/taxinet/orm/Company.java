@@ -22,8 +22,8 @@ public class Company implements java.io.Serializable {
 	private String vatnumber;
 	private String mobileNo;
 	private String serviceCharge;
-	private Integer rate;
-	private Integer bankNo;
+	private Double rate;
+	private String bankNo;
 	private Integer bankId;
 	private String currentPromotionCode;
 	private String createdBy;
@@ -65,7 +65,7 @@ public class Company implements java.io.Serializable {
 			Document documentByBusinessRegistration, Address address,
 			Company company, String name, String businessType, Integer balance,
 			String vatnumber, String mobileNo, String serviceCharge,
-			Integer rate, Integer bankNo, Integer bankId,
+			Double rate, String bankNo, Integer bankId,
 			String currentPromotionCode, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate,
 			Set<TaxiNetUsers> taxinetuserses,
@@ -191,19 +191,19 @@ public class Company implements java.io.Serializable {
 		this.serviceCharge = serviceCharge;
 	}
 
-	public Integer getRate() {
+	public Double getRate() {
 		return this.rate;
 	}
 
-	public void setRate(Integer rate) {
+	public void setRate(Double rate) {
 		this.rate = rate;
 	}
 
-	public Integer getBankNo() {
+	public String getBankNo() {
 		return this.bankNo;
 	}
 
-	public void setBankNo(Integer bankNo) {
+	public void setBankNo(String bankNo) {
 		this.bankNo = bankNo;
 	}
 
