@@ -38,11 +38,11 @@
         <property name="serviceCharge" type="string">
             <column name="ServiceCharge" length="5" />
         </property>
-        <property name="rate" type="java.lang.Integer">
-            <column name="Rate" />
+        <property name="rate" type="java.lang.Double">
+            <column name="Rate" precision="22" scale="0" />
         </property>
-        <property name="bankNo" type="java.lang.Integer">
-            <column name="BankNo" />
+        <property name="bankNo" type="string">
+            <column name="BankNo" length="20" />
         </property>
         <property name="bankId" type="java.lang.Integer">
             <column name="BankID" />

@@ -14,11 +14,11 @@
         <many-to-one name="country" class="vn.co.taxinet.orm.Country" fetch="select">
             <column name="CountryID" length="4" not-null="true" />
         </many-to-one>
-        <property name="districtName" type="int">
-            <column name="DistrictName" not-null="true" />
+        <property name="districtName" type="string">
+            <column name="DistrictName" length="50" not-null="true" />
         </property>
-        <property name="addressDetail" type="java.lang.Integer">
-            <column name="AddressDetail" />
+        <property name="addressDetail" type="string">
+            <column name="AddressDetail" length="70" />
         </property>
         <property name="latitude" type="java.lang.Double">
             <column name="Latitude" precision="22" scale="0" />

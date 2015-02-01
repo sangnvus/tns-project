@@ -4,10 +4,13 @@
 <!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="vn.co.taxinet.orm.CarMaker" table="carmaker" catalog="taxinet">
-        <id name="carMaker" type="string">
-            <column name="CarMaker" length="20" />
-            <generator class="assigned" />
+        <id name="carMakerId" type="java.lang.Integer">
+            <column name="CarMakerID" />
+            <generator class="identity" />
         </id>
+        <property name="carMaker" type="string">
+            <column name="CarMaker" length="20" not-null="true" />
+        </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
         </property>
@@ -22,13 +25,13 @@
         </property>
         <set name="carmodels" table="carmodel" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CarMaker" length="20" not-null="true" />
+                <column name="CarMakerID" not-null="true" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.CarModel" />
         </set>
         <set name="carmodels_1" table="carmodel" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CarMaker" length="20" not-null="true" />
+                <column name="CarMakerID" not-null="true" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.CarModel" />
         </set>
