@@ -29,7 +29,7 @@ public class ProfileFragment extends Fragment {
 			Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-		rootView = inflater.inflate(R.layout.activity_driver_profile,
+		rootView = inflater.inflate(R.layout.activity_profile,
 				container, false);
 		initialize();
 		disableEdittext();
