@@ -29,11 +29,11 @@
         <property name="lastName" type="string">
             <column name="LastName" length="15" />
         </property>
-        <property name="mobileNo" type="java.lang.Integer">
-            <column name="MobileNo" />
+        <property name="mobileNo" type="string">
+            <column name="MobileNo" length="20" />
         </property>
-        <property name="invitationCode" type="java.lang.Integer">
-            <column name="InvitationCode" />
+        <property name="invitationCode" type="string">
+            <column name="InvitationCode" length="20" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
