@@ -21,7 +21,6 @@ import vn.co.taxinet.orm.TaxiNetUsers;
 import vn.co.taxinet.utils.Utility;
 
 @Service(value = "riderBO")
-@Transactional
 public class RiderBOImpl implements RiderBO {
 	private final static String THIS = "RiderBOImpl";
 	private static final Logger logger = LogManager
@@ -45,7 +44,7 @@ public class RiderBOImpl implements RiderBO {
 						Constants.Errors.DUPLICATED_ERROR);
 			}
 			UUID id = UUID.randomUUID();
-			user.setUserID(id.toString());
+			user.setUserId(id.toString());
 			// User Name always is in lower case
 			user.setUsername(user.getUsername().toLowerCase());
 			user.setCreatedDate(Utility.getCurrentDateTime());
@@ -55,10 +54,10 @@ public class RiderBOImpl implements RiderBO {
 			taxiNetUserDAO.insert(user);
 
 			// 2. Insert Home Address if not null
-			if (rider.getAddressByHomeAddressID() != null) {
+			if (rider.getAddressByHomeAddressId() != null) {
 				UUID homeAddressId = UUID.randomUUID();
-				Address homeAddress = rider.getAddressByHomeAddressID();
-				homeAddress.setAddressID(homeAddressId.toString());
+				Address homeAddress = rider.getAddressByHomeAddressId();
+				homeAddress.setAddressId(homeAddressId.toString());
 				homeAddress.setCreatedDate(Utility.getCurrentDateTime());
 				homeAddress.setLastModifiedDate(Utility.getCurrentDateTime());
 				homeAddress.setCreatedBy(user.getUsername());
@@ -68,10 +67,10 @@ public class RiderBOImpl implements RiderBO {
 			}
 
 			// 3. Insert Office Address if not null
-			if (rider.getAddressByOfficeAddressID() != null) {
+			if (rider.getAddressByOfficeAddressId() != null) {
 				UUID officeAddressId = UUID.randomUUID();
-				Address offAddress = rider.getAddressByHomeAddressID();
-				offAddress.setAddressID(officeAddressId.toString());
+				Address offAddress = rider.getAddressByHomeAddressId();
+				offAddress.setAddressId(officeAddressId.toString());
 				offAddress.setCreatedDate(Utility.getCurrentDateTime());
 				offAddress.setLastModifiedDate(Utility.getCurrentDateTime());
 				offAddress.setCreatedBy(user.getUsername());
@@ -80,7 +79,7 @@ public class RiderBOImpl implements RiderBO {
 			}
 
 			// 4. Insert data into Rider table
-			rider.setRiderID(id.toString());
+			rider.setRiderId(id.toString());
 			rider.setCreatedDate(Utility.getCurrentDateTime());
 			rider.setLastModifiedDate(Utility.getCurrentDateTime());
 			rider.setCreatedBy(user.getUsername());
@@ -94,6 +93,19 @@ public class RiderBOImpl implements RiderBO {
 		// 5. Return
 		logger.info(" END: params ({0}, {1} )", rider.getFirstName(),
 				rider.getLastName());
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.RiderBO#test(vn.co.taxinet.orm.Rider)
+	 */
+	@Transactional
+	public void test(Rider rider) {
+		if(rider == null){
+			System.out.println("Không có người dùng");
+		} else {
+			System.out.println("Có người dùng");
+		}
+		
 	}
 
 }
