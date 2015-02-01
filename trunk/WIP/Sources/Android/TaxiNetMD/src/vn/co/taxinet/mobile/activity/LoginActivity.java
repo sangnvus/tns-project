@@ -15,8 +15,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -47,40 +45,27 @@ public class LoginActivity extends Activity {
 				MODE_PRIVATE);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar actions click
-		switch (item.getItemId()) {
-		case R.id.taxi:
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
 	public void login(View v) {
+		
+		Intent it = new Intent(LoginActivity.this,
+				MainActivity.class);
+		startActivity(it);
 
-		String check = loginBO.checkLoginInfo(mEmail.getText().toString(),
-				mPassword.getText().toString());
-		if (check.equalsIgnoreCase(Const.SUCCESS)) {
-			loginAuthen();
-		}
-		if (check.equalsIgnoreCase(Const.EMPTY_ERROR)) {
-			Toast.makeText(this,
-					getResources().getString(R.string.empty_error),
-					Toast.LENGTH_LONG).show();
-		}
-		if (check.equalsIgnoreCase(Const.ACCOUNT_ERROR)) {
-			Toast.makeText(this,
-					getResources().getString(R.string.account_error),
-					Toast.LENGTH_LONG).show();
-		}
+//		String check = loginBO.checkLoginInfo(mEmail.getText().toString(),
+//				mPassword.getText().toString());
+//		if (check.equalsIgnoreCase(Const.SUCCESS)) {
+//			loginAuthen();
+//		}
+//		if (check.equalsIgnoreCase(Const.EMPTY_ERROR)) {
+//			Toast.makeText(this,
+//					getResources().getString(R.string.empty_error),
+//					Toast.LENGTH_LONG).show();
+//		}
+//		if (check.equalsIgnoreCase(Const.ACCOUNT_ERROR)) {
+//			Toast.makeText(this,
+//					getResources().getString(R.string.account_error),
+//					Toast.LENGTH_LONG).show();
+//		}
 	}
 
 	public void getPassword(View v) {
