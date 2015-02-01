@@ -1,6 +1,5 @@
 package vn.co.taxinet.mobile.model;
 
-
 public class NavDrawerItem {
 
 	private String title;
@@ -8,60 +7,30 @@ public class NavDrawerItem {
 	private String count = "0";
 	// boolean to set visiblity of the counter
 	private boolean isCounterVisible = false;
-	private boolean isTitle = false;
-
-	public NavDrawerItem() {
-	}
-
-	public NavDrawerItem(String title, boolean isTitle) {
-		super();
-		this.title = title;
-		this.isTitle = isTitle;
-	}
-
-	public NavDrawerItem(String title, int icon) {
-		this.title = title;
-		this.icon = icon;
-	}
-
-	public NavDrawerItem(String title, int icon, boolean isCounterVisible,
-			String count) {
-		this.title = title;
-		this.icon = icon;
-		this.isCounterVisible = isCounterVisible;
-		this.count = count;
-	}
+	private int type;
 
 	public String getTitle() {
-		return this.title;
-	}
-
-	public int getIcon() {
-		return this.icon;
-	}
-
-	public String getCount() {
-		return this.count;
-	}
-
-	public boolean getCounterVisibility() {
-		return this.isCounterVisible;
+		return title;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	public int getIcon() {
+		return icon;
+	}
+
 	public void setIcon(int icon) {
 		this.icon = icon;
 	}
 
-	public void setCount(String count) {
-		this.count = count;
+	public String getCount() {
+		return count;
 	}
 
-	public void setCounterVisibility(boolean isCounterVisible) {
-		this.isCounterVisible = isCounterVisible;
+	public void setCount(String count) {
+		this.count = count;
 	}
 
 	public boolean isCounterVisible() {
@@ -72,12 +41,45 @@ public class NavDrawerItem {
 		this.isCounterVisible = isCounterVisible;
 	}
 
-	public boolean isTitle() {
-		return isTitle;
+	public int getType() {
+		return type;
 	}
 
-	public void setTitle(boolean isTitle) {
-		this.isTitle = isTitle;
+	public void setType(int type) {
+		this.type = type;
 	}
+
+	public NavDrawerItem(String title, int icon, String count,
+			boolean isCounterVisible, int type) {
+		super();
+		this.title = title;
+		this.icon = icon;
+		this.count = count;
+		this.isCounterVisible = isCounterVisible;
+		this.type = type;
+	}
+	
+	
+	
+	public NavDrawerItem(String title, int icon, String count,
+			boolean isCounterVisible) {
+		super();
+		this.title = title;
+		this.icon = icon;
+		this.count = count;
+		this.isCounterVisible = isCounterVisible;
+	}
+
+	public NavDrawerItem(String title, int type) {
+		super();
+		this.title = title;
+		this.type = type;
+	}
+
+	public NavDrawerItem() {
+		super();
+	}
+	
+	
 
 }

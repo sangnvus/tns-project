@@ -1,4 +1,4 @@
-package vn.co.taxinet.mobile.activity;
+package vn.co.taxinet.mobile.sangnv;
 
 import android.R;
 import android.app.AlertDialog;

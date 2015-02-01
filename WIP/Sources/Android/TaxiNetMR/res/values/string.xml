@@ -5,7 +5,14 @@
     <string name="title_activity_call_dialog">Call Options</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="get_password">Get Password</string>
     <string name="call_taxi_firm">Call Taxi Firm</string>
+    <string name="guideline_get_password">* Enter you email or number, we will re-create password for you</string>
+    <string name="login_error">Account or password is incorrect</string>
+    <string name="skip_and_start">Skip and start</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="confirm_code">Confirm Code</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="phone">Phone</string>
@@ -64,19 +71,19 @@
     <string name="login">Login</string>
     <string name="forgot_password">Forgor password</string>
     <string name="register">Register</string>
+    <string name="deni">Deni</string>
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
-        <item>Bản đồ</item>
-        <item>Hành trình</item>
-        <item>Quản lý hành trình</item>
-        <item>Taxi</item>
-        <item>Danh sách hãng taxi</item>
-        <item>Taxi yêu thích</item>
-        <item>Lịch sử gọi taxi</item>
-        <item>Khác</item>
-        <item>Cài đặt</item>
-        <item>Danh sách yêu cầu</item>
+        <item>Profile</item>
+        <item>Map</item>
+        <item>Find Chip Trip</item>
+        <item>Share Chip Trip</item>
+        <item>Book Taxi</item>
+        <item>Payment</item>
+        <item>History Call</item>
+        <item>Support</item>
+        <item>About</item>
     </string-array>
 
     <!-- Distance to show driver -->

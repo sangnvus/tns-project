@@ -5,5 +5,10 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/accept"/>
+    <item
+        android:id="@+id/deni"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/deni"/>
 
 </menu>
