@@ -33,13 +33,13 @@ import com.android.volley.toolbox.JsonArrayRequest;
  * @createDate 20/01/2014
  */
 
-public class RiderPromotionActivity extends Activity {
+public class PromotionActivity extends Activity {
 
 	private ListView mPromotionList;
 	private PromotionAdatpter adapter;
 	private ProgressDialog pDialog;
 	private List<PromotionDTO> promotionList = new ArrayList<PromotionDTO>();
-	private static final String TAG = RiderPromotionActivity.class
+	private static final String TAG = PromotionActivity.class
 			.getSimpleName();
 	private MenuItem refreshMenuItem;
 
@@ -107,7 +107,7 @@ public class RiderPromotionActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.reload_menu, menu);
+		getMenuInflater().inflate(R.menu.menu_reload, menu);
 		return true;
 	}
 	

@@ -1,4 +1,4 @@
-package vn.co.taxinet.mobile.activity;
+package vn.co.taxinet.mobile.sangnv;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.R.id;
 import vn.co.taxinet.mobile.R.layout;
+import vn.co.taxinet.mobile.activity.MainActivity;
 import vn.co.taxinet.mobile.dummy.DummyContent;
 
 /**
@@ -52,15 +53,15 @@ public class ItemDetailFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_item_detail,
-				container, false);
+//		View rootView = inflater.inflate(R.layout.fragment_item_detail,
+//				container, false);
+//
+//		// Show the dummy content as text in a TextView.
+//		if (mItem != null) {
+//			((TextView) rootView.findViewById(R.id.item_detail))
+//					.setText(mItem.content);
+//		}
 
-		// Show the dummy content as text in a TextView.
-		if (mItem != null) {
-			((TextView) rootView.findViewById(R.id.item_detail))
-					.setText(mItem.content);
-		}
-
-		return rootView;
+		return null;
 	}
 }

@@ -24,29 +24,22 @@
     <uses-feature
         android:name="android.hardware.location.gps"
         android:required="true" />
-
 =======
 
->>>>>>> .merge-right.r199
+>>>>>>> .merge-right.r199
     <application
         android:name="vn.co.taxinet.mobile.app.AppController"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <activity
-            android:name="vn.co.taxinet.mobile.activity.ItemListActivity"
+            android:name="vn.co.taxinet.mobile.activity.StartActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.activity.MainActivity"
-            android:label="@string/title_main" >
-        </activity>
-        <activity
             android:name="vn.co.taxinet.mobile.activity.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,16 +47,41 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.activity.RiderPromotionActivity"
-            android:label="@string/title_activity_login" >
+            android:name="vn.co.taxinet.mobile.activity.RegisterActivity"
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.activity.CallDialogActivity"
-            android:label="@string/title_activity_call_dialog" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.support.v4.app.FragmentActivity" />
+            android:name="vn.co.taxinet.mobile.activity.TermActivity"
+            android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="vn.co.taxinet.mobile.activity.ForgotPasswordActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="vn.co.taxinet.mobile.fragment.ProfileFragment"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="vn.co.taxinet.mobile.activity.ResetPasswordActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="vn.co.taxinet.mobile.fragment.MapsFragment"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="vn.co.taxinet.mobile.activity.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+        <!-- Goolge API Key -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCmTmWBM22BCEVl5XEwxl3cbkDtKmTlDzg" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

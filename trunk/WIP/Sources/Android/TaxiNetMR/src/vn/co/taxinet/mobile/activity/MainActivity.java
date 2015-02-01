@@ -2,15 +2,20 @@ package vn.co.taxinet.mobile.activity;
 
 import java.util.ArrayList;
 
+
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
+import vn.co.taxinet.mobile.adapter.TitleNavigationAdapter;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
+import vn.co.taxinet.mobile.model.SpinnerNavItem;
 import vn.co.taxinet.mobile.slidemenu.FavoriteDriverFragment;
 import vn.co.taxinet.mobile.slidemenu.HistoryCallFragment;
 import vn.co.taxinet.mobile.slidemenu.JourneyFragment;
 import vn.co.taxinet.mobile.slidemenu.MapsFragment;
+import vn.co.taxinet.mobile.slidemenu.ProfileFragment;
 import vn.co.taxinet.mobile.slidemenu.SettingFragment;
 import vn.co.taxinet.mobile.slidemenu.TaxiCompanyFragment;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -25,8 +30,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements
+		ActionBar.OnNavigationListener {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -44,16 +51,55 @@ public class MainActivity extends Activity {
 
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
-	
+	private Fragment fragment;
+	// action bar
+	private ActionBar actionBar;
+
+	// Title navigation Spinner data
+	private ArrayList<SpinnerNavItem> navSpinner;
+
+	// Navigation adapter
+	private TitleNavigationAdapter adapterNav;
+
+	private FragmentManager fragmentManager;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		fragmentManager = getFragmentManager();
+		createSpinnerMenu();
+
+		createSlideMenu(savedInstanceState);
+
+	}
+
+	public void createSpinnerMenu() {
+		actionBar = getActionBar();
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		
+		// Enabling Spinner dropdown navigation
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
+		// Spinner title navigation data
+		navSpinner = new ArrayList<SpinnerNavItem>();
+		navSpinner.add(new SpinnerNavItem("Taxi", R.drawable.ic_launcher));
+		navSpinner.add(new SpinnerNavItem("Truck", R.drawable.ic_launcher));
+		navSpinner.add(new SpinnerNavItem("Place", R.drawable.ic_launcher));
+		navSpinner.add(new SpinnerNavItem("Packing Place",
+				R.drawable.ic_launcher));
+
+		// title drop down adapter
+		adapterNav = new TitleNavigationAdapter(getApplicationContext(),
+				navSpinner);
+	}
+
+	public void createSlideMenu(Bundle savedInstanceState) {
+		// assigning the spinner navigation
+		actionBar.setListNavigationCallbacks(adapterNav, this);
+
 		mTitle = mDrawerTitle = getTitle();
 
 		// load slide menu items
@@ -92,13 +138,13 @@ public class MainActivity extends Activity {
 									// accessibility
 		) {
 			public void onDrawerClosed(View view) {
-				getActionBar().setTitle(mTitle);
+//				getActionBar().setTitle(mTitle);
 				// calling onPrepareOptionsMenu() to show action bar icons
 				invalidateOptionsMenu();
 			}
 
 			public void onDrawerOpened(View drawerView) {
-				getActionBar().setTitle(mDrawerTitle);
+//				getActionBar().setTitle(mDrawerTitle);
 				// calling onPrepareOptionsMenu() to hide action bar icons
 				invalidateOptionsMenu();
 			}
@@ -107,39 +153,30 @@ public class MainActivity extends Activity {
 
 		if (savedInstanceState == null) {
 			// on first time display view for first nav item
-			displayView(0);
+			displayView(1);
 		}
-
 	}
+
 	public void setNavDrawerItemForCustomer() {
 		// adding nav drawer items to array
-		// map
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
+
+		navDrawerItems.add(new NavDrawerItem("Hiếu Giề", 2));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
 				.getResourceId(0, -1)));
-		// journey title
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], true));
-		// manage journey
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
-				.getResourceId(2, -1)));
-		// taxi title
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], true));
-		// list taxi company
+				.getResourceId(0, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons
+				.getResourceId(0, -1)));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
-				.getResourceId(4, -1)));
-		// favorite taxi driver
+				.getResourceId(0, -1)));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
-				.getResourceId(5, -1), true, "50+"));
-		// history taxi call
+				.getResourceId(0, -1)));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
-				.getResourceId(4, -1)));
-		// other title
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], true));
-		// setting
+				.getResourceId(0, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons
+				.getResourceId(0, -1)));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons
-				.getResourceId(4, -1)));
-		// request
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[9], navMenuIcons
-				.getResourceId(4, -1)));
+				.getResourceId(0, -1)));
 	}
 
 	/**
@@ -157,8 +194,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -169,7 +205,8 @@ public class MainActivity extends Activity {
 		}
 		// Handle action bar actions click
 		switch (item.getItemId()) {
-		case R.id.action_refresh:
+		case R.id.accept:
+			Toast.makeText(this, "alo", Toast.LENGTH_LONG).show();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -182,8 +219,9 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
-		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+//		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+//		menu.findItem(R.id.taxi).setVisible(!drawerOpen);
+		mDrawerList.setSelection(0);
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -192,27 +230,33 @@ public class MainActivity extends Activity {
 	 * */
 	private void displayView(int position) {
 		// update the main content by replacing fragments
-		Fragment fragment = null;
+		fragment = null;
 		switch (position) {
 		case 0:
+			fragment = new ProfileFragment();
+			break;
+		case 1:
 			fragment = new MapsFragment();
 			break;
 		case 2:
 			fragment = new JourneyFragment();
 			break;
-		case 4:
-			fragment = new TaxiCompanyFragment();
+		case 3:
+			fragment = new JourneyFragment();
 			break;
 		case 5:
-			fragment = new FavoriteDriverFragment();
+			fragment = new TaxiCompanyFragment();
 			break;
 		case 6:
-			fragment = new HistoryCallFragment();
+			fragment = new FavoriteDriverFragment();
 			break;
 		case 8:
-			fragment = new SettingFragment();
+			fragment = new HistoryCallFragment();
 			break;
 		case 9:
+			fragment = new SettingFragment();
+			break;
+		case 10:
 			fragment = new SettingFragment();
 			break;
 		default:
@@ -220,14 +264,18 @@ public class MainActivity extends Activity {
 		}
 
 		if (fragment != null) {
-			FragmentManager fragmentManager = getFragmentManager();
-			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).commit();
+			Fragment f = getFragmentManager().findFragmentById(
+					R.id.frame_container);
+			if (!(f instanceof MapsFragment && position == 1)) {
+				fragmentManager.beginTransaction()
+						.replace(R.id.frame_container, fragment).commit();
+			} else {
 
-			// update selected item and title, then close the drawer
+			} // update selected item and title, then close the drawer
 			mDrawerList.setItemChecked(position, true);
 			mDrawerList.setSelection(position);
-			setTitle(navMenuTitles[position]);
+			// setTitle(navMenuTitles[position]);
+			setTitle("");
 			mDrawerLayout.closeDrawer(mDrawerList);
 		} else {
 			// error in creating fragment
@@ -258,5 +306,17 @@ public class MainActivity extends Activity {
 		super.onConfigurationChanged(newConfig);
 		// Pass any configuration change to the drawer toggls
 		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+		Toast.makeText(this, "Postion " + itemPosition, Toast.LENGTH_LONG)
+				.show();
+		return false;
+	}
+
+	@Override
+	public void onBackPressed() {
+
 	}
 }

@@ -27,12 +27,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
-public class RiderHomeActivity extends Activity {
+public class HomeActivity extends Activity {
 
 	// Google Map
 	private GoogleMap googleMap;
 
-	private String TAG = RiderHomeActivity.class.getSimpleName();
+	private String TAG = HomeActivity.class.getSimpleName();
 	private ProgressDialog pDialog;
 	// These tags will be used to cancel the requests
 	private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
@@ -40,7 +40,7 @@ public class RiderHomeActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_rider_home);
+		setContentView(R.layout.activity_home);
 
 		pDialog = new ProgressDialog(this);
 		pDialog.setMessage("Loading...");
@@ -91,7 +91,7 @@ public class RiderHomeActivity extends Activity {
 	private void makeJsonObjReq() {
 		showProgressDialog();
 		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,
-				Const.URL_JSON_OBJECT, null,
+				Const.URL_IMAGE, null,
 				new Response.Listener<JSONObject>() {
 
 					@Override
@@ -170,7 +170,7 @@ public class RiderHomeActivity extends Activity {
 	}
 
 	public void callTaxiFirms(View v) {
-		Intent it = new Intent(RiderHomeActivity.this, TaxiCompanyActivity.class);
+		Intent it = new Intent(HomeActivity.this, TaxiCompanyActivity.class);
 		startActivity(it);
 	}
 

@@ -1,4 +1,4 @@
-package vn.co.taxinet.mobile.activity;
+package vn.co.taxinet.mobile.sangnv;
 
 import android.app.Activity;
 import android.os.Bundle;
