@@ -29,8 +29,8 @@
         <property name="lisencePlatState" type="java.lang.Integer">
             <column name="LisencePlatState" />
         </property>
-        <property name="level" type="java.lang.Integer">
-            <column name="Level" />
+        <property name="level" type="string">
+            <column name="Level" length="4" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />

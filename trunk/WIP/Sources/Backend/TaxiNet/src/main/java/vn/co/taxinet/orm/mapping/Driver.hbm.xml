@@ -24,10 +24,10 @@
             <column name="DriveExperience" not-null="true" />
         </many-to-one>
         <property name="firstName" type="string">
-            <column name="FirstName" length="15" />
+            <column name="FirstName" length="30" />
         </property>
         <property name="lastName" type="string">
-            <column name="LastName" length="15" />
+            <column name="LastName" length="50" />
         </property>
         <property name="mobileNo" type="string">
             <column name="MobileNo" length="20" />

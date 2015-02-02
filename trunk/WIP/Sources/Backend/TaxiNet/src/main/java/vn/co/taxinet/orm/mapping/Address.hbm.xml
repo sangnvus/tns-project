@@ -20,6 +20,9 @@
         <property name="addressDetail" type="string">
             <column name="AddressDetail" length="70" />
         </property>
+        <property name="postalCode" type="string">
+            <column name="PostalCode" length="5" />
+        </property>
         <property name="latitude" type="java.lang.Double">
             <column name="Latitude" precision="22" scale="0" />
         </property>
