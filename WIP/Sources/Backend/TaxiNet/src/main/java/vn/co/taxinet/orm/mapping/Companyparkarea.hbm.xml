@@ -20,9 +20,6 @@
         <property name="name" type="string">
             <column name="Name" length="50" not-null="true" />
         </property>
-        <property name="numberOfCar" type="int">
-            <column name="NumberOfCar" not-null="true" />
-        </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
         </property>

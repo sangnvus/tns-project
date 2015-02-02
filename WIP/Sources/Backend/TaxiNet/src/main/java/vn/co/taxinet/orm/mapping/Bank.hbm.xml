@@ -8,8 +8,8 @@
             <column name="BankID" />
             <generator class="identity" />
         </id>
-        <property name="bankName" type="java.lang.Integer">
-            <column name="BankName" />
+        <property name="bankName" type="string">
+            <column name="BankName" length="100" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
