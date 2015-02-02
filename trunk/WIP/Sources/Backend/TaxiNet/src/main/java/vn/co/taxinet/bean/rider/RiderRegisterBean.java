@@ -39,7 +39,7 @@ public class RiderRegisterBean implements Serializable {
 	
 	private AuthenticationBO authenticationBO;
 	
-	@ManagedProperty(value="${riderBO}")
+	@ManagedProperty(value="#{riderBO}")
 	private RiderBO riderBO;
 	// private TaxiNetUserDAO taxiNetUserDAO;
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
