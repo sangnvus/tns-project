@@ -12,7 +12,7 @@ import java.util.Set;
 public class Bank implements java.io.Serializable {
 
 	private Integer bankId;
-	private Integer bankName;
+	private String bankName;
 	private String createdBy;
 	private Date createdDate;
 	private String lastModifiedBy;
@@ -30,8 +30,8 @@ public class Bank implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 		this.lastModifiedDate = lastModifiedDate;
 	}
-	
-	public Bank(Integer bankName, String createdBy, Date createdDate,
+
+	public Bank(String bankName, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate,
 			Set<Payment> payments, Set<Payment> payments_1) {
 		this.bankName = bankName;
@@ -51,11 +51,11 @@ public class Bank implements java.io.Serializable {
 		this.bankId = bankId;
 	}
 
-	public Integer getBankName() {
+	public String getBankName() {
 		return this.bankName;
 	}
 
-	public void setBankName(Integer bankName) {
+	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
 

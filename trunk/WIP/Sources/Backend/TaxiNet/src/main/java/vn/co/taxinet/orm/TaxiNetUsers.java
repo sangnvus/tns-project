@@ -41,13 +41,12 @@ public class TaxiNetUsers implements java.io.Serializable {
 	}
 
 	public TaxiNetUsers(String userId, UserGroup userGroup, Language language,
-			Company company, Country country, String username, String status,
-			String createdBy, Date createdDate, String lastModifiedBy,
+			Country country, String username, String status, String createdBy,
+			Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate) {
 		this.userId = userId;
 		this.userGroup = userGroup;
 		this.language = language;
-		this.company = company;
 		this.country = country;
 		this.username = username;
 		this.status = status;

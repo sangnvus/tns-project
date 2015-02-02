@@ -16,6 +16,7 @@ public class Address implements java.io.Serializable {
 	private Country country;
 	private String districtName;
 	private String addressDetail;
+	private String postalCode;
 	private Double latitude;
 	private Double longitude;
 	private String createdBy;
@@ -48,9 +49,9 @@ public class Address implements java.io.Serializable {
 	}
 
 	public Address(String addressId, City city, Country country,
-			String districtName, String addressDetail, Double latitude,
-			Double longitude, String createdBy, Date createdDate,
-			String lastModifiedBy, Date lastModifiedDate,
+			String districtName, String addressDetail, String postalCode,
+			Double latitude, Double longitude, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
 			Set<Rider> ridersForOfficeAddressId,
 			Set<Rider> ridersForHomeAddressId, Set<Driver> drivers,
 			Set<Driver> drivers_1, Set<Rider> ridersForHomeAddressId_1,
@@ -61,6 +62,7 @@ public class Address implements java.io.Serializable {
 		this.country = country;
 		this.districtName = districtName;
 		this.addressDetail = addressDetail;
+		this.postalCode = postalCode;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.createdBy = createdBy;
@@ -115,6 +117,14 @@ public class Address implements java.io.Serializable {
 
 	public void setAddressDetail(String addressDetail) {
 		this.addressDetail = addressDetail;
+	}
+
+	public String getPostalCode() {
+		return this.postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public Double getLatitude() {
