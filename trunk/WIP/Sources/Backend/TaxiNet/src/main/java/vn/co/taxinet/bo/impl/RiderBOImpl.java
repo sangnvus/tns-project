@@ -14,6 +14,7 @@ import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.common.exception.FunctionalException;
 import vn.co.taxinet.common.exception.SystemException;
 import vn.co.taxinet.common.exception.TNSException;
+import vn.co.taxinet.dao.RiderDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
 import vn.co.taxinet.orm.Address;
 import vn.co.taxinet.orm.Rider;
@@ -29,6 +30,35 @@ public class RiderBOImpl implements RiderBO {
 	@Autowired
 	private TaxiNetUserDAO taxiNetUserDAO;
 	
+	private RiderDAO riderDAO;
+	/**
+	 * @return the riderDAO
+	 */
+	public RiderDAO getRiderDAO() {
+		return riderDAO;
+	}
+
+	/**
+	 * @param riderDAO the riderDAO to set
+	 */
+	public void setRiderDAO(RiderDAO riderDAO) {
+		this.riderDAO = riderDAO;
+	}
+
+	/**
+	 * @return the taxiNetUserDAO
+	 */
+	public TaxiNetUserDAO getTaxiNetUserDAO() {
+		return taxiNetUserDAO;
+	}
+
+	/**
+	 * @param taxiNetUserDAO the taxiNetUserDAO to set
+	 */
+	public void setTaxiNetUserDAO(TaxiNetUserDAO taxiNetUserDAO) {
+		this.taxiNetUserDAO = taxiNetUserDAO;
+	}
+
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void register(Rider rider) throws TNSException {
 		final String begin = " BEGIN: params ({0}, {1}) ";
@@ -101,9 +131,9 @@ public class RiderBOImpl implements RiderBO {
 	@Transactional
 	public void test(Rider rider) {
 		if(rider == null){
-			System.out.println("Không có người dùng");
+			System.out.println("KhÃ´ng cÃ³ ngÆ°á»�i dÃ¹ng");
 		} else {
-			System.out.println("Có người dùng");
+			System.out.println("CÃ³ ngÆ°á»�i dÃ¹ng");
 		}
 		
 	}
