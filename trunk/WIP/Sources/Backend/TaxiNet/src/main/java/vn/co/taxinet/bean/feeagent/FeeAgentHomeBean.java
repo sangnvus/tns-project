@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 import vn.co.taxinet.bo.AgentBO;
 import vn.co.taxinet.orm.TaxiNetUsers;
@@ -21,21 +21,21 @@ import vn.co.taxinet.orm.TaxiNetUsers;
 public class FeeAgentHomeBean implements Serializable {
 	private static final long serialVersionUID = -774991307566016525L;
 
-	public String accountSearchName;// tên đăng nhập cần tìm
-	public String userSearchName;// tên người sử dụng
+	public String accountSearchName;// tÃªn Ä‘Äƒng nháº­p cáº§n tÃ¬m
+	public String userSearchName;// tÃªn ngÆ°á»�i sá»­ dá»¥ng
 
-	// nhân viên thu ngân
+	// nhÃ¢n viÃªn thu ngÃ¢n
 	public String username;
 	public String userID;
 	
 	public List<TaxiNetUsers> listUser;
 	
 	public TaxiNetUsers selectedUser;
-	@Inject
+	@ManagedProperty(value="${riderBO}")
 	private AgentBO agentBO;
 	
 	/**
-	 * khởi tạo ngay khi load trang
+	 * khá»Ÿi táº¡o ngay khi load trang
 	 */
 	public void initData() {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
@@ -47,10 +47,10 @@ public class FeeAgentHomeBean implements Serializable {
 	}
 
 	/**
-	 * event cho button Tìm kiếm
+	 * event cho button TÃ¬m kiáº¿m
 	 */
 	public void doSearchAllUser() {
-		//trả về 1 danh sách người dùng theo điều kiện tìm kiếm
+		//tráº£ vá»� 1 danh sÃ¡ch ngÆ°á»�i dÃ¹ng theo Ä‘iá»�u kiá»‡n tÃ¬m kiáº¿m
 		listUser = agentBO.listAllUsers(userSearchName, accountSearchName);
 		if (listUser == null ) {
 			listUser = new ArrayList<TaxiNetUsers>();
@@ -58,7 +58,7 @@ public class FeeAgentHomeBean implements Serializable {
 	}
 
 	/**
-	 * event cho button Nạp tiền
+	 * event cho button Náº¡p tiá»�n
 	 */
 	public void doChargeFeeForSelectedUser() {
 
