@@ -19,7 +19,7 @@ public class Vehicle implements java.io.Serializable {
 	private String produceYear;
 	private Integer lisencePlatCountry;
 	private Integer lisencePlatState;
-	private Integer level;
+	private String level;
 	private String createdBy;
 	private Date createdDate;
 	private String lastModifiedBy;
@@ -45,7 +45,7 @@ public class Vehicle implements java.io.Serializable {
 	public Vehicle(PricePanel pricePanel, String plate, String interiorColor,
 			String exteriorColor, String produceYear,
 			Integer lisencePlatCountry, Integer lisencePlatState,
-			Integer level, String createdBy, Date createdDate,
+			String level, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate, Set<Driver> drivers,
 			Set<Driver> drivers_1, Set<Trip> trips, Set<Trip> trips_1) {
 		this.pricePanel = pricePanel;
@@ -130,11 +130,11 @@ public class Vehicle implements java.io.Serializable {
 		this.lisencePlatState = lisencePlatState;
 	}
 
-	public Integer getLevel() {
+	public String getLevel() {
 		return this.level;
 	}
 
-	public void setLevel(Integer level) {
+	public void setLevel(String level) {
 		this.level = level;
 	}
 

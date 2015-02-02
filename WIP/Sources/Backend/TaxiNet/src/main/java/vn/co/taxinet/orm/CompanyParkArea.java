@@ -14,7 +14,6 @@ public class CompanyParkArea implements java.io.Serializable {
 	private double latitute;
 	private double longtitude;
 	private String name;
-	private int numberOfCar;
 	private String createdBy;
 	private Date createdDate;
 	private String lastModifiedBy;
@@ -24,13 +23,12 @@ public class CompanyParkArea implements java.io.Serializable {
 	}
 
 	public CompanyParkArea(Company company, double latitute, double longtitude,
-			String name, int numberOfCar, String createdBy, Date createdDate,
+			String name, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate) {
 		this.company = company;
 		this.latitute = latitute;
 		this.longtitude = longtitude;
 		this.name = name;
-		this.numberOfCar = numberOfCar;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
@@ -75,14 +73,6 @@ public class CompanyParkArea implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getNumberOfCar() {
-		return this.numberOfCar;
-	}
-
-	public void setNumberOfCar(int numberOfCar) {
-		this.numberOfCar = numberOfCar;
 	}
 
 	public String getCreatedBy() {

@@ -18,7 +18,7 @@ public class Company implements java.io.Serializable {
 	private Company company;
 	private String name;
 	private String businessType;
-	private Integer balance;
+	private Double balance;
 	private String vatnumber;
 	private String mobileNo;
 	private String serviceCharge;
@@ -63,7 +63,7 @@ public class Company implements java.io.Serializable {
 
 	public Company(Document documentByOperatingLisence,
 			Document documentByBusinessRegistration, Address address,
-			Company company, String name, String businessType, Integer balance,
+			Company company, String name, String businessType, Double balance,
 			String vatnumber, String mobileNo, String serviceCharge,
 			Double rate, String bankNo, Integer bankId,
 			String currentPromotionCode, String createdBy, Date createdDate,
@@ -159,11 +159,11 @@ public class Company implements java.io.Serializable {
 		this.businessType = businessType;
 	}
 
-	public Integer getBalance() {
+	public Double getBalance() {
 		return this.balance;
 	}
 
-	public void setBalance(Integer balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 
