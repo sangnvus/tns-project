@@ -79,9 +79,7 @@
     	    <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
-    <!-- Beans configuration -->
-    
-        
+    <!-- Beans configuration -->        
   	<bean id="taxiNetUserDAO" class="vn.co.taxinet.dao.impl.TaxiNetUserDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>    
@@ -96,7 +94,26 @@
   	</bean>
   	<bean id="driverDAO" class="vn.co.taxinet.dao.impl.DriverDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	 <bean id="companyDAO" class="vn.co.taxinet.dao.impl.CompanyDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>  	
+  	<bean id="currentStatusDAO" class="vn.co.taxinet.dao.impl.CurrentStatusDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+	<bean id="documentDAO" class="vn.co.taxinet.dao.impl.DocumentDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>  	
+  	<bean id="countryDAO" class="vn.co.taxinet.dao.impl.CountryDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>  	
+  	<bean id="pricePanelDAO" class="vn.co.taxinet.dao.impl.PricePanelDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>  	
+  	<bean id="tripDAO" class="vn.co.taxinet.dao.impl.TripDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<!-- BO beans declaration -->  	  	  	  	
    	<bean id="authenticationService"  class="vn.co.taxinet.bo.impl.AuthenticationBOImpl">
        <property name="taxiNetUserDAO" ref="taxiNetUserDAO" />         
    	</bean>
