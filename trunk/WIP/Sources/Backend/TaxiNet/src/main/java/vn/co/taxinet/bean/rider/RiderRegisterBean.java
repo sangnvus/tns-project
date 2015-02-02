@@ -7,9 +7,9 @@ import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -36,8 +36,10 @@ public class RiderRegisterBean implements Serializable {
 	private String cvv;
 	private Date expiredDate;
 	private String zipCode;
+	
 	private AuthenticationBO authenticationBO;
-	@Inject
+	
+	@ManagedProperty(value="${riderBO}")
 	private RiderBO riderBO;
 	// private TaxiNetUserDAO taxiNetUserDAO;
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -78,44 +80,44 @@ public class RiderRegisterBean implements Serializable {
 		int zipCodeNumber = 0;
 		int phoneNumber = 0;
 		if (!emailAddress.matches(EMAIL_PATTERN)) {
-			// thông báo lỗi đến người dùng
+			// thÃ´ng bÃ¡o lá»—i Ä‘áº¿n ngÆ°á»�i dÃ¹ng
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Email không hợp lệ"));
+					new FacesMessage("Error", "Email khÃ´ng há»£p lá»‡"));
 		}
-		// kiểm tra tính hợp lệ của CVV, Số điện thoại và Zip Code
+		// kiá»ƒm tra tÃ­nh há»£p lá»‡ cá»§a CVV, Sá»‘ Ä‘iá»‡n thoáº¡i vÃ  Zip Code
 		try {
-			// kiểm tra thông tin CVV
+			// kiá»ƒm tra thÃ´ng tin CVV
 			cvvNumber = Integer.parseInt(cvv);
 		} catch (NumberFormatException ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "CVV không hợp lệ"));
+					new FacesMessage("Error", "CVV khÃ´ng há»£p lá»‡"));
 		} catch (Exception ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "CVV không hợp lệ"));
+					new FacesMessage("Error", "CVV khÃ´ng há»£p lá»‡"));
 		}
 
 		try {
-			// kiểm tra thông tin zipCode
+			// kiá»ƒm tra thÃ´ng tin zipCode
 			zipCodeNumber = Integer.parseInt(zipCode);
 		} catch (NumberFormatException ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Zip Code không hợp lệ"));
+					new FacesMessage("Error", "Zip Code khÃ´ng há»£p lá»‡"));
 		} catch (Exception ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Zip Code không hợp lệ"));
+					new FacesMessage("Error", "Zip Code khÃ´ng há»£p lá»‡"));
 		}
 
 		try {
-			// kiểm tra thông tin của số điện thoại
-			phoneNumber = Integer.parseInt(mobileNo);
+			// kiá»ƒm tra thÃ´ng tin cá»§a sá»‘ Ä‘iá»‡n thoáº¡i
+			//phoneNumber = Integer.parseInt(mobileNo);
 		} catch (NumberFormatException ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Số điện thoại không hợp lệ"));
+					new FacesMessage("Error", "Sá»‘ Ä‘iá»‡n thoáº¡i khÃ´ng há»£p lá»‡"));
 		} catch (Exception ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Số điện thoại không hợp lệ"));
+					new FacesMessage("Error", "Sá»‘ Ä‘iá»‡n thoáº¡i khÃ´ng há»£p lá»‡"));
 		}
-		// set thông tin cho đối tượng đươc truyền xuống
+		// set thÃ´ng tin cho Ä‘á»‘i tÆ°á»£ng Ä‘Æ°Æ¡c truyá»�n xuá»‘ng
 		Rider newRider = new Rider();
 		
 //		TaxiNetUsers users = newRider.getTaxinetusers();
@@ -128,15 +130,15 @@ public class RiderRegisterBean implements Serializable {
 		newRider.getTaxinetusers().setPassword(password);
 		newRider.getTaxinetusers().setUsername(emailAddress);
 		newRider.getTaxinetusers().setPostalCode(zipCode);
-		newRider.setMobileNo(phoneNumber);
+		newRider.setMobileNo(mobileNo);
 		newRider.setFirstName(userName);
 		newRider.setLastName(userSurName);
-		// userGroup aka loại người dùng chưa biết
+		// userGroup aka loáº¡i ngÆ°á»�i dÃ¹ng chÆ°a biáº¿t
 		try {
 			//riderBo.test(newRider);
 			riderBO.test(new Rider());
 			//riderBo.register(newRider);
-			//nếu thành công thì chuyển qua trang login
+			//náº¿u thÃ nh cÃ´ng thÃ¬ chuyá»ƒn qua trang login
 			HttpServletRequest request = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			HttpSession session = request.getSession();
