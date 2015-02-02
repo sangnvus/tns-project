@@ -85,7 +85,23 @@
   	<bean id="taxiNetUserDAO" class="vn.co.taxinet.dao.impl.TaxiNetUserDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>    
+  	<bean id="riderDAO" class="vn.co.taxinet.dao.impl.RiderDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+	<bean id="addressDAO" class="vn.co.taxinet.dao.impl.AddressDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="referenceDataDAO" class="vn.co.taxinet.dao.impl.ReferenceDataDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="driverDAO" class="vn.co.taxinet.dao.impl.DriverDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>  	
    	<bean id="authenticationService"  class="vn.co.taxinet.bo.impl.AuthenticationBOImpl">
        <property name="taxiNetUserDAO" ref="taxiNetUserDAO" />         
-   	</bean>       
+   	</bean>
+   	<bean id="riderBO"  class="vn.co.taxinet.bo.impl.RiderBOImpl">
+       <property name="riderDAO" ref="riderDAO" />  
+	   <property name="taxiNetUserDAO" ref="taxiNetUserDAO" />              
+   	</bean>          	       
 </beans>
