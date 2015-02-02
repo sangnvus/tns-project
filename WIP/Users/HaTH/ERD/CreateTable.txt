@@ -1,6 +1,6 @@
 CREATE TABLE Bank (
   BankID           int(10) NOT NULL AUTO_INCREMENT, 
-  BankName         int(10), 
+  BankName         varchar(100), 
   CreatedBy        varchar(50) NOT NULL, 
   CreatedDate      timestamp NOT NULL, 
   LastModifiedBy   varchar(50) NOT NULL, 
@@ -76,6 +76,7 @@ CREATE TABLE Address (
   CityID           int(10) NOT NULL, 
   DistrictName     varchar(50) NOT NULL, 
   AddressDetail    varchar(70), 
+  PostalCode       varchar(5), 
   Latitude         real, 
   Longitude        real, 
   CreatedBy        varchar(50) NOT NULL, 
@@ -104,8 +105,8 @@ CREATE TABLE Document (
   PRIMARY KEY (DocumentID));
 CREATE TABLE Driver (
   DriverID         varchar(50) NOT NULL, 
-  FirstName        varchar(15), 
-  LastName         varchar(15), 
+  FirstName        varchar(30), 
+  LastName         varchar(50), 
   MobileNo         varchar(20), 
   DriverLisense    int(10) NOT NULL, 
   CurrentVehicle   int(10), 
@@ -119,8 +120,8 @@ CREATE TABLE Driver (
   PRIMARY KEY (DriverID));
 CREATE TABLE Rider (
   RiderID          varchar(50) NOT NULL, 
-  FirstName        varchar(15), 
-  LastName         varchar(15), 
+  FirstName        varchar(30), 
+  LastName         varchar(50), 
   MobileNo         varchar(20), 
   HomeAddressID    varchar(50) NOT NULL, 
   OfficeAddressID  varchar(50) NOT NULL, 
@@ -138,7 +139,7 @@ CREATE TABLE Vehicle (
   ProduceYear        varchar(4), 
   LisencePlatCountry int(10), 
   LisencePlatState   int(10), 
-  Level              int(3), 
+  Level              varchar(4), 
   CreatedBy          varchar(50) NOT NULL, 
   CreatedDate        timestamp NOT NULL, 
   LastModifiedBy     varchar(50) NOT NULL, 
@@ -198,7 +199,6 @@ CREATE TABLE CompanyParkArea (
   Latitute         real NOT NULL, 
   Longtitude       real NOT NULL, 
   Name             varchar(50) NOT NULL, 
-  NumberOfCar      int(5) NOT NULL, 
   CreatedBy        varchar(50) NOT NULL, 
   CreatedDate      timestamp NOT NULL, 
   LastModifiedBy   varchar(50) NOT NULL, 
@@ -255,7 +255,7 @@ CREATE TABLE Company (
   BusinessType         varchar(10) NOT NULL, 
   OperatingLisence     int(10) NOT NULL, 
   BusinessRegistration int(10) NOT NULL, 
-  Balance              int(10), 
+  Balance              real, 
   VATNumber            varchar(20), 
   MobileNo             varchar(20), 
   ServiceCharge        varchar(5), 
@@ -282,7 +282,7 @@ CREATE TABLE TaxiNetUsers (
   Password         varchar(40), 
   Email            varchar(50), 
   GroupCode        char(3) NOT NULL, 
-  CompanyID        int(10) NOT NULL, 
+  CompanyID        int(10), 
   LanguageCode     varchar(4) NOT NULL, 
   CountryCode      varchar(4) NOT NULL, 
   CityID           int(10), 
@@ -308,11 +308,11 @@ ALTER TABLE Driver ADD INDEX FKDriver71775 (DriverLisense), ADD CONSTRAINT FKDri
 ALTER TABLE Driver ADD INDEX FKDriver818765 (DriveExperience), ADD CONSTRAINT FKDriver818765 FOREIGN KEY (DriveExperience) REFERENCES Document (DocumentID);
 ALTER TABLE Driver ADD INDEX FKDriver643082 (AddressID), ADD CONSTRAINT FKDriver643082 FOREIGN KEY (AddressID) REFERENCES Address (AddressID);
 ALTER TABLE Driver ADD INDEX FKDriver176517 (DriverID), ADD CONSTRAINT FKDriver176517 FOREIGN KEY (DriverID) REFERENCES TaxiNetUsers (UserID);
-ALTER TABLE CurrentStatus ADD INDEX FKCurrentSta116497 (DriverID), ADD CONSTRAINT FKCurrentSta116497 FOREIGN KEY (DriverID) REFERENCES Driver (DriverID);
 ALTER TABLE Rider ADD INDEX FKRider93910 (HomeAddressID), ADD CONSTRAINT FKRider93910 FOREIGN KEY (HomeAddressID) REFERENCES Address (AddressID);
 ALTER TABLE Rider ADD INDEX FKRider515925 (RiderID), ADD CONSTRAINT FKRider515925 FOREIGN KEY (RiderID) REFERENCES TaxiNetUsers (UserID);
 ALTER TABLE Rider ADD INDEX FKRider5193 (OfficeAddressID), ADD CONSTRAINT FKRider5193 FOREIGN KEY (OfficeAddressID) REFERENCES Address (AddressID);
 ALTER TABLE Vehicle ADD INDEX FKVehicle652544 (PricePanelID), ADD CONSTRAINT FKVehicle652544 FOREIGN KEY (PricePanelID) REFERENCES PricePanel (PricePanelID);
+ALTER TABLE CurrentStatus ADD INDEX FKCurrentSta116497 (DriverID), ADD CONSTRAINT FKCurrentSta116497 FOREIGN KEY (DriverID) REFERENCES Driver (DriverID);
 ALTER TABLE AccountTransaction ADD INDEX FKAccountTra136152 (UserID), ADD CONSTRAINT FKAccountTra136152 FOREIGN KEY (UserID) REFERENCES TaxiNetUsers (UserID);
 ALTER TABLE Trip ADD INDEX FKTrip388784 (RiderID), ADD CONSTRAINT FKTrip388784 FOREIGN KEY (RiderID) REFERENCES Rider (RiderID);
 ALTER TABLE Trip ADD INDEX FKTrip684977 (DriverID), ADD CONSTRAINT FKTrip684977 FOREIGN KEY (DriverID) REFERENCES Driver (DriverID);
@@ -321,14 +321,14 @@ ALTER TABLE Trip ADD INDEX FKTrip890581 (FromCity), ADD CONSTRAINT FKTrip890581 
 ALTER TABLE Trip ADD INDEX FKTrip517586 (PaymentID), ADD CONSTRAINT FKTrip517586 FOREIGN KEY (PaymentID) REFERENCES Payment (PaymentID);
 ALTER TABLE CompanyParkArea ADD INDEX FKCompanyPar75525 (CompanyID), ADD CONSTRAINT FKCompanyPar75525 FOREIGN KEY (CompanyID) REFERENCES Company (CompanyID);
 ALTER TABLE CarModel ADD INDEX FKCarModel970278 (CarMakerID), ADD CONSTRAINT FKCarModel970278 FOREIGN KEY (CarMakerID) REFERENCES CarMaker (CarMakerID);
-ALTER TABLE PricePanel ADD INDEX FKPricePanel34435 (CarModelID), ADD CONSTRAINT FKPricePanel34435 FOREIGN KEY (CarModelID) REFERENCES CarModel (CarModelID);
 ALTER TABLE PricePanel ADD INDEX FKPricePanel346810 (CompanyID), ADD CONSTRAINT FKPricePanel346810 FOREIGN KEY (CompanyID) REFERENCES Company (CompanyID);
-ALTER TABLE PricePanel ADD INDEX FKPricePanel34436 (CarModelID), ADD CONSTRAINT FKPricePanel34436 FOREIGN KEY (CarModelID) REFERENCES CarModel (CarModelID);
+ALTER TABLE PricePanel ADD INDEX FKPricePanel34435 (CarModelID), ADD CONSTRAINT FKPricePanel34435 FOREIGN KEY (CarModelID) REFERENCES CarModel (CarModelID);
 ALTER TABLE City ADD INDEX FKCity476404 (CountryCode), ADD CONSTRAINT FKCity476404 FOREIGN KEY (CountryCode) REFERENCES Country (Code);
 ALTER TABLE Company ADD INDEX FKCompany674280 (BusinessRegistration), ADD CONSTRAINT FKCompany674280 FOREIGN KEY (BusinessRegistration) REFERENCES Document (DocumentID);
 ALTER TABLE Company ADD INDEX FKCompany186490 (AddressID), ADD CONSTRAINT FKCompany186490 FOREIGN KEY (AddressID) REFERENCES Address (AddressID);
 ALTER TABLE Company ADD INDEX FKCompany733049 (OperatingLisence), ADD CONSTRAINT FKCompany733049 FOREIGN KEY (OperatingLisence) REFERENCES Document (DocumentID);
 ALTER TABLE Company ADD INDEX FKCompany704929 (ParentID), ADD CONSTRAINT FKCompany704929 FOREIGN KEY (ParentID) REFERENCES Company (CompanyID);
+ALTER TABLE PricePanel ADD INDEX FKPricePanel34436 (CarModelID), ADD CONSTRAINT FKPricePanel34436 FOREIGN KEY (CarModelID) REFERENCES CarModel (CarModelID);
 ALTER TABLE TaxiNetUsers ADD INDEX FKTaxiNetUse537534 (GroupCode), ADD CONSTRAINT FKTaxiNetUse537534 FOREIGN KEY (GroupCode) REFERENCES UserGroup (GroupCode);
 ALTER TABLE TaxiNetUsers ADD INDEX FKTaxiNetUse739410 (CompanyID), ADD CONSTRAINT FKTaxiNetUse739410 FOREIGN KEY (CompanyID) REFERENCES Company (CompanyID);
 ALTER TABLE TaxiNetUsers ADD INDEX FKTaxiNetUse233635 (LanguageCode), ADD CONSTRAINT FKTaxiNetUse233635 FOREIGN KEY (LanguageCode) REFERENCES Language (LanguageCode);
