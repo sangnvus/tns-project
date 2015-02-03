@@ -44,10 +44,16 @@
 	<br></br>
 
 	<center>
-		<h1>#{msg['driver.tripsInvoice']}</h1>
+		<h1>#{msg['driver.partnerInvoice']}</h1>
 		<h:panelGrid columns="2">
-			<p:outputLabel for="date" value="#{msg['driver.date']}" />
-			<p:calendar id="date">
+			<p:outputLabel for="date" value="#{msg['feeAgent.fromDate']}" />
+			<p:calendar id="from-date"
+				value="#{feeAgentChargingInvoicesController.fromDate}">
+				<f:convertDateTime pattern="dd-MM-yyyy" />
+			</p:calendar>
+			<p:outputLabel for="to-date" value="#{msg['feeAgent.toDate']}" />
+			<p:calendar id="to-date"
+				value="#{feeAgentChargingInvoicesController.toDate}">
 				<f:convertDateTime pattern="dd-MM-yyyy" />
 			</p:calendar>
 		</h:panelGrid>
@@ -67,18 +73,18 @@
 		<p:column headerText="#{msg['feeAgent.autonumber']}"
 			style="text-align:left" width="35">
 		</p:column>
-		<p:column headerText="#{msg['driver.processed']}"
+		<p:column headerText="#{msg['feeAgent.invoiceNo']}"
 			style="text-align:left">
 		</p:column>
-		<p:column headerText="#{msg['driver.endWeek']}"
+		<p:column headerText="#{msg['feeAgent.invoiceDate']}"
 			style="text-align:left">
 		</p:column>
-		<p:column headerText="#{msg['driver.trips']}" style="text-align:left">
+		<p:column headerText="#{msg['driver.rating']}" style="text-align:left">
 		</p:column>
-		<p:column headerText="#{msg['driver.driver']}"
+		<p:column headerText="#{msg['driver.service']}"
 			style="text-align:left">
 		</p:column>
-		<p:column headerText="#{msg['driver.status']}"
+		<p:column headerText="#{msg['feeAgent.download']}"
 			style="text-align:left">
 		</p:column>
 		<f:facet name="footer">
