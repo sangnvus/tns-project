@@ -56,8 +56,14 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 	 */
 	public List<TaxiNetUsers> listAllUsers(String username, String email) {
 		Session session = getSessionFactory().getCurrentSession();
-		String hql = "FROM TaxiNetUsers U WHERE U.username = :username AND U.email = :email";
-		Query query = session.createQuery(hql);
+		String hql = "from taxinetusers";
+		String hql1 = "	inner join usergroup on taxinetusers.groupcode = usergroup.groupcode";
+		String hql2 = " inner join rider on taxinetusers.userid = rider.riderid";
+		String hql3 = "	inner join driver on taxinetusers.userid = driver.driverid";
+		String hql4 = "	inner join company on taxinetusers.companyid = company.companyid";
+		String hql5 = "	where taxinetusers.username = :username and taxinetusers.email =:email";
+		String hqlQuery = hql.concat(hql1).concat(hql2).concat(hql3).concat(hql4).concat(hql5);
+		Query query = session.createQuery(hqlQuery);
 		query.setParameter("userName", username.toLowerCase());
 		query.setParameter("email", email);
 		List<TaxiNetUsers> listUsers = query.list();
@@ -66,7 +72,5 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		} else
 			return new ArrayList<TaxiNetUsers>();
 
-	}
-	
-	
+	}	
 }
