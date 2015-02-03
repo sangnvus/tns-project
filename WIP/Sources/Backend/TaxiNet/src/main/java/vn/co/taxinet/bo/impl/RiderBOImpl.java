@@ -107,8 +107,12 @@ public class RiderBOImpl implements RiderBO {
 				offAddress.setLastModifiedBy(user.getUsername());
 				taxiNetUserDAO.insert(offAddress);
 			}
-
-			// 4. Insert data into Rider table
+			
+			// 4.Insert data into Payment table
+			//TODO insert vào bảng payment
+			
+			
+			// 5. Insert data into Rider table
 			rider.setRiderId(id.toString());
 			rider.setCreatedDate(Utility.getCurrentDateTime());
 			rider.setLastModifiedDate(Utility.getCurrentDateTime());
@@ -131,9 +135,9 @@ public class RiderBOImpl implements RiderBO {
 	@Transactional
 	public void test(Rider rider) {
 		if(rider == null){
-			System.out.println("KhÃ´ng cÃ³ ngÆ°á»�i dÃ¹ng");
+			System.out.println("Nothing");
 		} else {
-			System.out.println("CÃ³ ngÆ°á»�i dÃ¹ng");
+			System.out.println("Got it");
 		}
 		
 	}
