@@ -53,9 +53,7 @@
 			</p:calendar>
 		</h:panelGrid>
 		<br></br>
-		<p:commandButton value="#{msg['feeAgent.invoiceFilter']}"
-			actionListener="#{feeAgentChargingInvoicesController.doSearchAllUser}"
-			update="invoice-list"></p:commandButton>
+		<p:commandButton value="#{msg['feeAgent.invoiceFilter']}"/>
 	</center>
 	<br></br>
 	<p:dataTable id="invoice-list" paginator="true" rows="10"
