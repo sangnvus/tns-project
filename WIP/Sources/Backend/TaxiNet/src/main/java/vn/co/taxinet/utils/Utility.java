@@ -70,7 +70,14 @@ public final class Utility {
         long timeInMilisecond = rightNow.getTimeInMillis();
         String timeStr = String.valueOf(timeInMilisecond);
         timeStr = timeStr.substring(0, timeStr.length() - 3).concat("000");
-        return new Date(Long.parseLong(timeStr));
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); 
+        try {
+			return format.parse(format.format(rightNow.getTime()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return rightNow.getTime();
+		}
     }
 
     /**
