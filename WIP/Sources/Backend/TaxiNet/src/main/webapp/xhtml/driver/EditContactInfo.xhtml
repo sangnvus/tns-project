@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<f:event listener="#{feeAgentHomeController.initData}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<p:megaMenu orientation="horizontal">
+		<p:menuitem value="#{msg['feeAgent.homePage']}"
+			url="../driver/Dashboard.xhtml" style="background:orange"></p:menuitem>
+	</p:megaMenu>
+	<p:megaMenu orientation="vertical">
+		<p:menuitem value="#{msg['feeAgent.dashboard']}"
+			url="../driver/Dashboard.xhtml" style="background:orange"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
+			url="../driver/ContactInfo.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.document']}"
+			url="../driver/Document.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.vehicle']}"
+			url="../driver/Vehicles.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.partnerInvoice']}"
+			url="../driver/PartnerInvoices.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.tripsInvoice']}"
+			url="../driver/TripInvoices.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.driver']}"
+			url="../driver/drivers.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.liveStatus']}"
+			url="../driver/LiveStatus.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.promotionRegister']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+	</p:megaMenu>
+
+	<br></br>
+
+<p:commandButton value="#{msg['feeAgent.save']}" />
+	<br></br>
+	<p:graphicImage />
+	<br></br>
+	<p:commandButton value="#{msg['feeAgent.imageUpload']}" />
+
+	<br></br>
+
+	<center>
+		<h1>#{msg['feeAgent.infoEdit']}</h1>
+		<br></br>
+		<h2>#{msg['driver.companyInfo']}</h2>
+		<h:panelGrid columns="2">
+			<p:outputLabel for="agentName" value="#{msg['driver.companyName']}:" />
+			<p:inputText id="agentName" required="true" />
+			<p:outputLabel for="address" value="#{msg['feeAgent.address']} 1:" />
+			<p:inputText id="address" required="true" />
+			<p:outputLabel for="address2" value="#{msg['feeAgent.address']} 2:" />
+			<p:inputText id="address2" />
+			<p:outputLabel for="nation" value="#{msg['feeAgent.nation']}:" />
+			<p:selectOneMenu id="nation">
+			</p:selectOneMenu>
+			<p:outputLabel for="city" value="#{msg['feeAgent.city']}:" />
+			<p:inputText id="city" required="true" />
+			<p:outputLabel for="stageProvinceRegion"
+				value="#{msg['feeAgent.stageProvinceRegion']}:" />
+			<p:inputText id="stageProvinceRegion" required="true" />
+			<p:outputLabel for="zipPostalCode"
+				value="#{msg['feeAgent.zipPostalCode']}:" />
+			<p:inputText id="zipPostalCode" required="true" />
+			<p:outputLabel for="phoneNo" value="#{msg['riderRegister.phoneNo']}:" />
+			<p:inputText id="phoneNo" required="true" />
+			<p:outputLabel for="VATCode" value="#{msg['feeAgent.VATCode']}:" />
+			<p:inputText id="VATCode" required="true" />
+		</h:panelGrid>
+
+		<br></br>
+
+		<h2>#{msg['feeAgent.personalInfo']}</h2>
+		<h:panelGrid columns="2">
+			<p:outputLabel for="name" value="#{msg['riderRegister.name']}:" />
+			<p:inputText id="name" readonly="true"/>
+			<p:outputLabel for="surname" value="#{msg['riderRegister.surname']}:" />
+			<p:inputText id="surname" readonly="true"/>
+			<p:outputLabel for="email" value="#{msg['riderRegister.email']}:" />
+			<p:inputText id="email" required="true" />
+			<p:outputLabel for="nation" value="#{msg['feeAgent.nation']}:" />
+			<p:selectOneMenu id="nation">
+			</p:selectOneMenu>
+			<p:outputLabel for="phoneNo" value="#{msg['riderRegister.phoneNo']}:" />
+			<p:inputText id="phoneNo" required="true" />
+			<p:outputLabel for="language"
+				value="#{msg['riderRegister.languages']}:" />
+			<p:selectOneMenu id="language">
+			</p:selectOneMenu>
+		</h:panelGrid>
+
+		<br></br>
+
+		<h2>#{msg['feeAgent.accountInfo']}</h2>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="#{msg['login.userName']}:" />
+			<a href="mailto:"></a>
+			<p:outputLabel value="#{msg['login.password']}:" />
+			<a href="http://">#{msg['feeAgent.passwordChange']}</a>
+		</h:panelGrid>
+	</center>
+
+</h:body>
+</html>
