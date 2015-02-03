@@ -4,8 +4,14 @@ package vn.co.taxinet.common;
 import java.util.Locale;
 
 public interface Constants {	
+	//regext pattern
 	public static final String EMAIL_PATTERN_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	public static final String ZIPCODE_PATTERN_REGEX = "^\\d{5}(-\\d{4})?$";
+	public static final String VISACARD_PATTERN_REGEX = "^4[0-9]{12}(?:[0-9]{3})?$^5[1-5][0-9]{14}$";
+	public static final String CVV_PATTERN_REGEX ="/^[0-9]{3}$/";
+	public static final String PHONENO_PATTERN_REGEX ="^[0-9]{6,7}$";
+	//end regex
 	
 	public static final String LANG_EN_CODE = "1";
 	public static final String LANG_VN_CODE = "2";
@@ -16,6 +22,13 @@ public interface Constants {
 	public static final String COMMA_SYMBOL =",";
 	public static final double MAX_VAL_MONEY = 0.0;
 	public static final String STR_MONEY_FORMAT= "";
+	
+	public interface UserStatus {
+		public static final String ONLINE = "online";
+		public static final String OFFLINE = "offline";
+	}
+	
+	
 	//These are used for Reference Data
 	public interface GroupCode {
 		public static final String USER_ROLE = "GROUPUSER";
