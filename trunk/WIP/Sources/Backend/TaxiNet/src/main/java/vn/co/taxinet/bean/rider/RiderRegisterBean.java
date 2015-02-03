@@ -15,8 +15,13 @@ import javax.servlet.http.HttpSession;
 
 import vn.co.taxinet.bo.AuthenticationBO;
 import vn.co.taxinet.bo.RiderBO;
+import vn.co.taxinet.common.Constants;
+import vn.co.taxinet.common.exception.TNSException;
+import vn.co.taxinet.orm.Country;
+import vn.co.taxinet.orm.Language;
 import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
+import vn.co.taxinet.orm.UserGroup;
 
 /**
  * @author Ecchi controller for register.xhtml
@@ -36,15 +41,12 @@ public class RiderRegisterBean implements Serializable {
 	private String cvv;
 	private Date expiredDate;
 	private String zipCode;
-	
+
 	private AuthenticationBO authenticationBO;
-	
+
 	@ManagedProperty(value="#{riderBO}")
 	private RiderBO riderBO;
 	// private TaxiNetUserDAO taxiNetUserDAO;
-	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
 	/**
 	 * init load
 	 */
@@ -70,86 +72,83 @@ public class RiderRegisterBean implements Serializable {
 	 *         page
 	 */
 	public void doRegister() {
-		// TODO validate information
-		// TODO send information through webservice and receive user's role
-		// TODO redirect to main.xhtml with user's role
-		// TODO validate information
-		// TODO send information through webservice and receive user's role
-		// TODO redirect to main.xhtml with user's role
-		int cvvNumber = 0;
-		int zipCodeNumber = 0;
-		int phoneNumber = 0;
-		if (!emailAddress.matches(EMAIL_PATTERN)) {
-			// thÃ´ng bÃ¡o lá»—i Ä‘áº¿n ngÆ°á»�i dÃ¹ng
+		if (!emailAddress.matches(Constants.EMAIL_PATTERN_REGEX)) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Email khÃ´ng há»£p lá»‡"));
+					new FacesMessage("Error", "Invalid Email"));
 		}
-		// kiá»ƒm tra tÃ­nh há»£p lá»‡ cá»§a CVV, Sá»‘ Ä‘iá»‡n thoáº¡i vÃ  Zip Code
 		try {
-			// kiá»ƒm tra thÃ´ng tin CVV
-			cvvNumber = Integer.parseInt(cvv);
+			int cvvNumber = Integer.parseInt(cvv);
 		} catch (NumberFormatException ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "CVV khÃ´ng há»£p lá»‡"));
+					new FacesMessage("Error", "Invalid CVV"));
 		} catch (Exception ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "CVV khÃ´ng há»£p lá»‡"));
+					new FacesMessage("Error", "Invalid CVV"));
 		}
 
 		try {
-			// kiá»ƒm tra thÃ´ng tin zipCode
-			zipCodeNumber = Integer.parseInt(zipCode);
+			int zipCodeNumber = Integer.parseInt(zipCode);
 		} catch (NumberFormatException ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Zip Code khÃ´ng há»£p lá»‡"));
+					new FacesMessage("Error", "Invalid ZipCode"));
 		} catch (Exception ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Zip Code khÃ´ng há»£p lá»‡"));
+					new FacesMessage("Error", "Invalid ZipCode"));
 		}
 
 		try {
-			// kiá»ƒm tra thÃ´ng tin cá»§a sá»‘ Ä‘iá»‡n thoáº¡i
-			//phoneNumber = Integer.parseInt(mobileNo);
+			int phoneNumber = Integer.parseInt(mobileNo);
 		} catch (NumberFormatException ex) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Sá»‘ Ä‘iá»‡n thoáº¡i khÃ´ng há»£p lá»‡"));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage("Error",
+							"Invalid Phone Number"));
 		} catch (Exception ex) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Sá»‘ Ä‘iá»‡n thoáº¡i khÃ´ng há»£p lá»‡"));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage("Error",
+							"Invalid Phone Number"));
 		}
-		// set thÃ´ng tin cho Ä‘á»‘i tÆ°á»£ng Ä‘Æ°Æ¡c truyá»�n xuá»‘ng
-		Rider newRider = new Rider();
+		Rider newRider = new Rider();		
 		
-//		TaxiNetUsers users = newRider.getTaxinetusers();
-//		users.setEmail(emailAddress);
-//		users.setPassword(password);
-//		users.setUsername(emailAddress);
-//		users.setPostalCode(zipCodeNumber);
 		newRider.setTaxinetusers(new TaxiNetUsers());
 		newRider.getTaxinetusers().setEmail(emailAddress);
 		newRider.getTaxinetusers().setPassword(password);
 		newRider.getTaxinetusers().setUsername(emailAddress);
 		newRider.getTaxinetusers().setPostalCode(zipCode);
+		newRider.getTaxinetusers().setStatus("1");
+		newRider.getTaxinetusers().setCountry(new Country());
+		newRider.getTaxinetusers().getCountry().setCode("1");
+		
+		newRider.getTaxinetusers().setUsergroup(new UserGroup());
+		newRider.getTaxinetusers().getUsergroup()
+				.setGroupCode(vn.co.taxinet.common.Constants.GroupUser.RIDER);
+		
+		newRider.getTaxinetusers().setLanguage(new Language());
+		newRider.getTaxinetusers().getLanguage()
+				.setLanguageCode(vn.co.taxinet.common.Constants.LANG_EN_CODE);
+		
 		newRider.setMobileNo(mobileNo);
 		newRider.setFirstName(userName);
 		newRider.setLastName(userSurName);
-		// userGroup aka loáº¡i ngÆ°á»�i dÃ¹ng chÆ°a biáº¿t
+		
 		try {
-			//riderBo.test(newRider);
-			riderBO.test(new Rider());
-			//riderBo.register(newRider);
-			//náº¿u thÃ nh cÃ´ng thÃ¬ chuyá»ƒn qua trang login
+			riderBO.register(newRider);
+			//riderBO.test(newRider);
 			HttpServletRequest request = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			HttpSession session = request.getSession();
+			//set session attribute
 			session.setAttribute("username", emailAddress);
 			session.setAttribute("password", password);
-			FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+			//redirect to login page
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/TN/faces/Login.xhtml");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TNSException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// getter/setter
@@ -248,6 +247,5 @@ public class RiderRegisterBean implements Serializable {
 	public void setRiderBO(RiderBO riderBO) {
 		this.riderBO = riderBO;
 	}
-	
-	
+
 }
