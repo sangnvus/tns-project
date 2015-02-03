@@ -41,11 +41,12 @@ public class RiderRegisterBean implements Serializable {
 	private String cvv;
 	private Date expiredDate;
 	private String zipCode;
-
+	private Date currentTime;
 	private AuthenticationBO authenticationBO;
 
-	@ManagedProperty(value="#{riderBO}")
+	@ManagedProperty(value = "#{riderBO}")
 	private RiderBO riderBO;
+
 	// private TaxiNetUserDAO taxiNetUserDAO;
 	/**
 	 * init load
@@ -71,87 +72,83 @@ public class RiderRegisterBean implements Serializable {
 	 * @author Ecchi. event for Register button if success, redirect to login
 	 *         page
 	 */
-	public void doRegister() {
+	public String doRegister() {
+		// TODO validate information
 		if (!emailAddress.matches(Constants.EMAIL_PATTERN_REGEX)) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Error", "Invalid Email"));
-		}
-		try {
-			int cvvNumber = Integer.parseInt(cvv);
-		} catch (NumberFormatException ex) {
+			return null;
+		} else if (!cvv.matches(Constants.CVV_PATTERN_REGEX)) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Error", "Invalid CVV"));
-		} catch (Exception ex) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Error", "Invalid CVV"));
-		}
-
-		try {
-			int zipCodeNumber = Integer.parseInt(zipCode);
-		} catch (NumberFormatException ex) {
+			return null;
+		} else if (!zipCode.matches(Constants.ZIPCODE_PATTERN_REGEX)) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Error", "Invalid ZipCode"));
-		} catch (Exception ex) {
+			return null;
+		} else if (!mobileNo.matches(Constants.PHONENO_PATTERN_REGEX)) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Error", "Invalid ZipCode"));
-		}
+			return null;
+		} else if (!creditCard.matches(Constants.VISACARD_PATTERN_REGEX)) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Invalid Credit Card"));
+			return null;
+		} else if (expiredDate.before(currentTime)) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Invalid Expired Date"));
+			return null;
+		} else {
+			// TODO set value to Rider/TaxiNetUsers/Payment Object
+			Rider newRider = new Rider();
 
-		try {
-			int phoneNumber = Integer.parseInt(mobileNo);
-		} catch (NumberFormatException ex) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage("Error",
-							"Invalid Phone Number"));
-		} catch (Exception ex) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage("Error",
-							"Invalid Phone Number"));
-		}
-		Rider newRider = new Rider();		
-		
-		newRider.setTaxinetusers(new TaxiNetUsers());
-		newRider.getTaxinetusers().setEmail(emailAddress);
-		newRider.getTaxinetusers().setPassword(password);
-		newRider.getTaxinetusers().setUsername(emailAddress);
-		newRider.getTaxinetusers().setPostalCode(zipCode);
-		newRider.getTaxinetusers().setStatus("1");
-		newRider.getTaxinetusers().setCountry(new Country());
-		newRider.getTaxinetusers().getCountry().setCode("1");
-		
-		newRider.getTaxinetusers().setUsergroup(new UserGroup());
-		newRider.getTaxinetusers().getUsergroup()
-				.setGroupCode(vn.co.taxinet.common.Constants.GroupUser.RIDER);
-		
-		newRider.getTaxinetusers().setLanguage(new Language());
-		newRider.getTaxinetusers().getLanguage()
-				.setLanguageCode(vn.co.taxinet.common.Constants.LANG_EN_CODE);
-		
-		newRider.setMobileNo(mobileNo);
-		newRider.setFirstName(userName);
-		newRider.setLastName(userSurName);
-		
-		try {
-			riderBO.register(newRider);
-			//riderBO.test(newRider);
-			HttpServletRequest request = (HttpServletRequest) FacesContext
-					.getCurrentInstance().getExternalContext().getRequest();
-			HttpSession session = request.getSession();
-			//set session attribute
-			session.setAttribute("username", emailAddress);
-			session.setAttribute("password", password);
-			//redirect to login page
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/TN/faces/Login.xhtml");
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (TNSException e) {
-			e.printStackTrace();
+			newRider.setTaxinetusers(new TaxiNetUsers());
+			newRider.getTaxinetusers().setEmail(emailAddress);
+			newRider.getTaxinetusers().setPassword(password);
+			newRider.getTaxinetusers().setUsername(emailAddress);
+			newRider.getTaxinetusers().setPostalCode(zipCode);
+			newRider.getTaxinetusers().setStatus(Constants.UserStatus.OFFLINE);
+			newRider.getTaxinetusers().setCountry(new Country());
+			//TODO change hardcode of country
+			newRider.getTaxinetusers().getCountry().setCode("1");
+
+			newRider.getTaxinetusers().setUsergroup(new UserGroup());
+			newRider.getTaxinetusers().getUsergroup()
+					.setGroupCode(Constants.GroupUser.RIDER);
+
+			newRider.getTaxinetusers().setLanguage(new Language());
+			newRider.getTaxinetusers().getLanguage()
+					.setLanguageCode(Constants.LANG_EN_CODE);
+			
+			//TODO set value CreditCard,CVV, ExpiredDate for Payment
+			
+			newRider.setMobileNo(mobileNo);
+			newRider.setFirstName(userName);
+			newRider.setLastName(userSurName);
+			
+			try {
+				riderBO.register(newRider);
+				HttpServletRequest request = (HttpServletRequest) FacesContext
+						.getCurrentInstance().getExternalContext().getRequest();
+				HttpSession session = request.getSession();
+				// set session attribute
+				session.setAttribute("username", emailAddress);
+				session.setAttribute("password", password);
+				// redirect to login page
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect("/TN/faces/Login.xhtml");
+				return null;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			} catch (TNSException e) {
+				e.printStackTrace();
+				return null;
+			}
 		}
 	}
 
-	// getter/setter
+	//getter & setter
 	public String getUserName() {
 		return userName;
 	}
@@ -248,4 +245,11 @@ public class RiderRegisterBean implements Serializable {
 		this.riderBO = riderBO;
 	}
 
+	public Date getCurrentTime() {
+		return currentTime;
+	}
+
+	public void setCurrentTime(Date currentTime) {
+		this.currentTime = currentTime;
+	}
 }
