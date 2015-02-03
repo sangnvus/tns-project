@@ -11,7 +11,7 @@ public class RiderTest {
 		Rider rider = new Rider();
 		rider.setFirstName("Thanh");
 		rider.setLastName("Nguyen");
-		rider.setMobileNo(10);
+		rider.setMobileNo("10");
 		TaxiNetUsers user = new TaxiNetUsers();
 		user.setPassword("0001");
 		user.setUsername("thanh@fpt.edu.vn");
