@@ -4,6 +4,12 @@ package vn.co.taxinet.common;
 import java.util.Locale;
 
 public interface Constants {	
+	public static final String EMAIL_PATTERN_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	
+	public static final String LANG_EN_CODE = "1";
+	public static final String LANG_VN_CODE = "2";
+	
 	public static final String STR_DATE_FORMAT = "";
 	public static final Locale DEFAULT_LOCALE =null;
 	public static final String STR_DATE_TIME_FORMAT = "";
@@ -20,8 +26,11 @@ public interface Constants {
 	}
 	//These are used for Reference Data
 	public interface GroupUser{
-		public static final String RIDER = "RD";
-		public static final String DRIVER = "DR";
+		public static final String RIDER = "1";
+		public static final String DRIVER = "2";
+		public static final String TAXIGROUP ="2";
+		public static final String FEEAGENT = "4";
+		public static final String ADMIN = "5";
 	}
 	public interface BusinessType {
 		public static final String TAXI_COM = "TS";
