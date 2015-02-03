@@ -96,7 +96,7 @@ public class RiderBOImpl implements RiderBO {
 
 			}
 
-			// 3. Insert Office Address if not null
+			// 3. Insert Office Address if not null ? fix ORM for this
 			if (rider.getAddressByOfficeAddressId() != null) {
 				UUID officeAddressId = UUID.randomUUID();
 				Address offAddress = rider.getAddressByHomeAddressId();
