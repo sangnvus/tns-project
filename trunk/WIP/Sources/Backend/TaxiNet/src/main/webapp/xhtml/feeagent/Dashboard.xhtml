@@ -16,9 +16,9 @@
 <h:body>
 	<p:megaMenu orientation="horizontal">
 		<p:menuitem value="#{msg['feeAgent.homePage']}"
-			url="../feeagent/DaiLy-Home.xhtml" style="background:orange"></p:menuitem>
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.transactionHistory']}"
-			url="../feeagent/DaiLy-LichSuGiaoDich.xhtml"></p:menuitem>
+			url="../feeagent/TransactionHistory.xhtml"></p:menuitem>
 	</p:megaMenu>
 	<p:megaMenu orientation="vertical">
 		<p:menuitem value="#{msg['feeAgent.dashboard']}"
@@ -26,13 +26,13 @@
 		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
 			url="../feeagent/ContactInfo.xhtml"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.accountCharging']}"
-			url="../feeagent/DaiLy-LichSuGiaoDich.xhtml"></p:menuitem>
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.agentInvoice']}"
-			url="../feeagent/DaiLy-LichSuGiaoDich.xhtml"></p:menuitem>
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.transactionInvoice']}"
-			url="../feeagent/ChargingInvoices.xhtml"></p:menuitem>
+			url="../feeagent/ChargingInvoice.xhtml"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
-			url="../feeagent/DaiLy-LichSuGiaoDich.xhtml"></p:menuitem>
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
 	</p:megaMenu>
 
 	<br></br>
@@ -129,7 +129,7 @@
 			style="text-align:left">
 		</p:column>
 		<p:columnGroup type="footer">
-			<p:row >
+			<p:row>
 				<p:column footerText="" />
 				<p:column colspan="2" footerText="Tổng số " style="text-align:left" />
 				<p:column footerText="" />

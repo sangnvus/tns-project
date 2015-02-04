@@ -16,25 +16,27 @@
 <h:body>
 	<p:megaMenu orientation="horizontal">
 		<p:menuitem value="#{msg['feeAgent.homePage']}"
-			url="../feeagent/DaiLy-Home.xhtml" style="background:orange"></p:menuitem>
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.transactionHistory']}"
-			url="../feeagent/DaiLy-LichSuGiaoDich.xhtml"></p:menuitem>
+			url="../feeagent/TransactionHistory.xhtml"></p:menuitem>
 	</p:megaMenu>
 	<p:megaMenu orientation="vertical">
 		<p:menuitem value="#{msg['feeAgent.dashboard']}"
-			url="../feeagent/Dashboard.xhtml" style="background:orange"></p:menuitem>
+			url="../feeagent/Dashboard.xhtml"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
 			url="../feeagent/ContactInfo.xhtml"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.accountCharging']}"
-			url="../feeagent/DaiLy-LichSuGiaoDich.xhtml"></p:menuitem>
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.agentInvoice']}"
-			url="../feeagent/DaiLy-LichSuGiaoDich.xhtml"></p:menuitem>
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.transactionInvoice']}"
-			url="../feeagent/ChargingInvoices.xhtml"></p:menuitem>
+			url="../feeagent/ChargingInvoice.xhtml" style="background:orange"></p:menuitem>
 		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
-			url="../feeagent/DaiLy-LichSuGiaoDich.xhtml"></p:menuitem>
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
 	</p:megaMenu>
+
 	<br></br>
+
 	<center>
 		<h1>#{msg['feeAgent.chargeInvoice']}</h1>
 		<h:panelGrid columns="2">
@@ -53,9 +55,11 @@
 			</p:calendar>
 		</h:panelGrid>
 		<br></br>
-		<p:commandButton value="#{msg['feeAgent.invoiceFilter']}"/>
+		<p:commandButton value="#{msg['feeAgent.invoiceFilter']}" />
 	</center>
+
 	<br></br>
+
 	<p:dataTable id="invoice-list" paginator="true" rows="10"
 		paginatorPosition="top"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
