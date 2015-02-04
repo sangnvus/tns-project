@@ -43,28 +43,48 @@
 
 	<br></br>
 
-	<h1>#{msg['driver.drivers']}</h1>
-	<p:dataTable id="driver-list" paginator="true" rows="10"
-		paginatorPosition="top"
-		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} ">
-		<p:column headerText="#{msg['feeAgent.autonumber']}"
-			style="text-align:left" width="35">
-		</p:column>
-		<p:column headerText="#{msg['riderRegister.name']}"
-			style="text-align:left">
-		</p:column>
-		<p:column headerText="#{msg['driver.currentPosition']}"
-			style="text-align:left">
-		</p:column>
-		<p:column headerText="#{msg['driver.car']}" style="text-align:left">
-		</p:column>
-		<p:column headerText="#{msg['driver.status']}" style="text-align:left">
-		</p:column>
-		<f:facet name="footer">
- 		#{msg['feeAgent.show']}#{msg['feeAgent.of']}#{msg['driver.driver']}
-		</f:facet>
-	</p:dataTable>
-	<br></br>
-	<p:commandButton value="#{msg['driver.driverAdd']}"/>
+	<center>
+		<h1>#{msg['driver.newDriverAdd']}</h1>
+		<h2>#{msg['feeAgent.personalInfo']}</h2>
+		<h:panelGrid columns="2">
+			<p:outputLabel for="firstName" value="#{msg['driver.firstName']}:" />
+			<p:inputText id="firstName" required="true" />
+			<p:outputLabel for="lastName" value="#{msg['driver.lastName']}:" />
+			<p:inputText id="lastName" required="true" />
+			<p:outputLabel for="emailAddress"
+				value="#{msg['driver.emailAddress']}:" />
+			<p:inputText id="emailAddress" required="true" />
+			<p:outputLabel for="nation" value="#{msg['feeAgent.nation']}:" />
+			<p:selectOneMenu id="nation">
+			</p:selectOneMenu>
+			<p:outputLabel for="phoneNo" value="#{msg['riderRegister.phoneNo']}:" />
+			<p:inputText id="phoneNo" required="true" />
+		</h:panelGrid>
+
+		<br></br>
+
+		<h2>#{msg['feeAgent.accountInfo']}</h2>
+		<h:panelGrid columns="2">
+			<p:outputLabel for="language"
+				value="#{msg['riderRegister.languages']}:" />
+			<p:selectOneMenu id="language">
+			</p:selectOneMenu>
+			<p:outputLabel for="username" value="#{msg['feeAgent.username']}:" />
+			<p:inputText id="username" required="true" />
+			<p:outputLabel for="password"
+				value="#{msg['riderRegister.password']}:" />
+			<p:inputText id="password" required="true" />
+			<p:outputLabel for="passwordConfirm"
+				value="#{msg['feeAgent.passwordConfirm']}:" />
+			<p:inputText id="passwordConfirm" required="true" />
+			<p:selectBooleanCheckbox id="acceptTermDesc"
+				value="#{selectBooleanView.value1}" />
+			<p:outputLabel for="acceptTermDesc"
+				value="#{msg['driver.acceptTermDesc']}" />
+
+			<p:commandButton value="#{msg['driver.sent']}" />
+			<p:commandButton value="#{msg['feeAgent.cancel']}" />
+		</h:panelGrid>
+	</center>
 </h:body>
 </html>
