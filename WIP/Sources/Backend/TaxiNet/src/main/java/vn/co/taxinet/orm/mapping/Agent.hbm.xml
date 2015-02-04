@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<!-- Generated Feb 4, 2015 9:28:11 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="vn.co.taxinet.orm.Rider" table="rider" catalog="taxinet">
-        <id name="riderId" type="string">
-            <column name="RiderID" length="50" />
+    <class name="vn.co.taxinet.orm.Agent" table="agent" catalog="taxinet">
+        <id name="agentId" type="string">
+            <column name="AgentID" length="50" />
             <generator class="foreign">
                 <param name="property">taxinetusers</param>
             </generator>
@@ -18,13 +18,19 @@
             <column name="OfficeAddressID" length="50" />
         </many-to-one>
         <property name="firstName" type="string">
-            <column name="FirstName" length="30" />
+            <column name="FirstName" length="30" not-null="true" />
         </property>
         <property name="lastName" type="string">
-            <column name="LastName" length="50" />
+            <column name="LastName" length="50" not-null="true" />
         </property>
         <property name="mobileNo" type="string">
-            <column name="MobileNo" length="20" />
+            <column name="MobileNo" length="20" not-null="true" />
+        </property>
+        <property name="vatnumber" type="string">
+            <column name="VATNumber" length="20" />
+        </property>
+        <property name="promotionCode" type="string">
+            <column name="PromotionCode" length="20" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
@@ -38,17 +44,5 @@
         <property name="lastModifiedDate" type="timestamp">
             <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
-        <set name="trips" table="trip" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="RiderID" length="50" not-null="true" />
-            </key>
-            <one-to-many class="vn.co.taxinet.orm.Trip" />
-        </set>
-        <set name="trips_1" table="trip" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="RiderID" length="50" not-null="true" />
-            </key>
-            <one-to-many class="vn.co.taxinet.orm.Trip" />
-        </set>
     </class>
 </hibernate-mapping>

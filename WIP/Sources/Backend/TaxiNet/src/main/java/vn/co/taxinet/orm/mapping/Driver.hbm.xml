@@ -18,7 +18,7 @@
             <column name="CurrentVehicle" />
         </many-to-one>
         <many-to-one name="address" class="vn.co.taxinet.orm.Address" fetch="select">
-            <column name="AddressID" length="50" not-null="true" />
+            <column name="AddressID" length="50" />
         </many-to-one>
         <many-to-one name="documentByDriveExperience" class="vn.co.taxinet.orm.Document" fetch="select">
             <column name="DriveExperience" not-null="true" />
