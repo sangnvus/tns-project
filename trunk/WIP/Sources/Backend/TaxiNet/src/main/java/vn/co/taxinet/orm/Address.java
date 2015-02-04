@@ -28,9 +28,13 @@ public class Address implements java.io.Serializable {
 	private Set<Driver> drivers = new HashSet<Driver>(0);
 	private Set<Driver> drivers_1 = new HashSet<Driver>(0);
 	private Set<Rider> ridersForHomeAddressId_1 = new HashSet<Rider>(0);
+	private Set<Agent> agentsForOfficeAddressId = new HashSet<Agent>(0);
+	private Set<Agent> agentsForOfficeAddressId_1 = new HashSet<Agent>(0);
 	private Set<Rider> ridersForOfficeAddressId_1 = new HashSet<Rider>(0);
 	private Set<Company> companies = new HashSet<Company>(0);
 	private Set<Company> companies_1 = new HashSet<Company>(0);
+	private Set<Agent> agentsForHomeAddressId = new HashSet<Agent>(0);
+	private Set<Agent> agentsForHomeAddressId_1 = new HashSet<Agent>(0);
 
 	public Address() {
 	}
@@ -55,8 +59,11 @@ public class Address implements java.io.Serializable {
 			Set<Rider> ridersForOfficeAddressId,
 			Set<Rider> ridersForHomeAddressId, Set<Driver> drivers,
 			Set<Driver> drivers_1, Set<Rider> ridersForHomeAddressId_1,
+			Set<Agent> agentsForOfficeAddressId,
+			Set<Agent> agentsForOfficeAddressId_1,
 			Set<Rider> ridersForOfficeAddressId_1, Set<Company> companies,
-			Set<Company> companies_1) {
+			Set<Company> companies_1, Set<Agent> agentsForHomeAddressId,
+			Set<Agent> agentsForHomeAddressId_1) {
 		this.addressId = addressId;
 		this.city = city;
 		this.country = country;
@@ -74,9 +81,13 @@ public class Address implements java.io.Serializable {
 		this.drivers = drivers;
 		this.drivers_1 = drivers_1;
 		this.ridersForHomeAddressId_1 = ridersForHomeAddressId_1;
+		this.agentsForOfficeAddressId = agentsForOfficeAddressId;
+		this.agentsForOfficeAddressId_1 = agentsForOfficeAddressId_1;
 		this.ridersForOfficeAddressId_1 = ridersForOfficeAddressId_1;
 		this.companies = companies;
 		this.companies_1 = companies_1;
+		this.agentsForHomeAddressId = agentsForHomeAddressId;
+		this.agentsForHomeAddressId_1 = agentsForHomeAddressId_1;
 	}
 
 	public String getAddressId() {
@@ -215,6 +226,23 @@ public class Address implements java.io.Serializable {
 		this.ridersForHomeAddressId_1 = ridersForHomeAddressId_1;
 	}
 
+	public Set<Agent> getAgentsForOfficeAddressId() {
+		return this.agentsForOfficeAddressId;
+	}
+
+	public void setAgentsForOfficeAddressId(Set<Agent> agentsForOfficeAddressId) {
+		this.agentsForOfficeAddressId = agentsForOfficeAddressId;
+	}
+
+	public Set<Agent> getAgentsForOfficeAddressId_1() {
+		return this.agentsForOfficeAddressId_1;
+	}
+
+	public void setAgentsForOfficeAddressId_1(
+			Set<Agent> agentsForOfficeAddressId_1) {
+		this.agentsForOfficeAddressId_1 = agentsForOfficeAddressId_1;
+	}
+
 	public Set<Rider> getRidersForOfficeAddressId_1() {
 		return this.ridersForOfficeAddressId_1;
 	}
@@ -238,6 +266,22 @@ public class Address implements java.io.Serializable {
 
 	public void setCompanies_1(Set<Company> companies_1) {
 		this.companies_1 = companies_1;
+	}
+
+	public Set<Agent> getAgentsForHomeAddressId() {
+		return this.agentsForHomeAddressId;
+	}
+
+	public void setAgentsForHomeAddressId(Set<Agent> agentsForHomeAddressId) {
+		this.agentsForHomeAddressId = agentsForHomeAddressId;
+	}
+
+	public Set<Agent> getAgentsForHomeAddressId_1() {
+		return this.agentsForHomeAddressId_1;
+	}
+
+	public void setAgentsForHomeAddressId_1(Set<Agent> agentsForHomeAddressId_1) {
+		this.agentsForHomeAddressId_1 = agentsForHomeAddressId_1;
 	}
 
 }

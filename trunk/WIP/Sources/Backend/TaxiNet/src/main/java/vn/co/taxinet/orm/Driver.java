@@ -33,12 +33,10 @@ public class Driver implements java.io.Serializable {
 	}
 
 	public Driver(TaxiNetUsers taxiNetUsers, Document documentByDriverLisense,
-			Address address, Document documentByDriveExperience,
-			String createdBy, Date createdDate, String lastModifiedBy,
-			Date lastModifiedDate) {
+			Document documentByDriveExperience, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
 		this.taxiNetUsers = taxiNetUsers;
 		this.documentByDriverLisense = documentByDriverLisense;
-		this.address = address;
 		this.documentByDriveExperience = documentByDriveExperience;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
