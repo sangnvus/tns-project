@@ -28,6 +28,7 @@ public class TaxiNetUsers implements java.io.Serializable {
 	private Date createdDate;
 	private String lastModifiedBy;
 	private Date lastModifiedDate;
+	private Agent agent;
 	private Set<Payment> payments = new HashSet<Payment>(0);
 	private Set<Payment> payments_1 = new HashSet<Payment>(0);
 	private Set<AccountTransaction> accountTransactions = new HashSet<AccountTransaction>(
@@ -61,7 +62,8 @@ public class TaxiNetUsers implements java.io.Serializable {
 			String email, Integer cityId, String status, String image,
 			String postalCode, Date deactivatedDate, String createdBy,
 			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
-			Set<Payment> payments, Set<Payment> payments_1,
+			Agent agent, Set<Payment> payments,
+			Set<Payment> payments_1,
 			Set<AccountTransaction> accountTransactions, Driver driver,
 			Rider rider,
 			Set<AccountTransaction> accounttransactions_1) {
@@ -82,6 +84,7 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
 		this.lastModifiedDate = lastModifiedDate;
+		this.agent = agent;
 		this.payments = payments;
 		this.payments_1 = payments_1;
 		this.accountTransactions = accountTransactions;
@@ -226,6 +229,14 @@ public class TaxiNetUsers implements java.io.Serializable {
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
+	}
+
+	public Agent getAgent() {
+		return this.agent;
+	}
+
+	public void setAgent(Agent agent) {
+		this.agent = agent;
 	}
 
 	public Set<Payment> getPayments() {
