@@ -46,6 +46,7 @@
 			<list>
 				<value>classpath:vn/co/taxinet/orm/mapping/Accounttransaction.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Address.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Agent.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Bank.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Carmaker.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Carmodel.hbm.xml</value>
