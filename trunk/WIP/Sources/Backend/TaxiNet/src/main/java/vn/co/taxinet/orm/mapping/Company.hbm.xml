@@ -64,13 +64,13 @@
         </property>
         <set name="taxinetuserses" table="taxinetusers" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CompanyID" not-null="true" />
+                <column name="CompanyID" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
         </set>
         <set name="taxinetuserses_1" table="taxinetusers" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CompanyID" not-null="true" />
+                <column name="CompanyID" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
         </set>

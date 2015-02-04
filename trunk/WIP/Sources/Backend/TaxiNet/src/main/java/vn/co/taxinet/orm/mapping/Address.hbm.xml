@@ -43,37 +43,49 @@
         </property>
         <set name="ridersForOfficeAddressId" table="rider" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="OfficeAddressID" length="50" not-null="true" />
+                <column name="OfficeAddressID" length="50" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Rider" />
         </set>
         <set name="ridersForHomeAddressId" table="rider" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="HomeAddressID" length="50" not-null="true" />
+                <column name="HomeAddressID" length="50" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Rider" />
         </set>
         <set name="drivers" table="driver" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="AddressID" length="50" not-null="true" />
+                <column name="AddressID" length="50" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Driver" />
         </set>
         <set name="drivers_1" table="driver" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="AddressID" length="50" not-null="true" />
+                <column name="AddressID" length="50" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Driver" />
         </set>
         <set name="ridersForHomeAddressId_1" table="rider" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="HomeAddressID" length="50" not-null="true" />
+                <column name="HomeAddressID" length="50"/>
             </key>
             <one-to-many class="vn.co.taxinet.orm.Rider" />
         </set>
+        <set name="agentsForOfficeAddressId" table="agent" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OfficeAddressID" length="50" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Agent" />
+        </set>
+        <set name="agentsForOfficeAddressId_1" table="agent" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OfficeAddressID" length="50" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Agent" />
+        </set>
         <set name="ridersForOfficeAddressId_1" table="rider" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="OfficeAddressID" length="50" not-null="true" />
+                <column name="OfficeAddressID" length="50" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Rider" />
         </set>
@@ -88,6 +100,18 @@
                 <column name="AddressID" length="50" not-null="true" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Company" />
+        </set>
+        <set name="agentsForHomeAddressId" table="agent" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="HomeAddressID" length="50" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Agent" />
+        </set>
+        <set name="agentsForHomeAddressId_1" table="agent" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="HomeAddressID" length="50" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Agent" />
         </set>
     </class>
 </hibernate-mapping>
