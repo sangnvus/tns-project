@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<f:event listener="#{feeAgentHomeController.initData}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<p:megaMenu orientation="horizontal">
+		<p:menuitem value="#{msg['feeAgent.homePage']}"
+			url="../driver/Dashboard.xhtml" style="background:orange"></p:menuitem>
+	</p:megaMenu>
+	<p:megaMenu orientation="vertical">
+		<p:menuitem value="#{msg['feeAgent.dashboard']}"
+			url="../driver/Dashboard.xhtml" style="background:orange"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
+			url="../driver/ContactInfo.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.document']}"
+			url="../driver/Document.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.vehicle']}"
+			url="../driver/Vehicles.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.partnerInvoice']}"
+			url="../driver/PartnerInvoices.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.tripsInvoice']}"
+			url="../driver/TripInvoices.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.driver']}"
+			url="../driver/drivers.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.liveStatus']}"
+			url="../driver/LiveStatus.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.promotionRegister']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+	</p:megaMenu>
+
+	<br></br>
+
+	<h1>#{msg['driver.vehicleInfo']}</h1>
+	<h2>#{msg['driver.help']}</h2>
+	<p:inputTextarea rows="10" cols="50" value="" readonly="true" />
+
+	<br></br>
+
+	<h2>#{msg['driver.vehicles']}</h2>
+	<h:panelGrid columns="3" border="1">
+		<f:facet name="header">
+		#{msg['driver.vehicleAddTip']}
+		</f:facet>
+		<p:outputLabel for="car" value="#{msg['driver.car']}:" />
+		<p:selectOneMenu id="car">
+		</p:selectOneMenu>
+		<p:selectOneMenu id="car">
+		</p:selectOneMenu>
+		<p:outputLabel for="manufactureYear"
+			value="#{msg['driver.manufactureYear']}:" />
+		<p:selectOneMenu id="manufactureYear">
+		</p:selectOneMenu>
+		<p:outputLabel />
+		<p:outputLabel for="furnitureColor"
+			value="#{msg['driver.furnitureColor']}:" />
+		<p:selectOneMenu id="furnitureColor">
+		</p:selectOneMenu>
+		<p:outputLabel />
+		<p:outputLabel for="paintedColor"
+			value="#{msg['driver.paintedColor']}:" />
+		<p:selectOneMenu id="paintedColor">
+		</p:selectOneMenu>
+		<p:outputLabel />
+		<p:outputLabel for="licensePlate"
+			value="#{msg['driver.licensePlate']}:" />
+		<p:inputText id="licensePlate" />
+		<p:outputLabel />
+		<p:outputLabel for="licensePlatCountry"
+			value="#{msg['driver.licensePlatCountry']}:" />
+		<p:selectOneMenu id="licensePlatCountry">
+		</p:selectOneMenu>
+		<p:outputLabel />
+		<p:outputLabel for="licensePlatState"
+			value="#{msg['driver.licensePlatState']}:" />
+		<p:selectOneMenu id="licensePlatState">
+		</p:selectOneMenu>
+		<p:outputLabel />
+		<br></br>
+		<p:commandButton value="#{msg['driver.vehicleAdd']}" />
+	</h:panelGrid>
+
+</h:body>
+</html>
