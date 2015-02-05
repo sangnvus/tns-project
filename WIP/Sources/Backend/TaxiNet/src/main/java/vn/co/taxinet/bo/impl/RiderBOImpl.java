@@ -1,5 +1,6 @@
 package vn.co.taxinet.bo.impl;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,8 +30,9 @@ public class RiderBOImpl implements RiderBO {
 	// Refer to taxiNetUserDAO declared in ApplicationContext of Spring
 	@Autowired
 	private TaxiNetUserDAO taxiNetUserDAO;
-	
+
 	private RiderDAO riderDAO;
+
 	/**
 	 * @return the riderDAO
 	 */
@@ -39,7 +41,8 @@ public class RiderBOImpl implements RiderBO {
 	}
 
 	/**
-	 * @param riderDAO the riderDAO to set
+	 * @param riderDAO
+	 *            the riderDAO to set
 	 */
 	public void setRiderDAO(RiderDAO riderDAO) {
 		this.riderDAO = riderDAO;
@@ -53,7 +56,8 @@ public class RiderBOImpl implements RiderBO {
 	}
 
 	/**
-	 * @param taxiNetUserDAO the taxiNetUserDAO to set
+	 * @param taxiNetUserDAO
+	 *            the taxiNetUserDAO to set
 	 */
 	public void setTaxiNetUserDAO(TaxiNetUserDAO taxiNetUserDAO) {
 		this.taxiNetUserDAO = taxiNetUserDAO;
@@ -68,10 +72,13 @@ public class RiderBOImpl implements RiderBO {
 			// 1. Insert user table
 			// Check if user name exist in DB
 			TaxiNetUsers user = rider.getTaxinetusers();
-			TaxiNetUsers oldUser = taxiNetUserDAO.select(user.getUsername());
+			TaxiNetUsers oldUser = taxiNetUserDAO.select(user.getEmail());
 			if (oldUser != null) {
-				throw new FunctionalException(THIS, "Rider User is existing",
-						Constants.Errors.DUPLICATED_ERROR);
+					if (user.getPassword().equals(oldUser.getPassword())) {
+						throw new FunctionalException(THIS,
+								"Rider User is existing",
+								Constants.Errors.DUPLICATED_ERROR);
+					}
 			}
 			UUID id = UUID.randomUUID();
 			user.setUserId(id.toString());
@@ -107,11 +114,10 @@ public class RiderBOImpl implements RiderBO {
 				offAddress.setLastModifiedBy(user.getUsername());
 				taxiNetUserDAO.insert(offAddress);
 			}
-			
+
 			// 4.Insert data into Payment table
-			//TODO insert vào bảng payment
-			
-			
+			// TODO insert vào bảng payment
+
 			// 5. Insert data into Rider table
 			rider.setRiderId(id.toString());
 			rider.setCreatedDate(Utility.getCurrentDateTime());
@@ -129,17 +135,19 @@ public class RiderBOImpl implements RiderBO {
 				rider.getLastName());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.bo.RiderBO#test(vn.co.taxinet.orm.Rider)
 	 */
 	@Transactional
 	public void test(Rider rider) {
-		if(rider == null){
+		if (rider == null) {
 			System.out.println("Nothing");
 		} else {
 			System.out.println("Got it");
 		}
-		
+
 	}
 
 }
