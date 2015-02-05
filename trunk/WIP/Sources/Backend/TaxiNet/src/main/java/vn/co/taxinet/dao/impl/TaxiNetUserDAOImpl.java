@@ -31,10 +31,10 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		Session session = getSessionFactory().getCurrentSession();
 		String hql = " FROM TaxiNetUsers U WHERE U.username = :userName";
 		Query query = session.createQuery(hql);
-		query.setParameter("userName", uid.toLowerCase());
+		query.setParameter("userName", uid);
 		// TODO Auto-generated method stub
 		List<TaxiNetUsers> result = query.list();
-		TaxiNetUsers user = null;
+		TaxiNetUsers user = new TaxiNetUsers();
 		if (!result.isEmpty()) {
 			user = result.get(0);
 		}
@@ -72,5 +72,10 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		} else
 			return new ArrayList<TaxiNetUsers>();
 
+	}
+
+	public List<TaxiNetUsers> loginAuth(String email) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }
