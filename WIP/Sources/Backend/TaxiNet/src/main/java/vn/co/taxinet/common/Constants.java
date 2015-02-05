@@ -8,13 +8,12 @@ public interface Constants {
 	public static final String EMAIL_PATTERN_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	public static final String ZIPCODE_PATTERN_REGEX = "^\\d{5}(-\\d{4})?$";
-	public static final String VISACARD_PATTERN_REGEX = "^4[0-9]{12}(?:[0-9]{3})?$^5[1-5][0-9]{14}$";
-	public static final String CVV_PATTERN_REGEX ="/^[0-9]{3}$/";
+	public static final String VISACARD_PATTERN_REGEX = "^4[0-9]{12}(?:[0-9]{3})?$";
+	public static final String CVV_PATTERN_REGEX ="^[0-9]{3,4}$";
 	public static final String PHONENO_PATTERN_REGEX ="^[0-9]{6,7}$";
 	//end regex
 	
-	public static final String LANG_EN_CODE = "1";
-	public static final String LANG_VN_CODE = "2";
+	
 	
 	public static final String STR_DATE_FORMAT = "";
 	public static final Locale DEFAULT_LOCALE =null;
@@ -22,6 +21,12 @@ public interface Constants {
 	public static final String COMMA_SYMBOL =",";
 	public static final double MAX_VAL_MONEY = 0.0;
 	public static final String STR_MONEY_FORMAT= "";
+	
+	
+	public interface Language {
+		public static final String LANG_EN_CODE = "en";
+		public static final String LANG_VN_CODE = "vn";
+	}
 	
 	public interface UserStatus {
 		public static final String ONLINE = "online";
@@ -41,7 +46,7 @@ public interface Constants {
 	public interface GroupUser{
 		public static final String RIDER = "1";
 		public static final String DRIVER = "2";
-		public static final String TAXIGROUP ="2";
+		public static final String TAXIGROUP ="3";
 		public static final String FEEAGENT = "4";
 		public static final String ADMIN = "5";
 	}
