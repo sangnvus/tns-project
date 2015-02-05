@@ -14,7 +14,7 @@
 <h:body>
 	<f:view>
 		<h:form id="registerForm" prependId="false">
-			<p:growl id="msg" showDetail="false"/>
+			<p:growl id="msg" showDetail="true"/>
 			<center>
 				<p:panel header="ĐĂNG KÍ TÀI KHOẢN">
 					<h4>TÀI KHOẢN</h4>
@@ -81,10 +81,9 @@
 						<p:outputLabel></p:outputLabel>
 						<p:outputLabel for="zipCode" value="#{msg['riderRegister.zipCode']}"></p:outputLabel>
 						<p:outputLabel></p:outputLabel>
-						<p:calendar required="true" id="expiredDate"
+						<p:calendar required="true" id="expiredDate" pattern="dd/MM/yyyy"
 							requiredMessage="Ngày hết hạn không hợp lệ"
 							value="#{riderRegisterController.expiredDate}">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</p:calendar>
 						<p:message for="expiredDate" showDetail="true"/>
 						<p:inputText id="zipCode" required="true"
