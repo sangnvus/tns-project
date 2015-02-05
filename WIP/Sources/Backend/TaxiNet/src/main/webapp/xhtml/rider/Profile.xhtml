@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<f:event listener="#{feeAgentHistoryController.initData}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<p:megaMenu orientation="horizontal">
+		<p:menuitem value="#{msg['feeAgent.homePage']}"
+			url="../rider/TaxiNetHome.xhtml"></p:menuitem>
+	</p:megaMenu>
+	<p:megaMenu orientation="vertical">
+		<p:menuitem value="#{msg['rider.tripsHistory']}"
+			url="../rider/MyTrips.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['rider.cheapTripFind']}"
+			url="../rider/FindCheapTrip.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['rider.profile']}"
+			url="../rider/Profile.xhtml" style="background:orange"></p:menuitem>
+		<p:menuitem value="#{msg['driver.payment']}"
+			url="../rider/Payment.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['rider.logout']}"
+			url="../rider/TaxiNetHome.xhtml"></p:menuitem>
+	</p:megaMenu>
+
+	<br></br>
+
+	<h2>#{msg['rider.generalInfo']}</h2>
+	<h:panelGrid columns="2">
+		<p:column>
+			<p:outputLabel for="agentName" value="#{msg['driver.companyName']}:" />
+			<p:inputText id="agentName" />
+			<p:inputText id="agentName" />
+		</p:column>
+		<p:column>
+			<p:outputLabel for="nation" value="#{msg['feeAgent.nation']}:" />
+			<p:selectOneMenu id="nation">
+			</p:selectOneMenu>
+			<p:inputText id="zipCode" />
+		</p:column>
+		<p:column>
+			<p:outputLabel for="emailAddress"
+				value="#{msg['driver.emailAddress']}:" />
+			<p:inputText id="emailAddress" required="true" />
+		</p:column>
+		<p:column>
+			<p:outputLabel for="language"
+				value="#{msg['riderRegister.languages']}:" />
+			<p:selectOneMenu id="language">
+			</p:selectOneMenu>
+		</p:column>
+		<p:column>
+			<p:outputLabel for="mobileNo" value="#{msg['feeAgent.mobileNo']}:" />
+			<p:selectOneMenu id="mobileNo">
+			</p:selectOneMenu>
+			<p:inputText id="mobileNo" />
+		</p:column>
+		<p:column>
+			<p:outputLabel for="introduceCode"
+				value="#{msg['rider.introduceCode']}:" />
+			<p:inputText id="introduceCode" />
+		</p:column>
+		<p:column>
+			<p:outputLabel for="profilePicture"
+				value="#{msg['rider.profilePicture']}:" />
+			<p:graphicImage id="profilePicture" />
+			<p:commandButton value="#{msg['rider.pictureConfigure']}" />
+		</p:column>
+		<p:column>
+			<p:outputLabel for="password"
+				value="#{msg['riderRegister.password']}:" />
+			<p:password id="password" />
+			<a href="">#{msg['rider.change']}</a>
+		</p:column>
+	</h:panelGrid>
+
+
+	<br></br>
+
+	<h2>#{msg['rider.connectedAccount']}</h2>
+
+	<br></br>
+
+	<h2>#{msg['rider.emailList']}</h2>
+		#{msg['rider.emailList.msg']} <br></br>
+
+	<h2>#{msg['rider.cityList']}</h2>
+	<h:panelGrid columns="2">
+		<p:selectOneListbox id="city">
+			<f:selectItem itemLabel="Hanoi" itemValue="1" />
+			<f:selectItem itemLabel="Haiphong" itemValue="2" />
+		</p:selectOneListbox>
+		<p:button value="#{msg['rider.delete']}" />
+		<p:inputText value="#{msg['rider.add']}" />
+	</h:panelGrid>
+	<p:commandButton value="#{msg['rider.profileUpdate']}" />
+</h:body>
+</html>
