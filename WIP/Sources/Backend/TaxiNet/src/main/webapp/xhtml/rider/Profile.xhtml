@@ -34,14 +34,18 @@
 	<br></br>
 
 	<h2>#{msg['rider.generalInfo']}</h2>
-	<h:panelGrid columns="2">
+	<h:panelGrid columns="4">
 		<p:column>
 			<p:outputLabel for="name" value="#{msg['rider.nameAndSurname']}:" />
+		</p:column>
+		<p:column>
 			<p:inputText id="name" />
 			<p:inputText id="name" />
 		</p:column>
 		<p:column>
 			<p:outputLabel for="nation" value="#{msg['feeAgent.nation']}:" />
+		</p:column>
+		<p:column>
 			<p:selectOneMenu id="nation">
 			</p:selectOneMenu>
 			<p:inputText id="zipCode" />
@@ -49,16 +53,22 @@
 		<p:column>
 			<p:outputLabel for="emailAddress"
 				value="#{msg['driver.emailAddress']}:" />
+		</p:column>
+		<p:column>
 			<p:inputText id="emailAddress" required="true" />
 		</p:column>
 		<p:column>
 			<p:outputLabel for="language"
 				value="#{msg['riderRegister.languages']}:" />
+		</p:column>
+		<p:column>
 			<p:selectOneMenu id="language">
 			</p:selectOneMenu>
 		</p:column>
 		<p:column>
 			<p:outputLabel for="mobileNo" value="#{msg['feeAgent.mobileNo']}:" />
+		</p:column>
+		<p:column>
 			<p:selectOneMenu id="mobileNo">
 			</p:selectOneMenu>
 			<p:inputText id="mobileNo" />
@@ -66,17 +76,23 @@
 		<p:column>
 			<p:outputLabel for="introduceCode"
 				value="#{msg['rider.introduceCode']}:" />
+		</p:column>
+		<p:column>
 			<p:inputText id="introduceCode" />
 		</p:column>
 		<p:column>
 			<p:outputLabel for="profilePicture"
 				value="#{msg['rider.profilePicture']}:" />
+		</p:column>
+		<p:column>
 			<p:graphicImage id="profilePicture" />
 			<p:commandButton value="#{msg['rider.pictureConfigure']}" />
 		</p:column>
 		<p:column>
 			<p:outputLabel for="password"
 				value="#{msg['riderRegister.password']}:" />
+		</p:column>
+		<p:column>
 			<p:password id="password" />
 			<a href="">#{msg['rider.change']}</a>
 		</p:column>
