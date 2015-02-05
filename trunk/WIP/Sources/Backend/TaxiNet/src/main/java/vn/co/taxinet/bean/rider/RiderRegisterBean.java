@@ -65,6 +65,7 @@ public class RiderRegisterBean implements Serializable {
 			expiredDate = date.getTime();
 			cvv = "";
 			zipCode = "";
+			currentTime = date.getTime();
 		}
 	}
 
@@ -118,7 +119,7 @@ public class RiderRegisterBean implements Serializable {
 
 			newRider.getTaxinetusers().setLanguage(new Language());
 			newRider.getTaxinetusers().getLanguage()
-					.setLanguageCode(Constants.LANG_EN_CODE);
+					.setLanguageCode(Constants.Language.LANG_EN_CODE);
 			
 			//TODO set value CreditCard,CVV, ExpiredDate for Payment
 			
