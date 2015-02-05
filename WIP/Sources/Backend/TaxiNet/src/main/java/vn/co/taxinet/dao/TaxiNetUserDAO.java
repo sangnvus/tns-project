@@ -22,6 +22,13 @@ import vn.co.taxinet.orm.TaxiNetUsers;
 public interface TaxiNetUserDAO extends BaseDAO {
 
 	TaxiNetUsers select(String uid);
+	
+	/**
+	 * @param email
+	 * @param password
+	 * @return user
+	 */
+	List<TaxiNetUsers> loginAuth(String email);
 
 	/**
 	 * @author Ecchi function register for ALL USER
