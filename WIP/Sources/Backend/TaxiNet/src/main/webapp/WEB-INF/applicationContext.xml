@@ -80,40 +80,83 @@
     	    <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
-    <!-- Beans configuration -->        
-  	<bean id="taxiNetUserDAO" class="vn.co.taxinet.dao.impl.TaxiNetUserDAOImpl">
-  		<property name="sessionFactory" ref="sessionFactory"/>
-  	</bean>    
-  	<bean id="riderDAO" class="vn.co.taxinet.dao.impl.RiderDAOImpl">
+    <!-- Beans configuration -->  
+  	<bean id="accountTransactionDAO" class="vn.co.taxinet.dao.impl.AccountTransactionDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>
-	<bean id="addressDAO" class="vn.co.taxinet.dao.impl.AddressDAOImpl">
+  	<bean id="addressDAO" class="vn.co.taxinet.dao.impl.AddressDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>
-  	<bean id="referenceDataDAO" class="vn.co.taxinet.dao.impl.ReferenceDataDAOImpl">
+  	<bean id="bankDAO" class="vn.co.taxinet.dao.impl.BankDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="baseDAO" class="vn.co.taxinet.dao.impl.BaseDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="carMakerDAO" class="vn.co.taxinet.dao.impl.CarMakerDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="carModelDAO" class="vn.co.taxinet.dao.impl.CarModelDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="cityDAO" class="vn.co.taxinet.dao.impl.CityDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="cityNameDAO" class="vn.co.taxinet.dao.impl.CityNameDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="companyDAO" class="vn.co.taxinet.dao.impl.CompanyDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="companyParkAreaDAO" class="vn.co.taxinet.dao.impl.CompanyParkAreaDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="countryDAO" class="vn.co.taxinet.dao.impl.CountryDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="currentStatusDAO" class="vn.co.taxinet.dao.impl.CurrentStatusDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="documentDAO" class="vn.co.taxinet.dao.impl.DocumentDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>
   	<bean id="driverDAO" class="vn.co.taxinet.dao.impl.DriverDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>
-  	 <bean id="companyDAO" class="vn.co.taxinet.dao.impl.CompanyDAOImpl">
-  		<property name="sessionFactory" ref="sessionFactory"/>
-  	</bean>  	
-  	<bean id="currentStatusDAO" class="vn.co.taxinet.dao.impl.CurrentStatusDAOImpl">
+  	<bean id="favoriteDriverDAO" class="vn.co.taxinet.dao.impl.FavoriteDriverDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>
-	<bean id="documentDAO" class="vn.co.taxinet.dao.impl.DocumentDAOImpl">
+  	<bean id="invitationLogDAO" class="vn.co.taxinet.dao.impl.InvitationLogDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
-  	</bean>  	
-  	<bean id="countryDAO" class="vn.co.taxinet.dao.impl.CountryDAOImpl">
+  	</bean>
+  	<bean id="languageDAO" class="vn.co.taxinet.dao.impl.LanguageDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
-  	</bean>  	
+  	</bean>
+  	<bean id="paymentDAO" class="vn.co.taxinet.dao.impl.PaymentDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
   	<bean id="pricePanelDAO" class="vn.co.taxinet.dao.impl.PricePanelDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
-  	</bean>  	
+  	</bean>
+  	<bean id="referenceDataDAO" class="vn.co.taxinet.dao.impl.ReferenceDataDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="riderDAO" class="vn.co.taxinet.dao.impl.RiderDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="taxiNetUserDAO" class="vn.co.taxinet.dao.impl.TaxiNetUserDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
   	<bean id="tripDAO" class="vn.co.taxinet.dao.impl.TripDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>
+  	<bean id="userGroupDAO" class="vn.co.taxinet.dao.impl.UserGroupDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="vehicleDAO" class="vn.co.taxinet.dao.impl.VehicleDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	
   	<!-- BO beans declaration -->  	  	  	  	
    	<bean id="authenticationService"  class="vn.co.taxinet.bo.impl.AuthenticationBOImpl">
        <property name="taxiNetUserDAO" ref="taxiNetUserDAO" />         
