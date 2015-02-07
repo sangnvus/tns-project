@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
 import vn.co.taxinet.mobile.adapter.TitleNavigationAdapter;
+import vn.co.taxinet.mobile.alert.AlertDialogManager;
 import vn.co.taxinet.mobile.fragment.FavoriteDriverFragment;
 import vn.co.taxinet.mobile.fragment.HistoryCallFragment;
 import vn.co.taxinet.mobile.fragment.JourneyFragment;
@@ -13,6 +14,10 @@ import vn.co.taxinet.mobile.fragment.SettingFragment;
 import vn.co.taxinet.mobile.fragment.TaxiCompanyFragment;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
 import vn.co.taxinet.mobile.model.SpinnerNavItem;
+import vn.co.taxinet.mobile.service.ServerUtilities;
+import vn.co.taxinet.mobile.utils.ConnectionDetector;
+import vn.co.taxinet.mobile.utils.Const;
+import vn.co.taxinet.mobile.utils.WakeLocker;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -116,7 +121,7 @@ public class MainActivity extends Activity implements
 		lblMessage = (TextView) findViewById(R.id.lblMessage);
 
 		registerReceiver(mHandleMessageReceiver, new IntentFilter(
-				CommonUtilities.DISPLAY_MESSAGE_ACTION));
+				Const.DISPLAY_MESSAGE_ACTION));
 
 		// Get GCM registration id
 		final String regId = GCMRegistrar.getRegistrationId(this);
@@ -124,7 +129,7 @@ public class MainActivity extends Activity implements
 		// Check if regid already presents
 		if (regId.equals("")) {
 			// Registration is not present, register now with GCM
-			GCMRegistrar.register(this, CommonUtilities.SENDER_ID);
+			GCMRegistrar.register(this, Const.SENDER_ID);
 		} else {
 			// Device is already registered on GCM
 			if (GCMRegistrar.isRegisteredOnServer(this)) {
@@ -170,7 +175,7 @@ public class MainActivity extends Activity implements
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String newMessage = intent.getExtras().getString(
-					CommonUtilities.EXTRA_MESSAGE);
+					Const.EXTRA_MESSAGE);
 			// Waking up mobile if it is sleeping
 			WakeLocker.acquire(getApplicationContext());
 
