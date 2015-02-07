@@ -50,13 +50,40 @@ public interface Constants {
 		public static final String FEEAGENT = "4";
 		public static final String ADMIN = "5";
 	}
-	public interface BusinessType {
-		public static final String TAXI_COM = "TS";
-		public static final String PRIVATE_TAXI = "PT";
-	}
+//	public interface UserStatus{
+//		public static final String ACTIVE = "AC";
+//		public static final String DEACTIVED = "DA";
+//	}
 	public interface ServiceCharge {
 		public static final String MONTHLY = "MO";
 		public static final String TRIP_BASED = "TB";
+	}
+	public interface DriverStatus{
+		public static final String NEW = "NE";
+		public static final String APPROVED = "AP";
+		public static final String AVAIABLE = "AC";
+		public static final String BUSY = "BU";
+		public static final String OUT_OF_SERVICE = "OS";
+		public static final String NOT_AVAIABLE = "NA";
+	}
+	public interface BusinessType {
+		public static final String TAXI_SERVICE = "TS";
+		public static final String PRIVATE_TAXI = "PT";
+		public static final String TRUCK_TAXI = "TT";
+	}
+	public interface TripStatus {
+		public static final String NEW_TRIP = "NT";
+		public static final String REJECTED = "RJ";
+		public static final String PICKED = "PD";
+		public static final String PICKING = "PI";
+		public static final String CANCELLED = "CA";
+		public static final String COMPLETED = "TC";
+	}
+	public interface PayType{
+		public static final String DIRECT ="DI";
+		public static final String BANK_ACCOUNT = "BA";
+		public static final String CREDIT_CARD = "CR";
+		public static final String PAYPAL = "PP";
 	}
     /* error keys definition */
     public interface Errors {
