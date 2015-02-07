@@ -10,9 +10,13 @@ import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.bo.LoginBO;
 import vn.co.taxinet.mobile.utils.Const;
+import vn.co.taxinet.mobile.utils.WakeLocker;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +36,7 @@ public class LoginActivity extends Activity {
 	private static final String tag_json_obj = "Login authen";
 	private LoginBO loginBO;
 	private SharedPreferences prefs = null;
+	AsyncTask<Void, Void, Void> mRegisterTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,42 +46,40 @@ public class LoginActivity extends Activity {
 		mEmail = (EditText) findViewById(R.id.et_email);
 		mPassword = (EditText) findViewById(R.id.et_password);
 		loginBO = new LoginBO();
-		prefs = getSharedPreferences("vn.co.taxinet.mobile",
-				MODE_PRIVATE);
+		prefs = getSharedPreferences("vn.co.taxinet.mobile", MODE_PRIVATE);
+
 	}
 
 	public void login(View v) {
-		
-		Intent it = new Intent(LoginActivity.this,
-				MainActivity.class);
+
+		Intent it = new Intent(LoginActivity.this, MainActivity.class);
 		startActivity(it);
 
-//		String check = loginBO.checkLoginInfo(mEmail.getText().toString(),
-//				mPassword.getText().toString());
-//		if (check.equalsIgnoreCase(Const.SUCCESS)) {
-//			loginAuthen();
-//		}
-//		if (check.equalsIgnoreCase(Const.EMPTY_ERROR)) {
-//			Toast.makeText(this,
-//					getResources().getString(R.string.empty_error),
-//					Toast.LENGTH_LONG).show();
-//		}
-//		if (check.equalsIgnoreCase(Const.ACCOUNT_ERROR)) {
-//			Toast.makeText(this,
-//					getResources().getString(R.string.account_error),
-//					Toast.LENGTH_LONG).show();
-//		}
+		// String check = loginBO.checkLoginInfo(mEmail.getText().toString(),
+		// mPassword.getText().toString());
+		// if (check.equalsIgnoreCase(Const.SUCCESS)) {
+		// loginAuthen();
+		// }
+		// if (check.equalsIgnoreCase(Const.EMPTY_ERROR)) {
+		// Toast.makeText(this,
+		// getResources().getString(R.string.empty_error),
+		// Toast.LENGTH_LONG).show();
+		// }
+		// if (check.equalsIgnoreCase(Const.ACCOUNT_ERROR)) {
+		// Toast.makeText(this,
+		// getResources().getString(R.string.account_error),
+		// Toast.LENGTH_LONG).show();
+		// }
+
 	}
 
 	public void getPassword(View v) {
-		Intent it = new Intent(LoginActivity.this,
-				ForgotPasswordActivity.class);
+		Intent it = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
 		startActivityForResult(it, 2);
 	}
 
 	public void register(View v) {
-		Intent it = new Intent(LoginActivity.this,
-				RegisterActivity.class);
+		Intent it = new Intent(LoginActivity.this, RegisterActivity.class);
 		startActivity(it);
 	}
 
@@ -129,12 +132,36 @@ public class LoginActivity extends Activity {
 		super.onResume();
 
 		if (prefs.getBoolean("firstrun", true)) {
-			Intent it = new Intent(LoginActivity.this,
-					StartActivity.class);
+			Intent it = new Intent(LoginActivity.this, StartActivity.class);
 			startActivity(it);
 			finish();
 			prefs.edit().putBoolean("firstrun", false).commit();
 		}
 	}
+
+	/**
+	 * Receiving push messages
+	 * */
+	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String newMessage = intent.getExtras().getString(
+					Const.EXTRA_MESSAGE);
+			// Waking up mobile if it is sleeping
+			WakeLocker.acquire(getApplicationContext());
+
+			/**
+			 * Take appropriate action on this message depending upon your app
+			 * requirement For now i am just displaying it on the screen
+			 * */
+
+			// Showing received message
+			Toast.makeText(getApplicationContext(),
+					"New Message: " + newMessage, Toast.LENGTH_LONG).show();
+
+			// Releasing wake lock
+			WakeLocker.release();
+		}
+	};
 
 }
