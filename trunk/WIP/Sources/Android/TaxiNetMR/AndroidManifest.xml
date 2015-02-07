@@ -26,7 +26,7 @@
         android:required="true" />
 =======
 
->>>>>>> .merge-right.r199
+>>>>>>> .merge-right.r199
     <application
         android:name="vn.co.taxinet.mobile.app.AppController"
         android:allowBackup="true"
@@ -78,7 +78,8 @@
         <!-- Goolge API Key -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCmTmWBM22BCEVl5XEwxl3cbkDtKmTlDzg" />
+            android:value="
+    AIzaSyDGW_9r-HX5XZilZi22iUqlSdIxyDfqvPw" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
