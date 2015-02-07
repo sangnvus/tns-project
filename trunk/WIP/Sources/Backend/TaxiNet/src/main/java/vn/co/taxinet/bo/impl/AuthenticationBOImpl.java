@@ -53,13 +53,14 @@ public class AuthenticationBOImpl implements AuthenticationBO {
 		try {
 			TaxiNetUsers user = taxiNetUserDAO.select(tnUser.getUserName());
 			if (user != null && user.getPassword().equals(tnUser.getPassword())) {
+				tnUser.setRole(tnUser.getRole());
 				return true;
 			}
 		} catch (Exception ex) {
 			logger.error(ex);
 		}
-		logger.info(" END: params ({}, {} )", tnUser.getUserName(),
-				tnUser.getPassword());
+		logger.info(" END: params ({}, {})", tnUser.getUserName(),
+				tnUser.getPassword(), tnUser.getRole());
 		return false;
 	}
 
@@ -83,6 +84,24 @@ public class AuthenticationBOImpl implements AuthenticationBO {
 			logger.error(ex);
 		}
 		return registered;
+	}
+
+	public TNUser login(TNUser tnUser) {
+		final String begin = " BEGIN: params ({}, {}) ";
+		logger.info(begin, tnUser.getUserName(), tnUser.getPassword());
+		System.out.println("Authenticate():");
+		try {
+			TaxiNetUsers user = taxiNetUserDAO.select(tnUser.getUserName());
+			if (user != null && user.getPassword().equals(tnUser.getPassword())) {
+				tnUser.setRole(user.getUsergroup().getGroupName());
+				return tnUser;
+			}
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		logger.info(" END: params ({}, {})", tnUser.getUserName(),
+				tnUser.getPassword());
+		return null;
 	}
 
 }
