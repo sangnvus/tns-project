@@ -37,4 +37,5 @@ public interface AuthenticationBO {
 	 * @return boolean
 	 */
 	boolean userRegistration(TaxiNetUsers user);
+	public TNUser login(TNUser tnUser);
 }
