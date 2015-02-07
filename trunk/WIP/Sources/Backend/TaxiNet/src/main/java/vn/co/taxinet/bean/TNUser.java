@@ -10,7 +10,18 @@ import javax.faces.bean.RequestScoped;
 public class TNUser implements Serializable {
 	private static final long serialVersionUID = 6467633664262930828L;
 	private String userName;
-	 
+	private String password;
+	private String role;
+	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role= role;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -23,5 +34,4 @@ public class TNUser implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	private String password;
 }
