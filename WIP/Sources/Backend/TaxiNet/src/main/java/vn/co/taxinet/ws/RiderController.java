@@ -1,5 +1,6 @@
 package vn.co.taxinet.ws;
 
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,13 @@ public class RiderController {
 	    private AuthenticationBO authenticationBO;
 	    //Add them spring-webmvc and spring-bean to build path of the project
 	    @RequestMapping("/login")
-	    public TNUser login(@RequestParam(value="userName", defaultValue="") String userName) {
+	    public TNUser login(@RequestParam Map<String,String> requestParams) {
 	    	TNUser userInfo = new TNUser();
 	    	
-	    	userInfo.setUserName(userName);
+	    	userInfo.setUserName(requestParams.get("userName"));
+	    	userInfo.setPassword(requestParams.get("password"));
 	    	if (authenticationBO.authenticate(userInfo)) {
+	    		userInfo = authenticationBO.login(userInfo);
 	    		userInfo.setPassword("0000");	
 	    	}	    	
 	        return userInfo;
