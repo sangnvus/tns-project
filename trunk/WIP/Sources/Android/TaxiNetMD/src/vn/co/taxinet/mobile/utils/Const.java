@@ -35,6 +35,7 @@ public class Const {
 	public static final String DISPLAY_MESSAGE_ACTION = "vn.co.taxinet.mobile.DISPLAY_MESSAGE";
 
 	public static final String EXTRA_MESSAGE = "message";
+	public static final String SERVER_URL = "http://10.0.2.2/gcm_server_php/register.php";
 
 	/**
 	 * Notifies UI to display a message.
