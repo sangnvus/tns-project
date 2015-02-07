@@ -1,5 +1,6 @@
 package vn.co.taxinet.mobile.activity;
 
+import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.model.Journey;
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
-import vn.co.taxinet.mobile.R;
 
 public class JourneyDetails extends Activity {
 

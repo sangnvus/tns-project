@@ -63,9 +63,6 @@ public class MapsFragment extends Fragment {
 		}
 		return rootView;
 
-		// View rootView = inflater.inflate(R.layout.fragment_home,
-		// container, false);
-		// return rootView;
 	}
 
 	public void settingMap() {

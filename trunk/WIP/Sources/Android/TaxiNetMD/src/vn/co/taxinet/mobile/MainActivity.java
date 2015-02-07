@@ -6,8 +6,8 @@ import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
 import vn.co.taxinet.mobile.adapter.TitleNavigationAdapter;
 import vn.co.taxinet.mobile.fragment.FavoriteDriverFragment;
 import vn.co.taxinet.mobile.fragment.HistoryCallFragment;
-import vn.co.taxinet.mobile.fragment.MapsFragment;
 import vn.co.taxinet.mobile.fragment.JourneyFragment;
+import vn.co.taxinet.mobile.fragment.MapsFragment;
 import vn.co.taxinet.mobile.fragment.ProfileFragment;
 import vn.co.taxinet.mobile.fragment.SettingFragment;
 import vn.co.taxinet.mobile.fragment.TaxiCompanyFragment;
@@ -17,8 +17,13 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -28,10 +33,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gcm.GCMRegistrar;
 
 public class MainActivity extends Activity implements
 		ActionBar.OnNavigationListener {
+	// label to display gcm messages
+	TextView lblMessage;
+
+	// Asyntask
+	AsyncTask<Void, Void, Void> mRegisterTask;
+
+	// Alert dialog manager
+	AlertDialogManager alert = new AlertDialogManager();
+
+	// Connection detector
+	ConnectionDetector cd;
+
+	public static String name;
+	public static String email;
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -62,15 +84,126 @@ public class MainActivity extends Activity implements
 	private FragmentManager fragmentManager;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		cd = new ConnectionDetector(getApplicationContext());
+
+		// Check if Internet present
+		if (!cd.isConnectingToInternet()) {
+			// Internet Connection is not present
+			alert.showAlertDialog(MainActivity.this,
+					"Internet Connection Error",
+					"Please connect to working Internet connection", false);
+			// stop executing code by return
+			return;
+		}
+
+		// Getting name, email from intent
+		Intent i = getIntent();
+
+		name = "name";
+		email = "email";
+
+		// Make sure the device has the proper dependencies.
+		GCMRegistrar.checkDevice(this);
+
+		// Make sure the manifest was properly set - comment out this line
+		// while developing the app, then uncomment it when it's ready.
+		GCMRegistrar.checkManifest(this);
+
+		lblMessage = (TextView) findViewById(R.id.lblMessage);
+
+		registerReceiver(mHandleMessageReceiver, new IntentFilter(
+				CommonUtilities.DISPLAY_MESSAGE_ACTION));
+
+		// Get GCM registration id
+		final String regId = GCMRegistrar.getRegistrationId(this);
+
+		// Check if regid already presents
+		if (regId.equals("")) {
+			// Registration is not present, register now with GCM
+			GCMRegistrar.register(this, CommonUtilities.SENDER_ID);
+		} else {
+			// Device is already registered on GCM
+			if (GCMRegistrar.isRegisteredOnServer(this)) {
+				// Skips registration.
+				Toast.makeText(getApplicationContext(),
+						"Already registered with GCM", Toast.LENGTH_LONG)
+						.show();
+			} else {
+				// Try to register again, but not in the UI thread.
+				// It's also necessary to cancel the thread onDestroy(),
+				// hence the use of AsyncTask instead of a raw thread.
+				final Context context = this;
+				mRegisterTask = new AsyncTask<Void, Void, Void>() {
+
+					@Override
+					protected Void doInBackground(Void... params) {
+						// Register on our server
+						// On server creates a new user
+						ServerUtilities.register(context, name, email, regId);
+						return null;
+					}
+
+					@Override
+					protected void onPostExecute(Void result) {
+						mRegisterTask = null;
+					}
+
+				};
+				mRegisterTask.execute(null, null, null);
+			}
+		}
 
 		fragmentManager = getFragmentManager();
 		createSpinnerMenu();
 
 		createSlideMenu(savedInstanceState);
+	}
 
+	/**
+	 * Receiving push messages
+	 * */
+	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String newMessage = intent.getExtras().getString(
+					CommonUtilities.EXTRA_MESSAGE);
+			// Waking up mobile if it is sleeping
+			WakeLocker.acquire(getApplicationContext());
+
+			/**
+			 * Take appropriate action on this message depending upon your app
+			 * requirement For now i am just displaying it on the screen
+			 * */
+
+			// Showing received message
+			Toast.makeText(getApplicationContext(),
+					"New Message: " + newMessage, Toast.LENGTH_LONG).show();
+
+			// Releasing wake lock
+			WakeLocker.release();
+		}
+	};
+
+	@Override
+	protected void onDestroy() {
+		if (mRegisterTask != null) {
+			mRegisterTask.cancel(true);
+		}
+		try {
+			unregisterReceiver(mHandleMessageReceiver);
+			GCMRegistrar.onDestroy(this);
+		} catch (Exception e) {
+			Log.e("UnRegister Receiver Error", "> " + e.getMessage());
+		}
+		super.onDestroy();
+	}
+
+	public void unregister(View v) {
+		GCMRegistrar.unregister(this);
 	}
 
 	public void createSpinnerMenu() {
@@ -136,13 +269,13 @@ public class MainActivity extends Activity implements
 									// accessibility
 		) {
 			public void onDrawerClosed(View view) {
-//				getActionBar().setTitle(mTitle);
+				// getActionBar().setTitle(mTitle);
 				// calling onPrepareOptionsMenu() to show action bar icons
 				invalidateOptionsMenu();
 			}
 
 			public void onDrawerOpened(View drawerView) {
-//				getActionBar().setTitle(mDrawerTitle);
+				// getActionBar().setTitle(mDrawerTitle);
 				// calling onPrepareOptionsMenu() to hide action bar icons
 				invalidateOptionsMenu();
 			}
@@ -217,8 +350,8 @@ public class MainActivity extends Activity implements
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
-//		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-//		menu.findItem(R.id.taxi).setVisible(!drawerOpen);
+		// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+		// menu.findItem(R.id.taxi).setVisible(!drawerOpen);
 		mDrawerList.setSelection(0);
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -317,4 +450,5 @@ public class MainActivity extends Activity implements
 	public void onBackPressed() {
 
 	}
+
 }

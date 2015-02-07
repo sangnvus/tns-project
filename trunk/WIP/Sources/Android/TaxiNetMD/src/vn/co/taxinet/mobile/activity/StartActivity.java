@@ -1,13 +1,13 @@
 package vn.co.taxinet.mobile.activity;
 
+import vn.co.taxinet.mobile.R;
+import vn.co.taxinet.mobile.adapter.SlideAdapter;
+import vn.co.taxinet.mobile.animation.ZoomOutPageTransformer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.adapter.SlideAdapter;
-import vn.co.taxinet.mobile.animation.ZoomOutPageTransformer;
 
 public class StartActivity extends Activity {
 
