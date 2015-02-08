@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import vn.co.taxinet.mobile.MainActivity;
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.bo.LoginBO;
