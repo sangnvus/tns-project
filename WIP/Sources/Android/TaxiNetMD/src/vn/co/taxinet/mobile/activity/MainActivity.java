@@ -1,7 +1,13 @@
-package vn.co.taxinet.mobile;
+package vn.co.taxinet.mobile.activity;
 
 import java.util.ArrayList;
 
+import vn.co.taxinet.mobile.R;
+import vn.co.taxinet.mobile.R.array;
+import vn.co.taxinet.mobile.R.drawable;
+import vn.co.taxinet.mobile.R.id;
+import vn.co.taxinet.mobile.R.layout;
+import vn.co.taxinet.mobile.R.string;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
 import vn.co.taxinet.mobile.adapter.TitleNavigationAdapter;
 import vn.co.taxinet.mobile.alert.AlertDialogManager;
@@ -77,14 +83,6 @@ public class MainActivity extends Activity implements
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
 	private Fragment fragment;
-	// action bar
-	private ActionBar actionBar;
-
-	// Title navigation Spinner data
-	private ArrayList<SpinnerNavItem> navSpinner;
-
-	// Navigation adapter
-	private TitleNavigationAdapter adapterNav;
 
 	private FragmentManager fragmentManager;
 
@@ -93,21 +91,15 @@ public class MainActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		cd = new ConnectionDetector(getApplicationContext());
+		fragmentManager = getFragmentManager();
+		createSlideMenu(savedInstanceState);
 
-		// Check if Internet present
-		if (!cd.isConnectingToInternet()) {
-			// Internet Connection is not present
-			alert.showAlertDialog(MainActivity.this,
-					"Internet Connection Error",
-					"Please connect to working Internet connection", false);
-			// stop executing code by return
-			return;
-		}
+		registerGCM();
 
+	}
+
+	public void registerGCM() {
 		// Getting name, email from intent
-		Intent i = getIntent();
-
 		name = "name";
 		email = "email";
 
@@ -161,11 +153,6 @@ public class MainActivity extends Activity implements
 				mRegisterTask.execute(null, null, null);
 			}
 		}
-
-		fragmentManager = getFragmentManager();
-		createSpinnerMenu();
-
-		createSlideMenu(savedInstanceState);
 	}
 
 	/**
@@ -211,30 +198,8 @@ public class MainActivity extends Activity implements
 		GCMRegistrar.unregister(this);
 	}
 
-	public void createSpinnerMenu() {
-		actionBar = getActionBar();
-		// Show the Up button in the action bar.
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-
-		// Enabling Spinner dropdown navigation
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
-		// Spinner title navigation data
-		navSpinner = new ArrayList<SpinnerNavItem>();
-		navSpinner.add(new SpinnerNavItem("Taxi", R.drawable.ic_launcher));
-		navSpinner.add(new SpinnerNavItem("Truck", R.drawable.ic_launcher));
-		navSpinner.add(new SpinnerNavItem("Place", R.drawable.ic_launcher));
-		navSpinner.add(new SpinnerNavItem("Packing Place",
-				R.drawable.ic_launcher));
-
-		// title drop down adapter
-		adapterNav = new TitleNavigationAdapter(getApplicationContext(),
-				navSpinner);
-	}
 
 	public void createSlideMenu(Bundle savedInstanceState) {
-		// assigning the spinner navigation
-		actionBar.setListNavigationCallbacks(adapterNav, this);
 
 		mTitle = mDrawerTitle = getTitle();
 

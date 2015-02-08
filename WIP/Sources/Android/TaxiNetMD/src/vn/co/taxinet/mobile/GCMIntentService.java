@@ -1,5 +1,6 @@
 package vn.co.taxinet.mobile;
 
+import vn.co.taxinet.mobile.activity.MainActivity;
 import vn.co.taxinet.mobile.service.ServerUtilities;
 import vn.co.taxinet.mobile.utils.Const;
 import android.app.Notification;
