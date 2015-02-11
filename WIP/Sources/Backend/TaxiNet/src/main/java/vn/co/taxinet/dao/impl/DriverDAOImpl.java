@@ -3,14 +3,18 @@ package vn.co.taxinet.dao.impl;
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
 import java.util.List;
+import java.util.UUID;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.DriverDAO;
-import vn.co.taxinet.orm.Driver;
+import vn.co.taxinet.orm.*;
 import static org.hibernate.criterion.Example.create;
 
 /**
@@ -85,7 +89,7 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO{
 		log.debug("getting Driver instance with id: " + id);
 		try {
 			Driver instance = (Driver) getSessionFactory().getCurrentSession().get(
-					"vn.co.taxinet.dao.Driver", id);
+					"vn.co.taxinet.orm.Driver", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -103,7 +107,7 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO{
 		try {
 			List<Driver> results = (List<Driver>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.Driver")
+					.createCriteria("vn.co.taxinet.orm.Driver")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());
@@ -112,5 +116,42 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO{
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+	@Transactional(readOnly = true)
+	public List<Driver> listDriver() {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "Select D FROM Driver D, CurrentStatus C where D.driverId = C.driverId and C.currentStatus = 'AC'";
+		Query query = session.createQuery(hql);
+//		query.setParameter("userName", uid.toLowerCase());
+		// TODO Auto-generated method stub
+		List<Driver> result = query.list();
+		return result;
+	}
+	public String createTrip(String riderId, String driverId){
+		Session session = getSessionFactory().getCurrentSession();
+		//get rider
+		String hql = "select R from Rider R where R.riderId = :rid";
+		Query query = session.createQuery(hql);
+		query.setParameter("rid", riderId.toLowerCase());
+		List<Rider> listRider = query.list();
+		Rider rider = null;
+		if(!listRider.isEmpty()){
+			rider = listRider.get(0);
+		}
+		//get driver
+		hql = "select D from Driver where D.driverId = :did";
+		query = session.createQuery(hql);
+		query.setParameter("did", driverId.toLowerCase());
+		List<Driver> listDriver = query.list();
+		Driver driver = null;
+		if(!listDriver.isEmpty()){
+			driver = listDriver.get(0);
+		}
+		Trip trip = new Trip();
+		UUID id = UUID.randomUUID();
+		trip.setRequestId(id.toString());
+		trip.setRider(rider);
+		trip.setDriver(driver);
+		return rider.getRiderId();
 	}
 }

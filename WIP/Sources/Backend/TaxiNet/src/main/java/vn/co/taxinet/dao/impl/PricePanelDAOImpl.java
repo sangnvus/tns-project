@@ -91,7 +91,7 @@ public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO{
 		try {
 			PricePanel instance = (PricePanel) getSessionFactory()
 					.getCurrentSession()
-					.get("vn.co.taxinet.dao.PricePanel", id);
+					.get("vn.co.taxinet.orm.PricePanel", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -109,7 +109,7 @@ public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO{
 		try {
 			List<PricePanel> results = (List<PricePanel>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.PricePanel")
+					.createCriteria("vn.co.taxinet.orm.PricePanel")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

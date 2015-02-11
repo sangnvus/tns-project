@@ -91,7 +91,7 @@ public class FavoriteDriverDAOImpl extends BaseDAOImpl implements FavoriteDriver
 		try {
 			FavoriteDriver instance = (FavoriteDriver) getSessionFactory()
 					.getCurrentSession().get(
-							"vn.co.taxinet.dao.FavoriteDriver", id);
+							"vn.co.taxinet.orm.FavoriteDriver", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -109,7 +109,7 @@ public class FavoriteDriverDAOImpl extends BaseDAOImpl implements FavoriteDriver
 		try {
 			List<FavoriteDriver> results = (List<FavoriteDriver>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.FavoriteDriver")
+					.createCriteria("vn.co.taxinet.orm.FavoriteDriver")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

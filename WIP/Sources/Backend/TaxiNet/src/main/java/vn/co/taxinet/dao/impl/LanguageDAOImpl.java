@@ -85,7 +85,7 @@ public class LanguageDAOImpl extends BaseDAOImpl implements LanguageDAO{
 		log.debug("getting Language instance with id: " + id);
 		try {
 			Language instance = (Language) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.dao.Language", id);
+					.get("vn.co.taxinet.orm.Language", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -103,7 +103,7 @@ public class LanguageDAOImpl extends BaseDAOImpl implements LanguageDAO{
 		try {
 			List<Language> results = (List<Language>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.Language")
+					.createCriteria("vn.co.taxinet.orm.Language")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

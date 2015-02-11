@@ -90,7 +90,7 @@ public class PaymentDAOImpl extends BaseDAOImpl implements PaymentDAO{
 		log.debug("getting Payment instance with id: " + id);
 		try {
 			Payment instance = (Payment) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.dao.Payment", id);
+					.get("vn.co.taxinet.orm.Payment", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -108,7 +108,7 @@ public class PaymentDAOImpl extends BaseDAOImpl implements PaymentDAO{
 		try {
 			List<Payment> results = (List<Payment>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.Payment")
+					.createCriteria("vn.co.taxinet.orm.Payment")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

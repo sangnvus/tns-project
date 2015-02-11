@@ -89,7 +89,7 @@ public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO{
 		log.debug("getting Vehicle instance with id: " + id);
 		try {
 			Vehicle instance = (Vehicle) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.dao.Vehicle", id);
+					.get("vn.co.taxinet.orm.Vehicle", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -107,7 +107,7 @@ public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO{
 		try {
 			List<Vehicle> results = (List<Vehicle>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.Vehicle")
+					.createCriteria("vn.co.taxinet.orm.Vehicle")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

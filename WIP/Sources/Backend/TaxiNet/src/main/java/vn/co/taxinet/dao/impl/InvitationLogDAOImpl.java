@@ -90,7 +90,7 @@ public class InvitationLogDAOImpl extends BaseDAOImpl implements InvitationLogDA
 		log.debug("getting InvitationLog instance with id: " + id);
 		try {
 			InvitationLog instance = (InvitationLog) getSessionFactory()
-					.getCurrentSession().get("vn.co.taxinet.dao.InvitationLog",
+					.getCurrentSession().get("vn.co.taxinet.orm.InvitationLog",
 							id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -109,7 +109,7 @@ public class InvitationLogDAOImpl extends BaseDAOImpl implements InvitationLogDA
 		try {
 			List<InvitationLog> results = (List<InvitationLog>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.InvitationLog")
+					.createCriteria("vn.co.taxinet.orm.InvitationLog")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

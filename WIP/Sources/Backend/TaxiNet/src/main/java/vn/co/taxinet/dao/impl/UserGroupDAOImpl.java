@@ -90,7 +90,7 @@ public class UserGroupDAOImpl extends BaseDAOImpl implements UserGroupDAO{
 		log.debug("getting UserGroup instance with id: " + id);
 		try {
 			UserGroup instance = (UserGroup) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.dao.UserGroup", id);
+					.get("vn.co.taxinet.orm.UserGroup", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -108,7 +108,7 @@ public class UserGroupDAOImpl extends BaseDAOImpl implements UserGroupDAO{
 		try {
 			List<UserGroup> results = (List<UserGroup>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.UserGroup")
+					.createCriteria("vn.co.taxinet.orm.UserGroup")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

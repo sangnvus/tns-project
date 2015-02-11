@@ -90,7 +90,7 @@ public class BankDAOImpl extends BaseDAOImpl implements BankDAO{
 		log.debug("getting Bank instance with id: " + id);
 		try {
 			Bank instance = (Bank) getSessionFactory().getCurrentSession().get(
-					"vn.co.taxinet.dao.Bank", id);
+					"vn.co.taxinet.orm.Bank", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -108,7 +108,7 @@ public class BankDAOImpl extends BaseDAOImpl implements BankDAO{
 		try {
 			List<Bank> results = (List<Bank>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.Bank")
+					.createCriteria("vn.co.taxinet.orm.Bank")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

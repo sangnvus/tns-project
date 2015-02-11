@@ -85,7 +85,7 @@ public class CityDAOImpl extends BaseDAOImpl implements CityDAO{
 		log.debug("getting City instance with id: " + id);
 		try {
 			City instance = (City) getSessionFactory().getCurrentSession().get(
-					"vn.co.taxinet.dao.City", id);
+					"vn.co.taxinet.orm.City", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -103,7 +103,7 @@ public class CityDAOImpl extends BaseDAOImpl implements CityDAO{
 		try {
 			List<City> results = (List<City>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.City")
+					.createCriteria("vn.co.taxinet.orm.City")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

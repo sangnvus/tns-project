@@ -86,7 +86,7 @@ public class CurrentStatusDAOImpl extends BaseDAOImpl implements CurrentStatusDA
 		log.debug("getting CurrentStatus instance with id: " + id);
 		try {
 			CurrentStatus instance = (CurrentStatus) getSessionFactory()
-					.getCurrentSession().get("vn.co.taxinet.dao.CurrentStatus",
+					.getCurrentSession().get("vn.co.taxinet.orm.CurrentStatus",
 							id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -105,7 +105,7 @@ public class CurrentStatusDAOImpl extends BaseDAOImpl implements CurrentStatusDA
 		try {
 			List<CurrentStatus> results = (List<CurrentStatus>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.CurrentStatus")
+					.createCriteria("vn.co.taxinet.orm.CurrentStatus")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

@@ -85,7 +85,7 @@ public class CompanyParkAreaDAOImpl extends BaseDAOImpl implements CompanyParkAr
 		try {
 			CompanyParkArea instance = (CompanyParkArea) 
 					getSessionFactory().getCurrentSession().get(
-							"vn.co.taxinet.dao.CompanyParkArea", id);
+							"vn.co.taxinet.orm.CompanyParkArea", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -103,7 +103,7 @@ public class CompanyParkAreaDAOImpl extends BaseDAOImpl implements CompanyParkAr
 		try {
 			List<CompanyParkArea> results = (List<CompanyParkArea>) 
 					getSessionFactory().getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.CompanyParkArea")
+					.createCriteria("vn.co.taxinet.orm.CompanyParkArea")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());
