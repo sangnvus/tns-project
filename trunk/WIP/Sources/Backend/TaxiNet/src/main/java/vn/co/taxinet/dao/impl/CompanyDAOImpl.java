@@ -85,7 +85,7 @@ public class CompanyDAOImpl extends BaseDAOImpl implements CompanyDAO{
 		log.debug("getting Company instance with id: " + id);
 		try {
 			Company instance = (Company) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.dao.Company", id);
+					.get("vn.co.taxinet.orm.Company", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -103,7 +103,7 @@ public class CompanyDAOImpl extends BaseDAOImpl implements CompanyDAO{
 		try {
 			List<Company> results = (List<Company>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.Company")
+					.createCriteria("vn.co.taxinet.orm.Company")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

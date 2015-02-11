@@ -95,7 +95,7 @@ public class ReferenceDataDAOImpl extends BaseDAOImpl implements ReferenceDataDA
 		log.debug("getting ReferenceData instance with id: " + id);
 		try {
 			ReferenceData instance = (ReferenceData) getSessionFactory()
-					.getCurrentSession().get("vn.co.taxinet.dao.ReferenceData",
+					.getCurrentSession().get("vn.co.taxinet.orm.ReferenceData",
 							id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -114,7 +114,7 @@ public class ReferenceDataDAOImpl extends BaseDAOImpl implements ReferenceDataDA
 		try {
 			List<ReferenceData> results = (List<ReferenceData>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.ReferenceData")
+					.createCriteria("vn.co.taxinet.orm.ReferenceData")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

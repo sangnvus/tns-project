@@ -88,7 +88,7 @@ public class CountryDAOImpl extends BaseDAOImpl implements CountryDAO{
 		log.debug("getting Country instance with id: " + id);
 		try {
 			Country instance = (Country) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.dao.Country", id);
+					.get("vn.co.taxinet.orm.Country", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -106,7 +106,7 @@ public class CountryDAOImpl extends BaseDAOImpl implements CountryDAO{
 		try {
 			List<Country> results = (List<Country>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.Country")
+					.createCriteria("vn.co.taxinet.orm.Country")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

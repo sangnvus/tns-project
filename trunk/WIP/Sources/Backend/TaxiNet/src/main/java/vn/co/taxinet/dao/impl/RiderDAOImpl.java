@@ -86,7 +86,7 @@ public class RiderDAOImpl extends BaseDAOImpl implements RiderDAO{
 		log.debug("getting Rider instance with id: " + id);
 		try {
 			Rider instance = (Rider) getSessionFactory().getCurrentSession().get(
-					"vn.co.taxinet.dao.Rider", id);
+					"vn.co.taxinet.orm.Rider", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -104,7 +104,7 @@ public class RiderDAOImpl extends BaseDAOImpl implements RiderDAO{
 		try {
 			List<Rider> results = (List<Rider>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.Rider")
+					.createCriteria("vn.co.taxinet.orm.Rider")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

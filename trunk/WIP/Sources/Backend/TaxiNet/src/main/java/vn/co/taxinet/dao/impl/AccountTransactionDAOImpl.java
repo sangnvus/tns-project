@@ -89,7 +89,7 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 		try {
 			AccountTransaction instance = (AccountTransaction) getSessionFactory()
 					.getCurrentSession().get(
-							"vn.co.taxinet.dao.AccountTransaction", id);
+							"vn.co.taxinet.orm.AccountTransaction", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -107,7 +107,7 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 		try {
 			List<AccountTransaction> results = (List<AccountTransaction>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.AccountTransaction")
+					.createCriteria("vn.co.taxinet.orm.AccountTransaction")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

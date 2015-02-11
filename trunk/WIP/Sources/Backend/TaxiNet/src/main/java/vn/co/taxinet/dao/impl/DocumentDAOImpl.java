@@ -88,7 +88,7 @@ public class DocumentDAOImpl extends BaseDAOImpl implements DocumentDAO{
 		log.debug("getting Document instance with id: " + id);
 		try {
 			Document instance = (Document) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.dao.Document", id);
+					.get("vn.co.taxinet.orm.Document", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -106,7 +106,7 @@ public class DocumentDAOImpl extends BaseDAOImpl implements DocumentDAO{
 		try {
 			List<Document> results = (List<Document>) getSessionFactory()
 					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.dao.Document")
+					.createCriteria("vn.co.taxinet.orm.Document")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());
