@@ -14,7 +14,7 @@
 	<title>TaxiNet</title>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form id="profile" prependId="false">
 		<p:megaMenu orientation="horizontal">
 			<p:menuitem value="#{msg['feeAgent.homePage']}"
 				url="../rider/TaxiNetHome.xhtml"></p:menuitem>
@@ -34,9 +34,9 @@
 	</p:megaMenu>
 	 -->
 		<br></br>
-		
+		<p:growl id="growl" showDetail="true" showSummary="true"></p:growl>
 		<h2>#{msg['rider.generalInfo']}</h2>
-		<h:panelGrid columns="4">
+		<h:panelGrid columns="4" id="info-panel">
 			<p:column>
 				<p:outputLabel for="name" value="#{msg['rider.nameAndSurname']}:" />
 			</p:column>
@@ -101,7 +101,7 @@
 					required="true" requiredMessage="Password must not empty" />
 				<p:commandLink value="#{msg['rider.change']}"
 					actionListener="#{riderProfileController.changePassButton}"
-					update="password"></p:commandLink>
+					update="password growl"></p:commandLink>
 			</p:column>
 		</h:panelGrid>
 
@@ -125,7 +125,7 @@
 			<p:inputText value="#{msg['rider.add']}" />
 		</h:panelGrid>
 		<p:commandButton value="#{msg['rider.profileUpdate']}"
-			actionListener="#{riderProfileController.updateProfileButton}" />
+			actionListener="#{riderProfileController.updateProfileButton}" update =":profile:info-panel growl"/>
 	</h:form>
 </h:body>
 </html>
