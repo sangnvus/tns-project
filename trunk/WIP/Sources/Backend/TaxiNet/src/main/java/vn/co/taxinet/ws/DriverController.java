@@ -17,6 +17,7 @@ import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.bo.TripBO;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.TripDAO;
+import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.Trip;
 @RestController
@@ -43,17 +44,10 @@ public class DriverController {
 		this.tripBO = tripBO;
 	}
 	@RequestMapping("/getNearDriver")
-	public List<DriverBean> getListDriverInfo(@RequestParam Map<String,String> requestParams) {	
-		List<Driver> listDriver = driverBO.listDriver();
-		List<DriverBean> listDriverBean = new ArrayList<DriverBean>();
-		for(int i = 0; i<listDriver.size();i++){
-			DriverBean driverBean = new DriverBean();
-			driverBean.setDriverID(listDriver.get(i).getDriverId());
-			driverBean.setLattitide(listDriver.get(i).getCurrentstatus().getCurrentLatitude());
-			driverBean.setLongtitude(listDriver.get(i).getCurrentstatus().getCurrentLongtitude());
-			listDriverBean.add(driverBean);
-		}
-		return listDriverBean;
+	public List<DriverDTO> getListDriverInfo(@RequestParam Map<String,String> requestParams) {	
+		List<DriverDTO> listDriverDTO = driverBO.listDriver();
+
+		return listDriverDTO;
 	}
 	@RequestMapping("/requestDriver")
 	public String requestDriver(@RequestParam Map<String,String> requestParams){
