@@ -161,8 +161,21 @@
    	<bean id="authenticationService"  class="vn.co.taxinet.bo.impl.AuthenticationBOImpl">
        <property name="taxiNetUserDAO" ref="taxiNetUserDAO" />         
    	</bean>
+   	<bean id="agentBO"  class="vn.co.taxinet.bo.impl.AgentBOImpl">
+       <property name="taxiNetUserDAO" ref="taxiNetUserDAO" />         
+   	</bean>
    	<bean id="riderBO"  class="vn.co.taxinet.bo.impl.RiderBOImpl">
        <property name="riderDAO" ref="riderDAO" />  
 	   <property name="taxiNetUserDAO" ref="taxiNetUserDAO" />              
-   	</bean>          	       
+   	</bean>          
+   	<bean id="driverBO"  class="vn.co.taxinet.bo.impl.DriverBOImpl">
+       <property name="driverDAO" ref="driverDAO" />            
+   	</bean>   
+   	<bean id="tripBO"  class="vn.co.taxinet.bo.impl.TripBOImpl">
+       <property name="tripDAO" ref="tripDAO" />     
+       <property name="riderDAO" ref="riderDAO" />    
+       <property name="driverDAO" ref="driverDAO" />    
+       <property name="cityDAO" ref="cityDAO" />    
+       <property name="paymentDAO" ref="paymentDAO" />           
+   	</bean>   	        
 </beans>
