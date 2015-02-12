@@ -10,7 +10,7 @@ public interface Constants {
 	public static final String ZIPCODE_PATTERN_REGEX = "^\\d{5}(-\\d{4})?$";
 	public static final String VISACARD_PATTERN_REGEX = "^4[0-9]{12}(?:[0-9]{3})?$";
 	public static final String CVV_PATTERN_REGEX ="^[0-9]{3,4}$";
-	public static final String PHONENO_PATTERN_REGEX ="^[0-9]{6,7}$";
+	public static final String PHONENO_PATTERN_REGEX ="^[0-9]{10,11}$";
 	//end regex
 	
 	
@@ -22,10 +22,13 @@ public interface Constants {
 	public static final double MAX_VAL_MONEY = 0.0;
 	public static final String STR_MONEY_FORMAT= "";
 	
+	public static final int MAX_PASSWORD_LENGTH = 10;
+	public static final int MIN_PASSWORD_LENGTH = 6;
+	
 	
 	public interface Language {
 		public static final String LANG_EN_CODE = "en";
-		public static final String LANG_VN_CODE = "vn";
+		public static final String LANG_VN_CODE = "vi";
 	}
 	
 	public interface UserStatus {
