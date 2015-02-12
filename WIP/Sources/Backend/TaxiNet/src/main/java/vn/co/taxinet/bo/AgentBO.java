@@ -2,6 +2,10 @@ package vn.co.taxinet.bo;
 
 import java.util.List;
 
+import vn.co.taxinet.orm.Rider;
+import java.util.List;
+import vn.co.taxinet.orm.TaxiNetUsers;
+
 import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
@@ -27,4 +31,5 @@ public interface AgentBO {
 	 */
 	public void showUserTransHistory();
 	
+	public List<TaxiNetUsers> paginationList(int page, int numberOfElement);
 }
