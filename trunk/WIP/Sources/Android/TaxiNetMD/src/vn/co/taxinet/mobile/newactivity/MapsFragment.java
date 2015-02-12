@@ -1,4 +1,4 @@
-package vn.co.taxinet.mobile.fragment;
+package vn.co.taxinet.mobile.newactivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -125,11 +125,6 @@ public class MapsFragment extends Fragment {
 		mReqestLayout = (LinearLayout) rootView
 				.findViewById(R.id.request_layout);
 		mReqestLayout.setVisibility(View.GONE);
-		mAccept = (Button) rootView.findViewById(R.id.accept);
-		mAccept.setOnClickListener(accept);
-		mDeni = (Button) rootView.findViewById(R.id.deni);
-		mDeni.setOnClickListener(deni);
-
 		if (rider != null) {
 			mRiderName.setText(rider.getName());
 			mReqestLayout.setVisibility(View.VISIBLE);
@@ -148,22 +143,6 @@ public class MapsFragment extends Fragment {
 		// timer.schedule(task, 3000, 1000);
 		settingMap();
 	}
-
-	OnClickListener accept = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			mReqestLayout.setVisibility(View.GONE);
-		}
-	};
-
-	OnClickListener deni = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			mReqestLayout.setVisibility(View.GONE);
-		}
-	};
 
 	public void settingMap() {
 		googleMap.setMyLocationEnabled(true);

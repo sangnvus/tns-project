@@ -1,32 +1,14 @@
 package vn.co.taxinet.mobile.activity;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONObject;
-
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.bo.LoginBO;
-import vn.co.taxinet.mobile.utils.Const;
-import vn.co.taxinet.mobile.utils.WakeLocker;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.android.volley.Request.Method;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 public class LoginActivity extends Activity {
 
@@ -51,24 +33,24 @@ public class LoginActivity extends Activity {
 
 	public void login(View v) {
 
-		Intent it = new Intent(LoginActivity.this, MainActivity.class);
-		startActivity(it);
+//		Intent it = new Intent(LoginActivity.this, vn.co.taxinet.mobile.newactivity.DemoActivity.class);
+//		startActivity(it);
 
-		// String check = loginBO.checkLoginInfo(mEmail.getText().toString(),
-		// mPassword.getText().toString());
-		// if (check.equalsIgnoreCase(Const.SUCCESS)) {
-		// loginAuthen();
-		// }
-		// if (check.equalsIgnoreCase(Const.EMPTY_ERROR)) {
-		// Toast.makeText(this,
-		// getResources().getString(R.string.empty_error),
-		// Toast.LENGTH_LONG).show();
-		// }
-		// if (check.equalsIgnoreCase(Const.ACCOUNT_ERROR)) {
-		// Toast.makeText(this,
-		// getResources().getString(R.string.account_error),
-		// Toast.LENGTH_LONG).show();
-		// }
+		loginBO.checkLoginInfo(LoginActivity.this,mEmail.getText().toString(),
+				mPassword.getText().toString());
+//		if (check.equalsIgnoreCase(Const.SUCCESS)) {
+//			loginAuthen();
+//		}
+//		if (check.equalsIgnoreCase(Const.EMPTY_ERROR)) {
+//			Toast.makeText(this,
+//					getResources().getString(R.string.empty_error),
+//					Toast.LENGTH_LONG).show();
+//		}
+//		if (check.equalsIgnoreCase(Const.EMPTY_ERROR)) {
+//			Toast.makeText(this,
+//					getResources().getString(R.string.account_error),
+//					Toast.LENGTH_LONG).show();
+//		}
 
 	}
 
@@ -82,49 +64,7 @@ public class LoginActivity extends Activity {
 		startActivity(it);
 	}
 
-	public void loginAuthen() {
-		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET,
-				Const.URL_LOGIN_AUTHEN, null,
-				new Response.Listener<JSONObject>() {
-
-					@Override
-					public void onResponse(JSONObject response) {
-						Log.d(TAG, response.toString());
-						int responseCode = loginBO.parseJson(response);
-						if (responseCode == 200) {
-							Intent it = new Intent(LoginActivity.this,
-									MainActivity.class);
-							startActivity(it);
-						} else {
-							Toast.makeText(
-									LoginActivity.this,
-									getResources().getString(
-											R.string.login_error),
-									Toast.LENGTH_LONG).show();
-						}
-
-					}
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						VolleyLog.d(TAG, "Error: " + error.getMessage());
-					}
-				}) {
-			@Override
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("account", mEmail.getText().toString());
-				params.put("password", mPassword.getText().toString());
-
-				return params;
-			}
-
-		};
-
-		// Adding request to request queue
-		AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
-	}
+	
 
 	@Override
 	protected void onResume() {
@@ -137,30 +77,5 @@ public class LoginActivity extends Activity {
 			prefs.edit().putBoolean("firstrun", false).commit();
 		}
 	}
-
-	/**
-	 * Receiving push messages
-	 * */
-	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			String newMessage = intent.getExtras().getString(
-					Const.EXTRA_MESSAGE);
-			// Waking up mobile if it is sleeping
-			WakeLocker.acquire(getApplicationContext());
-
-			/**
-			 * Take appropriate action on this message depending upon your app
-			 * requirement For now i am just displaying it on the screen
-			 * */
-
-			// Showing received message
-			Toast.makeText(getApplicationContext(),
-					"New Message: " + newMessage, Toast.LENGTH_LONG).show();
-
-			// Releasing wake lock
-			WakeLocker.release();
-		}
-	};
 
 }

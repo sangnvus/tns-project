@@ -41,16 +41,12 @@ public class RegisterActivity extends Activity {
 			// check internet connection before register
 			if (cd.isConnectingToInternet()) {
 				getInfo();
-				String result = RegisterBO.checkRegisterInfo(email, password,
+				String result = RegisterBO.checkRegisterInfo(
+						RegisterActivity.this, email, password,
 						confirmPassword, firstName, lastName, phoneNumber);
 				if (result.equals(Const.SUCCESS)) {
-					RegisterBO.register(RegisterActivity.this, email, password, firstName,
-							lastName, phoneNumber);
-				} else {
-					// show error alert
-					alert.showAlertDialog(RegisterActivity.this,
-							getResources().getString(
-									R.string.alert_invalid_info), result, false);
+					RegisterBO.register(RegisterActivity.this, email, password,
+							firstName, lastName, phoneNumber);
 				}
 			} else {
 				// show error message
@@ -63,12 +59,9 @@ public class RegisterActivity extends Activity {
 			}
 		} else {
 			// show error message
-			alert.showAlertDialog(
-					RegisterActivity.this,
-					getResources().getString(
-							R.string.alert_term_title),
-					getResources().getString(
-							R.string.alert_term_message), false);
+			alert.showAlertDialog(RegisterActivity.this, getResources()
+					.getString(R.string.alert_term_title), getResources()
+					.getString(R.string.alert_term_message), false);
 		}
 
 	}
