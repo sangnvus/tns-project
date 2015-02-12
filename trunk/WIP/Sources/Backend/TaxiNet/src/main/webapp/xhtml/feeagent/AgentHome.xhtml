@@ -60,7 +60,9 @@
 	<p:dataTable id="account-list" paginator="true" rows="10"
 		paginatorPosition="top"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		rowsPerPageTemplate="5,10,15">
+		rowsPerPageTemplate="5,10,15"
+		var = "taxinetuser" value = "#{feeAgentHomeController.listUser}"
+		>
 		<f:facet name="header">
         #{msg['feeAgent.accountList']}
     	</f:facet>
@@ -69,15 +71,19 @@
 		</p:column>
 		<p:column headerText="#{msg['feeAgent.account']}"
 			style="text-align:left">
+			<h:outputText value="#{taxinetuser.username}" />
 		</p:column>
 		<p:column headerText="#{msg['feeAgent.customerName']}"
 			style="text-align:left">
+			<h:outputText value="#{taxinetuser.rider.firstName} #{taxinetuser.rider.lastName} / #{taxinetuser.company.name}" />
 		</p:column>
 		<p:column headerText="#{msg['feeAgent.address']}"
 			style="text-align:left">
+			<h:outputText value="#{taxinetuser.rider.addressByHomeAddressId}" />
 		</p:column>
 		<p:column headerText="#{msg['riderRegister.phoneNo']}"
 			style="text-align:left">
+			<h:outputText value="#{taxinetuser.rider.mobileNo}" />
 		</p:column>
 		<p:column headerText="#{msg['feeAgent.task']}" style="text-align:left">
 		</p:column>
