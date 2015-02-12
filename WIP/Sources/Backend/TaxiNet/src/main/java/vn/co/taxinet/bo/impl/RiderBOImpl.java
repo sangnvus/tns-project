@@ -1,5 +1,6 @@
 package vn.co.taxinet.bo.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +31,7 @@ public class RiderBOImpl implements RiderBO {
 	// Refer to taxiNetUserDAO declared in ApplicationContext of Spring
 	@Autowired
 	private TaxiNetUserDAO taxiNetUserDAO;
-
+	@Autowired
 	private RiderDAO riderDAO;
 
 	/**
@@ -74,11 +75,11 @@ public class RiderBOImpl implements RiderBO {
 			TaxiNetUsers user = rider.getTaxinetusers();
 			TaxiNetUsers oldUser = taxiNetUserDAO.select(user.getEmail());
 			if (oldUser != null) {
-					if (user.getPassword().equals(oldUser.getPassword())) {
-						throw new FunctionalException(THIS,
-								"Rider User is existing",
-								Constants.Errors.DUPLICATED_ERROR);
-					}
+				if (user.getPassword().equals(oldUser.getPassword())) {
+					throw new FunctionalException(THIS,
+							"Rider User is existing",
+							Constants.Errors.DUPLICATED_ERROR);
+				}
 			}
 			UUID id = UUID.randomUUID();
 			user.setUserId(id.toString());
@@ -148,6 +149,43 @@ public class RiderBOImpl implements RiderBO {
 			System.out.println("Got it");
 		}
 
+	}
+
+	@Transactional
+	public Rider findByID(String uid) {
+		Rider rider = riderDAO.select(uid.trim());
+		if (rider != null) {
+			return rider;
+		}
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.RiderBO#updatePassword(java.lang.String,
+	 * java.lang.String)
+	 */
+	@Transactional
+	public void updatePassword(String uid, String password) {
+		if (uid != null && password != null) {
+			riderDAO.updatePassword(uid, password);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.RiderBO#updateProfile(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Transactional
+	public void updateProfile(String uid, String surName, String name,
+			String countryCode, String phoneNo, String languageCode,
+			String zipCode) {
+		// TODO Auto-generated method stub
+		Rider rider = findByID(uid);
+		String username = rider.getTaxinetusers().getUsername();
+		Date date = Utility.getCurrentDate();
+		riderDAO.updateProfile(uid, surName, name, countryCode, phoneNo,
+				languageCode, zipCode, date, username);
 	}
 
 }

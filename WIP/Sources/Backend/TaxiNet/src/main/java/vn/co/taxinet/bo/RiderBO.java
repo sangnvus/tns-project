@@ -12,6 +12,7 @@ package vn.co.taxinet.bo;
 
 import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.orm.Rider;
+
 /**
  * @author Ecchi
  *
@@ -24,6 +25,14 @@ public interface RiderBO {
 	 * @throws TNSException
 	 */
 	public void register(Rider rider) throws TNSException;
-	
+
 	public void test(Rider rider);
+
+	public Rider findByID(String uid);
+
+	public void updatePassword(String uid, String password);
+
+	public void updateProfile(String uid, String surName, String name,
+			String countryCode, String phoneNo, String languageCode,
+			String zipCode);
 }
