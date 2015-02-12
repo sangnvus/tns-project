@@ -1,5 +1,7 @@
 package vn.co.taxinet.dao;
 
-public interface CityDAO extends BaseDAO {
+import vn.co.taxinet.orm.City;
 
+public interface CityDAO extends BaseDAO {
+	public City findById(int id);
 }
