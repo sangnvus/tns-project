@@ -57,8 +57,8 @@ public class DriverController {
 	
 	@RequestMapping("/updateTrip")
 	public String updateTrip(@RequestParam Map<String,String> requestParams){
-		String requestId = requestParams.get("riderId");
-		String userId = requestParams.get("driverId");
+		String requestId = requestParams.get("requestId");
+		String userId = requestParams.get("userId");
 		String status = requestParams.get("status");
 		
 		
