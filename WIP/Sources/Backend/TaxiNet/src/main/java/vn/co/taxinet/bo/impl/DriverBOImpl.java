@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.co.taxinet.bean.TripBean;
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
