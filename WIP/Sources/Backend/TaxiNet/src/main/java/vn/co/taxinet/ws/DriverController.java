@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import vn.co.taxinet.bean.DriverBean;
-import vn.co.taxinet.bean.TripBean;
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.bo.TripBO;
 import vn.co.taxinet.dao.DriverDAO;
@@ -28,9 +26,6 @@ public class DriverController {
     @Autowired
     private TripBO tripBO;
     
-	public DriverBean getDriverInfo(String uid) {		
-		return null;
-	}
 	public DriverBO getDriverBO() {
 		return driverBO;
 	}
