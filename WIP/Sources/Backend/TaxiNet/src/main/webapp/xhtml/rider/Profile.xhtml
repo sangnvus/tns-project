@@ -8,16 +8,18 @@
 
 <h:head>
 	<f:metadata>
-		<f:event listener="#{feeAgentHistoryController.initData}"
+		<f:event listener="#{riderProfileController.init}"
 			type="preRenderView"></f:event>
 	</f:metadata>
 	<title>TaxiNet</title>
 </h:head>
 <h:body>
-	<p:megaMenu orientation="horizontal">
-		<p:menuitem value="#{msg['feeAgent.homePage']}"
-			url="../rider/TaxiNetHome.xhtml"></p:menuitem>
-	</p:megaMenu>
+	<h:form>
+		<p:megaMenu orientation="horizontal">
+			<p:menuitem value="#{msg['feeAgent.homePage']}"
+				url="../rider/TaxiNetHome.xhtml"></p:menuitem>
+		</p:megaMenu>
+		<!-- 
 	<p:megaMenu orientation="vertical">
 		<p:menuitem value="#{msg['rider.tripsHistory']}"
 			url="../rider/MyTrips.xhtml"></p:menuitem>
@@ -30,93 +32,100 @@
 		<p:menuitem value="#{msg['rider.logout']}"
 			url="../rider/TaxiNetHome.xhtml"></p:menuitem>
 	</p:megaMenu>
+	 -->
+		<br></br>
+		
+		<h2>#{msg['rider.generalInfo']}</h2>
+		<h:panelGrid columns="4">
+			<p:column>
+				<p:outputLabel for="name" value="#{msg['rider.nameAndSurname']}:" />
+			</p:column>
+			<p:column>
+				<p:inputText id="name" value="#{riderProfileController.name}" />
+				<p:inputText id="surname" value="#{riderProfileController.surName}" />
+			</p:column>
+			<p:column>
+				<p:outputLabel for="zipCode" value="#{msg['feeAgent.nation']}:" />
+			</p:column>
+			<p:column>
+				<p:selectOneMenu value="#{riderProfileController.country}"
+					id="nation" style="width : 250px;">
+					<f:selectItem itemLabel="Việt Nam" itemValue="1" />
+					<f:selectItem itemLabel="Mỹ" itemValue="2" />
+				</p:selectOneMenu>
+				<p:inputText id="zipCode" value="#{riderProfileController.zipCode}" />
+			</p:column>
+			<p:column>
+				<p:outputLabel for="emailAddress"
+					value="#{msg['driver.emailAddress']}:" />
+			</p:column>
+			<p:column>
+				<p:inputText id="emailAddress"
+					value="#{riderProfileController.email}" />
+			</p:column>
+			<p:column>
+				<p:outputLabel for="language"
+					value="#{msg['riderRegister.languages']}:" />
+			</p:column>
+			<p:column>
+				<p:selectOneMenu id="language" style="width : 250px;">
+				</p:selectOneMenu>
+			</p:column>
+			<p:column>
+				<p:outputLabel for="mobileNo" value="#{msg['feeAgent.mobileNo']}:" />
+			</p:column>
+			<p:column>
+				<p:inputText id="mobileNo" value="#{riderProfileController.phoneNo}" />
+			</p:column>
+			<p:column>
+				<p:outputLabel for="introduceCode"
+					value="#{msg['rider.introduceCode']}:" />
+			</p:column>
+			<p:column>
+				<p:inputText id="introduceCode" />
+			</p:column>
+			<p:column>
+				<p:outputLabel for="profilePicture"
+					value="#{msg['rider.profilePicture']}:" />
+			</p:column>
+			<p:column>
+				<p:graphicImage id="profilePicture" />
+				<p:commandButton value="#{msg['rider.pictureConfigure']}" />
+			</p:column>
+			<p:column>
+				<p:outputLabel for="password"
+					value="#{msg['riderRegister.password']}:" />
+			</p:column>
+			<p:column>
+				<p:password id="password" value="#{riderProfileController.password}"
+					required="true" requiredMessage="Password must not empty" />
+				<p:commandLink value="#{msg['rider.change']}"
+					actionListener="#{riderProfileController.changePassButton}"
+					update="password"></p:commandLink>
+			</p:column>
+		</h:panelGrid>
 
-	<br></br>
 
-	<h2>#{msg['rider.generalInfo']}</h2>
-	<h:panelGrid columns="4">
-		<p:column>
-			<p:outputLabel for="name" value="#{msg['rider.nameAndSurname']}:" />
-		</p:column>
-		<p:column>
-			<p:inputText id="name" />
-			<p:inputText id="name" />
-		</p:column>
-		<p:column>
-			<p:outputLabel for="nation" value="#{msg['feeAgent.nation']}:" />
-		</p:column>
-		<p:column>
-			<p:selectOneMenu id="nation">
-			</p:selectOneMenu>
-			<p:inputText id="zipCode" />
-		</p:column>
-		<p:column>
-			<p:outputLabel for="emailAddress"
-				value="#{msg['driver.emailAddress']}:" />
-		</p:column>
-		<p:column>
-			<p:inputText id="emailAddress"/>
-		</p:column>
-		<p:column>
-			<p:outputLabel for="language"
-				value="#{msg['riderRegister.languages']}:" />
-		</p:column>
-		<p:column>
-			<p:selectOneMenu id="language">
-			</p:selectOneMenu>
-		</p:column>
-		<p:column>
-			<p:outputLabel for="mobileNo" value="#{msg['feeAgent.mobileNo']}:" />
-		</p:column>
-		<p:column>
-			<p:selectOneMenu id="mobileNo">
-			</p:selectOneMenu>
-			<p:inputText id="mobileNo" />
-		</p:column>
-		<p:column>
-			<p:outputLabel for="introduceCode"
-				value="#{msg['rider.introduceCode']}:" />
-		</p:column>
-		<p:column>
-			<p:inputText id="introduceCode" />
-		</p:column>
-		<p:column>
-			<p:outputLabel for="profilePicture"
-				value="#{msg['rider.profilePicture']}:" />
-		</p:column>
-		<p:column>
-			<p:graphicImage id="profilePicture" />
-			<p:commandButton value="#{msg['rider.pictureConfigure']}" />
-		</p:column>
-		<p:column>
-			<p:outputLabel for="password"
-				value="#{msg['riderRegister.password']}:" />
-		</p:column>
-		<p:column>
-			<p:password id="password" />
-			<a href="">#{msg['rider.change']}</a>
-		</p:column>
-	</h:panelGrid>
+		<br></br>
 
+		<h2>#{msg['rider.connectedAccount']}</h2>
 
-	<br></br>
+		<br></br>
 
-	<h2>#{msg['rider.connectedAccount']}</h2>
-
-	<br></br>
-
-	<h2>#{msg['rider.emailList']}</h2>
+		<h2>#{msg['rider.emailList']}</h2>
 		#{msg['rider.emailList.msg']} <br></br>
 
-	<h2>#{msg['rider.cityList']}</h2>
-	<h:panelGrid columns="2">
-		<p:selectOneListbox id="city">
-			<f:selectItem itemLabel="Hanoi" itemValue="1" />
-			<f:selectItem itemLabel="Haiphong" itemValue="2" />
-		</p:selectOneListbox>
-		<p:button value="#{msg['rider.delete']}" />
-		<p:inputText value="#{msg['rider.add']}" />
-	</h:panelGrid>
-	<p:commandButton value="#{msg['rider.profileUpdate']}" />
+		<h2>#{msg['rider.cityList']}</h2>
+		<h:panelGrid columns="2">
+			<p:selectOneListbox id="city">
+				<f:selectItem itemLabel="Hanoi" itemValue="1" />
+				<f:selectItem itemLabel="Haiphong" itemValue="2" />
+			</p:selectOneListbox>
+			<p:button value="#{msg['rider.delete']}" />
+			<p:inputText value="#{msg['rider.add']}" />
+		</h:panelGrid>
+		<p:commandButton value="#{msg['rider.profileUpdate']}"
+			actionListener="#{riderProfileController.updateProfileButton}" />
+	</h:form>
 </h:body>
 </html>
