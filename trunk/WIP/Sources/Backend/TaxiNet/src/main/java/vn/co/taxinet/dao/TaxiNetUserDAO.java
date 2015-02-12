@@ -49,4 +49,5 @@ public interface TaxiNetUserDAO extends BaseDAO {
 	 * @return all users ( rider, driver, taxigroup )
 	 */
 	List<TaxiNetUsers> listAllUsers(String username, String email);
+	List<TaxiNetUsers> paginationList(int page, int numberOfElement);
 }
