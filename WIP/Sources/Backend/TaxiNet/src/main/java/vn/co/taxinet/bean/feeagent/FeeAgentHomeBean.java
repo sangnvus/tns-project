@@ -31,7 +31,7 @@ public class FeeAgentHomeBean implements Serializable {
 	public List<TaxiNetUsers> listUser;
 	
 	public TaxiNetUsers selectedUser;
-	@ManagedProperty(value="#{riderBO}")
+	@ManagedProperty(value="#{agentBO}")
 	private AgentBO agentBO;
 	
 	/**
