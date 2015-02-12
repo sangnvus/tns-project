@@ -11,17 +11,32 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import vn.co.taxinet.mobile.R;
+import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.utils.Const;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.Request.Method;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gcm.GCMRegistrar;
+import static vn.co.taxinet.mobile.utils.Const.TAG;
+
+;
 
 public final class ServerUtilities {
 	private static final int MAX_ATTEMPTS = 5;
 	private static final int BACKOFF_MILLI_SECONDS = 2000;
 	private static final Random random = new Random();
+
 
 	/**
 	 * Register this account/device pair within the server.
@@ -30,7 +45,7 @@ public final class ServerUtilities {
 	public static void register(final Context context, String name,
 			String email, final String regId) {
 		Log.i(Const.TAG, "registering device (regId = " + regId + ")");
-		String serverUrl = Const.SERVER_URL;
+		String serverUrl = Const.URL_SERVER;
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("regId", regId);
 		params.put("name", name);
@@ -83,7 +98,7 @@ public final class ServerUtilities {
 	 */
 	public static void unregister(final Context context, final String regId) {
 		Log.i(Const.TAG, "unregistering device (regId = " + regId + ")");
-		String serverUrl = Const.SERVER_URL + "/unregister";
+		String serverUrl = Const.URL_SERVER + "/unregister";
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("regId", regId);
 		try {
@@ -162,4 +177,6 @@ public final class ServerUtilities {
 			}
 		}
 	}
+
+	
 }

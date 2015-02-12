@@ -60,12 +60,16 @@
     <string name="distace_prompt">5KM</string>
     <string name="action_edit">Edit</string>
     <string name="taxi">Taxi</string>
-    <string name="taxi_truck">Taxi</string>
+    <string name="taxi_truck">Truck</string>
     <string name="place">Place</string>
     <string name="packing_place">Packing Place</string>
     <string name="empty_error">Account and password can\'t be blank</string>
     <string name="account_error">Wrong format of email or phone number</string>
+    <string name="email_error">Wrong format of email</string>
+    <string name="two_password_error">Two password must be the same</string>
+    <string name="phonenumber_error">Wrong format of phone number</string>
     <string name="login_error">Account or password is incorrect</string>
+    <string name="register_blank_error">You must fill all the information</string>
     <string name="title_activity_main">Push Notifications</string>
     <string name="error_config">Please set the %1$s constant and recompile the app.</string>
     <string name="already_registered">Device is already registered on server.</string>

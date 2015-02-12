@@ -3,13 +3,7 @@ package vn.co.taxinet.mobile.activity;
 import java.util.ArrayList;
 
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.R.array;
-import vn.co.taxinet.mobile.R.drawable;
-import vn.co.taxinet.mobile.R.id;
-import vn.co.taxinet.mobile.R.layout;
-import vn.co.taxinet.mobile.R.string;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
-import vn.co.taxinet.mobile.adapter.TitleNavigationAdapter;
 import vn.co.taxinet.mobile.alert.AlertDialogManager;
 import vn.co.taxinet.mobile.fragment.FavoriteDriverFragment;
 import vn.co.taxinet.mobile.fragment.HistoryCallFragment;
@@ -19,12 +13,10 @@ import vn.co.taxinet.mobile.fragment.ProfileFragment;
 import vn.co.taxinet.mobile.fragment.SettingFragment;
 import vn.co.taxinet.mobile.fragment.TaxiCompanyFragment;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
-import vn.co.taxinet.mobile.model.SpinnerNavItem;
-import vn.co.taxinet.mobile.service.ServerUtilities;
+import vn.co.taxinet.mobile.server.DriverController;
 import vn.co.taxinet.mobile.utils.ConnectionDetector;
 import vn.co.taxinet.mobile.utils.Const;
 import vn.co.taxinet.mobile.utils.WakeLocker;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -43,25 +35,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
 
-public class MainActivity extends Activity implements
-		ActionBar.OnNavigationListener {
-	// label to display gcm messages
-	TextView lblMessage;
+public class MainActivity extends Activity {
+	private TextView mDriverName, mPrice;
 
 	// Asyntask
-	AsyncTask<Void, Void, Void> mRegisterTask;
+	private AsyncTask<Void, Void, Void> mRegisterTask;
 
 	// Alert dialog manager
-	AlertDialogManager alert = new AlertDialogManager();
+	private AlertDialogManager alert = new AlertDialogManager();
 
 	// Connection detector
-	ConnectionDetector cd;
+	private ConnectionDetector cd;
 
 	public static String name;
 	public static String email;
@@ -71,7 +62,7 @@ public class MainActivity extends Activity implements
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	// nav drawer title
-	private CharSequence mDrawerTitle;
+	// private CharSequence mDrawerTitle;
 
 	// used to store app title
 	private CharSequence mTitle;
@@ -85,6 +76,7 @@ public class MainActivity extends Activity implements
 	private Fragment fragment;
 
 	private FragmentManager fragmentManager;
+	private LinearLayout mReqestLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -93,9 +85,9 @@ public class MainActivity extends Activity implements
 
 		fragmentManager = getFragmentManager();
 		createSlideMenu(savedInstanceState);
-
 		registerGCM();
-
+		mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
+		mReqestLayout.setVisibility(View.GONE);
 	}
 
 	public void registerGCM() {
@@ -110,10 +102,8 @@ public class MainActivity extends Activity implements
 		// while developing the app, then uncomment it when it's ready.
 		GCMRegistrar.checkManifest(this);
 
-		lblMessage = (TextView) findViewById(R.id.lblMessage);
-
 		registerReceiver(mHandleMessageReceiver, new IntentFilter(
-				Const.DISPLAY_MESSAGE_ACTION));
+				Const.DISPLAY_REQUEST_ACTION));
 
 		// Get GCM registration id
 		final String regId = GCMRegistrar.getRegistrationId(this);
@@ -134,23 +124,7 @@ public class MainActivity extends Activity implements
 				// It's also necessary to cancel the thread onDestroy(),
 				// hence the use of AsyncTask instead of a raw thread.
 				final Context context = this;
-				mRegisterTask = new AsyncTask<Void, Void, Void>() {
-
-					@Override
-					protected Void doInBackground(Void... params) {
-						// Register on our server
-						// On server creates a new user
-						ServerUtilities.register(context, name, email, regId);
-						return null;
-					}
-
-					@Override
-					protected void onPostExecute(Void result) {
-						mRegisterTask = null;
-					}
-
-				};
-				mRegisterTask.execute(null, null, null);
+				DriverController.updateRegID(context, email, regId);
 			}
 		}
 	}
@@ -161,47 +135,44 @@ public class MainActivity extends Activity implements
 	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			String newMessage = intent.getExtras().getString(
-					Const.EXTRA_MESSAGE);
+			displayView(3);
+			System.out.println("day la dau");
+			mDriverName = (TextView) findViewById(R.id.tv_rider_name);
+//			mPrice = (TextView) findViewById(R.id.tv_price);
+
+			String driverImage = intent.getExtras().getString(
+					Const.DRIVER_IMAGE);
+			String driverName = intent.getExtras().getString(Const.RIDER_NAME);
+			double longitude = Double.parseDouble(intent.getExtras().getString(
+					Const.LONGITUDE));
+			double latitude = Double.parseDouble(intent.getExtras().getString(
+					Const.LATITUDE));
+			double price = Double.parseDouble(intent.getExtras().getString(
+					Const.PRICE));
 			// Waking up mobile if it is sleeping
 			WakeLocker.acquire(getApplicationContext());
 
-			/**
-			 * Take appropriate action on this message depending upon your app
-			 * requirement For now i am just displaying it on the screen
-			 * */
-
 			// Showing received message
-			Toast.makeText(getApplicationContext(),
-					"New Message: " + newMessage, Toast.LENGTH_LONG).show();
-
+			mDriverName.setText(driverName);
+			mPrice.setText(String.valueOf(price));
+			mReqestLayout.setVisibility(View.VISIBLE);
 			// Releasing wake lock
 			WakeLocker.release();
 		}
 	};
 
-	@Override
-	protected void onDestroy() {
-		if (mRegisterTask != null) {
-			mRegisterTask.cancel(true);
-		}
-		try {
-			unregisterReceiver(mHandleMessageReceiver);
-			GCMRegistrar.onDestroy(this);
-		} catch (Exception e) {
-			Log.e("UnRegister Receiver Error", "> " + e.getMessage());
-		}
-		super.onDestroy();
+	public void accept(View v) {
+		mReqestLayout.setVisibility(View.GONE);
+
 	}
 
-	public void unregister(View v) {
-		GCMRegistrar.unregister(this);
+	public void deni(View v) {
+		mReqestLayout.setVisibility(View.GONE);
 	}
-
 
 	public void createSlideMenu(Bundle savedInstanceState) {
 
-		mTitle = mDrawerTitle = getTitle();
+		mTitle = getTitle();
 
 		// load slide menu items
 		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
@@ -410,15 +381,16 @@ public class MainActivity extends Activity implements
 	}
 
 	@Override
-	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		Toast.makeText(this, "Postion " + itemPosition, Toast.LENGTH_LONG)
-				.show();
-		return false;
+	protected void onDestroy() {
+		if (mRegisterTask != null) {
+			mRegisterTask.cancel(true);
+		}
+		try {
+			unregisterReceiver(mHandleMessageReceiver);
+			GCMRegistrar.onDestroy(this);
+		} catch (Exception e) {
+			Log.e("UnRegister Receiver Error", "> " + e.getMessage());
+		}
+		super.onDestroy();
 	}
-
-	@Override
-	public void onBackPressed() {
-
-	}
-
 }
