@@ -14,7 +14,7 @@ import vn.co.taxinet.dao.TaxiNetUserDAO;
 import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
 
-@Service(value = "agentBO")
+//@Service(value = "agentBO")
 @Transactional
 public class AgentBOImpl implements AgentBO {
 	private static final Logger logger = LogManager
@@ -42,5 +42,13 @@ public class AgentBOImpl implements AgentBO {
 	public void showUserTransHistory() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public List<TaxiNetUsers> paginationList(int page, int numberOfElement) {
+		return taxiNetUserDAO.paginationList(page, numberOfElement);
+	}
+	@Transactional
+	public void setTaxiNetUserDAO(TaxiNetUserDAO taxiNetUserDAO) {
+		this.taxiNetUserDAO = taxiNetUserDAO;
 	}
 }
