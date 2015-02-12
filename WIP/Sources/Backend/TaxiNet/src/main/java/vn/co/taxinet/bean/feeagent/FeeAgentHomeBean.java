@@ -27,6 +27,7 @@ public class FeeAgentHomeBean implements Serializable {
 	// nhÃ¢n viÃªn thu ngÃ¢n
 	public String username;
 	public String userID;
+	public String chargeDate;
 	
 	public List<TaxiNetUsers> listUser;
 	
@@ -41,7 +42,7 @@ public class FeeAgentHomeBean implements Serializable {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
 			setAccountSearchName("");
 			setUsername("");
-			listUser = new ArrayList<TaxiNetUsers>();
+			listUser = agentBO.paginationList(1, 10);
 			selectedUser = new TaxiNetUsers();
 		}
 	}
@@ -120,6 +121,14 @@ public class FeeAgentHomeBean implements Serializable {
 
 	public void setAgentBO(AgentBO agentBO) {
 		this.agentBO = agentBO;
+	}
+
+	public String getChargeDate() {
+		return chargeDate;
+	}
+
+	public void setChargeDate(String chargeDate) {
+		this.chargeDate = chargeDate;
 	}
 	
 }
