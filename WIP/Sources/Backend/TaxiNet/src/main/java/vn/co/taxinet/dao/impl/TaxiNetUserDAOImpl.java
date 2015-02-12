@@ -77,5 +77,17 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 	public List<TaxiNetUsers> loginAuth(String email) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<TaxiNetUsers> paginationList(int page, int numberOfElement) {
+		// TODO Auto-generated method stub
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "from TaxiNetUsers";
+		Query query = session.createQuery(hql);
+		query.setFirstResult((page-1)*numberOfElement + 1);
+		query.setMaxResults(numberOfElement);
+		List<TaxiNetUsers> result;
+		result = query.list();
+		return result;
 	}	
 }
