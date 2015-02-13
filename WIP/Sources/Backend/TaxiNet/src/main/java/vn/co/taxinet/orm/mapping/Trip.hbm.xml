@@ -21,7 +21,7 @@
             <column name="FromCity" not-null="true" />
         </many-to-one>
         <many-to-one name="payment" class="vn.co.taxinet.orm.Payment" fetch="select">
-            <column name="PaymentID" not-null="true" />
+            <column name="PaymentID" />
         </many-to-one>
         <property name="requestDatetime" type="timestamp">
             <column name="RequestDatetime" length="0" />

@@ -12,7 +12,7 @@
         </id>
         <one-to-one name="taxinetusers" class="vn.co.taxinet.orm.TaxiNetUsers" constrained="true"></one-to-one>
         <many-to-one name="documentByDriverLisense" class="vn.co.taxinet.orm.Document" fetch="select">
-            <column name="DriverLisense" not-null="true" />
+            <column name="DriverLisense" />
         </many-to-one>
         <many-to-one name="vehicle" class="vn.co.taxinet.orm.Vehicle" fetch="select">
             <column name="CurrentVehicle" />
@@ -21,7 +21,7 @@
             <column name="AddressID" length="50" />
         </many-to-one>
         <many-to-one name="documentByDriveExperience" class="vn.co.taxinet.orm.Document" fetch="select">
-            <column name="DriveExperience" not-null="true" />
+            <column name="DriveExperience" />
         </many-to-one>
         <property name="firstName" type="string">
             <column name="FirstName" length="30" />
