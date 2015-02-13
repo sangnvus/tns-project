@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <many-to-one name="bank" class="vn.co.taxinet.orm.Bank" fetch="select">
-            <column name="BankID" not-null="true" />
+            <column name="BankID" />
         </many-to-one>
         <many-to-one name="taxinetusers" class="vn.co.taxinet.orm.TaxiNetUsers" fetch="select">
             <column name="UserID" length="50" not-null="true" />
