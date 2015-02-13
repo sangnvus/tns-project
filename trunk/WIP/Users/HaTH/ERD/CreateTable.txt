@@ -284,7 +284,7 @@ CREATE TABLE Company (
   PRIMARY KEY (CompanyID));
 CREATE TABLE UserGroup (
   GroupCode        char(3) NOT NULL, 
-  GroupName        varchar(20) NOT NULL, 
+  GroupName        varchar(30) NOT NULL, 
   CreatedBy        varchar(50) NOT NULL, 
   CreatedDate      timestamp NOT NULL, 
   LastModifiedBy   varchar(50) NOT NULL, 
