@@ -2,30 +2,33 @@ package vn.co.taxinet.dao.impl;
 
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
+import static org.hibernate.criterion.Example.create;
+
 import java.util.List;
-import javax.naming.InitialContext;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.CountryDAO;
 import vn.co.taxinet.orm.Country;
-import static org.hibernate.criterion.Example.create;
 
 /**
  * Home object for domain model class Country.
+ * 
  * @see vn.co.taxinet.dao.Country
  * @author Hibernate Tools
  */
-@Service(value="countryDAO")
+@Service(value = "countryDAO")
 @Transactional
-public class CountryDAOImpl extends BaseDAOImpl implements CountryDAO{
+public class CountryDAOImpl extends BaseDAOImpl implements CountryDAO {
 
-	private static final Logger log = LogManager.getLogger(CountryDAOImpl.class);
-
-	
+	private static final Logger log = LogManager
+			.getLogger(CountryDAOImpl.class);
 
 	public void persist(Country transientInstance) {
 		log.debug("persisting Country instance");
@@ -52,7 +55,8 @@ public class CountryDAOImpl extends BaseDAOImpl implements CountryDAO{
 	public void attachClean(Country instance) {
 		log.debug("attaching clean Country instance");
 		try {
-			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance,
+					LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -87,8 +91,8 @@ public class CountryDAOImpl extends BaseDAOImpl implements CountryDAO{
 	public Country findById(java.lang.Integer id) {
 		log.debug("getting Country instance with id: " + id);
 		try {
-			Country instance = (Country) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.orm.Country", id);
+			Country instance = (Country) getSessionFactory()
+					.getCurrentSession().get("vn.co.taxinet.orm.Country", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -115,5 +119,16 @@ public class CountryDAOImpl extends BaseDAOImpl implements CountryDAO{
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.CountryDAO#selectAllCountry()
+	 */
+	public List<Country> selectAllCountry() {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "FROM Country";
+		Query query = session.createQuery(hql);
+		List<Country> countryList = query.list();
+		return countryList;
 	}
 }
