@@ -5,20 +5,40 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.bo.DriverBO;
+import vn.co.taxinet.dao.CarMakerDAO;
+import vn.co.taxinet.dao.CarModelDAO;
+import vn.co.taxinet.dao.CityDAO;
+import vn.co.taxinet.dao.CountryDAO;
 import vn.co.taxinet.dao.DriverDAO;
-import vn.co.taxinet.dao.TaxiNetUserDAO;
-import vn.co.taxinet.dao.TripDAO;
 import vn.co.taxinet.dto.DriverDTO;
+import vn.co.taxinet.orm.CarMaker;
+import vn.co.taxinet.orm.CarModel;
+import vn.co.taxinet.orm.City;
+import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
 
-@Service(value="driverBO")
+@Service(value = "driverBO")
 @Transactional
 public class DriverBOImpl implements DriverBO {
+
+	@Autowired
+	private CarMakerDAO carMakerDao;
+
+	@Autowired
+	private CarModelDAO carModelDao;
+
+	@Autowired
+	private CountryDAO countryDao;
+
+	@Autowired
+	private CityDAO cityDao;
+	
 	private static final Logger logger = LogManager.getLogger(DriverBOImpl.class);
 	private DriverDAO driverDAO;
 
@@ -30,6 +50,59 @@ public class DriverBOImpl implements DriverBO {
 	public Driver register(Driver driver) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.DriverBO#selectCarMaker()
+	 */
+	@Transactional
+	public List<CarMaker> selectCarMaker() {
+		List<CarMaker> carMakerList = new ArrayList<CarMaker>();
+		carMakerList = carMakerDao.selectAllCarMaker();
+		if (carMakerList.isEmpty()) {
+			return new ArrayList<CarMaker>();
+		} else {
+			return carMakerList;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.DriverBO#selectCarModel(java.lang.String)
+	 */
+	@Transactional
+	public List<CarModel> selectCarModel(String carMakerID) {
+		List<CarModel> carModelList = new ArrayList<CarModel>();
+		carModelList = carModelDao.selectCarModelByCarMakerID(carMakerID);
+		if (carModelList.isEmpty()) {
+			return new ArrayList<CarModel>();
+		} else {
+			return carModelList;
+		}
+	}
+	
+	@Transactional
+	public List<Country> selectCountry() {
+		List<Country> countryList = new ArrayList<Country>();
+		countryList = countryDao.selectAllCountry();
+		if (countryList.isEmpty()) {
+			return new ArrayList<Country>();
+		} else {
+			return countryList;
+		}
+	}
+
+	public List<City> selectCity(String countryID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void persistVehicle() {
+		// TODO Auto-generated method stub
+
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED)
