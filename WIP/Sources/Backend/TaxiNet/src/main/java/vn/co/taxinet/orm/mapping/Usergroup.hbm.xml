@@ -9,7 +9,7 @@
             <generator class="assigned" />
         </id>
         <property name="groupName" type="string">
-            <column name="GroupName" length="20" not-null="true" />
+            <column name="GroupName" length="30" not-null="true" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
