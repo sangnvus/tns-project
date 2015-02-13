@@ -1,7 +1,21 @@
-INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('1', 'admin', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
-INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('2', 'rider', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
-INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('3', 'driver', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
-INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('4', 'company', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('RD', 'rider', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('DR', 'driver', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('AG', 'agent', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('AS', 'area staff', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('CS', 'country staff', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('AM', 'area manager', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('CM', 'country manager', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('CA', 'country administrator', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('GM', 'global manager', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('Ga', 'global administrator', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`usergroup` (`GroupCode`, `GroupName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('AS', 'company', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+
+
+
+
+
+
+
 
 insert into `taxinet`.`ReferenceData`(GroupCode,Code,LanguageCode,Description,CreatedBy,CreatedDate,LastModifiedBy,LastModifiedDate)  values('GROUPUSER','RD',en,'Rider','admin','2015-01-20','admin','2015-01-20');
 insert into `taxinet`.`ReferenceData`(GroupCode,Code,LanguageCode,Description,CreatedBy,CreatedDate,LastModifiedBy,LastModifiedDate)  values('GROUPUSER','DR',en,'Driver','admin','2015-01-20','admin','2015-01-20');
@@ -63,11 +77,11 @@ INSERT INTO `taxinet`.`document` (`DocumentID`, `FileName`, `Link`, `ExpiredMont
 INSERT INTO `taxinet`.`document` (`DocumentID`, `FileName`, `Link`, `ExpiredMonth`, `ExpiredYear`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('3', '3', '3', '2', '2030', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
 INSERT INTO `taxinet`.`document` (`DocumentID`, `FileName`, `Link`, `ExpiredMonth`, `ExpiredYear`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('4', '4', '4', '2', '2030', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
 
-INSERT INTO `taxinet`.`taxinetusers` (`UserID`, `Username`, `Password`, `Email`, `GroupCode`, `LanguageCode`, `CountryCode`, `Status`, `Image`, `PostalCode`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('1', 'frozenmen', 'deathknight', 'hathse02580@fpt.edu.vn', '2', 'vi', 'VN', 'Active', '1', 'VN', 'admin',  CURRENT_TIMESTAMP, 'admin',  CURRENT_TIMESTAMP);
-INSERT INTO `taxinet`.`taxinetusers` (`UserID`, `Username`, `Password`, `Email`, `GroupCode`, `LanguageCode`, `CountryCode`, `Status`, `Image`, `PostalCode`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('2', 'abc', 'deathknight', 'abc@fpt.edu.vn', '2', 'vi', 'VN', 'Active', '1', 'VN', 'admin',  CURRENT_TIMESTAMP, 'admin',  CURRENT_TIMESTAMP);
-INSERT INTO `taxinet`.`taxinetusers` (`UserID`, `Username`, `Password`, `Email`, `GroupCode`, `LanguageCode`, `CountryCode`, `Status`, `Image`, `PostalCode`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('3', 'xyz', 'deathknight', 'xyz@fpt.edu.vn', '3', 'vi', 'VN', 'Active', '1', 'VN', 'admin',  CURRENT_TIMESTAMP, 'admin',  CURRENT_TIMESTAMP);
-INSERT INTO `taxinet`.`taxinetusers` (`UserID`, `Username`, `Password`, `Email`, `GroupCode`, `LanguageCode`, `CountryCode`, `Status`, `Image`, `PostalCode`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('4', 'qwe', 'deathknight', 'qwe@fpt.edu.vn', '3', 'vi', 'VN', 'Active', '1', 'VN', 'admin',  CURRENT_TIMESTAMP, 'admin',  CURRENT_TIMESTAMP);
-INSERT INTO `taxinet`.`taxinetusers` (`UserID`, `Username`, `Password`, `Email`, `GroupCode`, `LanguageCode`, `CountryCode`, `Status`, `Image`, `PostalCode`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('4', 'driver', 'driver', 'driver@fpt.edu.vn', '3', 'vi', 'VN', 'Active', '1', 'VN', 'admin',  CURRENT_TIMESTAMP, 'admin',  CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`taxinetusers` (`UserID`, `Username`, `Password`, `Email`, `GroupCode`, `LanguageCode`, `CountryCode`, `Status`, `Image`, `PostalCode`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('1', 'frozenmen', 'deathknight', 'hathse02580@fpt.edu.vn', 'RD', 'vi', 'VN', 'Active', '1', 'VN', 'admin',  CURRENT_TIMESTAMP, 'admin',  CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`taxinetusers` (`UserID`, `Username`, `Password`, `Email`, `GroupCode`, `LanguageCode`, `CountryCode`, `Status`, `Image`, `PostalCode`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('2', 'abc', 'deathknight', 'abc@fpt.edu.vn', 'RD', 'vi', 'VN', 'Active', '1', 'VN', 'admin',  CURRENT_TIMESTAMP, 'admin',  CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`taxinetusers` (`UserID`, `Username`, `Password`, `Email`, `GroupCode`, `LanguageCode`, `CountryCode`, `Status`, `Image`, `PostalCode`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('3', 'xyz', 'deathknight', 'xyz@fpt.edu.vn', 'RD', 'vi', 'VN', 'Active', '1', 'VN', 'admin',  CURRENT_TIMESTAMP, 'admin',  CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`taxinetusers` (`UserID`, `Username`, `Password`, `Email`, `GroupCode`, `LanguageCode`, `CountryCode`, `Status`, `Image`, `PostalCode`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('4', 'qwe', 'deathknight', 'qwe@fpt.edu.vn', 'DR', 'vi', 'VN', 'Active', '1', 'VN', 'admin',  CURRENT_TIMESTAMP, 'admin',  CURRENT_TIMESTAMP);
+INSERT INTO `taxinet`.`taxinetusers` (`UserID`, `Username`, `Password`, `Email`, `GroupCode`, `LanguageCode`, `CountryCode`, `Status`, `Image`, `PostalCode`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('4', 'driver', 'driver', 'driver@fpt.edu.vn', 'DR', 'vi', 'VN', 'Active', '1', 'VN', 'admin',  CURRENT_TIMESTAMP, 'admin',  CURRENT_TIMESTAMP);
 
 INSERT INTO `taxinet`.`rider` (`RiderID`, `FirstName`, `LastName`, `MobileNo`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('1', 'Truong', 'Ha', '01246839943', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
 INSERT INTO `taxinet`.`rider` (`RiderID`, `FirstName`, `LastName`, `MobileNo`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('2', 'abc', 'abc', '01246839943', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
