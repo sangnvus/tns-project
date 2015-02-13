@@ -2,18 +2,20 @@ package vn.co.taxinet.dao.impl;
 
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
+import static org.hibernate.criterion.Example.create;
+
 import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-
-
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.CarModelDAO;
 import vn.co.taxinet.orm.CarModel;
-import static org.hibernate.criterion.Example.create;
 
 /**
  * Home object for domain model class CarModel.
@@ -114,5 +116,17 @@ public class CarModelDAOImpl extends BaseDAOImpl implements CarModelDAO{
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.CarModelDAO#selectCarModelByCarMakerID(java.lang.String)
+	 */
+	public List<CarModel> selectCarModelByCarMakerID(String id) {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "FROM CarModel WHERE CarMakerID = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		List<CarModel> carModelList = query.list();
+		return carModelList;
 	}
 }
