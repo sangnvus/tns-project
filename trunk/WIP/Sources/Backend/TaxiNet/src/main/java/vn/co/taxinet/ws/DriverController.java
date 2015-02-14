@@ -61,11 +61,10 @@ public class DriverController {
 			return Constants.Message.SUCCESS;
 		}
 		return Constants.Message.FAIL;
-		
 
 	}
 
-	@RequestMapping("/updateTrip")
+	@RequestMapping("/UpdateTrip")
 	public String updateTrip(@RequestParam Map<String, String> requestParams) {
 		String requestId = requestParams.get("requestId");
 		String userId = requestParams.get("userId");
@@ -75,13 +74,13 @@ public class DriverController {
 
 		return result;
 	}
-	@RequestMapping("/login")
-	public DriverDTO login(@RequestParam Map<String,String> requestParams){
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public DriverDTO login(@RequestParam Map<String, String> requestParams) {
 		String username = requestParams.get("username");
 		String password = requestParams.get("password");
 		return driverBO.login(username, password);
 	}
-	
 
 	@RequestMapping(value = "/UpdateCurrentStatus", method = RequestMethod.GET)
 	@ResponseBody
