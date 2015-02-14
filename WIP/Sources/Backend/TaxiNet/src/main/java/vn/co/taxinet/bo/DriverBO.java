@@ -26,6 +26,7 @@ public interface DriverBO {
 	public List<DriverDTO> listDriver();
 
 	public String createTrip(String riderId, String driverId);
+	public DriverDTO login(String username, String password);
 
 	public MessageDTO updateCurrentStatus(String driverId, String longitude,
 			String latitude, String status);
