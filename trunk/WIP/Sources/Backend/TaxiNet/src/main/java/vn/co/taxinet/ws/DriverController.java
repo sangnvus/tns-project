@@ -68,6 +68,13 @@ public class DriverController {
 
 		return result;
 	}
+	@RequestMapping("/login")
+	public DriverDTO login(@RequestParam Map<String,String> requestParams){
+		String username = requestParams.get("username");
+		String password = requestParams.get("password");
+		return driverBO.login(username, password);
+	}
+	
 
 	@RequestMapping(value = "/UpdatePosition", method = RequestMethod.GET)
 	@ResponseBody
