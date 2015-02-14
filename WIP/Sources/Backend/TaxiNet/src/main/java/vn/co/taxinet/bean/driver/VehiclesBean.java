@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.inject.Inject;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.orm.CarMaker;
 import vn.co.taxinet.orm.CarModel;
-import vn.co.taxinet.orm.City;
+import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
 
 /**
@@ -31,7 +31,7 @@ public class VehiclesBean implements Serializable {
 	public List<CarModel> carModelList;
 	public Country selectedCountry;
 	public List<Country> countryList;
-	public List<City> cityList;
+	public List<CityName> cityList;
 	public String carModel;
 	public String yearOfProduct;
 	public String plate;
@@ -40,15 +40,27 @@ public class VehiclesBean implements Serializable {
 	public String countryLicense;
 	public String stateLicense;
 
-	@Inject
+	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
-
+	
 	/**
 	 * init data when load page
 	 */
 	public void init() {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
-
+			setCountryLicense("");
+			setCarMaker("");
+			setCarModel("");
+			setPlate("");
+			setStateLicense("");
+			setInColor("");
+			setExColor("");
+			carMakerList = new ArrayList<CarMaker>();
+			countryList = new ArrayList<Country>();
+			carModelList = new ArrayList<CarModel>();
+			cityList = new ArrayList<CityName>();
+			carMakerList = driverBO.getCarMakerList();
+			countryList = driverBO.getCountryList();
 		}
 	}
 
@@ -93,7 +105,7 @@ public class VehiclesBean implements Serializable {
 	 */
 	public List<SelectItem> addExternalColor() {
 		List<SelectItem> result = new ArrayList<SelectItem>();
-		result.add(new SelectItem("", "Internal Color"));
+		result.add(new SelectItem("", "External Color"));
 		result.add(new SelectItem("green", "Green"));
 		result.add(new SelectItem("red", "Red"));
 		result.add(new SelectItem("brown", "Brown"));
@@ -106,14 +118,18 @@ public class VehiclesBean implements Serializable {
 	 * update Car Model value when select Car Maker
 	 */
 	public void handleSelectCarMaker() {
-		// carModelList =
+		if (carMaker != null) {
+			carModelList = driverBO.getCarModelList(carMaker);
+		}
 	}
 
 	/**
 	 * update State value when select Country
 	 */
 	public void handlSelectCountry() {
-		// cityList =
+		if (countryLicense != null) {
+			cityList = driverBO.getCityNameList(countryLicense);
+		}
 	}
 
 	/**
@@ -228,16 +244,12 @@ public class VehiclesBean implements Serializable {
 		this.countryList = countryList;
 	}
 
-	public List<City> getCityList() {
+	public List<CityName> getCityList() {
 		return cityList;
 	}
 
-	public void setCityList(List<City> cityList) {
+	public void setCityList(List<CityName> cityList) {
 		this.cityList = cityList;
-	}
-
-	public DriverBO getDriverBO() {
-		return driverBO;
 	}
 
 	public void setDriverBO(DriverBO driverBO) {
