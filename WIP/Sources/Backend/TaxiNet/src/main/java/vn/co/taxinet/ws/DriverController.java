@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.bo.TripBO;
+import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.Trip;
@@ -48,14 +49,20 @@ public class DriverController {
 		return listDriverDTO;
 	}
 
-	@RequestMapping("/requestDriver")
-	public String requestDriver(@RequestParam Map<String, String> requestParams) {
+	@RequestMapping("/CreateTrip")
+	public String createTrip(@RequestParam Map<String, String> requestParams) {
 		String riderId = requestParams.get("riderId");
 		String driverId = requestParams.get("driverId");
+		String longitude = requestParams.get("longitude");
+		String latitude = requestParams.get("latitude");
 
-		Trip trip = tripBO.createTrip(riderId, driverId);
+		Trip trip = tripBO.createTrip(riderId, driverId, longitude, latitude);
+		if (trip.getRequestId() != null) {
+			return Constants.Message.SUCCESS;
+		}
+		return Constants.Message.FAIL;
+		
 
-		return trip.getRequestId();
 	}
 
 	@RequestMapping("/updateTrip")
@@ -76,7 +83,7 @@ public class DriverController {
 	}
 	
 
-	@RequestMapping(value = "/UpdatePosition", method = RequestMethod.GET)
+	@RequestMapping(value = "/UpdateCurrentStatus", method = RequestMethod.GET)
 	@ResponseBody
 	public MessageDTO updateCurrentStatus(
 			@RequestParam Map<String, String> requestParams) {
