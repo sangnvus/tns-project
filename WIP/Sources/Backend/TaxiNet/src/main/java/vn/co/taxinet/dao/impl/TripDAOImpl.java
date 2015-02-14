@@ -3,7 +3,9 @@ package vn.co.taxinet.dao.impl;
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
 import java.util.List;
+
 import javax.naming.InitialContext;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
@@ -12,6 +14,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dao.TripDAO;
 import vn.co.taxinet.orm.Trip;
 import vn.co.taxinet.utils.Utility;
@@ -19,18 +22,19 @@ import static org.hibernate.criterion.Example.create;
 
 /**
  * Home object for domain model class Trip.
+ * 
  * @see vn.co.taxinet.dao.Trip
  * @author Hibernate Tools
  */
-@Service(value="tripDAO")
+@Service(value = "tripDAO")
 @Transactional
-public class TripDAOImpl extends BaseDAOImpl implements TripDAO{
+public class TripDAOImpl extends BaseDAOImpl implements TripDAO {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4960737215923716888L;
 	private static final Logger log = LogManager.getLogger(TripDAOImpl.class);
-	
+
 	public void persist(Trip transientInstance) {
 		log.debug("persisting Trip instance");
 		try {
@@ -56,7 +60,8 @@ public class TripDAOImpl extends BaseDAOImpl implements TripDAO{
 	public void attachClean(Trip instance) {
 		log.debug("attaching clean Trip instance");
 		try {
-			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance,
+					LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -120,8 +125,9 @@ public class TripDAOImpl extends BaseDAOImpl implements TripDAO{
 			throw re;
 		}
 	}
-	
-	public String updateTripStatus(String requestId, String userId, String status){
+
+	public String updateTripStatus(String requestId, String userId,
+			String status) {
 		String hql = "update Trip set status = :status , lastModifiedBy = :userId, lastModifiedDate = :date where requestId = :requestId";
 		Session session = getSessionFactory().getCurrentSession();
 		Query query = session.createQuery(hql);
@@ -130,12 +136,12 @@ public class TripDAOImpl extends BaseDAOImpl implements TripDAO{
 		query.setParameter("requestId", requestId);
 		query.setParameter("date", Utility.getCurrentDateTime());
 		int result = query.executeUpdate();
-		if(result == 0){
-			return "Not found requestId";
-		}else if (result > 1){
-			return "error";
-		}else {
-			return "Success";
+		if (result == 0) {
+			return Constants.Message.REQUEST_NOT_FOUND;
+		} else if (result > 1) {
+			return Constants.Message.ERROR;
+		} else {
+			return Constants.Message.SUCCESS;
 		}
 	}
 }
