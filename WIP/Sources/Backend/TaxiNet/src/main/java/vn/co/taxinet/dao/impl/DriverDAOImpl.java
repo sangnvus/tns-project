@@ -14,17 +14,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.DriverDAO;
+import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.*;
+import vn.co.taxinet.utils.Const;
 import static org.hibernate.criterion.Example.create;
 
 /**
  * Home object for domain model class Driver.
+ * 
  * @see vn.co.taxinet.dao.Driver
  * @author Hibernate Tools
  */
-@Service(value="driverDAO")
+@Service(value = "driverDAO")
 @Transactional
-public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO{
+public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 
 	private static final Logger log = LogManager.getLogger(DriverDAOImpl.class);
 
@@ -53,7 +56,8 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO{
 	public void attachClean(Driver instance) {
 		log.debug("attaching clean Driver instance");
 		try {
-			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance,
+					LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -75,8 +79,8 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO{
 	public Driver merge(Driver detachedInstance) {
 		log.debug("merging Driver instance");
 		try {
-			Driver result = (Driver) getSessionFactory().getCurrentSession().merge(
-					detachedInstance);
+			Driver result = (Driver) getSessionFactory().getCurrentSession()
+					.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -88,8 +92,8 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO{
 	public Driver findById(java.lang.String id) {
 		log.debug("getting Driver instance with id: " + id);
 		try {
-			Driver instance = (Driver) getSessionFactory().getCurrentSession().get(
-					"vn.co.taxinet.orm.Driver", id);
+			Driver instance = (Driver) getSessionFactory().getCurrentSession()
+					.get("vn.co.taxinet.orm.Driver", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -117,34 +121,36 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO{
 			throw re;
 		}
 	}
+
 	@Transactional(readOnly = true)
 	public List<Driver> listDriver() {
 		Session session = getSessionFactory().getCurrentSession();
 		String hql = "Select D FROM Driver D, CurrentStatus C where D.driverId = C.driverId and C.currentStatus = 'AC' and D.vehicle is not null";
 		Query query = session.createQuery(hql);
-//		query.setParameter("userName", uid.toLowerCase());
+		// query.setParameter("userName", uid.toLowerCase());
 		// TODO Auto-generated method stub
 		List<Driver> result = query.list();
 		return result;
 	}
-	public String createTrip(String riderId, String driverId){
+
+	public String createTrip(String riderId, String driverId) {
 		Session session = getSessionFactory().getCurrentSession();
-		//get rider
+		// get rider
 		String hql = "select R from Rider R where R.riderId = :rid";
 		Query query = session.createQuery(hql);
 		query.setParameter("rid", riderId.toLowerCase());
 		List<Rider> listRider = query.list();
 		Rider rider = null;
-		if(!listRider.isEmpty()){
+		if (!listRider.isEmpty()) {
 			rider = listRider.get(0);
 		}
-		//get driver
+		// get driver
 		hql = "select D from Driver where D.driverId = :did";
 		query = session.createQuery(hql);
 		query.setParameter("did", driverId.toLowerCase());
 		List<Driver> listDriver = query.list();
 		Driver driver = null;
-		if(!listDriver.isEmpty()){
+		if (!listDriver.isEmpty()) {
 			driver = listDriver.get(0);
 		}
 		Trip trip = new Trip();
@@ -154,4 +160,21 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO{
 		trip.setDriver(driver);
 		return rider.getRiderId();
 	}
+
+	public MessageDTO updateCurrentStatus(String driverId, double _longitude,
+			double _latitude, String _status) {
+
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "UPDATE CurrentStatus cs SET cs.currentStatus =:status, cs.currentLatitude =:latitude, cs.currentLongtitude =:longitude WHERE cs.driverId =:driverId";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter("status", _status);
+		query.setParameter("latitude", _latitude);
+		query.setParameter("longitude", _longitude);
+		query.setParameter("driverId", driverId);
+		query.executeUpdate();
+		
+		return new MessageDTO(Const.SUCCESS);
+	}
+
 }
