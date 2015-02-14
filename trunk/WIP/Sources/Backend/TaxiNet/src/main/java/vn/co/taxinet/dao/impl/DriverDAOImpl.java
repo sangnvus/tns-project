@@ -2,6 +2,8 @@ package vn.co.taxinet.dao.impl;
 
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
+import static org.hibernate.criterion.Example.create;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -13,11 +15,12 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dto.MessageDTO;
-import vn.co.taxinet.orm.*;
-import vn.co.taxinet.utils.Const;
-import static org.hibernate.criterion.Example.create;
+import vn.co.taxinet.orm.Driver;
+import vn.co.taxinet.orm.Rider;
+import vn.co.taxinet.orm.Trip;
 
 /**
  * Home object for domain model class Driver.
@@ -166,15 +169,15 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 
 		Session session = getSessionFactory().getCurrentSession();
 		String hql = "UPDATE CurrentStatus cs SET cs.currentStatus =:status, cs.currentLatitude =:latitude, cs.currentLongtitude =:longitude WHERE cs.driverId =:driverId";
-		
+
 		Query query = session.createQuery(hql);
 		query.setParameter("status", _status);
 		query.setParameter("latitude", _latitude);
 		query.setParameter("longitude", _longitude);
 		query.setParameter("driverId", driverId);
 		query.executeUpdate();
-		
-		return new MessageDTO(Const.SUCCESS);
+
+		return new MessageDTO(Constants.Message.SUCCESS);
 	}
 
 }
