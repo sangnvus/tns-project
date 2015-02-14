@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.bo.DriverBO;
+import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
 import vn.co.taxinet.dto.DriverDTO;
@@ -21,7 +22,6 @@ import vn.co.taxinet.orm.City;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.TaxiNetUsers;
-import vn.co.taxinet.utils.Const;
 
 @Service(value = "driverBO")
 @Transactional
@@ -126,7 +126,7 @@ public class DriverBOImpl implements DriverBO {
 			double _latitude = Double.parseDouble(latitude);
 			String _status = status.toUpperCase();
 			if (_status == null || _status.equalsIgnoreCase("")) {
-				return new MessageDTO(Const.EMTPY_STATUS);
+				return new MessageDTO(Constants.Message.EMTPY_STATUS);
 			}
 			// check id of driver before update position
 			Driver driver = driverDAO.findById(driverId);
@@ -134,11 +134,11 @@ public class DriverBOImpl implements DriverBO {
 				return driverDAO.updateCurrentStatus(driver.getDriverId(),
 						_longitude, _latitude, _status);
 			} else {
-				return new MessageDTO(Const.FAIL);
+				return new MessageDTO(Constants.Message.FAIL);
 			}
 
 		} catch (NumberFormatException e) {
-			return new MessageDTO(Const.NUMBER_FORMAT_EXCEPTION);
+			return new MessageDTO(Constants.Message.NUMBER_FORMAT_EXCEPTION);
 		}
 	}
 
