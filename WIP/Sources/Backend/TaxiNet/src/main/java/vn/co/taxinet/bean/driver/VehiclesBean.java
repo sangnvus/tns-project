@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -42,7 +43,7 @@ public class VehiclesBean implements Serializable {
 
 	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
-	
+
 	/**
 	 * init data when load page
 	 */
@@ -135,8 +136,60 @@ public class VehiclesBean implements Serializable {
 	/**
 	 * action for Add Vehicles BUtton
 	 */
-	public void addVehiclesButton() {
-
+	public String addVehiclesButton() {
+		// TODO validate informations
+		if (carMaker == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+							"Hãy chọn hãng sản xuất xe"));
+			return null;
+		} else if (carModel == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+							"Hãy chọn loại xe"));
+			return null;
+		} else if (yearOfProduct == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+							"Hãy chọn năm sản xuất"));
+			return null;
+		} else if (inColor == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+							"Hãy chọn màu nội thất"));
+			return null;
+		} else if (exColor == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+							"Hãy chọn màu sơn"));
+			return null;
+		} else if (plate == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+							"Hãy nhập biển số xe"));
+			return null;
+		} else if (countryLicense == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+							"Hãy chọn quốc gia cấp phép"));
+			return null;
+		} else if (stateLicense == null) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+							"Hãy chọn thành phố cấp phép"));
+			return null;
+		} else {
+			
+			return null;
+		}
 	}
 
 	// getter & setter

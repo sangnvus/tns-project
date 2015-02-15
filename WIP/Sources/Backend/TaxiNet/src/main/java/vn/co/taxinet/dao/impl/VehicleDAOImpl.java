@@ -3,6 +3,7 @@ package vn.co.taxinet.dao.impl;
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
 import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
@@ -116,5 +117,15 @@ public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO{
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.VehicleDAO#insertVehicles(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	public void insertVehicles(String carMaker, String carModel,
+			String yearOfProduct, String inColor, String exColor, String plate,
+			String countryCode, String cityCode, String userID) {
+		// TODO Auto-generated method stub
+		
 	}
 }
