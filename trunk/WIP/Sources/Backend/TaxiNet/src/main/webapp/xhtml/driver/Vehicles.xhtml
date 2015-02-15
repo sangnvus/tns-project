@@ -113,8 +113,9 @@
 			</p:selectOneMenu>
 			<p:outputLabel />
 			<br></br>
-			<p:commandButton value="#{msg['driver.vehicleAdd']}" />
+			<p:commandButton value="#{msg['driver.vehicleAdd']}" actionListener="#{vehiclesController.addVehiclesButton}"/>
 		</h:panelGrid>
+		<p:growl id="messages" showSummary="true" autoUpdate="true" sticky="true"></p:growl>
 	</h:form>
 </h:body>
 </html>
