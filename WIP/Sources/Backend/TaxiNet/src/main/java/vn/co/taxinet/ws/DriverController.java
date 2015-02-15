@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.bo.TripBO;
 import vn.co.taxinet.common.Constants;
+import vn.co.taxinet.common.exception.TNException;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.Trip;
@@ -41,38 +42,36 @@ public class DriverController {
 		this.tripBO = tripBO;
 	}
 
-	@RequestMapping("/getNearDriver")
-	public List<DriverDTO> getListDriverInfo(
-			@RequestParam Map<String, String> requestParams) {
-		List<DriverDTO> listDriverDTO = driverBO.listDriver();
+	@RequestMapping(value = "/getNearDriver", method = RequestMethod.GET)
+	public List<DriverDTO> getListDriver(
+			@RequestParam Map<String, String> requestParams) throws TNException {
+		String longitude = requestParams.get("longitude");
+		String latitude = requestParams.get("latitude");
+		List<DriverDTO> listDriverDTO = driverBO.getListDriver(longitude,
+				latitude);
 
 		return listDriverDTO;
 	}
 
-	@RequestMapping("/CreateTrip")
-	public String createTrip(@RequestParam Map<String, String> requestParams) {
+	@RequestMapping(value = "/CreateTrip", method = RequestMethod.GET)
+	public String createTrip(@RequestParam Map<String, String> requestParams)
+			throws TNException {
 		String riderId = requestParams.get("riderId");
 		String driverId = requestParams.get("driverId");
 		String longitude = requestParams.get("longitude");
 		String latitude = requestParams.get("latitude");
 
-		Trip trip = tripBO.createTrip(riderId, driverId, longitude, latitude);
-		if (trip.getRequestId() != null) {
-			return Constants.Message.SUCCESS;
-		}
-		return Constants.Message.FAIL;
-
+		return tripBO.createTrip(riderId, driverId, longitude, latitude);
 	}
 
-	@RequestMapping("/UpdateTrip")
-	public String updateTrip(@RequestParam Map<String, String> requestParams) {
+	@RequestMapping(value = "/UpdateTrip", method = RequestMethod.GET)
+	public String updateTrip(@RequestParam Map<String, String> requestParams)
+			throws TNException {
 		String requestId = requestParams.get("requestId");
 		String userId = requestParams.get("userId");
 		String status = requestParams.get("status");
 
-		String result = tripBO.updateTrip(requestId, userId, status);
-
-		return result;
+		return tripBO.updateTrip(requestId, userId, status);
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
