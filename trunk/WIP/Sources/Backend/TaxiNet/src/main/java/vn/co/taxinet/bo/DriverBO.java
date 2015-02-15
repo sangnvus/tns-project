@@ -67,5 +67,11 @@ public interface DriverBO {
 	 */
 	public MessageDTO updateCurrentStatus(String driverId, String longitude,
 			String latitude, String status);
-
+	
+	/**
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	public DriverDTO login(String username, String password);
 }
