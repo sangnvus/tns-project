@@ -11,17 +11,22 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.bo.DriverBO;
+import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dao.CarMakerDAO;
 import vn.co.taxinet.dao.CarModelDAO;
 import vn.co.taxinet.dao.CityNameDAO;
 import vn.co.taxinet.dao.CountryDAO;
 import vn.co.taxinet.dao.DriverDAO;
+import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.dao.VehicleDAO;
 import vn.co.taxinet.dto.DriverDTO;
+import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.CarMaker;
 import vn.co.taxinet.orm.CarModel;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
+import vn.co.taxinet.orm.TaxiNetUsers;
 
 @Service
 public class DriverBOImpl implements DriverBO {
@@ -42,6 +47,20 @@ public class DriverBOImpl implements DriverBO {
 
 	@Autowired
 	private CityNameDAO cityNameDAO;
+
+	@Autowired
+	private VehicleDAO vehicleDAO;
+
+	@Autowired
+	private TaxiNetUserDAO taxiNetUserDAO;
+
+	public void setTaxiNetUserDAO(TaxiNetUserDAO taxiNetUserDAO) {
+		this.taxiNetUserDAO = taxiNetUserDAO;
+	}
+
+	public void setVehicleDAO(VehicleDAO vehicleDAO) {
+		this.vehicleDAO = vehicleDAO;
+	}
 
 	public void setDriverDAO(DriverDAO driverDAO) {
 		this.driverDAO = driverDAO;
@@ -157,4 +176,79 @@ public class DriverBOImpl implements DriverBO {
 		this.cityNameDAO = cityNameDAO;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.DriverBO#persistVehicles(java.lang.String,
+	 * java.lang.String, java.lang.String, java.lang.String, java.lang.String,
+	 * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Transactional
+	public void persistVehicles(String carMaker, String carModel,
+			String yearOfProduct, String inColor, String exColor, String plate,
+			String countryCode, String cityCode, String userID) {
+
+	}
+
+	@Transactional
+	public MessageDTO updateCurrentStatus(String driverId, String longitude,
+			String latitude, String status) {
+		try {
+			double _longitude = Double.parseDouble(longitude);
+			double _latitude = Double.parseDouble(latitude);
+			String _status = status.toUpperCase();
+			if (_status == null || _status.equalsIgnoreCase("")) {
+				return new MessageDTO(Constants.Message.EMTPY_STATUS);
+			}
+			// check id of driver before update position
+			Driver driver = driverDAO.findById(driverId);
+			if (driver != null) {
+				return driverDAO.updateCurrentStatus(driver.getDriverId(),
+						_longitude, _latitude, _status);
+			} else {
+				return new MessageDTO(Constants.Message.FAIL);
+			}
+
+		} catch (NumberFormatException e) {
+			return new MessageDTO(Constants.Message.NUMBER_FORMAT_EXCEPTION);
+		}
+	}
+
+	@Transactional
+	public DriverDTO login(String username, String password) {
+		// TODO Auto-generated method stub
+		DriverDTO driverDTO = new DriverDTO();
+		TaxiNetUsers taxiNetUser = taxiNetUserDAO.select(username);
+		if (taxiNetUser.getPassword().equals(password)
+				&& taxiNetUser.getDriver() != null) {
+			Driver driver = driverDAO.findById(taxiNetUser.getUserId());
+			driverDTO.setDriverId(driver.getDriverId());
+			driverDTO.setLongitude(driver.getCurrentstatus()
+					.getCurrentLatitude());
+			driverDTO.setLatitude(driver.getCurrentstatus()
+					.getCurrentLongtitude());
+			driverDTO.setDriverName((driver.getFirstName() + " " + driver
+					.getLastName()));
+			driverDTO.setDriverImage(driver.getTaxinetusers().getImage());
+			driverDTO
+					.setOpenKm(driver.getVehicle().getPricepanel().getOpenKm());
+			driverDTO.setOpenPrice(driver.getVehicle().getPricepanel()
+					.getOpenPrice());
+			driverDTO.setFirstKm(driver.getVehicle().getPricepanel()
+					.getFirstKm());
+			driverDTO.setFirstKmPrice(driver.getVehicle().getPricepanel()
+					.getFirstKmprice());
+			driverDTO
+					.setNextKm(driver.getVehicle().getPricepanel().getNextKm());
+			driverDTO.setNextKmPrice(driver.getVehicle().getPricepanel()
+					.getNextKmprice());
+			driverDTO.setWaitingPrice(driver.getVehicle().getPricepanel()
+					.getWaitingPrice());
+			driverDTO.setReturnPrice(driver.getVehicle().getPricepanel()
+					.getReturnTripPrice());
+			driverDTO.setType(driver.getVehicle().getPricepanel().getCarmodel()
+					.getCarType());
+		}
+		return driverDTO;
+	}
 }
