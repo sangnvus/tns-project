@@ -13,7 +13,7 @@ import vn.co.taxinet.orm.Driver;
 public interface DriverBO {
 	public Driver register(Driver obj);
 
-	public List<DriverDTO> listDriver();
+	public List<DriverDTO> getListDriver(String longitude, String latitude);
 
 	public String createTrip(String riderId, String driverId);
 

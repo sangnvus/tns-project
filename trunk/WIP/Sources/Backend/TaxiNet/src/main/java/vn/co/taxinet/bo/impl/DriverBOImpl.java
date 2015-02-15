@@ -73,9 +73,9 @@ public class DriverBOImpl implements DriverBO {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public List<DriverDTO> listDriver() {
+	public List<DriverDTO> getListDriver(String longitude, String latitude) {
 
-		List<Driver> listDriver = driverDAO.listDriver();
+		List<Driver> listDriver = driverDAO.getListDriver();
 		List<DriverDTO> listDriverDTO = new ArrayList<DriverDTO>();
 		for (int i = 0; i < listDriver.size(); i++) {
 			DriverDTO driverDTO = new DriverDTO();
