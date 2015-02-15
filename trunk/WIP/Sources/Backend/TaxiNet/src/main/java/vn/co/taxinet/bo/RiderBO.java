@@ -11,6 +11,7 @@
 package vn.co.taxinet.bo;
 
 import vn.co.taxinet.common.exception.TNSException;
+import vn.co.taxinet.dto.RiderDTO;
 import vn.co.taxinet.orm.Rider;
 
 /**
@@ -35,4 +36,5 @@ public interface RiderBO {
 	public void updateProfile(String uid, String surName, String name,
 			String countryCode, String phoneNo, String languageCode,
 			String zipCode);
+	public RiderDTO login(String username, String password);
 }
