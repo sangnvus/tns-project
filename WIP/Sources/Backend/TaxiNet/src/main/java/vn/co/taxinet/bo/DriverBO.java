@@ -3,32 +3,42 @@ package vn.co.taxinet.bo;
 import java.util.List;
 
 import vn.co.taxinet.dto.DriverDTO;
-import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.CarMaker;
 import vn.co.taxinet.orm.CarModel;
-import vn.co.taxinet.orm.City;
+import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
 
 public interface DriverBO {
 	public Driver register(Driver obj);
 	
-	public List<CarMaker> selectCarMaker();
-	
-	public List<CarModel> selectCarModel(String carMakerID);
-	
-	public List<Country> selectCountry();
-	
-	public List<City> selectCity(String countryID);
-	
-	public void persistVehicle();
-
 	public List<DriverDTO> listDriver();
 
 	public String createTrip(String riderId, String driverId);
-	public DriverDTO login(String username, String password);
-
-	public MessageDTO updateCurrentStatus(String driverId, String longitude,
-			String latitude, String status);
-
+	
+	/**
+	 * @author Ecchi
+	 * @return list of car maker
+	 */
+	public List<CarMaker> getCarMakerList();
+	
+	/**
+	 * @author Ecchi
+	 * @param carMakerID
+	 * @return car model of car maker
+	 */
+	public List<CarModel> getCarModelList(String carMakerID);
+	
+	/**
+	 * @author Ecchi
+	 * @return list of country
+	 */
+	public List<Country> getCountryList();
+	
+	/**
+	 * @author Ecchi
+	 * @return list of city name
+	 */
+	public List<CityName> getCityNameList(String countryCode);
+	
 }
