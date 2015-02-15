@@ -24,6 +24,12 @@ public interface TaxiNetUserDAO extends BaseDAO {
 	TaxiNetUsers select(String uid);
 	
 	/**
+	 * @param id
+	 * @return user
+	 */
+	TaxiNetUsers findByID(String id);
+	
+	/**
 	 * @param email
 	 * @param password
 	 * @return user
