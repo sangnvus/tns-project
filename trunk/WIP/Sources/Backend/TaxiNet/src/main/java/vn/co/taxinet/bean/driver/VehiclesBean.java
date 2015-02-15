@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.orm.CarMaker;
@@ -41,6 +43,10 @@ public class VehiclesBean implements Serializable {
 	public String countryLicense;
 	public String stateLicense;
 
+	String userID;
+	String username;
+	String password;
+
 	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
 
@@ -49,6 +55,12 @@ public class VehiclesBean implements Serializable {
 	 */
 	public void init() {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
+			HttpServletRequest request = (HttpServletRequest) FacesContext
+					.getCurrentInstance().getExternalContext().getRequest();
+			HttpSession session = request.getSession();
+			userID = session.getAttribute("UserID").toString();
+			username = session.getAttribute("Username").toString();
+			password = session.getAttribute("Password").toString();
 			setCountryLicense("");
 			setCarMaker("");
 			setCarModel("");
@@ -187,7 +199,20 @@ public class VehiclesBean implements Serializable {
 							"Hãy chọn thành phố cấp phép"));
 			return null;
 		} else {
-			
+			String result = driverBO.persistVehicles(carMaker, carModel,
+					yearOfProduct, inColor, exColor, plate, countryLicense,
+					stateLicense, userID);
+			if (result != null) {
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage("Success",
+								"Thêm phương tiện thành công"));
+			} else {
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage("Error",
+								"Thêm phương tiện thất bại"));
+			}
 			return null;
 		}
 	}
@@ -309,4 +334,27 @@ public class VehiclesBean implements Serializable {
 		this.driverBO = driverBO;
 	}
 
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
