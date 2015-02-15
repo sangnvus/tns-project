@@ -76,7 +76,7 @@ public interface DriverBO {
 	 * @param cityCode
 	 * @param userID
 	 */
-	public void persistVehicles(String carMaker, String carModel,
+	public String persistVehicles(String carMaker, String carModel,
 			String yearOfProduct, String inColor, String exColor, String plate,
 			String countryCode, String cityCode, String userID);
 

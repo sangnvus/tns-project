@@ -6,6 +6,8 @@ package vn.co.taxinet.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +22,7 @@ import vn.co.taxinet.orm.TaxiNetUsers;
  */
 @Transactional
 public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
-
+	private static final Logger log = LogManager.getLogger(LanguageDAOImpl.class);
 	/**
 	 * 
 	 */
@@ -89,5 +91,26 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		List<TaxiNetUsers> result;
 		result = query.list();
 		return result;
+	}
+	
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.TaxiNetUserDAO#findByID(java.lang.String)
+	 */
+	@Transactional
+	public TaxiNetUsers findByID(String id) {
+		log.debug("getting TaxiNetUsers instance with id: " + id);
+		try {
+			TaxiNetUsers instance = (TaxiNetUsers) getSessionFactory().getCurrentSession()
+					.get("vn.co.taxinet.orm.TaxiNetUsers", id);
+			if (instance == null) {
+				log.debug("get successful, no instance found");
+			} else {
+				log.debug("get successful, instance found");
+			}
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
 	}	
 }

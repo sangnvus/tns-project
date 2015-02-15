@@ -2,32 +2,41 @@ package vn.co.taxinet.dao.impl;
 
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
+import static org.hibernate.criterion.Example.create;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.VehicleDAO;
+import vn.co.taxinet.orm.PricePanel;
+import vn.co.taxinet.orm.TaxiNetUsers;
 import vn.co.taxinet.orm.Vehicle;
-import static org.hibernate.criterion.Example.create;
+import vn.co.taxinet.utils.Utility;
 
 /**
  * Home object for domain model class Vehicle.
+ * 
  * @see vn.co.taxinet.dao.Vehicle
  * @author Hibernate Tools
  */
-@Service(value="vehicleDAO")
+@Service(value = "vehicleDAO")
 @Transactional
-public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO{
+public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2252900041253117826L;
-	private static final Logger log = LogManager.getLogger(VehicleDAOImpl.class);
+	private static final Logger log = LogManager
+			.getLogger(VehicleDAOImpl.class);
 
 	public void persist(Vehicle transientInstance) {
 		log.debug("persisting Vehicle instance");
@@ -54,7 +63,8 @@ public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO{
 	public void attachClean(Vehicle instance) {
 		log.debug("attaching clean Vehicle instance");
 		try {
-			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance,
+					LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -89,8 +99,8 @@ public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO{
 	public Vehicle findById(java.lang.Integer id) {
 		log.debug("getting Vehicle instance with id: " + id);
 		try {
-			Vehicle instance = (Vehicle) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.orm.Vehicle", id);
+			Vehicle instance = (Vehicle) getSessionFactory()
+					.getCurrentSession().get("vn.co.taxinet.orm.Vehicle", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -117,15 +127,5 @@ public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO{
 			log.error("find by example failed", re);
 			throw re;
 		}
-	}
-
-	/* (non-Javadoc)
-	 * @see vn.co.taxinet.dao.VehicleDAO#insertVehicles(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
-	 */
-	public void insertVehicles(String carMaker, String carModel,
-			String yearOfProduct, String inColor, String exColor, String plate,
-			String countryCode, String cityCode, String userID) {
-		// TODO Auto-generated method stub
-		
 	}
 }

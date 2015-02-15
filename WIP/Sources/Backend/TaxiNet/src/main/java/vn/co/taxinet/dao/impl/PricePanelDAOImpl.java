@@ -2,32 +2,38 @@ package vn.co.taxinet.dao.impl;
 
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
+import static org.hibernate.criterion.Example.create;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.PricePanelDAO;
 import vn.co.taxinet.orm.PricePanel;
-import static org.hibernate.criterion.Example.create;
 
 /**
  * Home object for domain model class PricePanel.
+ * 
  * @see vn.co.taxinet.dao.PricePanel
  * @author Hibernate Tools
  */
-@Service(value="pricePanelDAO")
+@Service(value = "pricePanelDAO")
 @Transactional
-public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO{
+public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5102073331249097924L;
-	private static final Logger log = LogManager.getLogger(PricePanelDAOImpl.class);
-
+	private static final Logger log = LogManager
+			.getLogger(PricePanelDAOImpl.class);
 
 	public void persist(PricePanel transientInstance) {
 		log.debug("persisting PricePanel instance");
@@ -54,7 +60,8 @@ public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO{
 	public void attachClean(PricePanel instance) {
 		log.debug("attaching clean PricePanel instance");
 		try {
-			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance,
+					LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -76,8 +83,8 @@ public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO{
 	public PricePanel merge(PricePanel detachedInstance) {
 		log.debug("merging PricePanel instance");
 		try {
-			PricePanel result = (PricePanel) getSessionFactory().getCurrentSession()
-					.merge(detachedInstance);
+			PricePanel result = (PricePanel) getSessionFactory()
+					.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -117,6 +124,25 @@ public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO{
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);
 			throw re;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.PricePanelDAO#selectPricePanel(java.lang.String, java.lang.String)
+	 */
+	@Transactional
+	public PricePanel selectPricePanel(String carModel, String companyId) {
+		Session session = getSessionFactory().getCurrentSession();
+		List<PricePanel> priceList = new ArrayList<PricePanel>();
+		String hql1 = "FROM pricepanel WHERE carModelId = :carModelId and companyId = :companyId";
+		Query query1 = session.createQuery(hql1);
+		query1.setParameter("carModelId", carModel);
+		query1.setParameter("companyId", companyId);
+		priceList = query1.list();
+		if (!priceList.isEmpty()) {
+			return priceList.get(0);
+		} else { 
+			return null;
 		}
 	}
 }
