@@ -1,10 +1,10 @@
 package vn.co.taxinet.bo;
 
-import vn.co.taxinet.orm.Trip;
+import vn.co.taxinet.common.exception.TNException;
 
 public interface TripBO {
-	public Trip createTrip(String riderId, String driverId, String longitude,
-			String latitude);
+	public String createTrip(String riderId, String driverId, String longitude,
+			String latitude) throws TNException;
 
-	public String updateTrip(String requestId, String userId, String status);
+	public String updateTrip(String requestId, String userId, String status) throws TNException;
 }
