@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.dao.CarMakerDAO;
 import vn.co.taxinet.dao.CarModelDAO;
@@ -26,15 +27,20 @@ import vn.co.taxinet.orm.Driver;
 public class DriverBOImpl implements DriverBO {
 	private static final Logger logger = LogManager
 			.getLogger(DriverBOImpl.class);
-
+	
+	@Autowired
 	private DriverDAO driverDAO;
-
+	
+	@Autowired
 	private CarMakerDAO carMakerDAO;
-
+	
+	@Autowired
 	private CarModelDAO carModelDAO;
-
+	
+	@Autowired
 	private CountryDAO countryDAO;
 
+	@Autowired
 	private CityNameDAO cityNameDAO;
 
 	public void setDriverDAO(DriverDAO driverDAO) {
