@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.bo.TripBO;
-import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.common.exception.TNException;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.MessageDTO;
-import vn.co.taxinet.orm.Trip;
 
 @RestController
 @RequestMapping("/DriverController")
