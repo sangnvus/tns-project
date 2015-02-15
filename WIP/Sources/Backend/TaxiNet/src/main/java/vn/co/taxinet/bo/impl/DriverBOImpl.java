@@ -27,16 +27,16 @@ import vn.co.taxinet.orm.Driver;
 public class DriverBOImpl implements DriverBO {
 	private static final Logger logger = LogManager
 			.getLogger(DriverBOImpl.class);
-	
+
 	@Autowired
 	private DriverDAO driverDAO;
-	
+
 	@Autowired
 	private CarMakerDAO carMakerDAO;
-	
+
 	@Autowired
 	private CarModelDAO carModelDAO;
-	
+
 	@Autowired
 	private CountryDAO countryDAO;
 
@@ -141,39 +141,20 @@ public class DriverBOImpl implements DriverBO {
 		return cityNameDAO.selectAllCityName(countryCode);
 	}
 
-	public CarMakerDAO getCarMakerDAO() {
-		return carMakerDAO;
-	}
-
 	public void setCarMakerDAO(CarMakerDAO carMakerDAO) {
 		this.carMakerDAO = carMakerDAO;
-	}
-
-	public CarModelDAO getCarModelDAO() {
-		return carModelDAO;
 	}
 
 	public void setCarModelDAO(CarModelDAO carModelDAO) {
 		this.carModelDAO = carModelDAO;
 	}
 
-	public CountryDAO getCountryDAO() {
-		return countryDAO;
-	}
-
 	public void setCountryDAO(CountryDAO countryDAO) {
 		this.countryDAO = countryDAO;
-	}
-
-	public CityNameDAO getCityNameDAO() {
-		return cityNameDAO;
 	}
 
 	public void setCityNameDAO(CityNameDAO cityNameDAO) {
 		this.cityNameDAO = cityNameDAO;
 	}
 
-	public DriverDAO getDriverDAO() {
-		return driverDAO;
-	}
 }
