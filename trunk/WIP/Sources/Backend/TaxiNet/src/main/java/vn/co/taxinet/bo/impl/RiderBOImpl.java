@@ -17,6 +17,7 @@ import vn.co.taxinet.common.exception.SystemException;
 import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dao.RiderDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.dto.RiderDTO;
 import vn.co.taxinet.orm.Address;
 import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
@@ -172,8 +173,12 @@ public class RiderBOImpl implements RiderBO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see vn.co.taxinet.bo.RiderBO#updateProfile(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.RiderBO#updateProfile(java.lang.String,
+	 * java.lang.String, java.lang.String, java.lang.String, java.lang.String,
+	 * java.lang.String, java.lang.String)
 	 */
 	@Transactional
 	public void updateProfile(String uid, String surName, String name,
@@ -185,6 +190,44 @@ public class RiderBOImpl implements RiderBO {
 		Date date = Utility.getCurrentDate();
 		riderDAO.updateProfile(uid, surName, name, countryCode, phoneNo,
 				languageCode, zipCode, date, username);
+	}
+
+	public RiderDTO login(String username, String password) {
+		// TODO Auto-generated method stub
+		RiderDTO riderDTO = new RiderDTO();
+		if(username == null){
+			return riderDTO;
+		}
+		if(password == null){
+			return riderDTO;
+		}
+		TaxiNetUsers taxiNetUser = taxiNetUserDAO.select(username);
+		if (taxiNetUser.getUsername() != null) {
+			if (taxiNetUser.getPassword().equals(password)
+					&& taxiNetUser.getRider() != null && taxiNetUser != null) {
+				Rider rider = taxiNetUser.getRider();
+				riderDTO.setRiderId(rider.getRiderId());
+				riderDTO.setRiderName(rider.getFirstName() + " "
+						+ rider.getLastName());
+				riderDTO.setMessage("Success");
+				riderDTO.setImage(taxiNetUser.getImage());
+				riderDTO.setEmail(taxiNetUser.getEmail());
+				if (taxiNetUser.getRider().getAddressByHomeAddressId() != null) {
+					riderDTO.setHomeAddress(taxiNetUser.getRider()
+							.getAddressByHomeAddressId().getAddressDetail());
+				}
+				if (taxiNetUser.getRider().getAddressByOfficeAddressId() != null) {
+					riderDTO.setOfficeAddress(taxiNetUser.getRider()
+							.getAddressByOfficeAddressId().getAddressDetail());
+				}
+
+			} else {
+				riderDTO.setMessage("invalid password");
+			}
+		}else{
+			riderDTO.setMessage("invalid username");
+		}
+		return riderDTO;
 	}
 
 }
