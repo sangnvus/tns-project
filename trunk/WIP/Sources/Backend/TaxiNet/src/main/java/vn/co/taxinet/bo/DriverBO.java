@@ -2,6 +2,7 @@ package vn.co.taxinet.bo;
 
 import java.util.List;
 
+import vn.co.taxinet.common.exception.TNException;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.CarMaker;
@@ -11,10 +12,31 @@ import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
 
 public interface DriverBO {
-	public Driver register(Driver obj);
 
+	/**
+	 * @author Hieu-Gie
+	 * 
+	 * @param driver
+	 * @return
+	 */
+	public Driver register(Driver driver);
+
+	/**
+	 * @author Hieu-Gie
+	 * 
+	 * @param longitude
+	 * @param latitude
+	 * @return
+	 */
 	public List<DriverDTO> getListDriver(String longitude, String latitude);
 
+	/**
+	 * @author Hieu-Gie
+	 * 
+	 * @param riderId
+	 * @param driverId
+	 * @return
+	 */
 	public String createTrip(String riderId, String driverId);
 
 	/**
@@ -56,22 +78,28 @@ public interface DriverBO {
 	 */
 	public void persistVehicles(String carMaker, String carModel,
 			String yearOfProduct, String inColor, String exColor, String plate,
-			String countryCode, String cityCode,String userID);
+			String countryCode, String cityCode, String userID);
 
 	/**
+	 * @author Hieu-Gie
+	 * 
 	 * @param driverId
 	 * @param longitude
 	 * @param latitude
 	 * @param status
 	 * @return
+	 * @throws TNException
 	 */
 	public MessageDTO updateCurrentStatus(String driverId, String longitude,
-			String latitude, String status);
-	
+			String latitude, String status) throws TNException;
+
 	/**
+	 * @author Hieu-Gie
+	 * 
 	 * @param username
 	 * @param password
 	 * @return
+	 * @throws TNException
 	 */
-	public DriverDTO login(String username, String password);
+	public DriverDTO login(String username, String password) throws TNException;
 }

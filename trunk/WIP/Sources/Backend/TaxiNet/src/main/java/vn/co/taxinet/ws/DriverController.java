@@ -73,7 +73,8 @@ public class DriverController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public DriverDTO login(@RequestParam Map<String, String> requestParams) {
+	public DriverDTO login(@RequestParam Map<String, String> requestParams)
+			throws TNException {
 		String username = requestParams.get("username");
 		String password = requestParams.get("password");
 		return driverBO.login(username, password);
@@ -82,7 +83,7 @@ public class DriverController {
 	@RequestMapping(value = "/UpdateCurrentStatus", method = RequestMethod.GET)
 	@ResponseBody
 	public MessageDTO updateCurrentStatus(
-			@RequestParam Map<String, String> requestParams) {
+			@RequestParam Map<String, String> requestParams) throws TNException {
 		String driverId = requestParams.get("driverId");
 		String longitude = requestParams.get("longitude");
 		String latitude = requestParams.get("latitude");
