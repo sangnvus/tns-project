@@ -1,7 +1,6 @@
 package vn.co.taxinet.bo.impl;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
@@ -26,7 +25,7 @@ import vn.co.taxinet.utils.Utility;
 @Service
 public class RiderBOImpl implements RiderBO {
 	private final static String THIS = "RiderBOImpl";
-	private static final Logger logger = LogManager
+	private static final Logger logger = LogManager 
 			.getLogger(RiderBOImpl.class);
 	// Refer to taxiNetUserDAO declared in ApplicationContext of Spring
 	@Autowired
