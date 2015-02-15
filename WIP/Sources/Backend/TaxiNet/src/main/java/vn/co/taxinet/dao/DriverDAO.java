@@ -7,7 +7,7 @@ import vn.co.taxinet.orm.Driver;;
 public interface DriverDAO extends BaseDAO {
 	List<Driver> getListDriver();
 	String createTrip(String riderId, String driverId);
-	public Driver findById(java.lang.String id);
+	public Driver findDriverById(java.lang.String id);
 
 	MessageDTO updateCurrentStatus(String addressId, double _longitude,
 			double _latitude, String status);

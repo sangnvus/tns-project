@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.common.Constants;
+import vn.co.taxinet.common.exception.TNException;
 import vn.co.taxinet.dao.CarMakerDAO;
 import vn.co.taxinet.dao.CarModelDAO;
 import vn.co.taxinet.dao.CityNameDAO;
@@ -192,36 +193,42 @@ public class DriverBOImpl implements DriverBO {
 
 	@Transactional
 	public MessageDTO updateCurrentStatus(String driverId, String longitude,
-			String latitude, String status) {
+			String latitude, String status) throws TNException {
 		try {
 			double _longitude = Double.parseDouble(longitude);
 			double _latitude = Double.parseDouble(latitude);
 			String _status = status.toUpperCase();
 			if (_status == null || _status.equalsIgnoreCase("")) {
-				return new MessageDTO(Constants.Message.EMTPY_STATUS);
+				throw new TNException(Constants.Message.EMTPY_STATUS);
 			}
 			// check id of driver before update position
-			Driver driver = driverDAO.findById(driverId);
+			Driver driver = driverDAO.findDriverById(driverId);
 			if (driver != null) {
 				return driverDAO.updateCurrentStatus(driver.getDriverId(),
 						_longitude, _latitude, _status);
 			} else {
-				return new MessageDTO(Constants.Message.FAIL);
+				throw new TNException(Constants.Message.FAIL);
 			}
 
 		} catch (NumberFormatException e) {
-			return new MessageDTO(Constants.Message.NUMBER_FORMAT_EXCEPTION);
+			throw new TNException(Constants.Message.NUMBER_FORMAT_EXCEPTION);
 		}
 	}
 
 	@Transactional
-	public DriverDTO login(String username, String password) {
+	public DriverDTO login(String username, String password) throws TNException {
 		// TODO Auto-generated method stub
 		DriverDTO driverDTO = new DriverDTO();
+		if (username.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
+			throw new TNException("data it null");
+		}
 		TaxiNetUsers taxiNetUser = taxiNetUserDAO.select(username);
+		if (taxiNetUser == null) {
+			throw new TNException("User not found");
+		}
 		if (taxiNetUser.getPassword().equals(password)
 				&& taxiNetUser.getDriver() != null) {
-			Driver driver = driverDAO.findById(taxiNetUser.getUserId());
+			Driver driver = driverDAO.findDriverById(taxiNetUser.getUserId());
 			driverDTO.setDriverId(driver.getDriverId());
 			driverDTO.setLongitude(driver.getCurrentstatus()
 					.getCurrentLatitude());

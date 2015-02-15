@@ -69,7 +69,7 @@ public class TripBOImpl implements TripBO {
 			throw new TNException("Invalid location");
 		}
 		Rider rider = riderDAO.findById(riderId);
-		Driver driver = driverDAO.findById(driverId);
+		Driver driver = driverDAO.findDriverById(driverId);
 		Trip trip = new Trip();
 		UUID id = UUID.randomUUID();
 		trip.setRequestId(id.toString());

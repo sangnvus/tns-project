@@ -92,7 +92,7 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		}
 	}
 
-	public Driver findById(java.lang.String id) {
+	public Driver findDriverById(java.lang.String id) {
 		log.debug("getting Driver instance with id: " + id);
 		try {
 			Driver instance = (Driver) getSessionFactory().getCurrentSession()
