@@ -169,8 +169,11 @@
 	   <property name="taxiNetUserDAO" ref="taxiNetUserDAO" />              
    	</bean>          
    	<bean id="driverBO"  class="vn.co.taxinet.bo.impl.DriverBOImpl">
-       <property name="driverDAO" ref="driverDAO" /> 
-       <property name="taxiNetUserDAO" ref="taxiNetUserDAO" />             
+       <property name="driverDAO" ref="driverDAO" />
+       <property name="cityNameDAO" ref ="cityNameDAO"/>
+       <property name="countryDAO" ref="countryDAO"/>
+       <property name="carMakerDAO" ref="carMakerDAO"/>
+       <property name="carModelDAO" ref="carModelDAO"/>           
    	</bean>   
    	<bean id="tripBO"  class="vn.co.taxinet.bo.impl.TripBOImpl">
        <property name="tripDAO" ref="tripDAO" />     
