@@ -173,7 +173,9 @@
        <property name="cityNameDAO" ref ="cityNameDAO"/>
        <property name="countryDAO" ref="countryDAO"/>
        <property name="carMakerDAO" ref="carMakerDAO"/>
-       <property name="carModelDAO" ref="carModelDAO"/>           
+       <property name="carModelDAO" ref="carModelDAO"/>    
+       <property name="vehicleDAO" ref="vehicleDAO"/>
+       <property name="taxiNetUserDAO" ref="taxiNetUserDAO"/>       
    	</bean>   
    	<bean id="tripBO"  class="vn.co.taxinet.bo.impl.TripBOImpl">
        <property name="tripDAO" ref="tripDAO" />     
