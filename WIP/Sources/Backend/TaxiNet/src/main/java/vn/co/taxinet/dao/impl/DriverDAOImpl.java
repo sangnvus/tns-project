@@ -126,7 +126,7 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Driver> listDriver() {
+	public List<Driver> getListDriver() {
 		Session session = getSessionFactory().getCurrentSession();
 		String hql = "Select D FROM Driver D, CurrentStatus C where D.driverId = C.driverId and C.currentStatus = 'AC' and D.vehicle is not null";
 		Query query = session.createQuery(hql);

@@ -93,7 +93,7 @@ public class TripDAOImpl extends BaseDAOImpl implements TripDAO {
 		}
 	}
 
-	public Trip findById(java.lang.String id) {
+	public Trip findTripById(java.lang.String id) {
 		log.debug("getting Trip instance with id: " + id);
 		try {
 			Trip instance = (Trip) getSessionFactory().getCurrentSession().get(
