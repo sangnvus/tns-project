@@ -23,7 +23,6 @@ public class TaxiNetUsers implements java.io.Serializable {
 	private String status;
 	private String image;
 	private String postalCode;
-	private String regId;
 	private Date deactivatedDate;
 	private String createdBy;
 	private Date createdDate;
@@ -61,7 +60,7 @@ public class TaxiNetUsers implements java.io.Serializable {
 	public TaxiNetUsers(String userId, UserGroup userGroup, Language language,
 			Company company, Country country, String username, String password,
 			String email, Integer cityId, String status, String image,
-			String postalCode,String regId, Date deactivatedDate, String createdBy,
+			String postalCode, Date deactivatedDate, String createdBy,
 			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
 			Agent agent, Set<Payment> payments,
 			Set<Payment> payments_1,
@@ -80,7 +79,6 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.status = status;
 		this.image = image;
 		this.postalCode = postalCode;
-		this.regId = regId;
 		this.deactivatedDate = deactivatedDate;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
@@ -199,14 +197,6 @@ public class TaxiNetUsers implements java.io.Serializable {
 
 	public void setUserGroup(UserGroup userGroup) {
 		this.userGroup = userGroup;
-	}
-
-	public String getRegId() {
-		return regId;
-	}
-
-	public void setRegId(String regId) {
-		this.regId = regId;
 	}
 
 	public Set<AccountTransaction> getAccountTransactions() {

@@ -41,9 +41,6 @@
         <property name="postalCode" type="string">
             <column name="PostalCode" length="5" />
         </property>
-        <property name="regId" type="string">
-            <column name="regId" length="200" />
-        </property>
         <property name="deactivatedDate" type="date">
             <column name="DeactivatedDate" length="0" />
         </property>

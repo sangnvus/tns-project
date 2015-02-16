@@ -18,6 +18,7 @@ public class Rider implements java.io.Serializable {
 	private String firstName;
 	private String lastName;
 	private String mobileNo;
+	private String regId;
 	private String createdBy;
 	private Date createdDate;
 	private String lastModifiedBy;
@@ -39,7 +40,7 @@ public class Rider implements java.io.Serializable {
 
 	public Rider(Address addressByHomeAddressId, TaxiNetUsers taxiNetUsers,
 			Address addressByOfficeAddressId, String firstName,
-			String lastName, String mobileNo, String createdBy,
+			String lastName, String mobileNo,String regId, String createdBy,
 			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
 			Set<Trip> trips, Set<Trip> trips_1) {
 		this.addressByHomeAddressId = addressByHomeAddressId;
@@ -110,6 +111,14 @@ public class Rider implements java.io.Serializable {
 
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
+	}
+
+	public String getRegId() {
+		return regId;
+	}
+
+	public void setRegId(String regId) {
+		this.regId = regId;
 	}
 
 	public String getCreatedBy() {

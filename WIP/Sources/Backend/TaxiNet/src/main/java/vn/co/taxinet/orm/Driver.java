@@ -21,6 +21,7 @@ public class Driver implements java.io.Serializable {
 	private String lastName;
 	private String mobileNo;
 	private String invitationCode;
+	private String regId;
 	private String createdBy;
 	private Date createdDate;
 	private String lastModifiedBy;
@@ -47,7 +48,7 @@ public class Driver implements java.io.Serializable {
 	public Driver(TaxiNetUsers taxiNetUsers, Document documentByDriverLisense,
 			Vehicle vehicle, Address address,
 			Document documentByDriveExperience, String firstName,
-			String lastName, String mobileNo, String invitationCode,
+			String lastName, String mobileNo, String invitationCode,String regId,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate, CurrentStatus currentStatus, Set<Trip> trips,
 			Set<Trip> trips_1) {
@@ -60,6 +61,7 @@ public class Driver implements java.io.Serializable {
 		this.lastName = lastName;
 		this.mobileNo = mobileNo;
 		this.invitationCode = invitationCode;
+		this.regId = regId;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
@@ -148,6 +150,14 @@ public class Driver implements java.io.Serializable {
 
 	public void setInvitationCode(String invitationCode) {
 		this.invitationCode = invitationCode;
+	}
+
+	public String getRegId() {
+		return regId;
+	}
+
+	public void setRegId(String regId) {
+		this.regId = regId;
 	}
 
 	public String getCreatedBy() {
