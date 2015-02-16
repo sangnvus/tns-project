@@ -1,117 +1,68 @@
 package vn.co.taxinet.dto;
 
 public class DriverDTO {
-	public String driverId;
-	public String driverName;
-	public String driverImage;
-	public String type;
-	public double longitude;
-	public double latitude;
-	public double rating;
-	public double openKm;
-	public double openPrice;
-	public double firstKm;
-	public double firstKmPrice;
-	public double nextKm;
-	public double nextKmPrice;
-	public double waitingPrice;
-	public double returnPrice;
-	public String driverType;
-	
-	public double getLongitude() {
-		return longitude;
+	private String id;
+	private String firstName;
+	private String lastName;
+	private String image;
+	private String email;
+	private String password;
+	private String phoneNumber;
+
+	public String getId() {
+		return id;
 	}
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+
+	public void setId(String driverId) {
+		this.id = driverId;
 	}
-	public double getLatitude() {
-		return latitude;
+
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getDriverId() {
-		return driverId;
+
+	public String getLastName() {
+		return lastName;
 	}
-	public void setDriverId(String driverId) {
-		this.driverId = driverId;
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-	public String getDriverName() {
-		return driverName;
+
+	public String getImage() {
+		return image;
 	}
-	public void setDriverName(String driverName) {
-		this.driverName = driverName;
+
+	public void setImage(String image) {
+		this.image = image;
 	}
-	public String getDriverImage() {
-		return driverImage;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setDriverImage(String driverImage) {
-		this.driverImage = driverImage;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getType() {
-		return type;
+
+	public String getPassword() {
+		return password;
 	}
-	public void setType(String type) {
-		this.type = type;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public double getRating() {
-		return rating;
+
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	public void setRating(double rating) {
-		this.rating = rating;
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
-	public double getOpenKm() {
-		return openKm;
-	}
-	public void setOpenKm(double openKm) {
-		this.openKm = openKm;
-	}
-	public double getOpenPrice() {
-		return openPrice;
-	}
-	public void setOpenPrice(double openPrice) {
-		this.openPrice = openPrice;
-	}
-	public double getFirstKm() {
-		return firstKm;
-	}
-	public void setFirstKm(double firstKm) {
-		this.firstKm = firstKm;
-	}
-	public double getFirstKmPrice() {
-		return firstKmPrice;
-	}
-	public void setFirstKmPrice(double firstKmPrice) {
-		this.firstKmPrice = firstKmPrice;
-	}
-	public double getNextKm() {
-		return nextKm;
-	}
-	public void setNextKm(double nextKm) {
-		this.nextKm = nextKm;
-	}
-	public double getNextKmPrice() {
-		return nextKmPrice;
-	}
-	public void setNextKmPrice(double nextKmPrice) {
-		this.nextKmPrice = nextKmPrice;
-	}
-	public double getWaitingPrice() {
-		return waitingPrice;
-	}
-	public void setWaitingPrice(double waitingPrice) {
-		this.waitingPrice = waitingPrice;
-	}
-	public double getReturnPrice() {
-		return returnPrice;
-	}
-	public void setReturnPrice(double returnPrice) {
-		this.returnPrice = returnPrice;
-	}
-	public String getDriverType() {
-		return driverType;
-	}
-	public void setDriverType(String driverType) {
-		this.driverType = driverType;
-	}
+
 }
