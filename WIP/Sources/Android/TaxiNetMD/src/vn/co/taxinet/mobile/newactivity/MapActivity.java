@@ -16,21 +16,21 @@
 package vn.co.taxinet.mobile.newactivity;
 
 import java.util.ArrayList;
-import java.util.Timer;
 
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
+import vn.co.taxinet.mobile.bo.MapBO;
 import vn.co.taxinet.mobile.fragment.FavoriteDriverFragment;
 import vn.co.taxinet.mobile.fragment.HistoryCallFragment;
 import vn.co.taxinet.mobile.fragment.JourneyFragment;
 import vn.co.taxinet.mobile.fragment.MapsFragment;
-import vn.co.taxinet.mobile.fragment.ProfileFragment;
 import vn.co.taxinet.mobile.fragment.SettingFragment;
 import vn.co.taxinet.mobile.fragment.TaxiCompanyFragment;
+import vn.co.taxinet.mobile.gcm.GooglePlayService;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
 import vn.co.taxinet.mobile.model.Rider;
-import vn.co.taxinet.mobile.utils.ConnectionDetector;
 import vn.co.taxinet.mobile.utils.Const;
+import vn.co.taxinet.mobile.utils.LruBitmapCache;
 import vn.co.taxinet.mobile.utils.WakeLocker;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -39,6 +39,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -48,10 +49,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
@@ -59,7 +69,8 @@ import com.google.android.gms.maps.MapFragment;
  * Main UI for the demo app.
  */
 @SuppressWarnings("deprecation")
-public class DemoActivity extends Activity {
+public class MapActivity extends Activity implements ConnectionCallbacks,
+		OnConnectionFailedListener, LocationListener {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -79,20 +90,29 @@ public class DemoActivity extends Activity {
 	private GoogleMap googleMap;
 
 	// These tags will be used to cancel the requests
-	private String tag_json_obj = "jobj_req";
-	private Timer timer;
-	private RelativeLayout mError;
-	private ConnectionDetector cd;
 	private TextView mRiderName;
 	private LinearLayout mReqestLayout;
 
-	/**
-	 * Tag used on log messages.
-	 */
 	private BroadcastReceiver receiver;
 
 	private Rider rider = null;
-	private GcmRegister gcmRegister;
+	private GooglePlayService googlePlayService;
+	private MapBO mapBO;
+
+	private Location mLastLocation;
+
+	// Google client to interact with Google API
+	private GoogleApiClient mGoogleApiClient;
+
+	// boolean flag to toggle periodic location updates
+	private boolean mRequestingLocationUpdates = true;
+
+	private LocationRequest mLocationRequest;
+
+	// Location updates intervals in sec
+	private static int UPDATE_INTERVAL = 60000; // 60 sec
+	private static int FATEST_INTERVAL = 30000; // 30 sec
+	private static int DISPLACEMENT = 100; // 100 meters
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -102,7 +122,7 @@ public class DemoActivity extends Activity {
 		setContentView(R.layout.fragment_blank);
 
 		// register gcm id
-		gcmRegister = new GcmRegister(DemoActivity.this);
+		googlePlayService = new GooglePlayService(MapActivity.this);
 
 		// create slide menu
 		createSlideMenu(savedInstanceState);
@@ -113,6 +133,10 @@ public class DemoActivity extends Activity {
 	}
 
 	private void initialize() {
+		// Building the GoogleApi client
+		buildGoogleApiClient();
+//		startLocationUpdates();
+
 		// set up broadcast receiver
 		IntentFilter filter = new IntentFilter(Const.DISPLAY_REQUEST_ACTION);
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
@@ -122,19 +146,14 @@ public class DemoActivity extends Activity {
 		mRiderName = (TextView) findViewById(R.id.tv_rider_name);
 		mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
 		mReqestLayout.setVisibility(View.GONE);
-
-		settingMap();
-	}
-
-	public void settingMap() {
-		// googleMap.setMyLocationEnabled(true);
-		// googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 	}
 
 	private void initilizeMap() {
 		if (googleMap == null) {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
 					R.id.map)).getMap();
+			// googleMap.setMyLocationEnabled(true);
+			// googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 
 			// check if map is created successfully or not
 			if (googleMap == null) {
@@ -145,10 +164,34 @@ public class DemoActivity extends Activity {
 	}
 
 	@Override
+	protected void onStart() {
+		super.onStart();
+		if (mGoogleApiClient != null) {
+			mGoogleApiClient.connect();
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+//		stopLocationUpdates();
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
 		// Check device for Play Services APK.
-		gcmRegister.checkPlayServices(DemoActivity.this);
+		googlePlayService.checkPlayServices(MapActivity.this);
+
+		if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
+			startLocationUpdates();
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		unregisterReceiver(receiver);
+		super.onDestroy();
 	}
 
 	public void accept(View v) {
@@ -159,11 +202,6 @@ public class DemoActivity extends Activity {
 	public void deni(View v) {
 		LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
 		mReqestLayout.setVisibility(View.GONE);
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
 	}
 
 	public class mHandleMessageReceiver extends BroadcastReceiver {
@@ -179,6 +217,15 @@ public class DemoActivity extends Activity {
 			rider.setLatitude(Double.parseDouble(intent
 					.getStringExtra(Const.LATITUDE)));
 			// display request
+
+			mReqestLayout.setVisibility(View.VISIBLE);
+			mRiderName.setText(rider.getName());
+
+			ImageLoader.ImageCache imageCache = new LruBitmapCache();
+			ImageLoader imageLoader = new ImageLoader(
+					Volley.newRequestQueue(getApplicationContext()), imageCache);
+			NetworkImageView imgAvatar = (NetworkImageView) findViewById(R.id.iv_driver_image);
+			imgAvatar.setImageUrl(rider.getImage(), imageLoader);
 
 			// wake mobile up
 			WakeLocker.acquire(context);
@@ -223,11 +270,16 @@ public class DemoActivity extends Activity {
 	 * Diplaying fragment view for selected nav drawer list item
 	 * */
 	private void displayView(int position) {
+
+		mDrawerList.setItemChecked(position, true);
+		mDrawerList.setSelection(position);
+		setTitle(navMenuTitles[position]);
+		mDrawerLayout.closeDrawer(mDrawerList);
+
 		Intent it;
-		// update the main content by replacing fragments
 		switch (position) {
 		case 0:
-			it = new Intent(this, ProfileFragment.class);
+			it = new Intent(this, ProfileActivity.class);
 			startActivity(it);
 			break;
 		case 1:
@@ -382,4 +434,78 @@ public class DemoActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creating google api client object
+	 * */
+	protected synchronized void buildGoogleApiClient() {
+		mGoogleApiClient = new GoogleApiClient.Builder(this)
+				.addConnectionCallbacks(this)
+				.addOnConnectionFailedListener(this)
+				.addApi(LocationServices.API).build();
+	}
+
+	/**
+	 * Creating location request object
+	 * */
+	protected void createLocationRequest() {
+		mLocationRequest = new LocationRequest();
+		mLocationRequest.setInterval(UPDATE_INTERVAL);
+		mLocationRequest.setFastestInterval(FATEST_INTERVAL);
+		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+		mLocationRequest.setSmallestDisplacement(DISPLACEMENT);
+	}
+
+	/**
+	 * Stopping location updates
+	 */
+	protected void stopLocationUpdates() {
+		LocationServices.FusedLocationApi.removeLocationUpdates(
+				mGoogleApiClient, this);
+	}
+
+	/**
+	 * Starting the location updates
+	 * */
+	protected void startLocationUpdates() {
+
+		LocationServices.FusedLocationApi.requestLocationUpdates(
+				mGoogleApiClient, mLocationRequest, this);
+
+	}
+
+	@Override
+	public void onConnected(Bundle arg0) {
+
+		if (mRequestingLocationUpdates) {
+			startLocationUpdates();
+		}
+
+	}
+
+	@Override
+	public void onConnectionSuspended(int arg0) {
+		mGoogleApiClient.connect();
+
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult arg0) {
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// // Assign the new location
+		mLastLocation = location;
+
+		Toast.makeText(getApplicationContext(), "Location changed!",
+				Toast.LENGTH_SHORT).show();
+
+		// Displaying the new location on UI
+		String[] params = { Const.UPDATE_CURRENT_STATUS,
+				String.valueOf(mLastLocation.getLongitude()),
+				String.valueOf(mLastLocation.getLatitude()) };
+
+		mapBO.execute(params);
+
+	}
 }

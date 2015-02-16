@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/call_taxi_firm" />
 
+    <!--
     <RelativeLayout
         android:id="@+id/relativelayout_connection"
         android:layout_width="wrap_content"
@@ -30,6 +31,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white" />
     </RelativeLayout>
+    -->
 
     <LinearLayout
         android:id="@+id/request_layout"
@@ -39,12 +41,11 @@
         android:background="#FFFFFF"
         android:orientation="horizontal" >
 
-        <ImageView
+        <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/iv_driver_image"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:background="@drawable/ic_hieugie"
-            android:contentDescription="@string/app_name" />
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="fill_parent"

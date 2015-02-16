@@ -1,37 +1,49 @@
 package vn.co.taxinet.mobile.bo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.activity.LoginActivity;
-import vn.co.taxinet.mobile.activity.RegisterActivity;
-import vn.co.taxinet.mobile.app.AppController;
+import vn.co.taxinet.mobile.newactivity.MapActivity;
 import vn.co.taxinet.mobile.utils.Const;
 import vn.co.taxinet.mobile.utils.Validator;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request.Method;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-
 public class RegisterBO {
 
-	private static final String tag_json_obj = "register_driver_account";
+	private Activity activity;
+	private String email, password, firstName, lastName, phoneNumber;
+	private String driver = "driver";
 
-	public static String checkRegisterInfo(Context context, String email,
+	public void checkRegisterInfo(Activity context, String email,
 			String password, String confirmPassword, String firstName,
 			String lastName, String phoneNumber) {
+		this.activity = context;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+
 		Validator validator = new Validator();
 		if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)
 				|| TextUtils.isEmpty(confirmPassword)
@@ -40,88 +52,98 @@ public class RegisterBO {
 			Toast.makeText(context,
 					context.getString(R.string.register_blank_error),
 					Toast.LENGTH_LONG).show();
-			return null;
+			return;
 		}
 		if (!validator.validateEmail(email)) {
 			Toast.makeText(context, context.getString(R.string.email_error),
 					Toast.LENGTH_LONG).show();
-			return null;
+			return;
 		}
 		if (!password.equals(confirmPassword)) {
 			Toast.makeText(context,
 					context.getString(R.string.two_password_error),
 					Toast.LENGTH_LONG).show();
-			return null;
+			return;
 		}
-		if (!validator.validatePhoneNumber(phoneNumber)) {
-			Toast.makeText(context,
-					context.getString(R.string.phonenumber_error),
-					Toast.LENGTH_LONG).show();
-			return null;
-		}
-		return Const.SUCCESS;
+		new RegisterAsyncTask().execute();
+		// if (!validator.validatePhoneNumber(phoneNumber)) {
+		// Toast.makeText(context,
+		// context.getString(R.string.phonenumber_error),
+		// Toast.LENGTH_LONG).show();
+		// return null;
+		// }
 	}
 
-	public static void register(final Activity context, final String email,
-			final String password, final String firstName,
-			final String lastName, final String phoneNumber) {
-		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,
-				Const.URL_REGISTER_DRIVER, null,
-				new Response.Listener<JSONObject>() {
+	public void parseJson(String response) {
+		try {
+			JSONObject jsonObject = new JSONObject(response);
+			// get message from json
+			String message = jsonObject.getString("mesage");
+			// success
+			// move to mapactivity and save to database offline
+			if (message.equalsIgnoreCase(Const.SUCCESS)) {
+				// save to database offline
 
-					@Override
-					public void onResponse(JSONObject response) {
-						try {
-							String responseCode = response
-									.getString("responeseCode");
-							if (responseCode.equalsIgnoreCase(Const.SUCCESS)) {
-								Intent it = new Intent(context,
-										LoginActivity.class);
-								context.startActivity(it);
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						VolleyLog.d(RegisterActivity.class.getSimpleName(),
-								"Error: " + error.getMessage());
-					}
-				}) {
-
-			/**
-			 * Passing some request headers
-			 * */
-			@Override
-			public Map<String, String> getHeaders() throws AuthFailureError {
-				HashMap<String, String> headers = new HashMap<String, String>();
-				headers.put("Content-Type", "application/json");
-				return headers;
+				// move to map activity
+				Intent it = new Intent(activity, LoginActivity.class);
+				activity.startActivity(it);
+				activity.finish();
 			}
+		} catch (JSONException e) {
+			Toast.makeText(activity,
+					activity.getString(R.string.wrong_email_or_password),
+					Toast.LENGTH_LONG).show();
+		}
+	}
 
-			@Override
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("email", email);
-				params.put("password", password);
-				params.put("firstname", firstName);
-				params.put("lastname", lastName);
-				params.put("phonenumber", password);
+	public class RegisterAsyncTask extends AsyncTask<Void, Void, String> {
 
-				return params;
+		@Override
+		protected String doInBackground(Void... params) {
+			return postData();
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			if (result != null) {
+				parseJson(result);
 			}
+		}
+	}
 
-		};
+	public String postData() {
+		// Create a new HttpClient and Post Header
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(Const.URL_LOGIN_AUTHEN);
+		try {
+			// Add your data
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			nameValuePairs.add(new BasicNameValuePair("email", email));
+			nameValuePairs.add(new BasicNameValuePair("password", password));
+			nameValuePairs.add(new BasicNameValuePair("firstname", firstName));
+			nameValuePairs.add(new BasicNameValuePair("lastname", lastName));
+			nameValuePairs.add(new BasicNameValuePair("phonenumber",
+					phoneNumber));
 
-		// Adding request to request queue
-		AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+			nameValuePairs.add(new BasicNameValuePair("role", driver));
+			// httppost.setHeader("Content-Type","application/json;charset=UTF-8");
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 
-		// Cancelling request
-		// ApplicationController.getInstance().getRequestQueue().cancelAll(tag_json_obj);
+			// Execute HTTP Post Request
+			HttpResponse response = httpclient.execute(httppost);
+			int respnseCode = response.getStatusLine().getStatusCode();
+			if (respnseCode == 200) {
+				HttpEntity entity = response.getEntity();
+				return EntityUtils.toString(entity);
+			}
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+		}
+		return null;
 	}
 
 }

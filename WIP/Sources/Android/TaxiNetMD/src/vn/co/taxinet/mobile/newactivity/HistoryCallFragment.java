@@ -1,4 +1,4 @@
-package vn.co.taxinet.mobile.fragment;
+package vn.co.taxinet.mobile.newactivity;
 
 import java.util.ArrayList;
 

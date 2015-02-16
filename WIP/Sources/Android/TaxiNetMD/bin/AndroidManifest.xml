@@ -4,9 +4,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <!-- GCM requires Android SDK version 2.2 (API level 8) or above. -->
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="16" />
 
     <!-- Maps permission -->
@@ -53,7 +52,7 @@
 
     <!-- Main activity. -->
     <application
-        android:name="vn.co.taxinet.mobile.app.AppController"
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -61,16 +60,16 @@
 
         <!-- Main Activity -->
         <activity
-            android:name="vn.co.taxinet.mobile.newactivity.DemoActivity"
+            android:name=".newactivity.MapActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.activity.StartActivity"
+            android:name=".activity.StartActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -79,44 +78,55 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.activity.RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.activity.TermActivity"
+            android:name=".activity.TermActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.activity.ForgotPasswordActivity"
+            android:name=".activity.ForgotPasswordActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.fragment.ProfileFragment"
+            android:name=".fragment.ProfileFragment"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.activity.ResetPasswordActivity"
+            android:name=".activity.ResetPasswordActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.fragment.MapsFragment"
+            android:name=".fragment.MapsFragment"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="vn.co.taxinet.mobile.activity.DemoActivity"
+            android:name=".activity.DemoActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".newactivity.ProfileActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".newactivity.MapActivity" >
+        </activity>
+        <activity
+            android:name="vn.co.taxinet.mobile.newactivity.DistanceCalculatingActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".newactivity.MapActivity" >
         </activity>
 
-         <receiver
-            android:name="vn.co.taxinet.mobile.gcm.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+        <receiver
+            android:name=".gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="vn.co.taxinet.mobile" />
             </intent-filter>
         </receiver>
 
-        <service android:name="vn.co.taxinet.mobile.gcm.GcmIntentService" />
+        <service android:name=".gcm.GcmIntentService" />
 
         <!-- Goolge API Key -->
         <meta-data
@@ -125,6 +135,11 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".AQ"
+            android:label="@string/title_activity_aq" >
+        </activity>
     </application>
 
 </manifest>

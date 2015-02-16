@@ -9,5 +9,8 @@
     <color name="counter_text_color">#c5c4c4</color>
     <color name="light_green">#90EE90</color>
     <color name="red">#FF0000</color>
+    <color name="view_bg">#b20e0f</color>
+    <color name="white">#ffffff</color>
+    <color name="btn_bg">#3e4a56</color>
 
 </resources>

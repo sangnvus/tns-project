@@ -1,5 +1,7 @@
 package vn.co.taxinet.mobile.utils;
 
+import java.net.URI;
+
 import android.content.Context;
 import android.content.Intent;
 
@@ -9,21 +11,36 @@ import android.content.Intent;
  */
 public class Const {
 
+	// Google project id
+	public static final String SENDER_ID = "943411953393";
+
+	/**
+	 * Tag used on log messages.
+	 */
+	public static final String TAG = "Taxi_Net";
+
+	/*
+	 * define Broadcast action name
+	 */
+	public static final String DISPLAY_MESSAGE_ACTION = "vn.co.taxinet.mobile.DISPLAY_MESSAGE";
+	public static final String DISPLAY_REQUEST_ACTION = "vn.co.taxinet.mobile.DISPLAY_REQUEST";
+
 	/*
 	 * define url
 	 */
-
 	public static final String URL_GET_TERM = "http://api.androidhive.info/volley/person_object.json";
 	public static final String URL_JSON_ARRAY = "http://api.androidhive.info/volley/person_array.json";
 	public static final String URL_STRING_REQ = "http://api.androidhive.info/volley/string_response.html";
 	public static final String URL_IMAGE = "http://api.androidhive.info/volley/volley-image.jpg";
 	public static final String URL_IMAGE2 = "http://api.androidhive.info/volley/volley-image.jpg";
-	public static final String URL_LOGIN_AUTHEN = "http://192.168.1.112:8080/TN/restServices/riderController/login";
+	public static final String URL_LOGIN_AUTHEN = "http://192.168.1.100:8080/TN/restServices/DriverController/login";
+	public static final String URL_UPDATE_DRIVER = "http://192.168.1.100:8080/TN/restServices/DriverController/UpdateDriver";
 	public static final String URL_SERVER = "http://10.0.2.2/gcm_server_php/register.php";
 	public static final String URL_UPDATE_REG_ID = "http://10.0.2.2/gcm_server_php/register.php";
 	public static final String URL_GET_REQUEST = "http://echo.jsontest.com/insert-key-here/insert-value-here/key/value";
 	public static final String URL_REGISTER_DRIVER = "http://api.androidhive.info/volley/volley-image.jpg";
-
+	public static final String URL_REGISTRATION_ID = "URL_REGISTRATION_ID";
+	
 	/*
 	 * define String const
 	 */
@@ -46,20 +63,9 @@ public class Const {
 	public static final String RIDER_IMAGE = "RIDER_IMAGE";
 	public static final String RIDER_NAME = "RIDER_NAME";
 	public static final String RIDER_ID = "RIDER_ID";
-	
-	// Google project id
-	public static final String SENDER_ID = "943411953393";
+	public static final String RESPONSE_REQUEST = "RESPONSE_REQUEST";
+	public static final String UPDATE_CURRENT_STATUS = "UPDATE_CURRENT_STATUS";
 
-	/**
-	 * Tag used on log messages.
-	 */
-	public static final String TAG = "Taxi_Net";
-
-	/*
-	 * define Broadcast action name
-	 */
-	public static final String DISPLAY_MESSAGE_ACTION = "vn.co.taxinet.mobile.DISPLAY_MESSAGE";
-	public static final String DISPLAY_REQUEST_ACTION = "vn.co.taxinet.mobile.DISPLAY_REQUEST";
 
 	/**
 	 * Notifies UI to display a message.

@@ -1,59 +1,73 @@
-package vn.co.taxinet.mobile.fragment;
+package vn.co.taxinet.mobile.newactivity;
 
 import vn.co.taxinet.mobile.R;
+import vn.co.taxinet.mobile.activity.LoginActivity;
+import vn.co.taxinet.mobile.alert.AlertDialogManager;
 import vn.co.taxinet.mobile.bo.ProfileBO;
+import vn.co.taxinet.mobile.database.DatabaseHandler;
+import vn.co.taxinet.mobile.model.Driver;
+import vn.co.taxinet.mobile.utils.ConnectionDetector;
 import vn.co.taxinet.mobile.utils.Const;
-import android.app.Fragment;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 
-public class ProfileFragment extends Fragment {
-
-	public ProfileFragment() {
-	}
+public class ProfileActivity extends Activity {
 
 	private EditText mEmail, mPhone, mPassword, mFirstName, mLastName;
 	private MenuItem mSaveMenu, mEditMenu, mCancelMenu;
 	private String email, phone, password, firstName, lastName;
 	private ProfileBO bo;
-	private View rootView;
+	private ActionBar actionBar;
+	private DatabaseHandler handler;
+	private ConnectionDetector cd;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setHasOptionsMenu(true);
-		rootView = inflater.inflate(R.layout.activity_profile,
-				container, false);
+		setContentView(R.layout.activity_profile);
 		initialize();
 		disableEdittext();
-		return rootView;
+		actionBar = getActionBar();
+		actionBar.setHomeButtonEnabled(true);
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.menu_profile, menu);
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_profile, menu);
+
 		mSaveMenu = menu.findItem(R.id.save);
 		mEditMenu = menu.findItem(R.id.edit);
 		mCancelMenu = menu.findItem(R.id.cancel);
 		disableEdit();
-		super.onCreateOptionsMenu(menu, inflater);
+		super.onCreateOptionsMenu(menu);
+		return true;
 	}
 
 	public void initialize() {
-		mEmail = (EditText) rootView.findViewById(R.id.et_email);
-		mPhone = (EditText) rootView.findViewById(R.id.et_phone);
-		mPassword = (EditText) rootView.findViewById(R.id.et_password);
-		mFirstName = (EditText) rootView.findViewById(R.id.et_first_name);
-		mLastName = (EditText) rootView.findViewById(R.id.et_last_name);
-		bo = new ProfileBO();
 
+		mEmail = (EditText) findViewById(R.id.et_email_profile);
+		mPhone = (EditText) findViewById(R.id.et_phone);
+		mPassword = (EditText) findViewById(R.id.et_password_profile);
+		mFirstName = (EditText) findViewById(R.id.et_first_name_profile);
+		mLastName = (EditText) findViewById(R.id.et_last_name_profile);
+		bo = new ProfileBO();
+		handler = new DatabaseHandler(this);
+
+		Driver driver = handler.findDriver();
+		mEmail.setText(driver.getEmail());
+		mPhone.setText(driver.getPhoneNumber());
+		mPassword.setText(driver.getPassword());
+		mFirstName.setText(driver.getFirstName());
+		mLastName.setText(driver.getLastName());
+
+		cd = new ConnectionDetector(this);
 	}
 
 	@Override
@@ -65,8 +79,7 @@ public class ProfileFragment extends Fragment {
 			return true;
 		}
 		if (id == R.id.save) {
-			disableEdittext();
-			disableEdit();
+
 			getInfo();
 			updateProfile();
 			return true;
@@ -81,12 +94,19 @@ public class ProfileFragment extends Fragment {
 	}
 
 	public void updateProfile() {
-//		String result = bo.checkProfile(firstName, lastName, email, phone, password);
-//		if(result.equalsIgnoreCase(Const.SUCCESS)){
-//			//send data so server
-//			
-//			//save data to database offline
-//		}
+		if (cd.isConnectingToInternet()) {
+			String result = bo.checkProfile(ProfileActivity.this, firstName,
+					lastName, email, phone, password);
+			if (result.equalsIgnoreCase(Const.SUCCESS)) {
+				disableEdittext();
+				disableEdit();
+
+			}
+		} else {
+			AlertDialogManager manager = new AlertDialogManager();
+			manager.showAlertDialog(this, "Connection Errer",
+					"Please connect to the Internet before update", false);
+		}
 	}
 
 	public void disableEdittext() {
@@ -128,5 +148,16 @@ public class ProfileFragment extends Fragment {
 		password = mPassword.getText().toString();
 		firstName = mFirstName.getText().toString();
 		lastName = mLastName.getText().toString();
+	}
+
+	public void logout(View v) {
+		// delete database
+		Driver driver = handler.findDriver();
+		handler.deleteDriverById(driver.getId());
+		// move to login screen
+
+		Intent it = new Intent(ProfileActivity.this, LoginActivity.class);
+		startActivity(it);
+		finish();
 	}
 }
