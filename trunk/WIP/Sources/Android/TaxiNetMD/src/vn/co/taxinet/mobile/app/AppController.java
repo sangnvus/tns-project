@@ -13,6 +13,16 @@ public class AppController extends Application {
 
 	public static final String TAG = AppController.class
 			.getSimpleName();
+	
+	public static String driverId;
+
+	public static String getDriverId() {
+		return driverId;
+	}
+
+	public static void setDriverId(String driverId) {
+		AppController.driverId = driverId;
+	}
 
 	private RequestQueue mRequestQueue;
 	private ImageLoader mImageLoader;

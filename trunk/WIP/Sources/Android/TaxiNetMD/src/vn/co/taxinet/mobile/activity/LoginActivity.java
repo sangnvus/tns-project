@@ -1,23 +1,29 @@
 package vn.co.taxinet.mobile.activity;
 
+import java.util.ArrayList;
+
 import vn.co.taxinet.mobile.R;
+import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.bo.LoginBO;
+import vn.co.taxinet.mobile.database.DatabaseHandler;
+import vn.co.taxinet.mobile.model.Driver;
+import vn.co.taxinet.mobile.newactivity.MapActivity;
+import vn.co.taxinet.mobile.utils.ConnectionDetector;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
 	private EditText mEmail, mPassword;
-	private static final String TAG = LoginActivity.class.getSimpleName();
-	private static final String tag_json_obj = "Login authen";
 	private LoginBO loginBO;
 	private SharedPreferences prefs = null;
-	AsyncTask<Void, Void, Void> mRegisterTask;
+	private ConnectionDetector cd;
+	private DatabaseHandler handler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,29 +34,35 @@ public class LoginActivity extends Activity {
 		mPassword = (EditText) findViewById(R.id.et_password);
 		loginBO = new LoginBO();
 		prefs = getSharedPreferences("vn.co.taxinet.mobile", MODE_PRIVATE);
+		cd = new ConnectionDetector(this);
+		handler = new DatabaseHandler(this);
+
+		// check database
+
+		Driver driver = handler.findDriver();
+		if (driver != null) {
+			AppController.setDriverId(String.valueOf(driver.getId()));
+
+			Intent it = new Intent(LoginActivity.this, MapActivity.class);
+			startActivity(it);
+		}
 
 	}
 
 	public void login(View v) {
 
-//		Intent it = new Intent(LoginActivity.this, vn.co.taxinet.mobile.newactivity.DemoActivity.class);
-//		startActivity(it);
-
-		loginBO.checkLoginInfo(LoginActivity.this,mEmail.getText().toString(),
-				mPassword.getText().toString());
-//		if (check.equalsIgnoreCase(Const.SUCCESS)) {
-//			loginAuthen();
-//		}
-//		if (check.equalsIgnoreCase(Const.EMPTY_ERROR)) {
-//			Toast.makeText(this,
-//					getResources().getString(R.string.empty_error),
-//					Toast.LENGTH_LONG).show();
-//		}
-//		if (check.equalsIgnoreCase(Const.EMPTY_ERROR)) {
-//			Toast.makeText(this,
-//					getResources().getString(R.string.account_error),
-//					Toast.LENGTH_LONG).show();
-//		}
+		// check internet
+		if (cd.isConnectingToInternet()) {
+			loginBO.checkLoginInfo(LoginActivity.this, mEmail.getText()
+					.toString(), mPassword.getText().toString());
+		} else {
+			// alert internet connection error
+			Toast.makeText(this, getString(R.string.no_internet_connection),
+					Toast.LENGTH_LONG).show();
+		}
+		// Intent it = new Intent(LoginActivity.this,
+		// DistanceCalculatingActivity.class);
+		// startActivity(it);
 
 	}
 
@@ -63,8 +75,6 @@ public class LoginActivity extends Activity {
 		Intent it = new Intent(LoginActivity.this, RegisterActivity.class);
 		startActivity(it);
 	}
-
-	
 
 	@Override
 	protected void onResume() {

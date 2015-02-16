@@ -1,9 +1,24 @@
-package vn.co.taxinet.mobile.newactivity;
+package vn.co.taxinet.mobile.gcm;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
 import vn.co.taxinet.mobile.activity.DemoActivity;
+import vn.co.taxinet.mobile.app.AppController;
+import vn.co.taxinet.mobile.bo.MapBO;
 import vn.co.taxinet.mobile.utils.Const;
 import android.app.Activity;
 import android.content.Context;
@@ -11,26 +26,35 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.location.LocationServices;
 
-public class GcmRegister {
+public class GooglePlayService {
 	private static final String PROPERTY_REG_ID = "registration_id";
 	private static final String PROPERTY_APP_VERSION = "appVersion";
 	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	private GoogleCloudMessaging gcm;
 	private AtomicInteger msgId = new AtomicInteger();
 	private String regid;
-	
+	private MapBO mapBO;
+
+	// Google client to interact with Google API
+
 	/**
 	 * Check the device to make sure it has the Google Play Services APK. If it
 	 * doesn't, display a dialog that allows users to download the APK from the
 	 * Google Play Store or enable it in the device's system settings.
 	 */
-	public GcmRegister(Activity context){
+	public GooglePlayService(Activity context) {
+		mapBO = new MapBO(context);
 		// Check device for Play Services APK. If check succeeds, proceed with
 		// GCM registration.
 		if (checkPlayServices(context)) {
@@ -46,9 +70,8 @@ public class GcmRegister {
 			Log.i(Const.TAG, "No valid Google Play Services APK found.");
 		}
 	}
-	
-	
-	boolean checkPlayServices(Activity context) {
+
+	public boolean checkPlayServices(Activity context) {
 
 		int resultCode = GooglePlayServicesUtil
 				.isGooglePlayServicesAvailable(context);
@@ -152,7 +175,7 @@ public class GcmRegister {
 			}
 		}.execute(null, null, null);
 	}
-	
+
 	/**
 	 * @return Application's {@code SharedPreferences}.
 	 */
@@ -171,9 +194,25 @@ public class GcmRegister {
 	 * message using the 'from' address in the message.
 	 */
 	private void sendRegistrationIdToBackend() {
-		// Your implementation here.
+		// Create a new HttpClient and Post Header
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(Const.URL_REGISTRATION_ID);
+		try {
+			// Add your data
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+			nameValuePairs.add(new BasicNameValuePair("regId", regid));
+			nameValuePairs.add(new BasicNameValuePair("driverid", AppController
+					.getDriverId()));
+			// Execute HTTP Post Request
+			HttpResponse response = httpclient.execute(httppost);
+			int respnseCode = response.getStatusLine().getStatusCode();
+			System.out.println(respnseCode);
+		} catch (ClientProtocolException e) {
+		} catch (IOException e) {
+		}
 	}
-	
+
 	/**
 	 * @return Application's version code from the {@code PackageManager}.
 	 */
@@ -187,5 +226,5 @@ public class GcmRegister {
 			throw new RuntimeException("Could not get package name: " + e);
 		}
 	}
-	
+
 }

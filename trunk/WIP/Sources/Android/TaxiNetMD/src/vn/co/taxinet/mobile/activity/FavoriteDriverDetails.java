@@ -21,8 +21,8 @@ public class FavoriteDriverDetails extends Activity {
 		if (bd.getSerializable("favorite driver item") != null) {
 			Driver favoriteDriverItem = (Driver) bd
 					.getSerializable("favorite driver item");
-			name.setText(favoriteDriverItem.getName());
-			phone_number.setText(favoriteDriverItem.getPhone_number());
+//			name.setText(favoriteDriverItem.getName());
+//			phone_number.setText(favoriteDriverItem.getPhone_number());
 
 		}
 	}

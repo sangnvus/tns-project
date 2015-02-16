@@ -21,7 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
-import vn.co.taxinet.mobile.fragment.BlankFragment;
 import vn.co.taxinet.mobile.fragment.FavoriteDriverFragment;
 import vn.co.taxinet.mobile.fragment.HistoryCallFragment;
 import vn.co.taxinet.mobile.fragment.JourneyFragment;
@@ -29,7 +28,6 @@ import vn.co.taxinet.mobile.fragment.MapsFragment;
 import vn.co.taxinet.mobile.fragment.ProfileFragment;
 import vn.co.taxinet.mobile.fragment.SettingFragment;
 import vn.co.taxinet.mobile.fragment.TaxiCompanyFragment;
-import vn.co.taxinet.mobile.gcm.GcmIntentService;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
 import vn.co.taxinet.mobile.model.Rider;
 import vn.co.taxinet.mobile.utils.Const;

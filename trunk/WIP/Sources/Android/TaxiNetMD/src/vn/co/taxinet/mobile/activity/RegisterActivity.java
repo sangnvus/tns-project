@@ -4,7 +4,6 @@ import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.alert.AlertDialogManager;
 import vn.co.taxinet.mobile.bo.RegisterBO;
 import vn.co.taxinet.mobile.utils.ConnectionDetector;
-import vn.co.taxinet.mobile.utils.Const;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +21,7 @@ public class RegisterActivity extends Activity {
 	// Connection detector
 	private ConnectionDetector cd;
 	private AlertDialogManager alert;
+	private RegisterBO bo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +41,9 @@ public class RegisterActivity extends Activity {
 			// check internet connection before register
 			if (cd.isConnectingToInternet()) {
 				getInfo();
-				String result = RegisterBO.checkRegisterInfo(
-						RegisterActivity.this, email, password,
+				bo.checkRegisterInfo(RegisterActivity.this, email, password,
 						confirmPassword, firstName, lastName, phoneNumber);
-				if (result.equals(Const.SUCCESS)) {
-					RegisterBO.register(RegisterActivity.this, email, password,
-							firstName, lastName, phoneNumber);
-				}
+
 			} else {
 				// show error message
 				alert.showAlertDialog(
@@ -86,6 +82,8 @@ public class RegisterActivity extends Activity {
 		cd = new ConnectionDetector(this);
 
 		alert = new AlertDialogManager();
+
+		bo = new RegisterBO();
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -39,17 +39,17 @@ public class HistoryCallAdapter extends ArrayAdapter<Driver> {
 		initialize(v);
 		Driver favoriteDriverItem = favoriteDriverItems
 				.get(position);
-		name.setText(favoriteDriverItem.getName());
-		if (favoriteDriverItem.isStatus()) {
-			status.setText(R.string.avalible);
-			status.setTextColor(Color.GREEN);
-			status_icon.setImageResource(R.drawable.ic_avalible);
-		} else {
-			status.setText(R.string.busy);
-			status.setTextColor(Color.RED);
-			status_icon.setImageResource(R.drawable.ic_busy);
-
-		}
+//		name.setText(favoriteDriverItem.getName());
+//		if (favoriteDriverItem.isStatus()) {
+//			status.setText(R.string.avalible);
+//			status.setTextColor(Color.GREEN);
+//			status_icon.setImageResource(R.drawable.ic_avalible);
+//		} else {
+//			status.setText(R.string.busy);
+//			status.setTextColor(Color.RED);
+//			status_icon.setImageResource(R.drawable.ic_busy);
+//
+//		}
 
 		return v;
 	}
