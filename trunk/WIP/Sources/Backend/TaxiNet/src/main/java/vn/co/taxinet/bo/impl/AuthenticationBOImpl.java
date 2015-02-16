@@ -94,6 +94,7 @@ public class AuthenticationBOImpl implements AuthenticationBO {
 			TaxiNetUsers user = taxiNetUserDAO.select(tnUser.getUserName());
 			if (user != null && user.getPassword().equals(tnUser.getPassword())) {
 				tnUser.setRole(user.getUsergroup().getGroupName());
+				tnUser.setUserID(user.getUserId());
 				return tnUser;
 			}
 		} catch (Exception ex) {
