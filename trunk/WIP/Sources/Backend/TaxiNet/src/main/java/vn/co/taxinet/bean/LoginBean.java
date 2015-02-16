@@ -2,12 +2,16 @@ package vn.co.taxinet.bean;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import vn.co.taxinet.bo.AuthenticationBO;
+import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.common.ResourceKeys;
 
 /**
@@ -15,11 +19,11 @@ import vn.co.taxinet.common.ResourceKeys;
  * @author DEV
  * 
  */
-@ManagedBean(name="loginForm",eager=true)
-@RequestScoped
+@ManagedBean(name = "loginForm", eager = true)
+@SessionScoped
 public class LoginBean extends BaseBean implements ResourceKeys {
 	private final static Logger log = LogManager.getLogger(LoginBean.class);
-	//@ManagedProperty(value = "#{authenticationService}")
+	// @ManagedProperty(value = "#{authenticationService}")
 	private AuthenticationBO authenticationBO;
 	@ManagedProperty(value = "#{param.userName}")
 	private String userName;
@@ -47,11 +51,32 @@ public class LoginBean extends BaseBean implements ResourceKeys {
 		userBean.setUserName(userName);
 		userBean.setPassword(password);
 		try {
-			if (authenticationBO.authenticate(userBean)) {
-				return ("home");
+			TNUser user = authenticationBO.login(userBean);
+			if (user != null) {
+				HttpServletRequest request = (HttpServletRequest) FacesContext
+						.getCurrentInstance().getExternalContext().getRequest();
+				HttpSession session = request.getSession();
+				session.setAttribute("UserID", user.getUserID());
+				session.setAttribute("Username", user.getUserName());
+				session.setAttribute("Password", user.getPassword());
+				if ((Constants.GroupUser.RIDER)
+						.equalsIgnoreCase(user.getRole())) {
+					FacesContext.getCurrentInstance().getExternalContext()
+							.redirect("/xhtml/rider/MyTrips.xhtml");
+					return null;
+				} else if ((Constants.GroupUser.DRIVER).equalsIgnoreCase(user
+						.getRole())) {
+					FacesContext.getCurrentInstance().getExternalContext()
+							.redirect("/xhtml/driver/Dashboard.xhtml");
+					return null;
+				} else if ((Constants.GroupUser.FEEAGENT).equalsIgnoreCase(user.getRole())) {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("/xhtml/feeagent/AgentHome.xhtml");
+					return null;
+				} 
+				return null;
 			} else {
 				addMessage(LoginForm.MSG, userName, password);
-				return "";
+				return null;
 			}
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
