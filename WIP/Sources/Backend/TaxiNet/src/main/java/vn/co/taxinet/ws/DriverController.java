@@ -72,7 +72,7 @@ public class DriverController {
 		return tripBO.updateTrip(requestId, userId, status);
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/Login", method = RequestMethod.POST)
 	public DriverDTO login(@RequestParam Map<String, String> requestParams)
 			throws TNException {
 		String username = requestParams.get("username");
@@ -107,6 +107,18 @@ public class DriverController {
 
 		MessageDTO result = driverBO.updateDriver(id, firstname, lastname,
 				phone, email, password);
+		return result;
+
+	}
+
+	@RequestMapping(value = "/UpdateRegId", method = RequestMethod.POST)
+	@ResponseBody
+	public MessageDTO updateRegId(
+			@RequestParam Map<String, String> requestParams) throws TNException {
+		String id = requestParams.get("id");
+		String regId = requestParams.get("regId");
+
+		MessageDTO result = driverBO.updateRegId(id, regId);
 		return result;
 
 	}

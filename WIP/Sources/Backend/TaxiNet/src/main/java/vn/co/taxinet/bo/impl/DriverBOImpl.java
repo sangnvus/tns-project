@@ -295,4 +295,20 @@ public class DriverBOImpl implements DriverBO {
 
 		return new MessageDTO(Constants.Message.SUCCESS);
 	}
+
+	public MessageDTO updateRegId(String id, String regId) throws TNException {
+		if (id == null || regId == null || regId.equalsIgnoreCase("")
+				|| id.equalsIgnoreCase("")) {
+			throw new TNException("data it null");
+		}
+
+		Driver driver = driverDAO.findDriverById(id);
+		if (driver == null) {
+			return null;
+		}
+		driver.setRegId(regId);
+		driverDAO.update(driver);
+
+		return new MessageDTO(Constants.Message.SUCCESS);
+	}
 }
