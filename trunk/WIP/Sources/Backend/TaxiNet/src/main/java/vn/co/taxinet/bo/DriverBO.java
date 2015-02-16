@@ -115,6 +115,18 @@ public interface DriverBO {
 	 * @return
 	 * @throws TNException
 	 */
-	public MessageDTO updateDriver(String id, String firstname, String lastname,
-			String phone, String email, String password) throws TNException;
+	public MessageDTO updateDriver(String id, String firstname,
+			String lastname, String phone, String email, String password)
+			throws TNException;
+
+	/**
+	 * @author Hieu-Gie
+	 * 
+	 * @param id
+	 * @param regId
+	 * @return
+	 * @throws TNException
+	 */
+	public MessageDTO updateRegId(String id, String regId) throws TNException;
+
 }
