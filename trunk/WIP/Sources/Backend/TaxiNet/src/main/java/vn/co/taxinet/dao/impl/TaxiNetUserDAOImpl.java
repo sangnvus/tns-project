@@ -22,7 +22,8 @@ import vn.co.taxinet.orm.TaxiNetUsers;
  */
 @Transactional
 public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
-	private static final Logger log = LogManager.getLogger(LanguageDAOImpl.class);
+	private static final Logger log = LogManager
+			.getLogger(LanguageDAOImpl.class);
 	/**
 	 * 
 	 */
@@ -43,6 +44,21 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		return user;
 	}
 
+	@Transactional(readOnly = true)
+	public TaxiNetUsers findTNUById(String id) {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = " FROM TaxiNetUsers U WHERE U.userId = :userId";
+		Query query = session.createQuery(hql);
+		query.setParameter("userId", id);
+		// TODO Auto-generated method stub
+		List<TaxiNetUsers> result = query.list();
+		TaxiNetUsers user = new TaxiNetUsers();
+		if (!result.isEmpty()) {
+			user = result.get(0);
+		}
+		return user;
+	}
+
 	public boolean registerTaxiNetUser(TaxiNetUsers user) {
 		// TODO Auto-generated method stub
 		return false;
@@ -53,7 +69,9 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.dao.TaxiNetUserDAO#listAllUsers()
 	 */
 	public List<TaxiNetUsers> listAllUsers(String username, String email) {
@@ -64,7 +82,8 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		String hql3 = "	inner join driver on taxinetusers.userid = driver.driverid";
 		String hql4 = "	inner join company on taxinetusers.companyid = company.companyid";
 		String hql5 = "	where taxinetusers.username = :username and taxinetusers.email =:email";
-		String hqlQuery = hql.concat(hql1).concat(hql2).concat(hql3).concat(hql4).concat(hql5);
+		String hqlQuery = hql.concat(hql1).concat(hql2).concat(hql3)
+				.concat(hql4).concat(hql5);
 		Query query = session.createQuery(hqlQuery);
 		query.setParameter("userName", username.toLowerCase());
 		query.setParameter("email", email);
@@ -86,22 +105,25 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		Session session = getSessionFactory().getCurrentSession();
 		String hql = "from TaxiNetUsers";
 		Query query = session.createQuery(hql);
-		query.setFirstResult((page-1)*numberOfElement + 1);
+		query.setFirstResult((page - 1) * numberOfElement + 1);
 		query.setMaxResults(numberOfElement);
 		List<TaxiNetUsers> result;
 		result = query.list();
 		return result;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.dao.TaxiNetUserDAO#findByID(java.lang.String)
 	 */
 	@Transactional
 	public TaxiNetUsers findByID(String id) {
 		log.debug("getting TaxiNetUsers instance with id: " + id);
 		try {
-			TaxiNetUsers instance = (TaxiNetUsers) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.orm.TaxiNetUsers", id);
+			TaxiNetUsers instance = (TaxiNetUsers) getSessionFactory()
+					.getCurrentSession().get("vn.co.taxinet.orm.TaxiNetUsers",
+							id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -112,5 +134,5 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 			log.error("get failed", re);
 			throw re;
 		}
-	}	
+	}
 }
