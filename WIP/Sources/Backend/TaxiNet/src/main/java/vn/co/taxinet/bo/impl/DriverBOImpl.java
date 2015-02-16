@@ -92,34 +92,6 @@ public class DriverBOImpl implements DriverBO {
 		List<DriverDTO> listDriverDTO = new ArrayList<DriverDTO>();
 		for (int i = 0; i < listDriver.size(); i++) {
 			DriverDTO driverDTO = new DriverDTO();
-			driverDTO.setDriverId(listDriver.get(i).getDriverId());
-			driverDTO.setLongitude(listDriver.get(i).getCurrentstatus()
-					.getCurrentLatitude());
-			driverDTO.setLatitude(listDriver.get(i).getCurrentstatus()
-					.getCurrentLongtitude());
-			driverDTO
-					.setDriverName((listDriver.get(i).getFirstName() + " " + listDriver
-							.get(i).getLastName()));
-			driverDTO.setDriverImage(listDriver.get(i).getTaxinetusers()
-					.getImage());
-			driverDTO.setOpenKm(listDriver.get(i).getVehicle().getPricepanel()
-					.getOpenKm());
-			driverDTO.setOpenPrice(listDriver.get(i).getVehicle()
-					.getPricepanel().getOpenPrice());
-			driverDTO.setFirstKm(listDriver.get(i).getVehicle().getPricepanel()
-					.getFirstKm());
-			driverDTO.setFirstKmPrice(listDriver.get(i).getVehicle()
-					.getPricepanel().getFirstKmprice());
-			driverDTO.setNextKm(listDriver.get(i).getVehicle().getPricepanel()
-					.getNextKm());
-			driverDTO.setNextKmPrice(listDriver.get(i).getVehicle()
-					.getPricepanel().getNextKmprice());
-			driverDTO.setWaitingPrice(listDriver.get(i).getVehicle()
-					.getPricepanel().getWaitingPrice());
-			driverDTO.setReturnPrice(listDriver.get(i).getVehicle()
-					.getPricepanel().getReturnTripPrice());
-			driverDTO.setType(listDriver.get(i).getVehicle().getPricepanel()
-					.getCarmodel().getCarType());
 			listDriverDTO.add(driverDTO);
 		}
 		return listDriverDTO;
@@ -201,11 +173,10 @@ public class DriverBOImpl implements DriverBO {
 			String yearOfProduct, String inColor, String exColor, String plate,
 			String countryCode, String cityCode, String userID) {
 		Vehicle vehicles = new Vehicle();
-		//get RANDOM UUID for vehicles ID
+		// get RANDOM UUID for vehicles ID
 		UUID id = UUID.randomUUID();
 		// check ID exist or not
-		
-	
+
 		// set value for new Object
 		vehicles.setPlate(plate);
 		vehicles.setExteriorColor(exColor);
@@ -217,14 +188,14 @@ public class DriverBOImpl implements DriverBO {
 		vehicles.setLastModifiedDate(Utility.getCurrentDate());
 		// TODO hardcode Level
 		vehicles.setLevel("4");
-		//1. select companyID from User ID
+		// 1. select companyID from User ID
 		TaxiNetUsers user = new TaxiNetUsers();
 		user = taxiNetUserDAO.findByID(userID);
 		if (user == null) {
 			return null;
 		} else {
 			int companyId = user.getCompany().getCompanyId();
-			//2. select PricePanelID from car model ID and company ID
+			// 2. select PricePanelID from car model ID and company ID
 			PricePanel pricePanel = new PricePanel();
 			pricePanel = pricePanelDAO.selectPricePanel(carModel,
 					String.valueOf(companyId));
@@ -256,7 +227,7 @@ public class DriverBOImpl implements DriverBO {
 				return driverDAO.updateCurrentStatus(driver.getDriverId(),
 						_longitude, _latitude, _status);
 			} else {
-				throw new TNException(Constants.Message.FAIL);
+				return new MessageDTO(Constants.Message.FAIL);
 			}
 
 		} catch (NumberFormatException e) {
@@ -268,42 +239,27 @@ public class DriverBOImpl implements DriverBO {
 	public DriverDTO login(String username, String password) throws TNException {
 		// TODO Auto-generated method stub
 		DriverDTO driverDTO = new DriverDTO();
-		if (username.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
+		if (username == null || password == null
+				|| username.equalsIgnoreCase("")
+				|| password.equalsIgnoreCase("")) {
 			throw new TNException("data it null");
 		}
 		TaxiNetUsers taxiNetUser = taxiNetUserDAO.select(username);
 		if (taxiNetUser == null) {
-			throw new TNException("User not found");
+			return null;
 		}
-		if (taxiNetUser.getPassword().equals(password)
-				&& taxiNetUser.getDriver() != null) {
+		if (taxiNetUser.getPassword().equals(password)) {
 			Driver driver = driverDAO.findDriverById(taxiNetUser.getUserId());
-			driverDTO.setDriverId(driver.getDriverId());
-			driverDTO.setLongitude(driver.getCurrentstatus()
-					.getCurrentLatitude());
-			driverDTO.setLatitude(driver.getCurrentstatus()
-					.getCurrentLongtitude());
-			driverDTO.setDriverName((driver.getFirstName() + " " + driver
-					.getLastName()));
-			driverDTO.setDriverImage(driver.getTaxinetusers().getImage());
-			driverDTO
-					.setOpenKm(driver.getVehicle().getPricepanel().getOpenKm());
-			driverDTO.setOpenPrice(driver.getVehicle().getPricepanel()
-					.getOpenPrice());
-			driverDTO.setFirstKm(driver.getVehicle().getPricepanel()
-					.getFirstKm());
-			driverDTO.setFirstKmPrice(driver.getVehicle().getPricepanel()
-					.getFirstKmprice());
-			driverDTO
-					.setNextKm(driver.getVehicle().getPricepanel().getNextKm());
-			driverDTO.setNextKmPrice(driver.getVehicle().getPricepanel()
-					.getNextKmprice());
-			driverDTO.setWaitingPrice(driver.getVehicle().getPricepanel()
-					.getWaitingPrice());
-			driverDTO.setReturnPrice(driver.getVehicle().getPricepanel()
-					.getReturnTripPrice());
-			driverDTO.setType(driver.getVehicle().getPricepanel().getCarmodel()
-					.getCarType());
+			if (driver == null) {
+				return null;
+			}
+			driverDTO.setId(driver.getDriverId());
+			driverDTO.setImage(driver.getTaxinetusers().getImage());
+			driverDTO.setFirstName(driver.getFirstName());
+			driverDTO.setLastName(driver.getLastName());
+			driverDTO.setEmail(driver.getTaxinetusers().getEmail());
+			driverDTO.setPhoneNumber(driver.getMobileNo());
+			driverDTO.setPassword(driver.getTaxinetusers().getPassword());
 		}
 		return driverDTO;
 	}
