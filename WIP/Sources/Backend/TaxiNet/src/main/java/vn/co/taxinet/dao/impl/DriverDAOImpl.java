@@ -98,9 +98,7 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 			Driver instance = (Driver) getSessionFactory().getCurrentSession()
 					.get("vn.co.taxinet.orm.Driver", id);
 			if (instance == null) {
-				log.debug("get successful, no instance found");
-			} else {
-				log.debug("get successful, instance found");
+				return null;
 			}
 			return instance;
 		} catch (RuntimeException re) {
