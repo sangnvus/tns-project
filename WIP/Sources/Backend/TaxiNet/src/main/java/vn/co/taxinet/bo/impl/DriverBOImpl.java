@@ -263,4 +263,36 @@ public class DriverBOImpl implements DriverBO {
 		}
 		return driverDTO;
 	}
+
+	public MessageDTO updateDriver(String id, String firstname,
+			String lastname, String phone, String email, String password)
+			throws TNException {
+		if (id == null || firstname == null || lastname == null
+				|| phone == null || email == null || password == null
+				|| id.equalsIgnoreCase("") || firstname.equalsIgnoreCase("")
+				|| lastname.equalsIgnoreCase("") || phone.equalsIgnoreCase("")
+				|| email.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
+			throw new TNException("data it null");
+		}
+		TaxiNetUsers taxiNetUser = taxiNetUserDAO.findByID(id);
+		if (taxiNetUser == null) {
+			return null;
+		}
+		if (taxiNetUser.getDriver() == null) {
+			return null;
+		}
+
+		taxiNetUser.setEmail(email);
+		taxiNetUser.setPassword(password);
+		taxiNetUser.getDriver().setFirstName(firstname);
+		taxiNetUser.getDriver().setLastName(lastname);
+		taxiNetUser.getDriver().setMobileNo(phone);
+		taxiNetUser.getDriver().setLastModifiedBy(taxiNetUser.getUserId());
+		taxiNetUser.setLastModifiedBy(taxiNetUser.getUserId());
+		taxiNetUser.setLastModifiedDate(Utility.getCurrentDate());
+		taxiNetUser.getDriver().setLastModifiedDate(Utility.getCurrentDate());
+		taxiNetUserDAO.update(taxiNetUser);
+
+		return new MessageDTO(Constants.Message.SUCCESS);
+	}
 }

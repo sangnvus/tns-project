@@ -102,4 +102,19 @@ public interface DriverBO {
 	 * @throws TNException
 	 */
 	public DriverDTO login(String username, String password) throws TNException;
+
+	/**
+	 * @author Hieu-Gie
+	 * 
+	 * @param id
+	 * @param firstname
+	 * @param lastname
+	 * @param phone
+	 * @param email
+	 * @param password
+	 * @return
+	 * @throws TNException
+	 */
+	public MessageDTO updateDriver(String id, String firstname, String lastname,
+			String phone, String email, String password) throws TNException;
 }
