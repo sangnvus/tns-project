@@ -108,7 +108,7 @@ public class RiderRegisterBean implements Serializable {
 			newRider.getTaxinetusers().setPassword(password);
 			newRider.getTaxinetusers().setUsername(emailAddress);
 			newRider.getTaxinetusers().setPostalCode(zipCode);
-			newRider.getTaxinetusers().setStatus(Constants.UserStatus.OFFLINE);
+			newRider.getTaxinetusers().setStatus(Constants.UserStatus.ACTIVE);
 			newRider.getTaxinetusers().setCountry(new Country());
 			//TODO change hardcode of country
 			newRider.getTaxinetusers().getCountry().setCode("1");
