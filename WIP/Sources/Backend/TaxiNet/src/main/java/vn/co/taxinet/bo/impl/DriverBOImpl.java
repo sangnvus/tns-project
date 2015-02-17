@@ -14,16 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.common.exception.TNException;
-import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dao.CarMakerDAO;
 import vn.co.taxinet.dao.CarModelDAO;
 import vn.co.taxinet.dao.CityNameDAO;
 import vn.co.taxinet.dao.CountryDAO;
-import vn.co.taxinet.dao.CurrentStatusDAO;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.PricePanelDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
-import vn.co.taxinet.dao.TripDAO;
 import vn.co.taxinet.dao.VehicleDAO;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.MessageDTO;
@@ -31,10 +28,8 @@ import vn.co.taxinet.orm.CarMaker;
 import vn.co.taxinet.orm.CarModel;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
-import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.PricePanel;
-import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
 import vn.co.taxinet.orm.Vehicle;
 import vn.co.taxinet.utils.Utility;
@@ -67,17 +62,6 @@ public class DriverBOImpl implements DriverBO {
 
 	@Autowired
 	private PricePanelDAO pricePanelDAO;
-	
-	@Autowired
-	private CurrentStatusDAO currentStatusDAO;
-
-	@Autowired
-	TripDAO tripDAO;
-	
-	public void setCurrentStatusDAO(CurrentStatusDAO currentStatusDAO) {
-		this.currentStatusDAO = currentStatusDAO;
-	}
-
 
 	public void setPricePanelDAO(PricePanelDAO pricePanelDAO) {
 		this.pricePanelDAO = pricePanelDAO;
@@ -240,8 +224,8 @@ public class DriverBOImpl implements DriverBO {
 			// check id of driver before update position
 			Driver driver = driverDAO.findDriverById(driverId);
 			if (driver != null) {
-				return currentStatusDAO.updateCurrentStatus(
-						driver.getDriverId(), _longitude, _latitude, _status);
+				return driverDAO.updateCurrentStatus(driver.getDriverId(),
+						_longitude, _latitude, _status);
 			} else {
 				return new MessageDTO(Constants.Message.FAIL);
 			}
@@ -328,42 +312,8 @@ public class DriverBOImpl implements DriverBO {
 		return new MessageDTO(Constants.Message.SUCCESS);
 	}
 
-	public String register(String driverId, String firstName, String lastName,
-			String mobileNo) {
+	public List<Driver> findDriverByCompanyID(String companyID) {
 		// TODO Auto-generated method stub
-		if(driverId ==null){
-			return "";
-		}
-		if(firstName==null){
-			return "";
-		}
-		if(lastName == null){
-			return "";
-		}
-		if(mobileNo==null){
-			return "";
-		}
-		TaxiNetUsers taxiNetUser = taxiNetUserDAO.findById(driverId);
-		Driver driver = new Driver();
-		driver.setTaxinetusers(taxiNetUser);
-		driver.setFirstName(firstName);
-		driver.setLastName(lastName);
-		driver.setDriverId(driverId);
-		driver.setMobileNo(mobileNo);
-		driver.setCreatedBy(driverId);
-		driver.setCreatedDate(Utility.getCurrentDateTime());
-		driver.setLastModifiedBy(driverId);
-		driver.setLastModifiedDate(Utility.getCurrentDateTime());
-		
-
-			driverDAO.insert(driver);
-			//set current status
-			CurrentStatus currentStatus = new CurrentStatus();
-			currentStatus.setDriver(driver);
-			currentStatus.setDriverId(driver.getDriverId());
-			currentStatus.setCurrentStatus(Constants.DriverStatus.NEW);
-			currentStatusDAO.insert(currentStatus);
-			return driverId;
-
+		return null;
 	}
 }
