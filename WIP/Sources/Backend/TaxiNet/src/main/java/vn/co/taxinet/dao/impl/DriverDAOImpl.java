@@ -32,6 +32,10 @@ import vn.co.taxinet.orm.Trip;
 @Transactional
 public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final Logger log = LogManager.getLogger(DriverDAOImpl.class);
 
 	public void persist(Driver transientInstance) {
@@ -92,7 +96,7 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		}
 	}
 
-	public Driver findDriverById(java.lang.String id) {
+	public Driver findDriverById(String id) {
 		log.debug("getting Driver instance with id: " + id);
 		try {
 			Driver instance = (Driver) getSessionFactory().getCurrentSession()
@@ -124,58 +128,12 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Driver> getListDriver() {
+	public List<Driver> getNearListDriver() {
 		Session session = getSessionFactory().getCurrentSession();
-		String hql = "Select D FROM Driver D, CurrentStatus C where D.driverId = C.driverId and C.currentStatus = 'AC' and D.vehicle is not null";
+		String hql = "SELECT D FROM Driver D, CurrentStatus C WHERE D.driverId = C.driverId AND C.currentStatus = 'AC' AND D.vehicle is not null";
 		Query query = session.createQuery(hql);
-		// query.setParameter("userName", uid.toLowerCase());
-		// TODO Auto-generated method stub
 		List<Driver> result = query.list();
 		return result;
-	}
-
-	public String createTrip(String riderId, String driverId) {
-		Session session = getSessionFactory().getCurrentSession();
-		// get rider
-		String hql = "select R from Rider R where R.riderId = :rid";
-		Query query = session.createQuery(hql);
-		query.setParameter("rid", riderId.toLowerCase());
-		List<Rider> listRider = query.list();
-		Rider rider = null;
-		if (!listRider.isEmpty()) {
-			rider = listRider.get(0);
-		}
-		// get driver
-		hql = "select D from Driver where D.driverId = :did";
-		query = session.createQuery(hql);
-		query.setParameter("did", driverId.toLowerCase());
-		List<Driver> listDriver = query.list();
-		Driver driver = null;
-		if (!listDriver.isEmpty()) {
-			driver = listDriver.get(0);
-		}
-		Trip trip = new Trip();
-		UUID id = UUID.randomUUID();
-		trip.setRequestId(id.toString());
-		trip.setRider(rider);
-		trip.setDriver(driver);
-		return rider.getRiderId();
-	}
-
-	public MessageDTO updateCurrentStatus(String driverId, double _longitude,
-			double _latitude, String _status) {
-
-		Session session = getSessionFactory().getCurrentSession();
-		String hql = "UPDATE CurrentStatus cs SET cs.currentStatus =:status, cs.currentLatitude =:latitude, cs.currentLongtitude =:longitude WHERE cs.driverId =:driverId";
-
-		Query query = session.createQuery(hql);
-		query.setParameter("status", _status);
-		query.setParameter("latitude", _latitude);
-		query.setParameter("longitude", _longitude);
-		query.setParameter("driverId", driverId);
-		query.executeUpdate();
-
-		return new MessageDTO(Constants.Message.SUCCESS);
 	}
 
 }

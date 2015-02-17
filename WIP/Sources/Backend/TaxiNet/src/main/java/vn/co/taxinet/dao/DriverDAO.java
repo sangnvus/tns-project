@@ -2,15 +2,23 @@ package vn.co.taxinet.dao;
 
 import java.util.List;
 
-import vn.co.taxinet.dto.MessageDTO;
-import vn.co.taxinet.orm.Driver;;
-public interface DriverDAO extends BaseDAO {
-	List<Driver> getListDriver();
-	String createTrip(String riderId, String driverId);
-	public Driver findDriverById(java.lang.String id);
+import vn.co.taxinet.orm.Driver;
 
-	MessageDTO updateCurrentStatus(String addressId, double _longitude,
-			double _latitude, String status);
-	
-	
+;
+public interface DriverDAO extends BaseDAO {
+	/**
+	 * @author Hieu-Gie
+	 * 
+	 * @return
+	 */
+	List<Driver> getNearListDriver();
+
+	/**
+	 * @author Hieu-Gie
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Driver findDriverById(String id);
+
 }

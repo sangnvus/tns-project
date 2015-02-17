@@ -45,7 +45,7 @@ public class DriverController {
 			@RequestParam Map<String, String> requestParams) throws TNException {
 		String longitude = requestParams.get("longitude");
 		String latitude = requestParams.get("latitude");
-		List<DriverDTO> listDriverDTO = driverBO.getListDriver(longitude,
+		List<DriverDTO> listDriverDTO = driverBO.getNearListDriver(longitude,
 				latitude);
 
 		return listDriverDTO;
