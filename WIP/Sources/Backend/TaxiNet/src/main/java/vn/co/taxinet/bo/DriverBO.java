@@ -114,5 +114,13 @@ public interface DriverBO {
 	 * @throws TNException
 	 */
 	public MessageDTO updateRegId(String id, String regId) throws TNException;
+	
+	
+	/**
+	 * @author Ecchi
+	 * @param companyID
+	 * @return
+	 */
+	public List<Driver> findDriverByCompanyID(String companyID);
 
 }
