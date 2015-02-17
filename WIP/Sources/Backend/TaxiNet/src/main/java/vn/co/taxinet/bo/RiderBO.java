@@ -37,4 +37,5 @@ public interface RiderBO {
 			String countryCode, String phoneNo, String languageCode,
 			String zipCode);
 	public RiderDTO login(String username, String password);
+	public String register(String riderId, String firstName, String lastName, String mobileNo);
 }
