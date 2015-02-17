@@ -29,11 +29,6 @@ public interface Constants {
 		public static final String LANG_VN_CODE = "vi";
 	}
 
-	public interface UserStatus {
-		public static final String ONLINE = "online";
-		public static final String OFFLINE = "offline";
-	}
-
 	// These are used for Reference Data
 	public interface GroupCode {
 		public static final String USER_ROLE = "GROUPUSER";
@@ -45,17 +40,22 @@ public interface Constants {
 
 	// These are used for Reference Data
 	public interface GroupUser {
-		public static final String RIDER = "1";
-		public static final String DRIVER = "2";
-		public static final String TAXIGROUP = "3";
-		public static final String FEEAGENT = "4";
-		public static final String ADMIN = "5";
+		public static final String RIDER = "RD";
+		public static final String DRIVER = "DR";
+		public static final String AGENT = "AG";
+		public static final String AREA_STAFF = "AS";
+		public static final String COUNTRY_STAFF = "CS";
+		public static final String AREA_MANAGER = "AM";
+		public static final String COUNTRY_MANAGER = "CM";
+		public static final String COUNTRY_ADMINISTRATOR = "CA";
+		public static final String GLOBAL_MANAGER = "GM";
+		public static final String GLOBAL_ADMINISTRATOR = "GA";
 	}
 
-	// public interface UserStatus{
-	// public static final String ACTIVE = "AC";
-	// public static final String DEACTIVED = "DA";
-	// }
+	 public interface UserStatus{
+	 public static final String ACTIVE = "AC";
+	 public static final String DEACTIVED = "DA";
+	 }
 	public interface ServiceCharge {
 		public static final String MONTHLY = "MO";
 		public static final String TRIP_BASED = "TB";
