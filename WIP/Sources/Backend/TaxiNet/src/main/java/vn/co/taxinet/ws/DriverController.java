@@ -72,7 +72,7 @@ public class DriverController {
 		return tripBO.updateTrip(requestId, userId, status);
 	}
 
-	@RequestMapping(value = "/Login", method = RequestMethod.POST)
+	@RequestMapping(value = "/Login", method = RequestMethod.GET)
 	public DriverDTO login(@RequestParam Map<String, String> requestParams)
 			throws TNException {
 		String username = requestParams.get("username");
