@@ -1,9 +1,9 @@
 package vn.co.taxinet.bean.driver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,7 +15,9 @@ import org.springframework.context.annotation.Scope;
 
 import vn.co.taxinet.bean.BaseBean;
 import vn.co.taxinet.bo.DriverBO;
+import vn.co.taxinet.dao.TaxiNetUserDAO;
 import vn.co.taxinet.orm.Driver;
+import vn.co.taxinet.orm.TaxiNetUsers;
 
 @Named
 @Scope(value = "session")
@@ -33,8 +35,13 @@ public class LiveStatusBean extends BaseBean {
 
 	private MapModel simpleModel;
 
+	private Driver driver;
+
 	@Inject
 	private DriverBO driverBO;
+
+	@Inject
+	private TaxiNetUserDAO taxiNetUserDAO;
 
 	@PostConstruct
 	public void init() {
@@ -46,6 +53,10 @@ public class LiveStatusBean extends BaseBean {
 		password = session.getAttribute("Password").toString();
 		// TODO : need usergroup value for validate permission to access this
 		// page
+		driverList = new ArrayList<Driver>();
+		TaxiNetUsers user = taxiNetUserDAO.findByID(UserID);
+		driverList = driverBO.findDriverByCompanyID(user.getCompany()
+				.getCompanyId().toString());
 		
 	}
 
@@ -108,4 +119,17 @@ public class LiveStatusBean extends BaseBean {
 	public void setDriverBO(DriverBO driverBO) {
 		this.driverBO = driverBO;
 	}
+
+	public Driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+
+	public void setTaxiNetUserDAO(TaxiNetUserDAO taxiNetUserDAO) {
+		this.taxiNetUserDAO = taxiNetUserDAO;
+	}
+
 }
