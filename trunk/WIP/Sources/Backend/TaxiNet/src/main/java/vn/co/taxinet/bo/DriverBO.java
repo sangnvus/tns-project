@@ -13,12 +13,6 @@ import vn.co.taxinet.orm.Driver;
 
 public interface DriverBO {
 
-	/**
-	 * @author Hieu-Gie
-	 * 
-	 * @param driver
-	 * @return
-	 */
 	public Driver register(Driver driver);
 
 	/**
@@ -28,16 +22,7 @@ public interface DriverBO {
 	 * @param latitude
 	 * @return
 	 */
-	public List<DriverDTO> getListDriver(String longitude, String latitude);
-
-	/**
-	 * @author Hieu-Gie
-	 * 
-	 * @param riderId
-	 * @param driverId
-	 * @return
-	 */
-	public String createTrip(String riderId, String driverId);
+	public List<DriverDTO> getNearListDriver(String longitude, String latitude);
 
 	/**
 	 * @author Ecchi

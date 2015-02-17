@@ -18,9 +18,11 @@ import vn.co.taxinet.dao.CarMakerDAO;
 import vn.co.taxinet.dao.CarModelDAO;
 import vn.co.taxinet.dao.CityNameDAO;
 import vn.co.taxinet.dao.CountryDAO;
+import vn.co.taxinet.dao.CurrentStatusDAO;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.PricePanelDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.dao.TripDAO;
 import vn.co.taxinet.dao.VehicleDAO;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.MessageDTO;
@@ -63,6 +65,12 @@ public class DriverBOImpl implements DriverBO {
 	@Autowired
 	private PricePanelDAO pricePanelDAO;
 
+	@Autowired
+	CurrentStatusDAO currentStatusDAO;
+
+	@Autowired
+	TripDAO tripDAO;
+
 	public void setPricePanelDAO(PricePanelDAO pricePanelDAO) {
 		this.pricePanelDAO = pricePanelDAO;
 	}
@@ -86,9 +94,9 @@ public class DriverBOImpl implements DriverBO {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public List<DriverDTO> getListDriver(String longitude, String latitude) {
+	public List<DriverDTO> getNearListDriver(String longitude, String latitude) {
 
-		List<Driver> listDriver = driverDAO.getListDriver();
+		List<Driver> listDriver = driverDAO.getNearListDriver();
 		List<DriverDTO> listDriverDTO = new ArrayList<DriverDTO>();
 		for (int i = 0; i < listDriver.size(); i++) {
 			DriverDTO driverDTO = new DriverDTO();
@@ -98,7 +106,7 @@ public class DriverBOImpl implements DriverBO {
 	}
 
 	public String createTrip(String riderId, String driverId) {
-		return driverDAO.createTrip(riderId, driverId);
+		return tripDAO.createTrip(riderId, driverId);
 	}
 
 	/*
@@ -224,8 +232,8 @@ public class DriverBOImpl implements DriverBO {
 			// check id of driver before update position
 			Driver driver = driverDAO.findDriverById(driverId);
 			if (driver != null) {
-				return driverDAO.updateCurrentStatus(driver.getDriverId(),
-						_longitude, _latitude, _status);
+				return currentStatusDAO.updateCurrentStatus(
+						driver.getDriverId(), _longitude, _latitude, _status);
 			} else {
 				return new MessageDTO(Constants.Message.FAIL);
 			}
