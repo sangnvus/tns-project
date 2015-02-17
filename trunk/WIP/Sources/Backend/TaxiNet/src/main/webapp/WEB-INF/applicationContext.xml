@@ -66,6 +66,7 @@
 				<value>classpath:vn/co/taxinet/orm/mapping/Referencedata.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Rider.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/TaxiNetUsers.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Term.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Trip.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Usergroup.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Vehicle.hbm.xml</value>		
@@ -145,6 +146,9 @@
   		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>
   	<bean id="taxiNetUserDAO" class="vn.co.taxinet.dao.impl.TaxiNetUserDAOImpl">
+  		<property name="sessionFactory" ref="sessionFactory"/>
+  	</bean>
+  	<bean id="termDAO" class="vn.co.taxinet.dao.impl.TermDAOImpl">
   		<property name="sessionFactory" ref="sessionFactory"/>
   	</bean>
   	<bean id="tripDAO" class="vn.co.taxinet.dao.impl.TripDAOImpl">
