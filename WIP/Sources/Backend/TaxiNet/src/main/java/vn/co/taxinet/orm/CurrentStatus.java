@@ -12,6 +12,7 @@ public class CurrentStatus implements java.io.Serializable {
 	private Double currentLatitude;
 	private Double currentLongtitude;
 	private String currentStatus;
+	private String currentLocation;
 
 	public CurrentStatus() {
 	}
@@ -26,6 +27,14 @@ public class CurrentStatus implements java.io.Serializable {
 		this.currentLatitude = currentLatitude;
 		this.currentLongtitude = currentLongtitude;
 		this.currentStatus = currentStatus;
+	}
+
+	public String getCurrentLocation() {
+		return currentLocation;
+	}
+
+	public void setCurrentLocation(String currentLocation) {
+		this.currentLocation = currentLocation;
 	}
 
 	public String getDriverId() {
