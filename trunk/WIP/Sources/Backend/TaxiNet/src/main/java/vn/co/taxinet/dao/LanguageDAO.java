@@ -1,5 +1,7 @@
 package vn.co.taxinet.dao;
 
-public interface LanguageDAO extends BaseDAO {
+import vn.co.taxinet.orm.Language;
 
+public interface LanguageDAO extends BaseDAO {
+	public Language findById(java.lang.String id);
 }

@@ -1,5 +1,7 @@
 package vn.co.taxinet.dao;
 
-public interface UserGroupDAO extends BaseDAO {
+import vn.co.taxinet.orm.UserGroup;
 
+public interface UserGroupDAO extends BaseDAO {
+	public UserGroup findById(java.lang.String id);
 }

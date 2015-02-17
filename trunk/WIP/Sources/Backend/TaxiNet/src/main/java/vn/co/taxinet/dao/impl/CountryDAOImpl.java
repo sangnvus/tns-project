@@ -88,7 +88,7 @@ public class CountryDAOImpl extends BaseDAOImpl implements CountryDAO {
 		}
 	}
 
-	public Country findById(java.lang.Integer id) {
+	public Country findById(java.lang.String id) {
 		log.debug("getting Country instance with id: " + id);
 		try {
 			Country instance = (Country) getSessionFactory()
