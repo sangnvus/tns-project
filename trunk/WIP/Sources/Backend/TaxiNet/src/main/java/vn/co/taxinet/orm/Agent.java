@@ -18,6 +18,7 @@ public class Agent implements java.io.Serializable {
 	private String mobileNo;
 	private String vatnumber;
 	private String promotionCode;
+	private String parentId;
 	private String createdBy;
 	private Date createdDate;
 	private String lastModifiedBy;
@@ -42,8 +43,8 @@ public class Agent implements java.io.Serializable {
 	public Agent(Address addressByHomeAddressId, TaxiNetUsers taxinetusers,
 			Address addressByOfficeAddressId, String firstName,
 			String lastName, String mobileNo, String vatnumber,
-			String promotionCode, String createdBy, Date createdDate,
-			String lastModifiedBy, Date lastModifiedDate) {
+			String promotionCode, String parentId, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
 		this.addressByHomeAddressId = addressByHomeAddressId;
 		this.taxinetusers = taxinetusers;
 		this.addressByOfficeAddressId = addressByOfficeAddressId;
@@ -52,6 +53,7 @@ public class Agent implements java.io.Serializable {
 		this.mobileNo = mobileNo;
 		this.vatnumber = vatnumber;
 		this.promotionCode = promotionCode;
+		this.parentId = parentId;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
@@ -128,6 +130,14 @@ public class Agent implements java.io.Serializable {
 
 	public void setPromotionCode(String promotionCode) {
 		this.promotionCode = promotionCode;
+	}
+
+	public String getParentId() {
+		return this.parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
 
 	public String getCreatedBy() {

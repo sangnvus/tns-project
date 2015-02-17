@@ -38,14 +38,12 @@ public class Trip implements java.io.Serializable {
 	}
 
 	public Trip(String requestId, Rider rider, Vehicle vehicle, Driver driver,
-			City city, Payment payment, String createdBy, Date createdDate,
-			String lastModifiedBy, Date lastModifiedDate) {
+			String createdBy, Date createdDate, String lastModifiedBy,
+			Date lastModifiedDate) {
 		this.requestId = requestId;
 		this.rider = rider;
 		this.vehicle = vehicle;
 		this.driver = driver;
-		this.city = city;
-		this.payment = payment;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;

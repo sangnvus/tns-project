@@ -61,13 +61,13 @@
         </property>
         <set name="vehicles" table="vehicle" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="PricePanelID" not-null="true" />
+                <column name="PricePanelID" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Vehicle" />
         </set>
         <set name="vehicles_1" table="vehicle" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="PricePanelID" not-null="true" />
+                <column name="PricePanelID" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Vehicle" />
         </set>

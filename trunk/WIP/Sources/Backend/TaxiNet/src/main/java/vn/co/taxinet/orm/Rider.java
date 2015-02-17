@@ -49,6 +49,7 @@ public class Rider implements java.io.Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobileNo = mobileNo;
+		this.regId = regId;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
@@ -114,7 +115,7 @@ public class Rider implements java.io.Serializable {
 	}
 
 	public String getRegId() {
-		return regId;
+		return this.regId;
 	}
 
 	public void setRegId(String regId) {

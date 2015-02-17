@@ -32,6 +32,9 @@
         <property name="promotionCode" type="string">
             <column name="PromotionCode" length="20" />
         </property>
+        <property name="parentId" type="string">
+            <column name="ParentID" length="50" />
+        </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
         </property>

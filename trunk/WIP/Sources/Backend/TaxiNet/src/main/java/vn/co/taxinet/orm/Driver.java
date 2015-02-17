@@ -33,12 +33,9 @@ public class Driver implements java.io.Serializable {
 	public Driver() {
 	}
 
-	public Driver(TaxiNetUsers taxiNetUsers, Document documentByDriverLisense,
-			Document documentByDriveExperience, String createdBy,
+	public Driver(TaxiNetUsers taxiNetUsers, String createdBy,
 			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
 		this.taxiNetUsers = taxiNetUsers;
-		this.documentByDriverLisense = documentByDriverLisense;
-		this.documentByDriveExperience = documentByDriveExperience;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
@@ -48,9 +45,10 @@ public class Driver implements java.io.Serializable {
 	public Driver(TaxiNetUsers taxiNetUsers, Document documentByDriverLisense,
 			Vehicle vehicle, Address address,
 			Document documentByDriveExperience, String firstName,
-			String lastName, String mobileNo, String invitationCode,String regId,
-			String createdBy, Date createdDate, String lastModifiedBy,
-			Date lastModifiedDate, CurrentStatus currentStatus, Set<Trip> trips,
+			String lastName, String mobileNo, String invitationCode,
+			String regId, String createdBy, Date createdDate,
+			String lastModifiedBy, Date lastModifiedDate,
+			CurrentStatus currentStatus, Set<Trip> trips,
 			Set<Trip> trips_1) {
 		this.taxiNetUsers = taxiNetUsers;
 		this.documentByDriverLisense = documentByDriverLisense;
@@ -153,7 +151,7 @@ public class Driver implements java.io.Serializable {
 	}
 
 	public String getRegId() {
-		return regId;
+		return this.regId;
 	}
 
 	public void setRegId(String regId) {

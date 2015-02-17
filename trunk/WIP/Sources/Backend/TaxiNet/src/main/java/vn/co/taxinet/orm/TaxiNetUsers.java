@@ -86,6 +86,7 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 		this.agent = agent;
 		this.payments = payments;
+		this.agent = agent;
 		this.payments_1 = payments_1;
 		this.accountTransactions = accountTransactions;
 		this.driver = driver;
@@ -247,20 +248,20 @@ public class TaxiNetUsers implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Agent getAgent() {
-		return this.agent;
-	}
-
-	public void setAgent(Agent agent) {
-		this.agent = agent;
-	}
-
 	public Set<Payment> getPayments() {
 		return this.payments;
 	}
 
 	public void setPayments(Set<Payment> payments) {
 		this.payments = payments;
+	}
+
+	public Agent getAgent() {
+		return this.agent;
+	}
+
+	public void setAgent(Agent agent) {
+		this.agent = agent;
 	}
 
 	public Set<Payment> getPayments_1() {
