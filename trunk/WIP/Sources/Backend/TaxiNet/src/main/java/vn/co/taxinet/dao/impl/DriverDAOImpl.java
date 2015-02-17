@@ -4,6 +4,7 @@ package vn.co.taxinet.dao.impl;
 
 import static org.hibernate.criterion.Example.create;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -136,4 +137,50 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		return result;
 	}
 
+	public String createTrip(String riderId, String driverId) {
+		Session session = getSessionFactory().getCurrentSession();
+		// get rider
+		String hql = "select R from Rider R where R.riderId = :rid";
+		Query query = session.createQuery(hql);
+		query.setParameter("rid", riderId.toLowerCase());
+		List<Rider> listRider = query.list();
+		Rider rider = null;
+		if (!listRider.isEmpty()) {
+			rider = listRider.get(0);
+		}
+		// get driver
+		hql = "select D from Driver where D.driverId = :did";
+		query = session.createQuery(hql);
+		query.setParameter("did", driverId.toLowerCase());
+		List<Driver> listDriver = query.list();
+		Driver driver = null;
+		if (!listDriver.isEmpty()) {
+			driver = listDriver.get(0);
+		}
+		Trip trip = new Trip();
+		UUID id = UUID.randomUUID();
+		trip.setRequestId(id.toString());
+		trip.setRider(rider);
+		trip.setDriver(driver);
+		return rider.getRiderId();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.dao.DriverDAO#findDriverByCompanyID(java.lang.String)
+	 */
+	@Transactional
+	public List<Driver> findDriverByCompanyID(String companyID) {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "Select Driver D, CurrentStatus CS WHERE D.companyId = :companyId AND D.driverId = CS.driverId";
+		Query query = session.createQuery(hql);
+		query.setParameter("companyId", companyID);
+		List<Driver> driverList = query.list();
+		if (driverList != null) {
+			return driverList;
+		} else {
+			return new ArrayList<Driver>();
+		}
+	}
 }
