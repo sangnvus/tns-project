@@ -118,6 +118,15 @@ CREATE TABLE Document (
   LastModifiedBy   varchar(50) NOT NULL, 
   LastModifiedDate timestamp NOT NULL, 
   PRIMARY KEY (DocumentID));
+CREATE TABLE Term  (
+  TermID           varchar(50), 
+  Content          text, 
+  UserType         varchar(4), 
+  CreatedBy        varchar(50) NOT NULL, 
+  CreatedDate      timestamp NOT NULL, 
+  LastModifiedBy   varchar(50) NOT NULL, 
+  LastModifiedDate timestamp NOT NULL, 
+  PRIMARY KEY (TermID));
 CREATE TABLE Driver (
   DriverID         varchar(50) NOT NULL, 
   FirstName        varchar(30), 
