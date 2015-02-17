@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.common.exception.TNException;
+import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dao.CarMakerDAO;
 import vn.co.taxinet.dao.CarModelDAO;
 import vn.co.taxinet.dao.CityNameDAO;
@@ -30,8 +31,10 @@ import vn.co.taxinet.orm.CarMaker;
 import vn.co.taxinet.orm.CarModel;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
+import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.PricePanel;
+import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
 import vn.co.taxinet.orm.Vehicle;
 import vn.co.taxinet.utils.Utility;
@@ -64,12 +67,17 @@ public class DriverBOImpl implements DriverBO {
 
 	@Autowired
 	private PricePanelDAO pricePanelDAO;
-
+	
 	@Autowired
-	CurrentStatusDAO currentStatusDAO;
+	private CurrentStatusDAO currentStatusDAO;
 
 	@Autowired
 	TripDAO tripDAO;
+	
+	public void setCurrentStatusDAO(CurrentStatusDAO currentStatusDAO) {
+		this.currentStatusDAO = currentStatusDAO;
+	}
+
 
 	public void setPricePanelDAO(PricePanelDAO pricePanelDAO) {
 		this.pricePanelDAO = pricePanelDAO;
@@ -318,5 +326,44 @@ public class DriverBOImpl implements DriverBO {
 		driverDAO.update(driver);
 
 		return new MessageDTO(Constants.Message.SUCCESS);
+	}
+
+	public String register(String driverId, String firstName, String lastName,
+			String mobileNo) {
+		// TODO Auto-generated method stub
+		if(driverId ==null){
+			return "";
+		}
+		if(firstName==null){
+			return "";
+		}
+		if(lastName == null){
+			return "";
+		}
+		if(mobileNo==null){
+			return "";
+		}
+		TaxiNetUsers taxiNetUser = taxiNetUserDAO.findById(driverId);
+		Driver driver = new Driver();
+		driver.setTaxinetusers(taxiNetUser);
+		driver.setFirstName(firstName);
+		driver.setLastName(lastName);
+		driver.setDriverId(driverId);
+		driver.setMobileNo(mobileNo);
+		driver.setCreatedBy(driverId);
+		driver.setCreatedDate(Utility.getCurrentDateTime());
+		driver.setLastModifiedBy(driverId);
+		driver.setLastModifiedDate(Utility.getCurrentDateTime());
+		
+
+			driverDAO.insert(driver);
+			//set current status
+			CurrentStatus currentStatus = new CurrentStatus();
+			currentStatus.setDriver(driver);
+			currentStatus.setDriverId(driver.getDriverId());
+			currentStatus.setCurrentStatus(Constants.DriverStatus.NEW);
+			currentStatusDAO.insert(currentStatus);
+			return driverId;
+
 	}
 }

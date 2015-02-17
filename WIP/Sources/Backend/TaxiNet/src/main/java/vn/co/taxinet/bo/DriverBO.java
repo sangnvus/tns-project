@@ -14,6 +14,7 @@ import vn.co.taxinet.orm.Driver;
 public interface DriverBO {
 
 	public Driver register(Driver driver);
+	public String register(String driverId, String firstName, String lastName, String mobileNo);
 
 	/**
 	 * @author Hieu-Gie
