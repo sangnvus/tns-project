@@ -17,6 +17,7 @@ import vn.co.taxinet.common.exception.SystemException;
 import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dao.RiderDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.dao.UserGroupDAO;
 import vn.co.taxinet.dto.RiderDTO;
 import vn.co.taxinet.orm.Address;
 import vn.co.taxinet.orm.Rider;
@@ -33,6 +34,13 @@ public class RiderBOImpl implements RiderBO {
 	private TaxiNetUserDAO taxiNetUserDAO;
 	@Autowired
 	private RiderDAO riderDAO;
+	@Autowired
+	private UserGroupDAO userGroupDAO;
+	
+
+	public void setUserGroupDAO(UserGroupDAO userGroupDAO) {
+		this.userGroupDAO = userGroupDAO;
+	}
 
 	/**
 	 * @return the riderDAO
@@ -73,8 +81,8 @@ public class RiderBOImpl implements RiderBO {
 			// 1. Insert user table
 			// Check if user name exist in DB
 			TaxiNetUsers user = rider.getTaxinetusers();
-			TaxiNetUsers oldUser = taxiNetUserDAO.select(user.getEmail());
-			if (oldUser != null) {
+			TaxiNetUsers oldUser = taxiNetUserDAO.select(user.getUsername());
+			if (oldUser.getUserId() != null) {
 				if (user.getPassword().equals(oldUser.getPassword())) {
 					throw new FunctionalException(THIS,
 							"Rider User is existing",
@@ -89,7 +97,9 @@ public class RiderBOImpl implements RiderBO {
 			user.setCreatedBy(user.getUsername());
 			user.setLastModifiedDate(Utility.getCurrentDateTime());
 			user.setLastModifiedBy(user.getUsername());
+			user.setUsergroup(userGroupDAO.findById(Constants.GroupUser.RIDER));
 			taxiNetUserDAO.insert(user);
+			
 
 			// 2. Insert Home Address if not null
 			if (rider.getAddressByHomeAddressId() != null) {
@@ -134,6 +144,40 @@ public class RiderBOImpl implements RiderBO {
 		// 5. Return
 		logger.info(" END: params ({0}, {1} )", rider.getFirstName(),
 				rider.getLastName());
+	}
+	
+	@Transactional
+	public String register(String riderId, String firstName, String lastName, String mobileNo){
+		if(riderId ==null){
+			return "";
+		}
+		if(firstName==null){
+			return "";
+		}
+		if(lastName == null){
+			return "";
+		}
+		if(mobileNo==null){
+			return "";
+		}
+		TaxiNetUsers taxiNetUser = taxiNetUserDAO.findById(riderId);
+		Rider rider = new Rider();
+		rider.setTaxinetusers(taxiNetUser);
+		rider.setFirstName(firstName);
+		rider.setLastName(lastName);
+		rider.setRiderId(riderId);
+		rider.setMobileNo(mobileNo);
+		rider.setCreatedBy(riderId);
+		rider.setCreatedDate(Utility.getCurrentDateTime());
+		rider.setLastModifiedBy(riderId);
+		rider.setLastModifiedDate(Utility.getCurrentDateTime());
+		try {
+			riderDAO.insert(taxiNetUser.getRider());
+			return riderId;
+		} catch (Exception e) {
+			return "";
+		}
+
 	}
 
 	/*
