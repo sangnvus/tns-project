@@ -69,7 +69,7 @@ public class LoginBean extends BaseBean implements ResourceKeys {
 					FacesContext.getCurrentInstance().getExternalContext()
 							.redirect("/xhtml/driver/Dashboard.xhtml");
 					return null;
-				} else if ((Constants.GroupUser.FEEAGENT).equalsIgnoreCase(user.getRole())) {
+				} else if ((Constants.GroupUser.AGENT).equalsIgnoreCase(user.getRole())) {
 					FacesContext.getCurrentInstance().getExternalContext().redirect("/xhtml/feeagent/AgentHome.xhtml");
 					return null;
 				} 
