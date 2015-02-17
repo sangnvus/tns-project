@@ -9,13 +9,13 @@
             <generator class="identity" />
         </id>
         <many-to-one name="documentByOperatingLisence" class="vn.co.taxinet.orm.Document" fetch="select">
-            <column name="OperatingLisence" not-null="true" />
+            <column name="OperatingLisence" />
         </many-to-one>
         <many-to-one name="documentByBusinessRegistration" class="vn.co.taxinet.orm.Document" fetch="select">
-            <column name="BusinessRegistration" not-null="true" />
+            <column name="BusinessRegistration" />
         </many-to-one>
         <many-to-one name="address" class="vn.co.taxinet.orm.Address" fetch="select">
-            <column name="AddressID" length="50" not-null="true" />
+            <column name="AddressID" length="50" />
         </many-to-one>
         <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
             <column name="ParentID" />
@@ -82,7 +82,7 @@
         </set>
         <set name="companies" table="company" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="ParentID" not-null="true" />
+                <column name="ParentID" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Company" />
         </set>
@@ -100,7 +100,7 @@
         </set>
         <set name="companies_1" table="company" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="ParentID" not-null="true" />
+                <column name="ParentID" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Company" />
         </set>

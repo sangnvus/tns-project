@@ -25,13 +25,13 @@
         </property>
         <set name="payments" table="payment" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="BankID" not-null="true" />
+                <column name="BankID" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Payment" />
         </set>
         <set name="payments_1" table="payment" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="BankID" not-null="true" />
+                <column name="BankID" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Payment" />
         </set>

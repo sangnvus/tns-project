@@ -44,15 +44,8 @@ public class Company implements java.io.Serializable {
 	public Company() {
 	}
 
-	public Company(Document documentByOperatingLisence,
-			Document documentByBusinessRegistration, Address address,
-			Company company, String name, String businessType,
-			String createdBy, Date createdDate, String lastModifiedBy,
-			Date lastModifiedDate) {
-		this.documentByOperatingLisence = documentByOperatingLisence;
-		this.documentByBusinessRegistration = documentByBusinessRegistration;
-		this.address = address;
-		this.company = company;
+	public Company(String name, String businessType, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
 		this.name = name;
 		this.businessType = businessType;
 		this.createdBy = createdBy;

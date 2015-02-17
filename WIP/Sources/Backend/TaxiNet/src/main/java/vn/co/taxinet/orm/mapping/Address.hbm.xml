@@ -91,13 +91,13 @@
         </set>
         <set name="companies" table="company" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="AddressID" length="50" not-null="true" />
+                <column name="AddressID" length="50" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Company" />
         </set>
         <set name="companies_1" table="company" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="AddressID" length="50" not-null="true" />
+                <column name="AddressID" length="50" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Company" />
         </set>

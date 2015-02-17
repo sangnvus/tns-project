@@ -34,49 +34,49 @@
         </property>
         <set name="companiesForBusinessRegistration" table="company" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="BusinessRegistration" not-null="true" />
+                <column name="BusinessRegistration" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Company" />
         </set>
         <set name="companiesForOperatingLisence" table="company" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="OperatingLisence" not-null="true" />
+                <column name="OperatingLisence" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Company" />
         </set>
         <set name="driversForDriverLisense" table="driver" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="DriverLisense" not-null="true" />
+                <column name="DriverLisense" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Driver" />
         </set>
         <set name="driversForDriverLisense_1" table="driver" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="DriverLisense" not-null="true" />
+                <column name="DriverLisense" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Driver" />
         </set>
         <set name="driversForDriveExperience" table="driver" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="DriveExperience" not-null="true" />
+                <column name="DriveExperience" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Driver" />
         </set>
         <set name="driversForDriveExperience_1" table="driver" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="DriveExperience" not-null="true" />
+                <column name="DriveExperience" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Driver" />
         </set>
         <set name="companiesForOperatingLisence_1" table="company" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="OperatingLisence" not-null="true" />
+                <column name="OperatingLisence" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Company" />
         </set>
         <set name="companiesForBusinessRegistration_1" table="company" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="BusinessRegistration" not-null="true" />
+                <column name="BusinessRegistration" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Company" />
         </set>

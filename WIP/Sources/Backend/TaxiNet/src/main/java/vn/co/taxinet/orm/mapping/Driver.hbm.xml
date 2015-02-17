@@ -36,7 +36,7 @@
             <column name="InvitationCode" length="20" />
         </property>
         <property name="regId" type="string">
-            <column name="regId" length="200" />
+            <column name="RegId" length="200" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />

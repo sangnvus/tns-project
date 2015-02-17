@@ -30,10 +30,8 @@ public class Payment implements java.io.Serializable {
 	public Payment() {
 	}
 
-	public Payment(Bank bank, TaxiNetUsers taxiNetUsers, String cardNo,
-			String createdBy, Date createdDate, String lastModifiedBy,
-			Date lastModifiedDate) {
-		this.bank = bank;
+	public Payment(TaxiNetUsers taxiNetUsers, String cardNo, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
 		this.taxiNetUsers = taxiNetUsers;
 		this.cardNo = cardNo;
 		this.createdBy = createdBy;

@@ -18,7 +18,7 @@
             <column name="DriverID" length="50" not-null="true" />
         </many-to-one>
         <many-to-one name="city" class="vn.co.taxinet.orm.City" fetch="select">
-            <column name="FromCity" not-null="true" />
+            <column name="FromCity" />
         </many-to-one>
         <many-to-one name="payment" class="vn.co.taxinet.orm.Payment" fetch="select">
             <column name="PaymentID" />

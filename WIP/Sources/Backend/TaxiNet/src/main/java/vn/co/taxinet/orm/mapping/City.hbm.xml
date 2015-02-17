@@ -55,13 +55,13 @@
         </set>
         <set name="trips" table="trip" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="FromCity" not-null="true" />
+                <column name="FromCity" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Trip" />
         </set>
         <set name="trips_1" table="trip" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="FromCity" not-null="true" />
+                <column name="FromCity" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Trip" />
         </set>
