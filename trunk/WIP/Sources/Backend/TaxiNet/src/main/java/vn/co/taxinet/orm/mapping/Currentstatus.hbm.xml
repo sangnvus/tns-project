@@ -20,5 +20,8 @@
         <property name="currentStatus" type="string">
             <column name="CurrentStatus" length="2" />
         </property>
+        <property name="currentLocation" type="string">
+            <column name="CurrentLocation" length="200" />
+        </property>
     </class>
 </hibernate-mapping>
