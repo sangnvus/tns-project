@@ -81,7 +81,7 @@ public class LanguageDAOImpl extends BaseDAOImpl implements LanguageDAO{
 		}
 	}
 
-	public Language findById(java.lang.Integer id) {
+	public Language findById(java.lang.String id) {
 		log.debug("getting Language instance with id: " + id);
 		try {
 			Language instance = (Language) getSessionFactory().getCurrentSession()

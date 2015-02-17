@@ -10,4 +10,5 @@ public interface CountryDAO extends BaseDAO {
 	 * @return list of country
 	 */
 	public List<Country> selectAllCountry();
+	public Country findById(java.lang.String id);
 }
