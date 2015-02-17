@@ -6,12 +6,22 @@ import vn.co.taxinet.orm.Driver;
 
 ;
 public interface DriverDAO extends BaseDAO {
+
+	String createTrip(String riderId, String driverId);
+
 	/**
 	 * @author Hieu-Gie
 	 * 
 	 * @return
 	 */
 	List<Driver> getNearListDriver();
+
+	/**
+	 * @author Ecchi
+	 * @param companyID
+	 * @return driver and current status
+	 */
+	public List<Driver> findDriverByCompanyID(String companyID);
 
 	/**
 	 * @author Hieu-Gie
