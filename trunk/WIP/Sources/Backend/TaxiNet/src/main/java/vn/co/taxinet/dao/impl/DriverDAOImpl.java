@@ -32,11 +32,7 @@ import vn.co.taxinet.orm.Trip;
 @Service(value = "driverDAO")
 @Transactional
 public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -621994306928001928L;
 	private static final Logger log = LogManager.getLogger(DriverDAOImpl.class);
 
 	public void persist(Driver transientInstance) {
@@ -131,8 +127,13 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 	@Transactional(readOnly = true)
 	public List<Driver> getNearListDriver() {
 		Session session = getSessionFactory().getCurrentSession();
-		String hql = "SELECT D FROM Driver D, CurrentStatus C WHERE D.driverId = C.driverId AND C.currentStatus = 'AC' AND D.vehicle is not null";
-		Query query = session.createQuery(hql);
+		StringBuilder stringBuilder = new StringBuilder();
+		String hql1 = "SELECT D FROM Driver D, CurrentStatus C WHERE D.driverId = C.driverId ";
+		String hql2 = "AND C.currentStatus = 'AC' AND D.vehicle is not null";
+		stringBuilder.append(hql1);
+		stringBuilder.append(hql2);
+		System.out.println(" HQL : " + stringBuilder.toString());
+		Query query = session.createQuery(stringBuilder.toString());
 		List<Driver> result = query.list();
 		return result;
 	}
@@ -171,18 +172,29 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 	 * @see vn.co.taxinet.dao.DriverDAO#findDriverByCompanyID(java.lang.String)
 	 */
 	@Transactional
-	public List<Driver> findDriverByCompanyID(String companyID) {
+	public List<Driver> findDriverByCompanyID(String companyID, int pageIndex,
+			int pageSize) {
 		Session session = getSessionFactory().getCurrentSession();
-		String hql = "Select Driver D, CurrentStatus CS WHERE D.companyId = :companyId AND D.driverId = CS.driverId";
-		Query query = session.createQuery(hql);
+		StringBuilder stringBuilder = new StringBuilder();
+		String hql1 = "Select Driver D, CurrentStatus CS ";
+		String hql2 = "WHERE D.companyId = :companyId AND D.driverId = CS.driverId";
+		stringBuilder.append(hql1);
+		stringBuilder.append(hql2);
+		System.out.println("HQL : " + stringBuilder.toString());
+		Query query = session.createQuery(stringBuilder.toString());
 		query.setParameter("companyId", companyID);
-		query.setFirstResult(1);
-		query.setMaxResults(10);
+		query.setFirstResult(pageIndex);
+		query.setMaxResults(pageSize);
 		List<Driver> driverList = query.list();
 		if (driverList != null) {
 			return driverList;
 		} else {
 			return new ArrayList<Driver>();
 		}
+	}
+
+	public int countDriverByCompanyID(String companyID) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
