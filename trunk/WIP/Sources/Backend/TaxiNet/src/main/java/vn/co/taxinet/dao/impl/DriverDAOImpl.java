@@ -193,8 +193,21 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		}
 	}
 
-	public int countDriverByCompanyID(String companyID) {
-		// TODO Auto-generated method stub
-		return 0;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.dao.DriverDAO#countDriverByCompanyID(java.lang.String)
+	 */
+	@Transactional
+	public List<Driver> countDriverByCompanyID(String companyID) {
+		Session session = getSessionFactory().getCurrentSession();
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Select Driver D, CurrentStatus CS ");
+		stringBuilder
+				.append("WHERE D.companyId = :companyId AND D.driverId = CS.driverId");
+		log.debug("HQL " + stringBuilder.toString());
+		Query query = session.createQuery(stringBuilder.toString());
+		List<Driver> driverList = query.list();
+		return driverList;
 	}
 }
