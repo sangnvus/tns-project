@@ -21,7 +21,15 @@ public interface DriverDAO extends BaseDAO {
 	 * @param companyID
 	 * @return driver and current status
 	 */
-	public List<Driver> findDriverByCompanyID(String companyID);
+	public List<Driver> findDriverByCompanyID(String companyID, int pageIndex,
+			int pageSize);
+	
+	/**
+	 * @author Ecchi
+	 * @param companyID
+	 * @return number of driver
+	 */
+	public int countDriverByCompanyID(String companyID);
 
 	/**
 	 * @author Hieu-Gie
