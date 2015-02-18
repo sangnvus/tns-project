@@ -176,6 +176,8 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		String hql = "Select Driver D, CurrentStatus CS WHERE D.companyId = :companyId AND D.driverId = CS.driverId";
 		Query query = session.createQuery(hql);
 		query.setParameter("companyId", companyID);
+		query.setFirstResult(1);
+		query.setMaxResults(10);
 		List<Driver> driverList = query.list();
 		if (driverList != null) {
 			return driverList;
