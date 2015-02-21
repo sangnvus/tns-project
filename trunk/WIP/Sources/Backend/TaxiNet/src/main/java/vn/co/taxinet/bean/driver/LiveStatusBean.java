@@ -2,6 +2,7 @@ package vn.co.taxinet.bean.driver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -10,12 +11,17 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 import org.springframework.context.annotation.Scope;
 
 import vn.co.taxinet.bean.BaseBean;
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.TaxiNetUsers;
 
@@ -37,6 +43,8 @@ public class LiveStatusBean extends BaseBean {
 
 	private Driver driver;
 
+	private LazyDataModel<Driver> lazyDriverList;
+
 	@Inject
 	private DriverBO driverBO;
 
@@ -55,9 +63,33 @@ public class LiveStatusBean extends BaseBean {
 		// page
 		driverList = new ArrayList<Driver>();
 		TaxiNetUsers user = taxiNetUserDAO.findByID(UserID);
-		driverList = driverBO.findDriverByCompanyID(user.getCompany()
+		driverList = driverBO.countAllDriverByCompanyID(user.getCompany()
 				.getCompanyId().toString());
-		
+		final int companyID = user.getCompany().getCompanyId();
+		lazyDriverList = new LazyDataModel<Driver>() {
+			private static final long serialVersionUID = -8351117462011564508L;
+
+			@Override
+			public List<Driver> load(int first, int pageSize, String sortField,
+					SortOrder sortOrder, Map<String, Object> filters) {
+				List<Driver> listDrivers = new ArrayList<Driver>();
+				int pageIndex = first;
+				listDrivers = driverBO.findDriverByCompanyID(
+						String.valueOf(companyID), pageIndex, pageSize);
+				return listDrivers;
+			}
+		};
+		int count = driverList.size();
+		lazyDriverList.setRowCount(count);
+
+		for (int i = 0; i < count; i++) {
+			Driver driver = driverList.get(i);
+			CurrentStatus currentLocation = driver.getCurrentstatus();
+			LatLng location = new LatLng(currentLocation.getCurrentLatitude(),
+					currentLocation.getCurrentLongtitude());
+			simpleModel.addOverlay(new Marker(location, driver.getFirstName()
+					+ " " + driver.getLastName()));
+		}
 	}
 
 	public String getUserID() {
@@ -132,4 +164,7 @@ public class LiveStatusBean extends BaseBean {
 		this.taxiNetUserDAO = taxiNetUserDAO;
 	}
 
+	public LazyDataModel<Driver> getLazyDriverList() {
+		return lazyDriverList;
+	}
 }
