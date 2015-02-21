@@ -11,10 +11,17 @@ import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
 
+/**
+ * 
+ * @author Ecchi
+ *
+ */
 public interface DriverBO {
 
 	public Driver register(Driver driver);
-	public String register(String driverId, String firstName, String lastName, String mobileNo);
+
+	public String register(String driverId, String firstName, String lastName,
+			String mobileNo);
 
 	/**
 	 * @author Hieu-Gie
@@ -114,6 +121,16 @@ public interface DriverBO {
 	 * @throws TNException
 	 */
 	public MessageDTO updateRegId(String id, String regId) throws TNException;
+
+	/**
+	 * @author Ecchi
+	 * @param companyID
+	 * @param pageIndex
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Driver> findDriverByCompanyID(String companyID, int pageIndex,
+			int pageSize);
 	
 	
 	/**
@@ -121,6 +138,5 @@ public interface DriverBO {
 	 * @param companyID
 	 * @return
 	 */
-	public List<Driver> findDriverByCompanyID(String companyID);
-
+	public List<Driver> countAllDriverByCompanyID(String companyID);
 }
