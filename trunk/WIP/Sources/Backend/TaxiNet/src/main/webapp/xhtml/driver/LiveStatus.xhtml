@@ -58,8 +58,7 @@
 				<p:column headerText="#{msg['driver.currentPosition']}"
 					style="text-align:left">
 				</p:column>
-				<p:column headerText="#{msg['driver.car']}"
-					style="text-align:left">
+				<p:column headerText="#{msg['driver.car']}" style="text-align:left">
 				</p:column>
 				<p:column headerText="#{msg['driver.status']}"
 					style="text-align:left">
@@ -70,6 +69,8 @@
 			</p:dataTable>
 		</p:tab>
 		<p:tab title="#{msg['driver.map']}">
+			<p:gmap center="21.033333300000000000,105.850000000000020000"
+				zoom="13" type="HYBRID" model="#{liveStatusBean.simpleModel}"></p:gmap>
 		</p:tab>
 	</p:tabView>
 
