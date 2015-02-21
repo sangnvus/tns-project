@@ -311,9 +311,27 @@ public class DriverBOImpl implements DriverBO {
 
 		return new MessageDTO(Constants.Message.SUCCESS);
 	}
-
-	public List<Driver> findDriverByCompanyID(String companyID) {
+	
+	public String register(String driverId, String firstName, String lastName,
+			String mobileNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.DriverBO#findDriverByCompanyID(java.lang.String, int, int)
+	 */
+	@Transactional
+	public List<Driver> findDriverByCompanyID(String companyID, int pageIndex,
+			int pageSize) {
+		return driverDAO.findDriverByCompanyID(companyID, pageIndex, pageSize);
+	}
+	
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.DriverBO#countAllDriverByCompanyID(java.lang.String)
+	 */
+	@Transactional
+	public List<Driver> countAllDriverByCompanyID(String companyID) {
+		return driverDAO.countDriverByCompanyID(companyID);
 	}
 }
