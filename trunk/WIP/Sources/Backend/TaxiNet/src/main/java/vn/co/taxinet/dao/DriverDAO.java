@@ -29,7 +29,7 @@ public interface DriverDAO extends BaseDAO {
 	 * @param companyID
 	 * @return number of driver
 	 */
-	public int countDriverByCompanyID(String companyID);
+	public List<Driver> countDriverByCompanyID(String companyID);
 
 	/**
 	 * @author Hieu-Gie
