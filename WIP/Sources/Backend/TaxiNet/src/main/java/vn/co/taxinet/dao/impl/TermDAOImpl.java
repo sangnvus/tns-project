@@ -5,26 +5,26 @@ package vn.co.taxinet.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.TermDAO;
+import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.Term;
 import static org.hibernate.criterion.Example.create;
 
 /**
  * Home object for domain model class Term.
+ * 
  * @see vn.co.taxinet.orm.Term
  * @author Hibernate Tools
  */
 @Transactional
-public class TermDAOImpl extends BaseDAOImpl implements TermDAO{
+public class TermDAOImpl extends BaseDAOImpl implements TermDAO {
 
 	private static final Logger log = LogManager.getLogger(TermDAOImpl.class);
 
@@ -53,7 +53,8 @@ public class TermDAOImpl extends BaseDAOImpl implements TermDAO{
 	public void attachClean(Term instance) {
 		log.debug("attaching clean Term instance");
 		try {
-			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance,
+					LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -116,5 +117,18 @@ public class TermDAOImpl extends BaseDAOImpl implements TermDAO{
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+
+	public Term findTermByType(String type) {
+		StringBuilder hql = new StringBuilder();
+		String hql1 = "FROM Term t ";
+		String hql2 = "WHERE t.userType = :type";
+		hql.append(hql1);
+		hql.append(hql2);
+		Session session = getSessionFactory().getCurrentSession();
+		Query query = session.createQuery(hql.toString());
+		query.setParameter("type", type);
+		List<Term> terms = query.list();
+		return terms.get(0);
 	}
 }

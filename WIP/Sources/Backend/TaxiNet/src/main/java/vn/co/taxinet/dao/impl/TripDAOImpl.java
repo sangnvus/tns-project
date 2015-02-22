@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dao.TripDAO;
+import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.Trip;
@@ -113,25 +114,9 @@ public class TripDAOImpl extends BaseDAOImpl implements TripDAO {
 		}
 	}
 
-	public List<Trip> findByExample(Trip instance) {
-		log.debug("finding Trip instance by example");
-		try {
-			List<Trip> results = (List<Trip>) getSessionFactory()
-					.getCurrentSession()
-					.createCriteria("vn.co.taxinet.orm.Trip")
-					.add(create(instance)).list();
-			log.debug("find by example successful, result size: "
-					+ results.size());
-			return results;
-		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
-			throw re;
-		}
-	}
-
-	public String updateTripStatus(String requestId, String userId,
+	public MessageDTO updateTripStatus(String requestId, String userId,
 			String status) {
-		String hql = "update Trip set status = :status , lastModifiedBy = :userId, lastModifiedDate = :date where requestId = :requestId";
+		String hql = "UPDATE Trip SET status = :status , lastModifiedBy = :userId, lastModifiedDate = :date WHERE requestId = :requestId";
 		Session session = getSessionFactory().getCurrentSession();
 		Query query = session.createQuery(hql);
 		query.setParameter("status", status);
@@ -140,40 +125,12 @@ public class TripDAOImpl extends BaseDAOImpl implements TripDAO {
 		query.setParameter("date", Utility.getCurrentDateTime());
 		int result = query.executeUpdate();
 		if (result == 0) {
-			return Constants.Message.REQUEST_NOT_FOUND;
+			return new MessageDTO(Constants.Message.REQUEST_NOT_FOUND);
 		} else if (result > 1) {
-			return Constants.Message.ERROR;
+			return new MessageDTO(Constants.Message.ERROR);
 		} else {
-			return Constants.Message.SUCCESS;
+			return new MessageDTO(Constants.Message.SUCCESS);
 		}
-	}
-
-	public String createTrip(String riderId, String driverId) {
-		Session session = getSessionFactory().getCurrentSession();
-		// get rider
-		String hql = "select R from Rider R where R.riderId = :rid";
-		Query query = session.createQuery(hql);
-		query.setParameter("rid", riderId.toLowerCase());
-		List<Rider> listRider = query.list();
-		Rider rider = null;
-		if (!listRider.isEmpty()) {
-			rider = listRider.get(0);
-		}
-		// get driver
-		hql = "select D from Driver where D.driverId = :did";
-		query = session.createQuery(hql);
-		query.setParameter("did", driverId.toLowerCase());
-		List<Driver> listDriver = query.list();
-		Driver driver = null;
-		if (!listDriver.isEmpty()) {
-			driver = listDriver.get(0);
-		}
-		Trip trip = new Trip();
-		UUID id = UUID.randomUUID();
-		trip.setRequestId(id.toString());
-		trip.setRider(rider);
-		trip.setDriver(driver);
-		return rider.getRiderId();
 	}
 
 }

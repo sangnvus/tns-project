@@ -1,8 +1,15 @@
 package vn.co.taxinet.dao;
 
+import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.Trip;
 
 public interface TripDAO extends BaseDAO {
+	/**
+	 * @author Hieu-Gie
+	 * 
+	 * @param id
+	 * @return trip
+	 */
 	public Trip findTripById(java.lang.String id);
 
 	/**
@@ -11,18 +18,9 @@ public interface TripDAO extends BaseDAO {
 	 * @param requestId
 	 * @param userId
 	 * @param status
-	 * @return
+	 * @return status
 	 */
-	public String updateTripStatus(String requestId, String userId,
+	public MessageDTO updateTripStatus(String requestId, String userId,
 			String status);
-
-	/**
-	 * @author Hieu-Gie
-	 * 
-	 * @param riderId
-	 * @param driverId
-	 * @return
-	 */
-	public String createTrip(String riderId, String driverId);
 
 }
