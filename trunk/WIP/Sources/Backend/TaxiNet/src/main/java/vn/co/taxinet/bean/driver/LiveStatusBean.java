@@ -70,7 +70,6 @@ public class LiveStatusBean extends BaseBean {
 		// TaxiNetUsers user = taxiNetUserDAO.findByID(UserID);
 		// final int companyID = user.getCompany().getCompanyId();
 		driverList = driverBO.countAllDriverByCompanyID("1");
-		// driverList = driverBO.countAllDriverByCompanyID(String.valueOf(1));
 		lazyDriverList = new LazyDataModel<Driver>() {
 			private static final long serialVersionUID = -8351117462011564508L;
 
@@ -79,6 +78,7 @@ public class LiveStatusBean extends BaseBean {
 					SortOrder sortOrder, Map<String, Object> filters) {
 				List<Driver> listDrivers = new ArrayList<Driver>();
 				int pageIndex = first;
+				//TODO hardcode for testing
 				listDrivers = driverBO.findDriverByCompanyID(String.valueOf(1),
 						pageIndex, pageSize);
 				return listDrivers;
