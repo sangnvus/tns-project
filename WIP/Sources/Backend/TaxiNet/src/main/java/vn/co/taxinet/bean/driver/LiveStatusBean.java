@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
@@ -48,7 +49,7 @@ public class LiveStatusBean extends BaseBean {
 
 	private LazyDataModel<Driver> lazyDriverList;
 
-	@ManagedProperty(value="#{driverBO}")
+	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
 
 	@Inject
@@ -59,14 +60,15 @@ public class LiveStatusBean extends BaseBean {
 		HttpServletRequest request = (HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = request.getSession();
-//		UserID = session.getAttribute("UserID").toString();
-//		username = session.getAttribute("Username").toString();
-//		password = session.getAttribute("Password").toString();
+		// UserID = session.getAttribute("UserID").toString();
+		// username = session.getAttribute("Username").toString();
+		// password = session.getAttribute("Password").toString();
 		// TODO : need usergroup value for validate permission to access this
 		// page
 		driverList = new ArrayList<Driver>();
-//		TaxiNetUsers user = taxiNetUserDAO.findByID(UserID);
-		//final int companyID = user.getCompany().getCompanyId();
+		simpleModel = new DefaultMapModel();
+		// TaxiNetUsers user = taxiNetUserDAO.findByID(UserID);
+		// final int companyID = user.getCompany().getCompanyId();
 		driverList = driverBO.countAllDriverByCompanyID("1");
 		// driverList = driverBO.countAllDriverByCompanyID(String.valueOf(1));
 		lazyDriverList = new LazyDataModel<Driver>() {
@@ -86,12 +88,16 @@ public class LiveStatusBean extends BaseBean {
 		lazyDriverList.setRowCount(count);
 
 		for (int i = 0; i < count; i++) {
-			Driver driver = driverList.get(i);
+			Driver driver = (Driver) driverList.get(i);
 			CurrentStatus currentLocation = driver.getCurrentstatus();
-			LatLng location = new LatLng(currentLocation.getCurrentLatitude(),
-					currentLocation.getCurrentLongtitude());
-			simpleModel.addOverlay(new Marker(location, driver.getFirstName()
-					+ " " + driver.getLastName()));
+			if (currentLocation.getCurrentLatitude() != null
+					&& currentLocation.getCurrentLongtitude() != null) {
+				LatLng location = new LatLng(
+						currentLocation.getCurrentLatitude(),
+						currentLocation.getCurrentLongtitude());
+				simpleModel.addOverlay(new Marker(location, driver
+						.getFirstName() + " " + driver.getLastName()));
+			}
 		}
 	}
 
