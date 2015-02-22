@@ -8,7 +8,7 @@
 
 <h:head>
 	<f:metadata>
-		<f:event listener="#{feeAgentHomeController.initData}"
+		<f:event listener="#{liveStatusBean.init}"
 			type="preRenderView"></f:event>
 	</f:metadata>
 	<title>TaxiNet</title>
@@ -47,16 +47,21 @@
 	<p:tabView dynamic="true" cache="true">
 		<p:tab title="#{msg['driver.list']}">
 			<p:dataTable id="driverPosition-list" paginator="true" rows="10"
-				paginatorPosition="top"
+				paginatorPosition="top" lazy="true"
+				value="#{liveStatusBean.lazyDriverList}" var="driver"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} ">
 				<p:column headerText="#{msg['feeAgent.autonumber']}"
 					style="text-align:left" width="35">
+					<h:outputText value="#{liveStatusBean.lazyDriverList.rowIndex}" />
 				</p:column>
 				<p:column headerText="#{msg['riderRegister.name']}"
 					style="text-align:left">
+					<h:outputText value="#{driver.firstName}" />
+					<h:outputText value="#{driver.lastName}" />
 				</p:column>
 				<p:column headerText="#{msg['driver.currentPosition']}"
 					style="text-align:left">
+					<h:outputText value="#{driver.currentstatus.currentLocation}" />
 				</p:column>
 				<p:column headerText="#{msg['driver.car']}" style="text-align:left">
 				</p:column>
