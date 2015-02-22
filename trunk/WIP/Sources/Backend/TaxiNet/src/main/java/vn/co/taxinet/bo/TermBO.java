@@ -1,8 +1,10 @@
-package vn.co.taxinet.dao;
+package vn.co.taxinet.bo;
+
+import org.springframework.stereotype.Service;
 
 import vn.co.taxinet.orm.Term;
 
-public interface TermDAO extends BaseDAO {
+public interface TermBO {
 
 	/**
 	 * @author Hieu-Gie
@@ -11,5 +13,4 @@ public interface TermDAO extends BaseDAO {
 	 * @return
 	 */
 	public Term findTermByType(String type);
-
 }

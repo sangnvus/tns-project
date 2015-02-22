@@ -1,6 +1,7 @@
 package vn.co.taxinet.bo;
 
 import vn.co.taxinet.common.exception.TNException;
+import vn.co.taxinet.dto.MessageDTO;
 
 public interface TripBO {
 	/**
@@ -10,10 +11,10 @@ public interface TripBO {
 	 * @param driverId
 	 * @param longitude
 	 * @param latitude
-	 * @return
+	 * @return MessageDTO
 	 * @throws TNException
 	 */
-	public String createTrip(String riderId, String driverId, String longitude,
+	public MessageDTO createTrip(String riderId, String driverId, String longitude,
 			String latitude) throws TNException;
 
 	/**
@@ -22,8 +23,8 @@ public interface TripBO {
 	 * @param requestId
 	 * @param userId
 	 * @param status
-	 * @return
+	 * @return MessageDTO
 	 * @throws TNException
 	 */
-	public String updateTrip(String requestId, String userId, String status) throws TNException;
+	public MessageDTO updateTrip(String requestId, String userId, String status) throws TNException;
 }

@@ -16,6 +16,7 @@ import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.PaymentDAO;
 import vn.co.taxinet.dao.RiderDAO;
 import vn.co.taxinet.dao.TripDAO;
+import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.gcm.Content;
 import vn.co.taxinet.gcm.POST2GCM;
 import vn.co.taxinet.orm.Driver;
@@ -54,8 +55,8 @@ public class TripBOImpl implements TripBO {
 	}
 
 	@Transactional
-	public String createTrip(String riderId, String driverId, String longitude,
-			String latitude) throws TNException {
+	public MessageDTO createTrip(String riderId, String driverId,
+			String longitude, String latitude) throws TNException {
 		if (driverId == null || driverId.equalsIgnoreCase("")) {
 			throw new TNException("DriverID is null");
 		}
@@ -88,19 +89,18 @@ public class TripBOImpl implements TripBO {
 		trip.setLastModifiedDate(Utility.getCurrentDateTime());
 		tripDAO.insert(trip);
 
-		Content content = createRequestNotification(driver.getDriverId(),
-				rider.getTaxinetusers().getImage(), rider.getFirstName() + " "
-						+ rider.getLastName(), longitude, latitude,
-				String.valueOf(id));
+		Content content = createRequestNotification(driver.getDriverId(), rider
+				.getTaxinetusers().getImage(), rider.getFirstName() + " "
+				+ rider.getLastName(), longitude, latitude, String.valueOf(id));
 
 		String message = POST2GCM.post(Constants.apiKey, content);
 		if (message.equals(Constants.Message.SUCCESS)) {
-			return message;
+			return new MessageDTO(message);
 		}
 		throw new TNException(Constants.Message.FAIL);
 	}
 
-	public String updateTrip(String requestId, String userId, String status)
+	public MessageDTO updateTrip(String requestId, String userId, String status)
 			throws TNException {
 		if (requestId == null || requestId.equalsIgnoreCase("")) {
 			throw new TNException("requestId is null");
@@ -123,8 +123,7 @@ public class TripBOImpl implements TripBO {
 			// send notification to driver
 			createCancelNotification(userId, status, requestId);
 		}
-		String message = tripDAO.updateTripStatus(requestId, userId, status);
-		return message;
+		return tripDAO.updateTripStatus(requestId, userId, status);
 	}
 
 	public static Content createRequestNotification(String regId,

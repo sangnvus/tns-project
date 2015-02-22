@@ -21,8 +21,6 @@ import vn.co.taxinet.dto.MessageDTO;
 public class DriverController {
 	@Autowired
 	private DriverBO driverBO;
-	@Autowired
-	private TripBO tripBO;
 
 	public DriverBO getDriverBO() {
 		return driverBO;
@@ -30,14 +28,6 @@ public class DriverController {
 
 	public void setDriverBO(DriverBO driverBO) {
 		this.driverBO = driverBO;
-	}
-
-	public TripBO getTripBO() {
-		return tripBO;
-	}
-
-	public void setTripBO(TripBO tripBO) {
-		this.tripBO = tripBO;
 	}
 
 	@RequestMapping(value = "/getNearDriver", method = RequestMethod.GET)
@@ -49,27 +39,6 @@ public class DriverController {
 				latitude);
 
 		return listDriverDTO;
-	}
-
-	@RequestMapping(value = "/CreateTrip", method = RequestMethod.GET)
-	public String createTrip(@RequestParam Map<String, String> requestParams)
-			throws TNException {
-		String riderId = requestParams.get("riderId");
-		String driverId = requestParams.get("driverId");
-		String longitude = requestParams.get("longitude");
-		String latitude = requestParams.get("latitude");
-
-		return tripBO.createTrip(riderId, driverId, longitude, latitude);
-	}
-
-	@RequestMapping(value = "/UpdateTrip", method = RequestMethod.GET)
-	public String updateTrip(@RequestParam Map<String, String> requestParams)
-			throws TNException {
-		String requestId = requestParams.get("requestId");
-		String userId = requestParams.get("userId");
-		String status = requestParams.get("status");
-
-		return tripBO.updateTrip(requestId, userId, status);
 	}
 
 	@RequestMapping(value = "/Login", method = RequestMethod.GET)
