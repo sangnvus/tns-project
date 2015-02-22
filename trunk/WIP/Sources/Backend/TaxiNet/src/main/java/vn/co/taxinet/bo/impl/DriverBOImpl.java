@@ -64,7 +64,7 @@ public class DriverBOImpl implements DriverBO {
 
 	@Autowired
 	private PricePanelDAO pricePanelDAO;
-	
+
 	@Autowired
 	private CurrentStatusDAO currentStatusDAO;
 
@@ -102,9 +102,9 @@ public class DriverBOImpl implements DriverBO {
 		return listDriverDTO;
 	}
 
-//	public String createTrip(String riderId, String driverId) {
-//		return tripDAO.createTrip(riderId, driverId);
-//	}
+	// public String createTrip(String riderId, String driverId) {
+	// return tripDAO.createTrip(riderId, driverId);
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -216,29 +216,29 @@ public class DriverBOImpl implements DriverBO {
 		}
 	}
 
-//	@Transactional
-//	public MessageDTO updateCurrentStatus(String driverId, String longitude,
-//			String latitude, String status) throws TNException {
-//		try {
-//			double _longitude = Double.parseDouble(longitude);
-//			double _latitude = Double.parseDouble(latitude);
-//			String _status = status.toUpperCase();
-//			if (_status == null || _status.equalsIgnoreCase("")) {
-//				throw new TNException(Constants.Message.EMTPY_STATUS);
-//			}
-//			// check id of driver before update position
-//			Driver driver = driverDAO.findDriverById(driverId);
-//			if (driver != null) {
-////				return driverDAO.updateCurrentStatus(driver.getDriverId(),
-////						_longitude, _latitude, _status);
-//			} else {
-//				return new MessageDTO(Constants.Message.FAIL);
-//			}
-//
-//		} catch (NumberFormatException e) {
-//			throw new TNException(Constants.Message.NUMBER_FORMAT_EXCEPTION);
-//		}
-//	}
+	// @Transactional
+	// public MessageDTO updateCurrentStatus(String driverId, String longitude,
+	// String latitude, String status) throws TNException {
+	// try {
+	// double _longitude = Double.parseDouble(longitude);
+	// double _latitude = Double.parseDouble(latitude);
+	// String _status = status.toUpperCase();
+	// if (_status == null || _status.equalsIgnoreCase("")) {
+	// throw new TNException(Constants.Message.EMTPY_STATUS);
+	// }
+	// // check id of driver before update position
+	// Driver driver = driverDAO.findDriverById(driverId);
+	// if (driver != null) {
+	// // return driverDAO.updateCurrentStatus(driver.getDriverId(),
+	// // _longitude, _latitude, _status);
+	// } else {
+	// return new MessageDTO(Constants.Message.FAIL);
+	// }
+	//
+	// } catch (NumberFormatException e) {
+	// throw new TNException(Constants.Message.NUMBER_FORMAT_EXCEPTION);
+	// }
+	// }
 
 	@Transactional
 	public DriverDTO login(String username, String password) throws TNException {
@@ -316,7 +316,7 @@ public class DriverBOImpl implements DriverBO {
 
 		return new MessageDTO(Constants.Message.SUCCESS);
 	}
-	
+
 	public String register(String driverId, String firstName, String lastName,
 			String mobileNo) {
 		// TODO Auto-generated method stub
@@ -354,18 +354,24 @@ public class DriverBOImpl implements DriverBO {
 		return driverId;
 
 	}
-	
-	/* (non-Javadoc)
-	 * @see vn.co.taxinet.bo.DriverBO#findDriverByCompanyID(java.lang.String, int, int)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.DriverBO#findDriverByCompanyID(java.lang.String,
+	 * int, int)
 	 */
 	@Transactional
 	public List<Driver> findDriverByCompanyID(String companyID, int pageIndex,
 			int pageSize) {
 		return driverDAO.findDriverByCompanyID(companyID, pageIndex, pageSize);
 	}
-	
-	/* (non-Javadoc)
-	 * @see vn.co.taxinet.bo.DriverBO#countAllDriverByCompanyID(java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * vn.co.taxinet.bo.DriverBO#countAllDriverByCompanyID(java.lang.String)
 	 */
 	@Transactional
 	public List<Driver> countAllDriverByCompanyID(String companyID) {
@@ -374,7 +380,7 @@ public class DriverBOImpl implements DriverBO {
 
 	@Transactional
 	public MessageDTO updateCurrentStatus(String driverId, String longitude,
-			String latitude, String status) throws TNException {
+			String latitude, String status, String location) throws TNException {
 		try {
 			double _longitude = Double.parseDouble(longitude);
 			double _latitude = Double.parseDouble(latitude);
@@ -385,6 +391,12 @@ public class DriverBOImpl implements DriverBO {
 			// check id of driver before update position
 			Driver driver = driverDAO.findDriverById(driverId);
 			if (driver != null) {
+				CurrentStatus currentStatus = driver.getCurrentstatus();
+				currentStatus.setCurrentLatitude(_latitude);
+				currentStatus.setCurrentLocation(location);
+				currentStatus.setCurrentLongtitude(_longitude);
+				currentStatus.setCurrentStatus(_status);
+				currentStatusDAO.update(currentStatus);
 				return currentStatusDAO.updateCurrentStatus(
 						driver.getDriverId(), _longitude, _latitude, _status);
 			} else {

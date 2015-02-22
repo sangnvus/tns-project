@@ -12,6 +12,7 @@ import vn.co.taxinet.bo.TripBO;
 import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.common.exception.TNException;
 import vn.co.taxinet.dao.CityDAO;
+import vn.co.taxinet.dao.CurrentStatusDAO;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.PaymentDAO;
 import vn.co.taxinet.dao.RiderDAO;
@@ -19,6 +20,7 @@ import vn.co.taxinet.dao.TripDAO;
 import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.gcm.Content;
 import vn.co.taxinet.gcm.POST2GCM;
+import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.Trip;
@@ -29,10 +31,24 @@ public class TripBOImpl implements TripBO {
 	private static final Logger logger = LogManager.getLogger(TripBOImpl.class);
 	@Autowired
 	private TripDAO tripDAO;
+	@Autowired
 	private RiderDAO riderDAO;
+	@Autowired
 	private DriverDAO driverDAO;
+	@Autowired
 	private CityDAO cityDAO;
+	@Autowired
 	private PaymentDAO paymentDAO;
+	@Autowired
+	private CurrentStatusDAO currentStatusDAO;
+
+	public CurrentStatusDAO getCurrentStatusDAO() {
+		return currentStatusDAO;
+	}
+
+	public void setCurrentStatusDAO(CurrentStatusDAO currentStatusDAO) {
+		this.currentStatusDAO = currentStatusDAO;
+	}
 
 	public void setPaymentDAO(PaymentDAO paymentDAO) {
 		this.paymentDAO = paymentDAO;
@@ -116,14 +132,39 @@ public class TripBOImpl implements TripBO {
 			throw new TNException("trip is null");
 		}
 		if (userId.equalsIgnoreCase(trip.getDriver().getDriverId())) {
-			// send notification to rider
-			createCancelNotification(userId, status, requestId);
+			if (status.equalsIgnoreCase(Constants.TripStatus.CANCELLED)) {
+				// send notification to rider
+				createCancelNotification(userId, status, requestId);
+			} else {
+				// send notification to rider
+				createAcceptNotification(userId, status, requestId);
+
+				// update status of driver
+				CurrentStatus currentStatus = currentStatusDAO
+						.findCurrenStatusById(userId);
+				if (currentStatus == null) {
+					throw new TNException("Invalid Id");
+				}
+				if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
+					currentStatus.setCurrentStatus(Constants.DriverStatus.BUSY);
+					currentStatusDAO.update(currentStatus);
+				}
+			}
+			// update trip
+			return tripDAO.updateTripStatus(requestId, userId, status);
 		}
 		if (userId.equalsIgnoreCase(trip.getRider().getRiderId())) {
 			// send notification to driver
 			createCancelNotification(userId, status, requestId);
+			return tripDAO.updateTripStatus(requestId, userId, status);
 		}
-		return tripDAO.updateTripStatus(requestId, userId, status);
+		throw new TNException("Invalid Id");
+	}
+
+	private void createAcceptNotification(String userId, String status,
+			String requestId) {
+		// TODO Auto-generated method stub
+
 	}
 
 	public static Content createRequestNotification(String regId,
