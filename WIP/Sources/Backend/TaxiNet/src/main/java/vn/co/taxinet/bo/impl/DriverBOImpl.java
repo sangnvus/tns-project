@@ -18,6 +18,7 @@ import vn.co.taxinet.dao.CarMakerDAO;
 import vn.co.taxinet.dao.CarModelDAO;
 import vn.co.taxinet.dao.CityNameDAO;
 import vn.co.taxinet.dao.CountryDAO;
+import vn.co.taxinet.dao.CurrentStatusDAO;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.PricePanelDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
@@ -28,6 +29,7 @@ import vn.co.taxinet.orm.CarMaker;
 import vn.co.taxinet.orm.CarModel;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
+import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.PricePanel;
 import vn.co.taxinet.orm.TaxiNetUsers;
@@ -62,6 +64,9 @@ public class DriverBOImpl implements DriverBO {
 
 	@Autowired
 	private PricePanelDAO pricePanelDAO;
+	
+	@Autowired
+	private CurrentStatusDAO currentStatusDAO;
 
 	public void setPricePanelDAO(PricePanelDAO pricePanelDAO) {
 		this.pricePanelDAO = pricePanelDAO;
@@ -315,7 +320,39 @@ public class DriverBOImpl implements DriverBO {
 	public String register(String driverId, String firstName, String lastName,
 			String mobileNo) {
 		// TODO Auto-generated method stub
-		return null;
+		if (driverId == null) {
+			return "";
+		}
+		if (firstName == null) {
+			return "";
+		}
+		if (lastName == null) {
+			return "";
+		}
+		if (mobileNo == null) {
+			return "";
+		}
+		TaxiNetUsers taxiNetUser = taxiNetUserDAO.findById(driverId);
+		Driver driver = new Driver();
+		driver.setTaxinetusers(taxiNetUser);
+		driver.setFirstName(firstName);
+		driver.setLastName(lastName);
+		driver.setDriverId(driverId);
+		driver.setMobileNo(mobileNo);
+		driver.setCreatedBy(driverId);
+		driver.setCreatedDate(Utility.getCurrentDateTime());
+		driver.setLastModifiedBy(driverId);
+		driver.setLastModifiedDate(Utility.getCurrentDateTime());
+
+		driverDAO.insert(driver);
+		// set current status
+		CurrentStatus currentStatus = new CurrentStatus();
+		currentStatus.setDriver(driver);
+		currentStatus.setDriverId(driver.getDriverId());
+		currentStatus.setCurrentStatus(Constants.DriverStatus.NEW);
+		currentStatusDAO.insert(currentStatus);
+		return driverId;
+
 	}
 	
 	/* (non-Javadoc)
@@ -335,9 +372,27 @@ public class DriverBOImpl implements DriverBO {
 		return driverDAO.countDriverByCompanyID(companyID);
 	}
 
+	@Transactional
 	public MessageDTO updateCurrentStatus(String driverId, String longitude,
 			String latitude, String status) throws TNException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			double _longitude = Double.parseDouble(longitude);
+			double _latitude = Double.parseDouble(latitude);
+			String _status = status.toUpperCase();
+			if (_status == null || _status.equalsIgnoreCase("")) {
+				throw new TNException(Constants.Message.EMTPY_STATUS);
+			}
+			// check id of driver before update position
+			Driver driver = driverDAO.findDriverById(driverId);
+			if (driver != null) {
+				return currentStatusDAO.updateCurrentStatus(
+						driver.getDriverId(), _longitude, _latitude, _status);
+			} else {
+				return new MessageDTO(Constants.Message.FAIL);
+			}
+
+		} catch (NumberFormatException e) {
+			throw new TNException(Constants.Message.NUMBER_FORMAT_EXCEPTION);
+		}
 	}
 }
