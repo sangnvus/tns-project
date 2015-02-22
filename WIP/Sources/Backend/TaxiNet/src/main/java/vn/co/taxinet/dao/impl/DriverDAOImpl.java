@@ -176,15 +176,15 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 			int pageSize) {
 		Session session = getSessionFactory().getCurrentSession();
 		StringBuilder stringBuilder = new StringBuilder();
-		String hql1 = "FROM TaxiNetUsers U, Driver D, CurrentStatus CS ";
-		String hql2 = "WHERE U.companyId = :companyId AND D.driverId = CS.driverId";
+		String hql1 = "Select D FROM TaxiNetUsers U, Driver D, CurrentStatus CS ";
+		String hql2 = "WHERE U.company.companyId = :companyId AND D.driverId = CS.driverId";
 		String hql3 = " AND U.userId = D.driverId";
 		stringBuilder.append(hql1);
 		stringBuilder.append(hql2);
 		stringBuilder.append(hql3);
 		System.out.println("HQL : " + stringBuilder.toString());
 		Query query = session.createQuery(stringBuilder.toString());
-		query.setParameter("companyId", companyID);
+		query.setParameter("companyId", Integer.parseInt(companyID));
 		query.setFirstResult(pageIndex);
 		query.setMaxResults(pageSize);
 		List<Driver> driverList = query.list();
@@ -204,15 +204,15 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 	public List<Driver> countDriverByCompanyID(String companyID) {
 		Session session = getSessionFactory().getCurrentSession();
 		StringBuilder stringBuilder = new StringBuilder();
-		String hql1 = "FROM TaxiNetUsers U, Driver D, CurrentStatus CS";
-		String hql2 = " WHERE U.companyId = :companyId AND D.driverId = CS.driverId";
+		String hql1 = "Select D FROM TaxiNetUsers U, Driver D, CurrentStatus CS";
+		String hql2 = " WHERE U.company.companyId = :companyId AND D.driverId = CS.driverId";
 		String hql3 = " AND U.userId = D.driverId";
 		stringBuilder.append(hql1);
 		stringBuilder.append(hql2);
 		stringBuilder.append(hql3);
 		log.debug("HQL " + stringBuilder.toString());
 		Query query = session.createQuery(stringBuilder.toString());
-		query.setParameter("companyId", companyID);
+		query.setParameter("companyId", Integer.parseInt(companyID));
 		List<Driver> driverList = query.list();
 		return driverList;
 	}
