@@ -97,9 +97,9 @@ public class DriverBOImpl implements DriverBO {
 		return listDriverDTO;
 	}
 
-	public String createTrip(String riderId, String driverId) {
-		return tripDAO.createTrip(riderId, driverId);
-	}
+//	public String createTrip(String riderId, String driverId) {
+//		return tripDAO.createTrip(riderId, driverId);
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -211,29 +211,29 @@ public class DriverBOImpl implements DriverBO {
 		}
 	}
 
-	@Transactional
-	public MessageDTO updateCurrentStatus(String driverId, String longitude,
-			String latitude, String status) throws TNException {
-		try {
-			double _longitude = Double.parseDouble(longitude);
-			double _latitude = Double.parseDouble(latitude);
-			String _status = status.toUpperCase();
-			if (_status == null || _status.equalsIgnoreCase("")) {
-				throw new TNException(Constants.Message.EMTPY_STATUS);
-			}
-			// check id of driver before update position
-			Driver driver = driverDAO.findDriverById(driverId);
-			if (driver != null) {
-				return driverDAO.updateCurrentStatus(driver.getDriverId(),
-						_longitude, _latitude, _status);
-			} else {
-				return new MessageDTO(Constants.Message.FAIL);
-			}
-
-		} catch (NumberFormatException e) {
-			throw new TNException(Constants.Message.NUMBER_FORMAT_EXCEPTION);
-		}
-	}
+//	@Transactional
+//	public MessageDTO updateCurrentStatus(String driverId, String longitude,
+//			String latitude, String status) throws TNException {
+//		try {
+//			double _longitude = Double.parseDouble(longitude);
+//			double _latitude = Double.parseDouble(latitude);
+//			String _status = status.toUpperCase();
+//			if (_status == null || _status.equalsIgnoreCase("")) {
+//				throw new TNException(Constants.Message.EMTPY_STATUS);
+//			}
+//			// check id of driver before update position
+//			Driver driver = driverDAO.findDriverById(driverId);
+//			if (driver != null) {
+////				return driverDAO.updateCurrentStatus(driver.getDriverId(),
+////						_longitude, _latitude, _status);
+//			} else {
+//				return new MessageDTO(Constants.Message.FAIL);
+//			}
+//
+//		} catch (NumberFormatException e) {
+//			throw new TNException(Constants.Message.NUMBER_FORMAT_EXCEPTION);
+//		}
+//	}
 
 	@Transactional
 	public DriverDTO login(String username, String password) throws TNException {
@@ -333,5 +333,11 @@ public class DriverBOImpl implements DriverBO {
 	@Transactional
 	public List<Driver> countAllDriverByCompanyID(String companyID) {
 		return driverDAO.countDriverByCompanyID(companyID);
+	}
+
+	public MessageDTO updateCurrentStatus(String driverId, String longitude,
+			String latitude, String status) throws TNException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
