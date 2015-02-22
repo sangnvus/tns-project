@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,8 +28,8 @@ import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.TaxiNetUsers;
 
-@Named
-@Scope(value = "session")
+@ManagedBean(name = "liveStatusBean", eager = true)
+@SessionScoped
 public class LiveStatusBean extends BaseBean {
 	private static final long serialVersionUID = 5900995349430519062L;
 
@@ -45,7 +48,7 @@ public class LiveStatusBean extends BaseBean {
 
 	private LazyDataModel<Driver> lazyDriverList;
 
-	@Inject
+	@ManagedProperty(value="#{driverBO}")
 	private DriverBO driverBO;
 
 	@Inject
@@ -56,16 +59,16 @@ public class LiveStatusBean extends BaseBean {
 		HttpServletRequest request = (HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = request.getSession();
-		UserID = session.getAttribute("UserID").toString();
-		username = session.getAttribute("Username").toString();
-		password = session.getAttribute("Password").toString();
+//		UserID = session.getAttribute("UserID").toString();
+//		username = session.getAttribute("Username").toString();
+//		password = session.getAttribute("Password").toString();
 		// TODO : need usergroup value for validate permission to access this
 		// page
 		driverList = new ArrayList<Driver>();
-		TaxiNetUsers user = taxiNetUserDAO.findByID(UserID);
-		driverList = driverBO.countAllDriverByCompanyID(user.getCompany()
-				.getCompanyId().toString());
-		final int companyID = user.getCompany().getCompanyId();
+//		TaxiNetUsers user = taxiNetUserDAO.findByID(UserID);
+		//final int companyID = user.getCompany().getCompanyId();
+		driverList = driverBO.countAllDriverByCompanyID("1");
+		// driverList = driverBO.countAllDriverByCompanyID(String.valueOf(1));
 		lazyDriverList = new LazyDataModel<Driver>() {
 			private static final long serialVersionUID = -8351117462011564508L;
 
@@ -74,8 +77,8 @@ public class LiveStatusBean extends BaseBean {
 					SortOrder sortOrder, Map<String, Object> filters) {
 				List<Driver> listDrivers = new ArrayList<Driver>();
 				int pageIndex = first;
-				listDrivers = driverBO.findDriverByCompanyID(
-						String.valueOf(companyID), pageIndex, pageSize);
+				listDrivers = driverBO.findDriverByCompanyID(String.valueOf(1),
+						pageIndex, pageSize);
 				return listDrivers;
 			}
 		};
