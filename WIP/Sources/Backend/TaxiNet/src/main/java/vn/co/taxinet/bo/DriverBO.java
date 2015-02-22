@@ -84,7 +84,7 @@ public interface DriverBO {
 	 * @throws TNException
 	 */
 	public MessageDTO updateCurrentStatus(String driverId, String longitude,
-			String latitude, String status) throws TNException;
+			String latitude, String status, String location) throws TNException;
 
 	/**
 	 * @author Hieu-Gie

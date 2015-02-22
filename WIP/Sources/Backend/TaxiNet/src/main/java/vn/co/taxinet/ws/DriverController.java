@@ -57,8 +57,9 @@ public class DriverController {
 		String longitude = requestParams.get("longitude");
 		String latitude = requestParams.get("latitude");
 		String status = requestParams.get("status");
+		String location = requestParams.get("location");
 		MessageDTO result = driverBO.updateCurrentStatus(driverId, longitude,
-				latitude, status);
+				latitude, status, location);
 		return result;
 
 	}

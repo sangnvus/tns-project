@@ -3,10 +3,15 @@ package vn.co.taxinet.dao;
 import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.dto.MessageDTO;
 
-
 public interface CurrentStatusDAO extends BaseDAO {
 
-	public CurrentStatus findById(java.lang.String id);
+	/**
+	 * @author Hieu-Gie
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public CurrentStatus findCurrenStatusById(String id);
 
 	/**
 	 * @author Hieu-Gie
