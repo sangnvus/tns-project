@@ -132,7 +132,6 @@ public interface DriverBO {
 	public List<Driver> findDriverByCompanyID(String companyID, int pageIndex,
 			int pageSize);
 	
-	
 	/**
 	 * @author Ecchi
 	 * @param companyID
