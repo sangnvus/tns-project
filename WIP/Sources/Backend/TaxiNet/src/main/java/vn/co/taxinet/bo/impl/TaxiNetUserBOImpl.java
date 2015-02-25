@@ -83,6 +83,14 @@ public class TaxiNetUserBOImpl implements TaxiNetUserBO{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.TaxiNetUserBO#changePass(java.lang.String, java.lang.String)
+	 */
+	public String changePass(String userID, String newPassword) {
+		String result = taxiNetUserDAO.changePassword(userID, newPassword);
+		return result;
+	}
 
+	
 
 }
