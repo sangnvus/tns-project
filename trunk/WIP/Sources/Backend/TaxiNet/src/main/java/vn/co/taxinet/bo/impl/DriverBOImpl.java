@@ -354,6 +354,9 @@ public class DriverBOImpl implements DriverBO {
 		return driverDAO.countDriverByCompanyID(companyID);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.DriverBO#updateCurrentStatus(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Transactional
 	public MessageDTO updateCurrentStatus(String driverId, String longitude,
 			String latitude, String status, String location) throws TNException {

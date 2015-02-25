@@ -140,4 +140,9 @@ public class CurrentStatusDAOImpl extends BaseDAOImpl implements
 		return new MessageDTO(Constants.Message.SUCCESS);
 	}
 
+	public CurrentStatus findCurrenStatusById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

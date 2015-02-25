@@ -8,11 +8,9 @@ import static org.hibernate.criterion.Example.create;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +30,9 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final Logger log = LogManager.getLogger(TaxiNetUserDAOImpl.class);
+	private static final Logger log = LogManager
+			.getLogger(TaxiNetUserDAOImpl.class);
+
 	@Transactional(readOnly = true)
 	public TaxiNetUsers select(String uid) {
 		Session session = getSessionFactory().getCurrentSession();
@@ -139,6 +139,7 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 			throw re;
 		}
 	}
+
 	public void persist(TaxiNetUsers transientInstance) {
 		log.debug("persisting TaxiNetUsers instance");
 		try {
@@ -164,7 +165,8 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 	public void attachClean(TaxiNetUsers instance) {
 		log.debug("attaching clean TaxiNetUsers instance");
 		try {
-			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance,
+					LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -228,5 +230,21 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.dao.TaxiNetUserDAO#changePassword(java.lang.String,
+	 * java.lang.String)
+	 */
+	public String changePassword(String userID, String newPassword) {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "UPDATE TaxiNetUsers set password = :password WHERE userId = :userId";
+		Query query = session.createQuery(hql);
+		query.setParameter("password", newPassword);
+		query.setParameter("userId", userID);
+		int result = query.executeUpdate();
+		return String.valueOf(result);
 	}
 }

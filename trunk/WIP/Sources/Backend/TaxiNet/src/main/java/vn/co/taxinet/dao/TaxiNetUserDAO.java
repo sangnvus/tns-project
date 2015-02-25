@@ -50,11 +50,16 @@ public interface TaxiNetUserDAO extends BaseDAO {
 	 * @return boolean
 	 */
 	boolean registerRider(Rider rider);
-
+	
 	/**
 	 * @author Ecchi
-	 * @return all users ( rider, driver, taxigroup )
+	 * change user password
+	 * @param userID
+	 * @param newPassword
+	 * @return 
 	 */
+	String changePassword(String userID, String newPassword);
+
 	List<TaxiNetUsers> listAllUsers(String username, String email);
 	List<TaxiNetUsers> paginationList(int page, int numberOfElement);
 }
