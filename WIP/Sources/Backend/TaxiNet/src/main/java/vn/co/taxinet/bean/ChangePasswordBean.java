@@ -40,17 +40,17 @@ public class ChangePasswordBean implements Serializable {
 			HttpServletRequest request = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			HttpSession session = request.getSession();
-			UserID = session.getAttribute("UserID").toString();
-			Username = session.getAttribute("Username").toString();
-			Password = session.getAttribute("Password").toString();
-			newPass = "";
+//			UserID = session.getAttribute("UserID").toString();
+//			Username = session.getAttribute("Username").toString();
+//			Password = session.getAttribute("Password").toString();
+//			newPass = "";
 			renewPass = "";
 		} catch (Exception ex) {
 			try {
 				// TODO if UserID/ Username / Password null -> redirect to login
 				// page
 				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect("/xhtml/Login.xhtml");
+						.redirect("/TN/faces/xhtml/Login.xhtml");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -62,19 +62,7 @@ public class ChangePasswordBean implements Serializable {
 	 * @author Ecchi change password
 	 */
 	public String changePassButton() {
-		if (newPass == null || ("").equalsIgnoreCase(newPass)) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning",
-							"You must enter new pasword"));
-			return null;
-		} else if (renewPass == null || ("").equalsIgnoreCase(renewPass)) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning",
-							"You must confirm new password"));
-			return null;
-		} else if (!(renewPass).equalsIgnoreCase(newPass)) {
+		if (!(renewPass).equalsIgnoreCase(newPass)) {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning",
@@ -83,16 +71,17 @@ public class ChangePasswordBean implements Serializable {
 		} else {
 			String result = taxiNetUserBO.changePass(UserID, newPass);
 			if (result != null) {
-				FacesContext.getCurrentInstance().addMessage(
-						null,
-						new FacesMessage( "Success",
-								"Your password was updated"));
+				FacesContext.getCurrentInstance()
+						.addMessage(
+								null,
+								new FacesMessage("Success",
+										"Your password was updated"));
 			} else {
 				FacesContext.getCurrentInstance().addMessage(
 						null,
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
 								"Something was crushed"));
-			} 
+			}
 			return null;
 		}
 	}
@@ -135,5 +124,9 @@ public class ChangePasswordBean implements Serializable {
 
 	public void setRenewPass(String renewPass) {
 		this.renewPass = renewPass;
+	}
+
+	public void setTaxiNetUserBO(TaxiNetUserBO taxiNetUserBO) {
+		this.taxiNetUserBO = taxiNetUserBO;
 	}
 }
