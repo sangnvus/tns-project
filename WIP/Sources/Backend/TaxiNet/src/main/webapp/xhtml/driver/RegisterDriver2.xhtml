@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<f:metadata>
+		<f:event listener="#{driverRegisterController.init}" type="preRenderView" />
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<f:view>
+		<h:form id="registerForm2" prependId="false">
+			<p:growl id="msg" showDetail="true" />
+			<center>
+				<p:panel header="ĐĂNG KÍ TÀI KHOẢN">
+					<h4>THÔNG TIN LIÊN HỆ</h4>
+					<h:panelGrid id="identity" columns="3">
+						<p:outputLabel for="firstname"
+							value="#{msg['driver.firstname']}" />
+						<p:outputLabel for="lastname"
+							value="#{msg['driver.lastname']}" />
+						<p:outputLabel></p:outputLabel>
+						<p:inputText id="firstname"
+							value="#{driverRegisterController.firstName}" required="true"
+							requiredMessage="Tên không hợp lê"></p:inputText>
+						<p:inputText id="lastname"
+							value="#{driverRegisterController.lastName}"></p:inputText>
+						<p:message for="firstname" showDetail="true"></p:message>
+						<p:outputLabel for="headerNo"
+							value="#{msg['driver.phoneHeader']}" />
+						<p:outputLabel for="phoneNo"
+							value="#{msg['driver.phoneNo']}" />
+						<p:outputLabel></p:outputLabel>
+						<p:selectOneMenu id="headerNo" value="#{driverRegisterController.phoneHeader}">
+							<f:selectItem itemValue="0977" itemLabel="0977-Viettel" />
+							<f:selectItem itemValue="0978" itemLabel="0978-Viettel" />
+						</p:selectOneMenu>
+						<p:inputText id="phoneNo"
+							value="#{driverRegisterController.phoneNumber}" required="true"
+							requiredMessage="Số điện thoại không hợp lệ">
+							<f:validateLength maximum="11"></f:validateLength>
+						</p:inputText>
+						<p:message for="phoneNo" showDetail="true" />
+						<p:outputLabel for="languages"
+							value="#{msg['driver.languages']}" />
+						<p:selectOneMenu id="languages" required="true"
+							requiredMessage="Ngôn ngữ không hợp lệ"
+							value="#{driverRegisterController.language}">
+							<f:selectItem itemLabel="English" itemValue="en" />
+							<f:selectItem itemLabel="Vietnammese" itemValue="vn" />
+						</p:selectOneMenu>
+						<p:message for="languages" showDetail="true" />
+					</h:panelGrid>
+					<h4>TÀI KHOẢN</h4>
+					<h:panelGrid id="register" columns="1">
+						<p:outputLabel for="email" value="#{msg['driver.email']}" />
+						<p:inputText id="email"
+							value="#{driverRegisterController.email}" required="true"
+							requiredMessage="Email không hợp lệ"></p:inputText>
+						<p:message for="email" showDetail="true" />
+						<p:outputLabel for="password"
+							value="#{msg['driver.password']}" />
+						<p:password id="password"
+							value="#{driverRegisterController.passWord}" required="true"
+							requiredMessage="Mật khẩu không hợp lệ"></p:password>
+						<p:message for="password" showDetail="true" />
+					</h:panelGrid>
+					<h4>THÔNG TIN CÔNG TY</h4>
+					<h:panelGrid id="company" columns="1">
+						<p:outputLabel for="companyName"
+							value="#{msg['driver.companyName']}"></p:outputLabel>
+						<h:inputText id="companyName"
+							value="#{driverRegisterController.companyName}"></h:inputText>
+						<p:outputLabel for="address"
+							value="#{msg['driver.addressCompany']}"></p:outputLabel>
+						<h:inputText id="address"
+							value="#{driverRegisterController.addressNumber}"></h:inputText>
+						<p:outputLabel for="street"
+							value="#{msg['driver.street']}"></p:outputLabel>
+						<h:inputText id="street"
+							value="#{driverRegisterController.street}"></h:inputText>
+						<p:outputLabel for="district"
+							value="#{msg['driver.district']}"></p:outputLabel>
+						<h:inputText id="district"
+							value="#{driverRegisterController.district}"></h:inputText>
+						<p:outputLabel for="city" value="#{msg['driver.city']}"></p:outputLabel>
+						<h:selectOneMenu id="city"
+							value="#{driverRegisterController.city}">
+							<f:selectItem itemValue="Hà Nội" itemLabel="Hà Nội"></f:selectItem>
+							<f:selectItem itemValue="Hồ Chí Minh" itemLabel="Hồ Chí Minh"></f:selectItem>
+							<f:selectItem itemValue="Đà Nẵng" itemLabel="Đà Nẵng"></f:selectItem>
+						</h:selectOneMenu>
+						<p:outputLabel for="zipcode"
+							value="#{msg['driver.zipCode']}"></p:outputLabel>
+						<h:inputText id="zipcode"
+							value="#{driverRegisterController.zipcode}" required="true"
+							requiredMessage="Mã bưu điện không hợp lệ"></h:inputText>
+
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:commandButton value="Đăng kí" validateClient="true"
+						actionListener="#{driverRegisterController.doRegister2}"
+						update="registerForm2"></p:commandButton>
+					<br />
+					<p:outputLabel value="Please fill out all (*) field" />
+					<br />
+					<br />
+					<p:outputLabel
+						value="By clicking 'Đăng Kí', you agree with TaxiNet's Terms and Conditions" />
+				</p:panel>
+			</center>
+		</h:form>
+	</f:view>
+</h:body>
+</html>
