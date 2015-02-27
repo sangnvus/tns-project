@@ -1,13 +1,19 @@
 package vn.co.taxinet.bean.driver;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import vn.co.taxinet.bo.DriverBO;
+import vn.co.taxinet.bo.TaxiNetUserBO;
+import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
 import vn.co.taxinet.orm.Driver;
@@ -36,15 +42,43 @@ public class DriverContactInfoBean implements Serializable {
 	private String Languages;
 	private String Coupon;
 	private TaxiNetUserDAO taxiNetUserDAO;
+	private TaxiNetUserBO taxiNetUserBO;
 	private DriverDAO driverDAO;
+	
 	private TaxiNetUsers user;
 	private Driver driver;
+	@ManagedProperty(value = "#{driverBO}")
+	private DriverBO driverBO;
+	public TaxiNetUserBO getTaxiNetUserBO() {
+		return taxiNetUserBO;
+	}
+
+	public void setTaxiNetUserBO(TaxiNetUserBO taxiNetUserBO) {
+		this.taxiNetUserBO = taxiNetUserBO;
+	}
+
 	public TaxiNetUsers getUser() {
 		return user;
 	}
 
 	public void setUser(TaxiNetUsers user) {
 		this.user = user;
+	}
+
+	public Driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+
+	public DriverBO getDriverBO() {
+		return driverBO;
+	}
+
+	public void setDriverBO(DriverBO driverBO) {
+		this.driverBO = driverBO;
 	}
 
 	public TaxiNetUserDAO getTaxiNetUserDAO() {
@@ -175,7 +209,7 @@ public class DriverContactInfoBean implements Serializable {
 		Coupon = coupon;
 	}
 
-	public void init()  {
+	public void init() throws TNSException {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
 			driver = new Driver();
 			HttpServletRequest request = (HttpServletRequest) FacesContext
@@ -217,7 +251,4 @@ public class DriverContactInfoBean implements Serializable {
 		return driver;
 	}
 
-	public String updateForm() {
-		return null;
-	}
 }
