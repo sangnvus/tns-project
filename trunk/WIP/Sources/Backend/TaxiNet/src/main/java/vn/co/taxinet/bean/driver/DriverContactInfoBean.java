@@ -217,8 +217,6 @@ public class DriverContactInfoBean implements Serializable {
 			HttpSession session = request.getSession();
 			Email = (String) session.getAttribute("username");
 			PassWord = (String) session.getAttribute("password");
-			System.out.print(Email);
-			System.out.print(getEmail());
 			if (null == Email || null == PassWord) {
 				try {
 					FacesContext.getCurrentInstance().getExternalContext()
