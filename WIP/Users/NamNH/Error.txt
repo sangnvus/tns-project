@@ -1,0 +1,5 @@
+1. RegisterDriver1.xhtml 
+Loi khong select all country ra selectOntMenu duoc
+
+2. DriverContactInfo
+Loi null khi select Taxinetusers
