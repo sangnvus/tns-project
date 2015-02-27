@@ -13,7 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.common.Constants;
+import vn.co.taxinet.common.exception.FunctionalException;
+import vn.co.taxinet.common.exception.SystemException;
 import vn.co.taxinet.common.exception.TNException;
+import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dao.CarMakerDAO;
 import vn.co.taxinet.dao.CarModelDAO;
 import vn.co.taxinet.dao.CityNameDAO;
@@ -40,7 +43,7 @@ import vn.co.taxinet.utils.Utility;
 public class DriverBOImpl implements DriverBO {
 	private static final Logger logger = LogManager
 			.getLogger(DriverBOImpl.class);
-
+	private final static String THIS = "DriverBOImpl";
 	@Autowired
 	private DriverDAO driverDAO;
 

@@ -3,6 +3,7 @@ package vn.co.taxinet.bo;
 import java.util.List;
 
 import vn.co.taxinet.common.exception.TNException;
+import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.CarMaker;
