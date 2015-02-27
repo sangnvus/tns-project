@@ -22,10 +22,13 @@
 			<center>
 				<p:panel header="ĐĂNG KÍ TÀI KHOẢN">
 					<h4>ĐĂNG KÝ ĐỂ LÁI XE</h4>
-					<h:panelGrid id="CityOfUser" columns="1">
-						<p:outputLabel for="city" value="#{msg['driver.city']}" />
-						<p:inputText id="city" value="#{driverRegisterController.city}"
-							required="true" requiredMessage="Thành phố không hợp lê"></p:inputText>
+					<h:panelGrid id="CountryOfUser" columns="1">
+						<h:selectOneMenu id="country"
+							value="#{driverRegisterController.country}">
+							<f:selectItems
+								value="{driverRegisterController.getCountryList()}" var="c"
+								itemValue="" itemLabel=""></f:selectItems>
+						</h:selectOneMenu>
 					</h:panelGrid>
 					<h4>LOẠI XE VÀ KIỂU TÀI XẾ CỦA BẠN</h4>
 					<h:panelGrid id="register" columns="1">
