@@ -85,9 +85,46 @@ public class DriverBOImpl implements DriverBO {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Driver register(Driver driver) {
-		// TODO Auto-generated method stub
-		return null;
+	public void register(Driver Driver) throws TNSException {
+		final String begin = " BEGIN: params ({0}, {1}) ";
+		logger.info(begin, Driver.getFirstName(), Driver.getLastName());
+		try {
+			// Insert parent tables first, then insert child tables
+			// 1. Insert user table
+			// Check if user name exist in DB
+			TaxiNetUsers user = Driver.getTaxinetusers();
+			TaxiNetUsers oldUser = taxiNetUserDAO.select(user.getEmail());
+			if (oldUser != null) {
+					if (user.getPassword().equals(oldUser.getPassword())) {
+						throw new FunctionalException(THIS,
+								"Driver User is existing",
+								Constants.Errors.DUPLICATED_ERROR);
+					}
+			}
+			UUID id = UUID.randomUUID();
+			user.setUserId(id.toString());
+			// User Name always is in lower case
+			user.setUsername(user.getUsername().toLowerCase());
+			user.setCreatedDate(Utility.getCurrentDateTime());
+			user.setCreatedBy(user.getUsername());
+			user.setLastModifiedDate(Utility.getCurrentDateTime());
+			user.setLastModifiedBy(user.getUsername());
+			taxiNetUserDAO.insert(user);
+			
+			// 5. Insert data into Driver table
+			Driver.setDriverId(id.toString());
+			Driver.setCreatedDate(Utility.getCurrentDateTime());
+			Driver.setLastModifiedDate(Utility.getCurrentDateTime());
+			Driver.setCreatedBy(user.getUsername());
+			Driver.setLastModifiedBy(user.getUsername());
+			driverDAO.insert(Driver);
+		} catch (TNSException tnex) {
+			throw tnex;
+		} catch (Throwable t) {
+			throw new SystemException(THIS, t);
+		}
+		logger.info(" END: params ({0}, {1} )", Driver.getFirstName(),
+				Driver.getLastName());
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
