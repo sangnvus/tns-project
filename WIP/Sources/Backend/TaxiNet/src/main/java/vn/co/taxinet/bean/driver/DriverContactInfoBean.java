@@ -1,8 +1,6 @@
 package vn.co.taxinet.bean.driver;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -10,16 +8,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.password.Password;
-
-import vn.co.taxinet.bo.AuthenticationBO;
-import vn.co.taxinet.bo.DriverBO;
-import vn.co.taxinet.bo.TaxiNetUserBO;
-import vn.co.taxinet.common.exception.SystemException;
-import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
-import vn.co.taxinet.orm.Document;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.TaxiNetUsers;
 
