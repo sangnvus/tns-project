@@ -139,4 +139,5 @@ public interface DriverBO {
 	 * @return
 	 */
 	public List<Driver> countAllDriverByCompanyID(String companyID);
+	public Driver findDriverByEmail(String email) throws TNSException;
 }

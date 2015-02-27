@@ -426,4 +426,30 @@ public class DriverBOImpl implements DriverBO {
 			throw new TNException(Constants.Message.NUMBER_FORMAT_EXCEPTION);
 		}
 	}
+	
+	public Driver findDriverByEmail(String Email) throws TNSException {
+		try {
+			// Check if user name not exist in DB
+			TaxiNetUsers user = taxiNetUserDAO.select(Email);
+			if (user == null) {
+				if (user.getPassword().equals(user.getPassword())) {
+					throw new FunctionalException(THIS,
+							"Driver User is not existing",
+							Constants.Errors.DUPLICATED_ERROR);
+				}
+			}
+			Driver driver = driverDAO.findDriverById(user.getUserId());
+			if (driver == null) {
+				throw new FunctionalException(THIS,
+						"Driver User is not existing",
+						Constants.Errors.DUPLICATED_ERROR);
+
+			}
+			return driver;
+		} catch (TNSException tnex) {
+			throw tnex;
+		} catch (Throwable t) {
+			throw new SystemException(THIS, t);
+		}
+	}
 }

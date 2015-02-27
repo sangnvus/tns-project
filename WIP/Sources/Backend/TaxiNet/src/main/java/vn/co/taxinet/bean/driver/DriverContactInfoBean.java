@@ -176,20 +176,39 @@ public class DriverContactInfoBean implements Serializable {
 	}
 
 	public void init()  {
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-				.getCurrentInstance().getExternalContext().getRequest();
-		HttpSession session = request.getSession();
-		Email = (String) session.getAttribute("username");
-		PassWord = (String) session.getAttribute("password");
-		user = taxiNetUserDAO.select(Email);
-		if (user != null) {
-			System.out.print(1);
-			driver = driverDAO.findDriverById(user.getUserId());
-			System.out.print(2);
-			FirstName = driver.getFirstName();
-			LastName = driver.getLastName();
-		} else {
-			System.out.print(3);
+		if (!FacesContext.getCurrentInstance().isPostback()) {
+			driver = new Driver();
+			HttpServletRequest request = (HttpServletRequest) FacesContext
+					.getCurrentInstance().getExternalContext().getRequest();
+			HttpSession session = request.getSession();
+			Email = (String) session.getAttribute("username");
+			PassWord = (String) session.getAttribute("password");
+			System.out.print(Email);
+			System.out.print(getEmail());
+			if (null == Email || null == PassWord) {
+				try {
+					FacesContext.getCurrentInstance().getExternalContext()
+							.redirect("/TN/faces/Login.xhtml");
+				} catch (IOException e) {
+					e.getMessage();
+					e.printStackTrace();
+				}
+			} else {
+				driver = driverBO.findDriverByEmail(Email);
+				if (driver == null) {
+					try {
+						FacesContext.getCurrentInstance().getExternalContext()
+								.redirect("/TN/faces/Login.xhtml");
+					} catch (IOException e) {
+						e.getMessage();
+						e.printStackTrace();
+					}
+				}
+				System.out.print(1);
+				FirstName = driver.getFirstName();
+				LastName = driver.getLastName();
+			}
+
 		}
 	}
 
