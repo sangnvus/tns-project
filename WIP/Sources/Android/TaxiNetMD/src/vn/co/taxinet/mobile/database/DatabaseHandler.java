@@ -23,6 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// Table Names
 	private static final String TABLE_DRIVER = "Driver";
+	private static final String TABLE_TERM = "term";
 
 	// DRIVER Table - column names
 	private static final String COLUMN_DRIVER_ID = "COLUMN_DRIVER_ID";
@@ -33,7 +34,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String COLUMN_DRIVER_PASSWORD = "COLUMN_DRIVER_PASSWORD";
 	private static final String COLUMN_DRIVER_PHONE_NUMBER = "COLUMN_DRIVER_PHONE_NUMBER";
 
-	// MOTHER table create statement
+	// TERM Table - column names
+	private static final String COLUMN_TERM_ID = "COLUMN_TERM_ID";
+	private static final String COLUMN_TERM_CONTENT = "COLUMN_TERM_CONTENT";
+
+	// DRIVER table create statement
 	private static final String CREATE_TABLE_DRIVER = "CREATE TABLE "
 			+ TABLE_DRIVER + "(" + COLUMN_DRIVER_ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_DRIVER_IMAGES
@@ -41,6 +46,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			+ COLUMN_DRIVER_LAST_NAME + " TEXT," + COLUMN_DRIVER_EMAIL
 			+ " TEXT," + COLUMN_DRIVER_PASSWORD + " TEXT,"
 			+ COLUMN_DRIVER_PHONE_NUMBER + " TEXT" + ")";
+
+	// TERM table create statement
+	private static final String CREATE_TABLE_TERM = "CREATE TABLE "
+			+ TABLE_TERM + "(" + COLUMN_TERM_ID
+			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_TERM_CONTENT
+			+ " TEXT" + ")";
 
 	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -60,6 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		// creating required tables
 		db.execSQL(CREATE_TABLE_DRIVER);
+		db.execSQL(CREATE_TABLE_TERM);
 	}
 
 	@Override
@@ -67,6 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// on upgrade drop older tables
 
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRIVER);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_TERM);
 		// create new tables
 		onCreate(db);
 	}
@@ -82,8 +95,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// ------------------------ "driver" table methods
 	// -----------------------------------//
 	/*
-	 * Add a mother
+	 * Add a term
 	 */
+	public long createTerm(String content) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(COLUMN_TERM_CONTENT, content);
+
+		// Inserting Row
+		long _id = db.insert(TABLE_TERM, null, values);
+		if (db != null && db.isOpen())
+			db.close();
+		return _id;
+	}
+
+	/*
+	 * Deleting a term
+	 */
+	public void deleteTerm() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("delete from " + TABLE_TERM);
+
+		if (db != null && db.isOpen())
+			db.close();
+
+	}
+
 	public long createDriver(Driver driver) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
