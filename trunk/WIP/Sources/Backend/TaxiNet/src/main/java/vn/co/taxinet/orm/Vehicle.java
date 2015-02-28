@@ -25,7 +25,6 @@ public class Vehicle implements java.io.Serializable {
 	private String lastModifiedBy;
 	private Date lastModifiedDate;
 	private Set<Driver> drivers = new HashSet<Driver>(0);
-	private Set<Driver> drivers_1 = new HashSet<Driver>(0);
 	private Set<Trip> trips = new HashSet<Trip>(0);
 	private Set<Trip> trips_1 = new HashSet<Trip>(0);
 
@@ -61,7 +60,6 @@ public class Vehicle implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 		this.lastModifiedDate = lastModifiedDate;
 		this.drivers = drivers;
-		this.drivers_1 = drivers_1;
 		this.trips = trips;
 		this.trips_1 = trips_1;
 	}
@@ -176,14 +174,6 @@ public class Vehicle implements java.io.Serializable {
 
 	public void setDrivers(Set<Driver> drivers) {
 		this.drivers = drivers;
-	}
-
-	public Set<Driver> getDrivers_1() {
-		return this.drivers_1;
-	}
-
-	public void setDrivers_1(Set<Driver> drivers_1) {
-		this.drivers_1 = drivers_1;
 	}
 
 	public Set<Trip> getTrips() {
