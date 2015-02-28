@@ -8,6 +8,33 @@ public class DriverDTO {
 	private String email;
 	private String password;
 	private String phoneNumber;
+	private String plate;
+	private String currentStatus;
+	private String currentLocation;
+
+	public String getCurrentLocation() {
+		return currentLocation;
+	}
+
+	public void setCurrentLocation(String currentLocation) {
+		this.currentLocation = currentLocation;
+	}
+
+	public String getPlate() {
+		return plate;
+	}
+
+	public void setPlate(String plate) {
+		this.plate = plate;
+	}
+
+	public String getCurrentStatus() {
+		return currentStatus;
+	}
+
+	public void setCurrentStatus(String currentStatus) {
+		this.currentStatus = currentStatus;
+	}
 
 	public String getId() {
 		return id;
