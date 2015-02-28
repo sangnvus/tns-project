@@ -4,7 +4,7 @@ import java.util.List;
 
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.app.AppController;
-import vn.co.taxinet.mobile.dto.PromotionDTO;
+import vn.co.taxinet.mobile.model.Promotion;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,11 +20,11 @@ public class PromotionAdatpter extends BaseAdapter {
 
 	private Activity activity;
 	private LayoutInflater inflater;
-	private List<PromotionDTO> promotionItems;
+	private List<Promotion> promotionItems;
 	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
 	public PromotionAdatpter(Activity activity,
-			List<PromotionDTO> promotionItems) {
+			List<Promotion> promotionItems) {
 		this.activity = activity;
 		this.promotionItems = promotionItems;
 	}
@@ -61,7 +61,7 @@ public class PromotionAdatpter extends BaseAdapter {
 				.findViewById(R.id.tv_promotion_content);
 
 		// getting movie data for the row
-		PromotionDTO promotionDTO = promotionItems.get(position);
+		Promotion promotionDTO = promotionItems.get(position);
 
 		// thumbnail image
 		thumbNail.setImageUrl(promotionDTO.getImageUri(), imageLoader);
