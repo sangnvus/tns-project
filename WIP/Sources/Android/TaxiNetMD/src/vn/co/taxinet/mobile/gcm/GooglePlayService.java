@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -14,28 +13,22 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 
-import vn.co.taxinet.mobile.activity.DemoActivity;
 import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.bo.MapBO;
-import vn.co.taxinet.mobile.utils.Const;
+import vn.co.taxinet.mobile.newactivity.MapActivity;
+import vn.co.taxinet.mobile.utils.Constants;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.google.android.gms.location.LocationServices;
 
 public class GooglePlayService {
 	private static final String PROPERTY_REG_ID = "registration_id";
@@ -67,7 +60,7 @@ public class GooglePlayService {
 			}
 
 		} else {
-			Log.i(Const.TAG, "No valid Google Play Services APK found.");
+			Log.i(Constants.TAG, "No valid Google Play Services APK found.");
 		}
 	}
 
@@ -84,7 +77,7 @@ public class GooglePlayService {
 						PLAY_SERVICES_RESOLUTION_REQUEST).show();
 
 			} else {
-				Log.i(Const.TAG, "This device is not supported.");
+				Log.i(Constants.TAG, "This device is not supported.");
 				context.finish();
 			}
 			return false;
@@ -105,7 +98,7 @@ public class GooglePlayService {
 	private void storeRegistrationId(Context context, String regId) {
 		final SharedPreferences prefs = getGcmPreferences(context);
 		int appVersion = getAppVersion(context);
-		Log.i(Const.TAG, "Saving regId on app version " + appVersion);
+		Log.i(Constants.TAG, "Saving regId on app version " + appVersion);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(PROPERTY_REG_ID, regId);
 		editor.putInt(PROPERTY_APP_VERSION, appVersion);
@@ -127,7 +120,7 @@ public class GooglePlayService {
 
 		String registrationId = prefs.getString(PROPERTY_REG_ID, "");
 		if (registrationId.isEmpty()) {
-			Log.i(Const.TAG, "Registration not found.");
+			Log.i(Constants.TAG, "Registration not found.");
 			return "";
 		}
 		// Check if app was updated; if so, it must clear the registration ID
@@ -137,7 +130,7 @@ public class GooglePlayService {
 				Integer.MIN_VALUE);
 		int currentVersion = getAppVersion(context);
 		if (registeredVersion != currentVersion) {
-			Log.i(Const.TAG, "App version changed.");
+			Log.i(Constants.TAG, "App version changed.");
 			return "";
 		}
 		return registrationId;
@@ -159,7 +152,7 @@ public class GooglePlayService {
 					if (gcm == null) {
 						gcm = GoogleCloudMessaging.getInstance(context);
 					}
-					regid = gcm.register(Const.SENDER_ID);
+					regid = gcm.register(Constants.SENDER_ID);
 					msg = "Device registered, registration ID=" + regid;
 					System.out.println(msg);
 					sendRegistrationIdToBackend();
@@ -183,7 +176,7 @@ public class GooglePlayService {
 		// This sample app persists the registration ID in shared preferences,
 		// but
 		// how you store the regID in your app is up to you.
-		return context.getSharedPreferences(DemoActivity.class.getSimpleName(),
+		return context.getSharedPreferences(MapActivity.class.getSimpleName(),
 				Context.MODE_PRIVATE);
 	}
 
@@ -196,13 +189,13 @@ public class GooglePlayService {
 	private void sendRegistrationIdToBackend() {
 		// Create a new HttpClient and Post Header
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(Const.URL_REGISTRATION_ID);
+		HttpPost httppost = new HttpPost(Constants.URL.UPDATE_REG_ID);
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 			nameValuePairs.add(new BasicNameValuePair("regId", regid));
-			nameValuePairs.add(new BasicNameValuePair("driverid", AppController
+			nameValuePairs.add(new BasicNameValuePair("id", AppController
 					.getDriverId()));
 			// Execute HTTP Post Request
 			HttpResponse response = httpclient.execute(httppost);
