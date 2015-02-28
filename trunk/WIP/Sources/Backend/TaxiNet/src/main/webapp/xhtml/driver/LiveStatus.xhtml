@@ -43,26 +43,29 @@
 		<br></br>
 
 		<h1>#{msg['driver.liveStatus']}</h1>
-		<p:tabView cache="true" id="main-menu">
-			<p:tab title="#{msg['driver.list']}">
+		<p:tabView id="main-menu" dynamic="true">
+			<p:ajax event="tabChange" listener="#{liveStatusBean.onTabChange}" update="table-view gmap-view"></p:ajax>
+			<p:tab title="#{msg['driver.list']}" id="table-view">
 				<p:dataTable id="driverPosition-list" paginator="true" rows="10"
 					paginatorPosition="bottom" lazy="true"
+					paginatorAlwaysVisible="false"
 					value="#{liveStatusBean.lazyDriverList}" var="driver"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} ">
+				<p:ajax event="page" listener="#{liveStatusBean.paginationAction}"/>
 					<p:column headerText="#{msg['feeAgent.autonumber']}"
-						style="text-align:left" width="35">
-						<h:outputText value="#{liveStatusBean.lazyDriverList.rowIndex}" />
+						style="text-align:left;">
+						<h:outputText value="#{liveStatusBean.lazyDriverList.rowIndex + 1}" />
 					</p:column>
 					<p:column headerText="#{msg['riderRegister.name']}"
 						style="text-align:left">
-						<h:outputText value="#{driver.firstName}" />
-						<h:outputText value="#{driver.lastName}" />
+						<h:outputText value="#{driver.firstName} #{driver.lastName}" />
 					</p:column>
 					<p:column headerText="#{msg['driver.currentPosition']}"
 						style="text-align:left">
-						<h:outputText value="#{driver.currentstatus.currentLocation}" />
+						<h:outputText value="#{driver.currentLocation}" />
 					</p:column>
 					<p:column headerText="#{msg['driver.car']}" style="text-align:left">
+						<h:outputText value="#{driver.plate}" />
 					</p:column>
 					<p:column headerText="#{msg['driver.status']}"
 						style="text-align:left">
@@ -72,7 +75,7 @@
     			</f:facet>
 				</p:dataTable>
 			</p:tab>
-			<p:tab title="#{msg['driver.map']}">
+			<p:tab title="#{msg['driver.map']}" id="gmap-view">
 				<p:gmap center="21.0333333, 105.8500000" style="width:100%;height:800px"
 					zoom="15" type="ROADMAP" model="#{liveStatusBean.simpleModel}"></p:gmap>
 			</p:tab>

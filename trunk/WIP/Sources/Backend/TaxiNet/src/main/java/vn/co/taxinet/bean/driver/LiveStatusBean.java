@@ -10,24 +10,24 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.event.TabChangeEvent;
+import org.primefaces.event.data.PageEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
-import org.springframework.context.annotation.Scope;
 
 import vn.co.taxinet.bean.BaseBean;
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
-import vn.co.taxinet.orm.TaxiNetUsers;
 
 @ManagedBean(name = "liveStatusBean", eager = true)
 @SessionScoped
@@ -47,7 +47,9 @@ public class LiveStatusBean extends BaseBean {
 
 	private Driver driver;
 
-	private LazyDataModel<Driver> lazyDriverList;
+	private LazyDataModel<DriverDTO> lazyDriverList;
+
+	private int companyID;
 
 	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
@@ -70,21 +72,22 @@ public class LiveStatusBean extends BaseBean {
 		// TaxiNetUsers user = taxiNetUserDAO.findByID(UserID);
 		// final int companyID = user.getCompany().getCompanyId();
 		driverList = driverBO.countAllDriverByCompanyID("1");
-		lazyDriverList = new LazyDataModel<Driver>() {
+		lazyDriverList = new LazyDataModel<DriverDTO>() {
 			private static final long serialVersionUID = -8351117462011564508L;
 
 			@Override
-			public List<Driver> load(int first, int pageSize, String sortField,
+			public List<DriverDTO> load(int first, int pageSize, String sortField,
 					SortOrder sortOrder, Map<String, Object> filters) {
-				List<Driver> listDrivers = new ArrayList<Driver>();
+				List<DriverDTO> listDrivers = new ArrayList<DriverDTO>();
 				int pageIndex = first;
-				//TODO hardcode for testing
+				// TODO hardcode for testing
 				listDrivers = driverBO.findDriverByCompanyID(String.valueOf(1),
 						pageIndex, pageSize);
 				return listDrivers;
 			}
 		};
 		int count = driverList.size();
+		String plate = driverList.get(0).getVehicle().getPlate();
 		lazyDriverList.setRowCount(count);
 
 		for (int i = 0; i < count; i++) {
@@ -99,6 +102,67 @@ public class LiveStatusBean extends BaseBean {
 						.getFirstName() + " " + driver.getLastName()));
 			}
 		}
+	}
+
+	/**
+	 * function refresh Map and Taxi locations
+	 */
+	public void refreshMap() {
+		driverList = driverBO.countAllDriverByCompanyID(String
+				.valueOf("1"));
+		for (int i = 0; i < driverList.size(); i++) {
+			Driver driver = (Driver) driverList.get(i);
+			CurrentStatus currentLocation = driver.getCurrentstatus();
+			if (currentLocation.getCurrentLatitude() != null
+					&& currentLocation.getCurrentLongtitude() != null) {
+				LatLng location = new LatLng(
+						currentLocation.getCurrentLatitude(),
+						currentLocation.getCurrentLongtitude());
+				simpleModel.addOverlay(new Marker(location, driver
+						.getFirstName() + " " + driver.getLastName()));
+			}
+		}
+	}
+	
+	/**
+	 * action refresh table result and pagination
+	 */
+	public void refreshTableView(){
+		lazyDriverList = new LazyDataModel<DriverDTO>() {
+			private static final long serialVersionUID = -8351117462011564508L;
+
+			@Override
+			public List<DriverDTO> load(int first, int pageSize, String sortField,
+					SortOrder sortOrder, Map<String, Object> filters) {
+				List<DriverDTO> listDrivers = new ArrayList<DriverDTO>();
+				int pageIndex = first;
+				// TODO hardcode for testing
+				listDrivers = driverBO.findDriverByCompanyID(String.valueOf(1),
+						pageIndex, pageSize);
+				return listDrivers;
+			}
+		};
+		driverList = driverBO.countAllDriverByCompanyID(String.valueOf(1));
+		int count = driverList.size();
+		lazyDriverList.setRowCount(count);
+
+	}
+	
+	/**
+	 * event refresh result when change tab
+	 * @param event
+	 */
+	public void onTabChange(TabChangeEvent event){
+		refreshMap();
+		refreshTableView();
+	}
+	
+	/**
+	 * event refresh pagination
+	 * @param event
+	 */
+	public void paginationAction(PageEvent event){
+		refreshTableView();
 	}
 
 	public String getUserID() {
@@ -173,7 +237,7 @@ public class LiveStatusBean extends BaseBean {
 		this.taxiNetUserDAO = taxiNetUserDAO;
 	}
 
-	public LazyDataModel<Driver> getLazyDriverList() {
+	public LazyDataModel<DriverDTO> getLazyDriverList() {
 		return lazyDriverList;
 	}
 }
