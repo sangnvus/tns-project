@@ -1,6 +1,6 @@
-package vn.co.taxinet.mobile.dto;
+package vn.co.taxinet.mobile.model;
 
-public class PromotionDTO {
+public class Promotion {
 	public String imageUri;
 	public String promotion_content;
 
@@ -20,13 +20,13 @@ public class PromotionDTO {
 		this.promotion_content = promotion_content;
 	}
 
-	public PromotionDTO(String imageUri, String promotion_content) {
+	public Promotion(String imageUri, String promotion_content) {
 		super();
 		this.imageUri = imageUri;
 		this.promotion_content = promotion_content;
 	}
 
-	public PromotionDTO() {
+	public Promotion() {
 		super();
 	}
 
