@@ -3,8 +3,8 @@ package vn.co.taxinet.mobile.adapter;
 import java.util.List;
 
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.DTO.PromotionDTO;
 import vn.co.taxinet.mobile.app.AppController;
+import vn.co.taxinet.mobile.dto.PromotionDTO;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
