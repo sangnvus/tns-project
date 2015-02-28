@@ -30,10 +30,6 @@ import vn.co.taxinet.utils.Utility;
 @Service(value = "vehicleDAO")
 @Transactional
 public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2252900041253117826L;
 	private static final Logger log = LogManager
 			.getLogger(VehicleDAOImpl.class);
@@ -127,5 +123,17 @@ public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO {
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.VehicleDAO#getVehicleFromID(java.lang.String)
+	 */
+	public Vehicle getVehicleFromID(String vehicleID) {
+		try {
+			return findById(Integer.parseInt(vehicleID));
+		} catch (NumberFormatException ex) {
+			return null;
+		}
+
 	}
 }
