@@ -21,9 +21,8 @@ import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
 import vn.co.taxinet.mobile.model.Driver;
-import vn.co.taxinet.mobile.newactivity.ProfileActivity;
-import vn.co.taxinet.mobile.utils.Const;
-import vn.co.taxinet.mobile.utils.Validator;
+import vn.co.taxinet.mobile.utils.Constants;
+import vn.co.taxinet.mobile.utils.Utils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -37,7 +36,6 @@ import android.widget.Toast;
 
 public class ProfileBO {
 
-	private Validator emailValidator = new Validator();
 	private Activity activity;
 	private DatabaseHandler handler;
 	private ProgressDialog pd;
@@ -60,47 +58,40 @@ public class ProfileBO {
 		this.activity = activity;
 		handler = new DatabaseHandler(activity);
 		driver = handler.findDriver();
-		pd = new ProgressDialog(activity);
 
 		// check null
 		if (firstName.equalsIgnoreCase("")) {
-			Toast.makeText(activity, Const.FIRST_NAME_ERROR, Toast.LENGTH_LONG)
-					.show();
-			return Const.FIRST_NAME_ERROR;
+			return Constants.FIRST_NAME_ERROR;
 		}
 		if (lastName.equalsIgnoreCase("")) {
-			Toast.makeText(activity, Const.LAST_NAME_ERROR, Toast.LENGTH_LONG)
-					.show();
-			return Const.LAST_NAME_ERROR; 
+			return Constants.LAST_NAME_ERROR;
 		}
 		if (email.equalsIgnoreCase("")) {
-			Toast.makeText(activity, Const.EMAIL_ERROR, Toast.LENGTH_LONG)
-					.show();
-			return  Const.EMAIL_ERROR;
+			return Constants.EMAIL_ERROR;
 		}
 		if (phone.equalsIgnoreCase("")) {
-			Toast.makeText(activity, Const.PHONE_NUMBER_ERROR,
-					Toast.LENGTH_LONG).show();
-			return Const.PHONE_NUMBER_ERROR;
+			return Constants.PHONE_NUMBER_ERROR;
 		}
 		if (password.equalsIgnoreCase("")) {
-			Toast.makeText(activity, Const.PASSWORD_ERROR, Toast.LENGTH_LONG)
-					.show();
-			return Const.PASSWORD_ERROR;
+			return Constants.PASSWORD_ERROR;
 		}
 
 		// check length
 		if (password.length() < 6) {
-			Toast.makeText(activity, Const.PASSWORD_ERROR, Toast.LENGTH_LONG)
-					.show();
-			return Const.PASSWORD_ERROR;
+			Toast.makeText(activity, Constants.PASSWORD_ERROR,
+					Toast.LENGTH_LONG).show();
+			return Constants.PASSWORD_ERROR;
 		}
 
 		// check email
-		if (!emailValidator.validateEmail(email)) {
-			Toast.makeText(activity, Const.EMAIL_ERROR, Toast.LENGTH_LONG)
+		if (!Utils.validateEmail(email)) {
+			Toast.makeText(activity, Constants.EMAIL_ERROR, Toast.LENGTH_LONG)
 					.show();
-			return Const.EMAIL_ERROR;
+			return Constants.EMAIL_ERROR;
+		}
+		// check phone
+		if (!Utils.validatePhoneNumber(phone)) {
+			return Constants.EMAIL_ERROR;
 		}
 
 		// check if no info change
@@ -109,8 +100,7 @@ public class ProfileBO {
 				|| !driver.getFirstName().equalsIgnoreCase(firstName)
 				|| !driver.getLastName().equalsIgnoreCase(lastName)
 				|| !driver.getPhoneNumber().equalsIgnoreCase(phone)) {
-			String param[] = { AppController.getDriverId(), firstName,
-					lastName, email, password, phone };
+			String param[] = { firstName, lastName, email, password, phone };
 			driver.setFirstName(firstName);
 			driver.setLastName(lastName);
 			driver.setEmail(email);
@@ -118,7 +108,7 @@ public class ProfileBO {
 			driver.setPhoneNumber(phone);
 			new UpdateDriverAsyncTask().execute(param);
 		}
-		return Const.SUCCESS;
+		return Constants.SUCCESS;
 	}
 
 	public String parseJson(String response) {
@@ -128,7 +118,7 @@ public class ProfileBO {
 			System.out.println(response);
 			String message = jsonObject.getString("message");
 			// success
-			if (message != null && message.equalsIgnoreCase(Const.SUCCESS)) {
+			if (message != null && message.equalsIgnoreCase(Constants.SUCCESS)) {
 				Toast.makeText(activity, activity.getString(R.string.success),
 						Toast.LENGTH_LONG).show();
 				// save to database offline
@@ -155,6 +145,7 @@ public class ProfileBO {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			pd = new ProgressDialog(activity);
 			pd.setTitle("Login");
 			pd.setMessage("Please wait until we check your infomation");
 			pd.setCancelable(false);
@@ -178,17 +169,18 @@ public class ProfileBO {
 	public String postData(String[] params) {
 		// Create a new HttpClient and Post Header
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(Const.URL_UPDATE_DRIVER);
+		HttpPost httppost = new HttpPost(Constants.URL.UPDATE_DRIVER);
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			nameValuePairs.add(new BasicNameValuePair("id", params[0]));
-			nameValuePairs.add(new BasicNameValuePair("firstname", params[1]));
-			nameValuePairs.add(new BasicNameValuePair("lastname", params[2]));
-			nameValuePairs.add(new BasicNameValuePair("email", params[3]));
-			nameValuePairs.add(new BasicNameValuePair("password", params[4]));
+			nameValuePairs.add(new BasicNameValuePair("id", AppController
+					.getDriverId()));
+			nameValuePairs.add(new BasicNameValuePair("firstname", params[0]));
+			nameValuePairs.add(new BasicNameValuePair("lastname", params[1]));
+			nameValuePairs.add(new BasicNameValuePair("email", params[2]));
+			nameValuePairs.add(new BasicNameValuePair("password", params[3]));
 			nameValuePairs
-					.add(new BasicNameValuePair("phoneNumber", params[5]));
+					.add(new BasicNameValuePair("phoneNumber", params[4]));
 			// httppost.setHeader("Content-Type","application/json;charset=UTF-8");
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 

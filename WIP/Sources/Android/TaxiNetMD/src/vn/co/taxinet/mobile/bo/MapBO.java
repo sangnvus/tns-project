@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.newactivity.MapActivity;
-import vn.co.taxinet.mobile.utils.Const;
+import vn.co.taxinet.mobile.utils.Constants;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -36,10 +36,10 @@ public class MapBO extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected String doInBackground(String... params) {
-		if (params[0].equalsIgnoreCase(Const.RESPONSE_REQUEST)) {
-			return responseRequest();
+		if (params[0].equalsIgnoreCase(Constants.RESPONSE_REQUEST)) {
+			return responseRequest(params[2], params[1]);
 		}
-		if (params[0].equalsIgnoreCase(Const.UPDATE_CURRENT_STATUS)) {
+		if (params[0].equalsIgnoreCase(Constants.UPDATE_CURRENT_STATUS)) {
 			return updateCurrentStatus(params[1], params[2], params[3]);
 		}
 		return null;
@@ -54,16 +54,18 @@ public class MapBO extends AsyncTask<String, Void, String> {
 		}
 	}
 
-	public String responseRequest() {
+	public String responseRequest(String requestId, String status) {
 		// Create a new HttpClient and Post Header
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(Const.URL_LOGIN_AUTHEN);
+		HttpPost httppost = new HttpPost(Constants.URL.LOGIN_AUTHEN);
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
-			nameValuePairs.add(new BasicNameValuePair("requestId", ""));
-			nameValuePairs.add(new BasicNameValuePair("message", ""));
+			nameValuePairs.add(new BasicNameValuePair("requestId", requestId));
+			nameValuePairs.add(new BasicNameValuePair("status", status));
+			nameValuePairs.add(new BasicNameValuePair("driverId", AppController
+					.getDriverId()));
 			// Execute HTTP Post Request
 			HttpResponse response = httpclient.execute(httppost);
 			int respnseCode = response.getStatusLine().getStatusCode();
@@ -81,7 +83,7 @@ public class MapBO extends AsyncTask<String, Void, String> {
 			String status) {
 		// Create a new HttpClient and Post Header
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(Const.URL_LOGIN_AUTHEN);
+		HttpPost httppost = new HttpPost(Constants.URL.UPDATE_CURRENT_STATUS);
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -101,6 +103,8 @@ public class MapBO extends AsyncTask<String, Void, String> {
 		} catch (ClientProtocolException e) {
 		} catch (IOException e) {
 		}
+		Toast.makeText(activity, activity.getString(R.string.error),
+				Toast.LENGTH_LONG).show();
 		return null;
 	}
 
