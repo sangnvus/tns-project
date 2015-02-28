@@ -2,9 +2,7 @@ package vn.co.taxinet.mobile.bo;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -24,26 +22,17 @@ import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
 import vn.co.taxinet.mobile.model.Driver;
 import vn.co.taxinet.mobile.newactivity.MapActivity;
-import vn.co.taxinet.mobile.utils.Const;
-import vn.co.taxinet.mobile.utils.Validator;
+import vn.co.taxinet.mobile.utils.Constants;
+import vn.co.taxinet.mobile.utils.Utils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request.Method;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 public class LoginBO {
 
-	private Validator validator = new Validator();
 	private Activity activity;
 	private String account, password;
 	private ProgressDialog pd;
@@ -62,7 +51,7 @@ public class LoginBO {
 					Toast.LENGTH_LONG).show();
 			return;
 		}
-		if (validator.validateEmail(account)) {
+		if (Utils.validateEmail(account)) {
 
 			Toast.makeText(activity,
 					this.activity.getString(R.string.account_error),
@@ -81,17 +70,17 @@ public class LoginBO {
 			String id = jsonObject.getString("id");
 			// success
 			// move to mapactivity and save to database offline
-			if (id != null) {
+			if (!id.equalsIgnoreCase("null")) {
 
 				// parse json
 				Driver driver = new Driver();
 				driver.setId(Integer.parseInt(id));
 				driver.setFirstName(jsonObject.getString("firstName"));
 				driver.setLastName(jsonObject.getString("lastName"));
-				driver.setEmail(jsonObject.getString("image"));
+				driver.setEmail(jsonObject.getString("email"));
 				driver.setPassword(jsonObject.getString("password"));
-				driver.setPhoneNumber(jsonObject.getString("email"));
-				driver.setImage(jsonObject.getString("phoneNumber"));
+				driver.setPhoneNumber(jsonObject.getString("phoneNumber"));
+				driver.setImage(jsonObject.getString("image"));
 
 				// save to database offline
 				DatabaseHandler handler = new DatabaseHandler(activity);
@@ -104,10 +93,11 @@ public class LoginBO {
 				// save to global id
 				AppController.setDriverId(id);
 
+			} else {
+				Toast.makeText(activity,
+						activity.getString(R.string.wrong_email_or_password),
+						Toast.LENGTH_LONG).show();
 			}
-			Toast.makeText(activity,
-					activity.getString(R.string.wrong_email_or_password),
-					Toast.LENGTH_LONG).show();
 			if (pd.isShowing()) {
 				pd.dismiss();
 			}
@@ -149,7 +139,7 @@ public class LoginBO {
 	public String postData() {
 		// Create a new HttpClient and Post Header
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(Const.URL_LOGIN_AUTHEN);
+		HttpPost httppost = new HttpPost(Constants.URL.LOGIN_AUTHEN);
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
