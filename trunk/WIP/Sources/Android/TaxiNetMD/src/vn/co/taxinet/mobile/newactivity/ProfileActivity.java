@@ -1,13 +1,12 @@
 package vn.co.taxinet.mobile.newactivity;
 
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.activity.LoginActivity;
 import vn.co.taxinet.mobile.alert.AlertDialogManager;
 import vn.co.taxinet.mobile.bo.ProfileBO;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
 import vn.co.taxinet.mobile.model.Driver;
-import vn.co.taxinet.mobile.utils.ConnectionDetector;
-import vn.co.taxinet.mobile.utils.Const;
+import vn.co.taxinet.mobile.utils.Constants;
+import vn.co.taxinet.mobile.utils.Utils;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class ProfileActivity extends Activity {
 
@@ -25,7 +25,6 @@ public class ProfileActivity extends Activity {
 	private ProfileBO bo;
 	private ActionBar actionBar;
 	private DatabaseHandler handler;
-	private ConnectionDetector cd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,6 @@ public class ProfileActivity extends Activity {
 		mFirstName.setText(driver.getFirstName());
 		mLastName.setText(driver.getLastName());
 
-		cd = new ConnectionDetector(this);
 	}
 
 	@Override
@@ -94,13 +92,15 @@ public class ProfileActivity extends Activity {
 	}
 
 	public void updateProfile() {
-		if (cd.isConnectingToInternet()) {
+		if (Utils.isConnectingToInternet(this)) {
 			String result = bo.checkProfile(ProfileActivity.this, firstName,
 					lastName, email, phone, password);
-			if (result.equalsIgnoreCase(Const.SUCCESS)) {
+			if (result.equalsIgnoreCase(Constants.SUCCESS)) {
 				disableEdittext();
 				disableEdit();
 
+			} else {
+				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 			}
 		} else {
 			AlertDialogManager manager = new AlertDialogManager();
