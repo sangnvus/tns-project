@@ -50,12 +50,6 @@
             </key>
             <one-to-many class="vn.co.taxinet.orm.Driver" />
         </set>
-        <set name="drivers_1" table="driver" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="CurrentVehicle" />
-            </key>
-            <one-to-many class="vn.co.taxinet.orm.Driver" />
-        </set>
         <set name="trips" table="trip" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="VehicleID" not-null="true" />
