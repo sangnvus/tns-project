@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
 import vn.co.taxinet.mobile.bo.MapBO;
+import vn.co.taxinet.mobile.database.DatabaseHandler;
 import vn.co.taxinet.mobile.fragment.FavoriteDriverFragment;
 import vn.co.taxinet.mobile.fragment.HistoryCallFragment;
 import vn.co.taxinet.mobile.fragment.JourneyFragment;
@@ -27,9 +28,10 @@ import vn.co.taxinet.mobile.fragment.MapsFragment;
 import vn.co.taxinet.mobile.fragment.SettingFragment;
 import vn.co.taxinet.mobile.fragment.TaxiCompanyFragment;
 import vn.co.taxinet.mobile.gcm.GooglePlayService;
+import vn.co.taxinet.mobile.model.Driver;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
 import vn.co.taxinet.mobile.model.Rider;
-import vn.co.taxinet.mobile.utils.Const;
+import vn.co.taxinet.mobile.utils.Constants;
 import vn.co.taxinet.mobile.utils.LruBitmapCache;
 import vn.co.taxinet.mobile.utils.WakeLocker;
 import android.app.Activity;
@@ -47,6 +49,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,6 +62,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.internal.bt;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -113,6 +117,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	private static int UPDATE_INTERVAL = 60000; // 60 sec
 	private static int FATEST_INTERVAL = 30000; // 30 sec
 	private static int DISPLACEMENT = 100; // 100 meters
+	private String requestId;
+	private String status;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -135,10 +141,11 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	private void initialize() {
 		// Building the GoogleApi client
 		buildGoogleApiClient();
-//		startLocationUpdates();
+		// startLocationUpdates();
 
 		// set up broadcast receiver
-		IntentFilter filter = new IntentFilter(Const.DISPLAY_REQUEST_ACTION);
+		IntentFilter filter = new IntentFilter(
+				Constants.BroadcastAction.DISPLAY_REQUEST);
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 		receiver = new mHandleMessageReceiver();
 		registerReceiver(receiver, filter);
@@ -174,7 +181,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	@Override
 	protected void onPause() {
 		super.onPause();
-//		stopLocationUpdates();
+		// stopLocationUpdates();
 	}
 
 	@Override
@@ -195,13 +202,47 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	}
 
 	public void accept(View v) {
-		LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
-		mReqestLayout.setVisibility(View.GONE);
+		Button mButton = (Button) findViewById(R.id.accept);
+		if (status.equalsIgnoreCase(Constants.TripStatus.NEW_TRIP)) {
+			status = Constants.TripStatus.PICKING;
+			String params[] = { Constants.RESPONSE_REQUEST,
+					Constants.TripStatus.PICKING, requestId };
+			mapBO.execute(params);
+			mButton.setText(getString(R.string.picked));
+
+		}
+		if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
+			status = Constants.TripStatus.PICKED;
+			String params[] = { Constants.RESPONSE_REQUEST,
+					Constants.TripStatus.PICKED, requestId };
+			mapBO.execute(params);
+			mButton.setText(getString(R.string.return_customer));
+			LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
+			mReqestLayout.setVisibility(View.GONE);
+			Button deni = (Button) findViewById(R.id.deni);
+			deni.setVisibility(View.GONE);
+
+		}
+		if (status.equalsIgnoreCase(Constants.TripStatus.PICKED)) {
+			status = Constants.TripStatus.PICKED;
+			String params[] = { Constants.RESPONSE_REQUEST,
+					Constants.TripStatus.PICKED, requestId };
+			mapBO.execute(params);
+			mButton.setText(getString(R.string.return_customer));
+			LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
+			mReqestLayout.setVisibility(View.GONE);
+			Button deni = (Button) findViewById(R.id.deni);
+			deni.setVisibility(View.GONE);
+
+		}
 	}
 
 	public void deni(View v) {
+		String params[] = { Constants.RESPONSE_REQUEST,
+				Constants.TripStatus.REJECTED, requestId };
 		LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
 		mReqestLayout.setVisibility(View.GONE);
+		mapBO.execute(params);
 	}
 
 	public class mHandleMessageReceiver extends BroadcastReceiver {
@@ -209,17 +250,19 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		public void onReceive(Context context, Intent intent) {
 
 			rider = new Rider();
-			rider.setId(Integer.parseInt(intent.getStringExtra(Const.RIDER_ID)));
-			rider.setName(intent.getStringExtra(Const.RIDER_NAME));
-			rider.setImage(intent.getStringExtra(Const.RIDER_IMAGE));
+			rider.setId(Integer.parseInt(intent
+					.getStringExtra(Constants.RIDER_ID)));
+			rider.setName(intent.getStringExtra(Constants.RIDER_NAME));
+			rider.setImage(intent.getStringExtra(Constants.RIDER_IMAGE));
 			rider.setLongitude(Double.parseDouble(intent
-					.getStringExtra(Const.LONGITUDE)));
+					.getStringExtra(Constants.LONGITUDE)));
 			rider.setLatitude(Double.parseDouble(intent
-					.getStringExtra(Const.LATITUDE)));
+					.getStringExtra(Constants.LATITUDE)));
 			// display request
 
 			mReqestLayout.setVisibility(View.VISIBLE);
 			mRiderName.setText(rider.getName());
+			requestId = intent.getStringExtra("requestId");
 
 			ImageLoader.ImageCache imageCache = new LruBitmapCache();
 			ImageLoader imageLoader = new ImageLoader(
@@ -402,7 +445,11 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	public void setNavDrawerItemForCustomer() {
 		// adding nav drawer items to array
 
-		navDrawerItems.add(new NavDrawerItem("Hiếu Giề", 2));
+		DatabaseHandler handler = new DatabaseHandler(this);
+		Driver driver = handler.findDriver();
+		String fullName = driver.getFirstName() + " " + driver.getLastName();
+
+		navDrawerItems.add(new NavDrawerItem(fullName, 2));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
 				.getResourceId(0, -1)));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
@@ -501,7 +548,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 				Toast.LENGTH_SHORT).show();
 
 		// Displaying the new location on UI
-		String[] params = { Const.UPDATE_CURRENT_STATUS,
+		String[] params = { Constants.UPDATE_CURRENT_STATUS,
 				String.valueOf(mLastLocation.getLongitude()),
 				String.valueOf(mLastLocation.getLatitude()) };
 

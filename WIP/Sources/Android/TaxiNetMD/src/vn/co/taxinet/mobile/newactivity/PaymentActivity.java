@@ -19,11 +19,11 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-public class DistanceCalculatingActivity extends Activity implements ConnectionCallbacks,
+public class PaymentActivity extends Activity implements ConnectionCallbacks,
 		OnConnectionFailedListener, LocationListener {
 
 	// LogCat tag
-	private static final String TAG = DistanceCalculatingActivity.class.getSimpleName();
+	private static final String TAG = PaymentActivity.class.getSimpleName();
 
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
 
