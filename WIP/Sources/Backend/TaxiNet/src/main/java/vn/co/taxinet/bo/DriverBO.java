@@ -11,6 +11,7 @@ import vn.co.taxinet.orm.CarModel;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
+import vn.co.taxinet.orm.Vehicle;
 
 /**
  * 
@@ -130,7 +131,7 @@ public interface DriverBO {
 	 * @param pageSize
 	 * @return
 	 */
-	public List<Driver> findDriverByCompanyID(String companyID, int pageIndex,
+	public List<DriverDTO> findDriverByCompanyID(String companyID, int pageIndex,
 			int pageSize);
 	
 	/**
@@ -139,5 +140,14 @@ public interface DriverBO {
 	 * @return
 	 */
 	public List<Driver> countAllDriverByCompanyID(String companyID);
+	
+	/**
+	 * @param vehicleID
+	 * @return vehicle
+	 */
+	public Vehicle getVehicleFromVehicleID(String vehicleID);
+
 	public Driver findDriverByEmail(String email) throws TNSException;
+	
 }
+
