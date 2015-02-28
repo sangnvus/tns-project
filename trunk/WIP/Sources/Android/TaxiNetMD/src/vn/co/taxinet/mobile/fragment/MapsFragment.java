@@ -10,9 +10,7 @@ import org.json.JSONObject;
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.model.Rider;
-import vn.co.taxinet.mobile.utils.ConnectionDetector;
-import vn.co.taxinet.mobile.utils.Const;
-import vn.co.taxinet.mobile.utils.WakeLocker;
+import vn.co.taxinet.mobile.utils.Constants;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -54,7 +52,6 @@ public class MapsFragment extends Fragment {
 	private MyTimerTask task;
 	private RelativeLayout mError;
 	private int count = 0;
-	private ConnectionDetector cd;
 	private Rider rider = null;
 	private TextView mRiderName;
 	private LinearLayout mReqestLayout;
@@ -100,13 +97,13 @@ public class MapsFragment extends Fragment {
 		public void onReceive(Context context, Intent intent) {
 
 			Rider rider = new Rider();
-			rider.setId(Integer.parseInt(intent.getStringExtra(Const.RIDER_ID)));
-			rider.setName(intent.getStringExtra(Const.RIDER_NAME));
-			rider.setImage(intent.getStringExtra(Const.RIDER_IMAGE));
+			rider.setId(Integer.parseInt(intent.getStringExtra(Constants.RIDER_ID)));
+			rider.setName(intent.getStringExtra(Constants.RIDER_NAME));
+			rider.setImage(intent.getStringExtra(Constants.RIDER_IMAGE));
 			rider.setLongitude(Double.parseDouble(intent
-					.getStringExtra(Const.LONGITUDE)));
+					.getStringExtra(Constants.LONGITUDE)));
 			rider.setLatitude(Double.parseDouble(intent
-					.getStringExtra(Const.LATITUDE)));
+					.getStringExtra(Constants.LATITUDE)));
 			Toast.makeText(rootView.getContext(), "đù", Toast.LENGTH_LONG)
 					.show();
 			mReqestLayout.setVisibility(View.VISIBLE);
@@ -116,7 +113,7 @@ public class MapsFragment extends Fragment {
 
 
 	private void initialize() {
-		IntentFilter filter = new IntentFilter(Const.DISPLAY_REQUEST_ACTION);
+		IntentFilter filter = new IntentFilter(Constants.BroadcastAction.DISPLAY_REQUEST);
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 		receiver = new mHandleMessageReceiver();
 		getActivity().registerReceiver(receiver, filter);
@@ -195,7 +192,7 @@ public class MapsFragment extends Fragment {
 
 	private void makeJsonObjReq() {
 		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,
-				Const.URL_IMAGE, null, new Response.Listener<JSONObject>() {
+				Constants.URL.GET_TERM, null, new Response.Listener<JSONObject>() {
 
 					@Override
 					public void onResponse(JSONObject response) {
@@ -257,7 +254,7 @@ public class MapsFragment extends Fragment {
 				@Override
 				public void run() {
 					if (count % 10 == 0) {
-						if (!cd.isConnectingToInternet()) {
+						if (true) {
 							if (mError.getVisibility() == View.GONE) {
 								mError.startAnimation(slideToBottom(rootView,
 										mError.getHeight()));

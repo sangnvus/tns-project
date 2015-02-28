@@ -2,7 +2,7 @@ package vn.co.taxinet.mobile.fragment;
 
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.bo.ProfileBO;
-import vn.co.taxinet.mobile.utils.Const;
+import vn.co.taxinet.mobile.utils.Constants;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
