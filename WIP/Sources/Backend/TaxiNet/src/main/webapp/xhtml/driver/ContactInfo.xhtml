@@ -20,46 +20,58 @@
 			enctype="multipart/form-data">
 			<p:growl id="msg" showDetail="true" />
 			<center>
-				<p:panel header="Thông Tin Liên Hệ">
+				<p:panel id="test" header="Thông Tin Liên Hệ">
 					<h4>CONTACT INFO (Thông Tin Liên Hệ)</h4>
 					<h5>Company Information</h5>
 					<h:panelGrid id="ComInfo" columns="2">
-						<!-- <p:outputLabel for="companyName"
+						<p:outputLabel for="companyName"
 							value="#{msg['driver.companyName']}"></p:outputLabel>
-						<h:inputText id="companyName" value=""></h:inputText> -->
+						<h:inputText id="companyName"
+							value="#{driverCIController.companyName}"></h:inputText>
+						<p:outputLabel for="address" value="#{msg['driver.address']}"></p:outputLabel>
+						<h:inputText id="address"
+							value="#{driverCIController.addressNumber}"></h:inputText>
+						<p:outputLabel for="city" value="#{msg['driver.city']}"></p:outputLabel>
+						<h:inputText id="city" value="#{driverCIController.city}"></h:inputText>
+						<p:outputLabel for="zipcode" value="#{msg['driver.zipCode']}"></p:outputLabel>
+						<h:inputText id="zipcode" value="#{driverCIController.zipcode}"></h:inputText>
+						<p:outputLabel for="MobieNo" value="#{msg['driver.phoneNo']}"></p:outputLabel>
+						<h:inputText id="MobieNo" value="#{driverCIController.mobieNo}"></h:inputText>
+						<p:outputLabel for="VATNumber" value="#{msg['driver.VATNumber']}"></p:outputLabel>
+						<h:inputText id="VATNumber"
+							value="#{driverCIController.VATNumber}"></h:inputText>
 					</h:panelGrid>
 					<h4>Personal Information (Thông Tin Cá Nhân)</h4>
 					<h:panelGrid id="PerInfo" columns="2">
+						<p:outputLabel for="firstname" value="#{msg['driver.firstname']}" />
+						<h:inputText id="firstname"
+							value="#{driverCIController.firstName}"></h:inputText>
+						<p:outputLabel for="lastname" value="#{msg['driver.lastname']}" />
+						<h:inputText id="lastname" value="#{driverCIController.lastName}"></h:inputText>
 						<p:outputLabel for="Email" value="#{msg['driver.email']}"></p:outputLabel>
-						<h:inputText id="Email"
-							value="#{driverCIController.email}"></h:inputText>
-						<p:outputLabel for="Password" value="#{msg['driver.password']}"></p:outputLabel>
-						<h:inputText id="Password" value="#{driverCIController.passWord}"></h:inputText>
-						<!-- <p:outputLabel for="firstname"
-							value="#{msg['driver.firstname']}" />
-							<p:inputText id="firstname"
-							value="#{driverCIController.firstName}"></p:inputText>
-						<p:outputLabel for="lastname"
-							value="#{msg['driver.lastname']}" />
-						<p:inputText id="lastname"
-							value="#{driverCIController.lastName}"></p:inputText> -->
+						<h:inputText id="Email" value="#{driverCIController.email}"></h:inputText>
+						<p:outputLabel for="Mobie" value="#{msg['driver.phoneNo']}"></p:outputLabel>
+						<h:inputText id="Mobie" value="#{driverCIController.mobieNo}"></h:inputText>
+						<p:outputLabel for="Languagues" value="#{msg['driver.languages']}"></p:outputLabel>
+						<h:inputText id="Languagues"
+							value="#{driverCIController.languages}"></h:inputText>
 					</h:panelGrid>
 					<h4>TaxiNet Account Info (Thông tin tài khoản)</h4>
 					<h:panelGrid id="AccInfo" columns="2">
-
+						<p:outputLabel for="Username" value="#{msg['driver.userName']}"></p:outputLabel>
+						<h:inputText id="Username" value="#{driverCIController.userName}"></h:inputText>
+						<p:outputLabel for="Coupon" value="#{msg['driver.coupon']}"></p:outputLabel>
+						<h:inputText id="Coupon" value="#{driverCIController.coupon}"></h:inputText>
+						<p:outputLabel for="Password" value="#{msg['driver.password']}"></p:outputLabel>
+						<h:inputText id="Password" value="#{driverCIController.password}"></h:inputText>
 					</h:panelGrid>
 					<br />
 					<br />
-					<p:commandButton value="Lưu (Save)" validateClient="true"
-						action="#{driverCIController.updateForm}" update="ContactInfo"></p:commandButton>
-					<!-- <h:inputFile value=""></h:inputFile>
-					<h:commandButton value="Upload file"
-						actionListener="#{uploadImgController.upLoadFile}">
-					</h:commandButton>
-					<br />
-					<h:graphicImage value="#{uploadImgController.imgExample}">
-					</h:graphicImage> -->
-					<br />
+					<p:commandButton value="Sửa thông tin (Edit)"
+						action="#{driverCIController.doEdit}" update="ContactInfo"></p:commandButton>
+					<p:commandButton value="Lưu (Save)"
+						action="#{driverCIController.doUpdate}" update="ContactInfo"></p:commandButton>
+
 					<p:outputLabel
 						value="Bạn có cấu hỏi vui lòng liên hệ với chúng tôi" />
 				</p:panel>

@@ -13,11 +13,15 @@ import javax.servlet.http.HttpSession;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.bo.TaxiNetUserBO;
+import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
+import vn.co.taxinet.orm.Language;
 import vn.co.taxinet.orm.TaxiNetUsers;
+import vn.co.taxinet.orm.UserGroup;
 
 @ManagedBean(name = "driverCIController", eager = true)
 @SessionScoped
@@ -31,8 +35,9 @@ public class DriverContactInfoBean implements Serializable {
 	private String LastName;
 	private String VATNumber;
 	private String MobieNo;
+	private String UserName;
 	private String Email;
-	private String PassWord;
+	private String Password;
 	private String CompanyName;
 	private String AddressNumber;
 	private String Street;
@@ -41,14 +46,15 @@ public class DriverContactInfoBean implements Serializable {
 	private String Zipcode;
 	private String Languages;
 	private String Coupon;
+	private String Language;
 	private TaxiNetUserDAO taxiNetUserDAO;
 	private TaxiNetUserBO taxiNetUserBO;
 	private DriverDAO driverDAO;
-	
 	private TaxiNetUsers user;
 	private Driver driver;
 	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
+
 	public TaxiNetUserBO getTaxiNetUserBO() {
 		return taxiNetUserBO;
 	}
@@ -129,6 +135,14 @@ public class DriverContactInfoBean implements Serializable {
 		MobieNo = mobieNo;
 	}
 
+	public String getUserName() {
+		return UserName;
+	}
+
+	public void setUserName(String userName) {
+		UserName = userName;
+	}
+
 	public String getEmail() {
 		return Email;
 	}
@@ -137,12 +151,12 @@ public class DriverContactInfoBean implements Serializable {
 		Email = email;
 	}
 
-	public String getPassWord() {
-		return PassWord;
+	public String getPassword() {
+		return Password;
 	}
 
-	public void setPassWord(String passWord) {
-		PassWord = passWord;
+	public void setPassword(String password) {
+		Password = password;
 	}
 
 	public String getCompanyName() {
@@ -208,6 +222,13 @@ public class DriverContactInfoBean implements Serializable {
 	public void setCoupon(String coupon) {
 		Coupon = coupon;
 	}
+	public String getLanguage() {
+		return Language;
+	}
+
+	public void setLanguage(String language) {
+		Language = language;
+	}
 
 	public void init() throws TNSException {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
@@ -215,9 +236,11 @@ public class DriverContactInfoBean implements Serializable {
 			HttpServletRequest request = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			HttpSession session = request.getSession();
-			Email = (String) session.getAttribute("username");
-			PassWord = (String) session.getAttribute("password");
-			if (null == Email || null == PassWord) {
+			UserName = (String) session.getAttribute("username");
+			Password = (String) session.getAttribute("password");
+			System.out.println(UserName);
+			System.out.println(Password);
+			if (null == UserName || null == Password) {
 				try {
 					FacesContext.getCurrentInstance().getExternalContext()
 							.redirect("/TN/faces/Login.xhtml");
@@ -226,7 +249,7 @@ public class DriverContactInfoBean implements Serializable {
 					e.printStackTrace();
 				}
 			} else {
-				driver = driverBO.findDriverByEmail(Email);
+				driver = driverBO.findDriverByUsername(UserName);
 				if (driver == null) {
 					try {
 						FacesContext.getCurrentInstance().getExternalContext()
@@ -239,8 +262,20 @@ public class DriverContactInfoBean implements Serializable {
 				System.out.print(1);
 				FirstName = driver.getFirstName();
 				LastName = driver.getLastName();
+				MobieNo = driver.getMobileNo();
+				Email = driver.getTaxinetusers().getEmail();
+				AddressNumber = "";
+				City = "";
+				Coupon ="";
+				VATNumber ="";
+				CompanyName = "";
+				Street = "";
+				District = "";
+				City = "";
+				Zipcode = driver.getTaxinetusers().getPostalCode();
+				Language = driver.getTaxinetusers().getLanguage().getLanguageCode();
+				System.out.print(Language);
 			}
-
 		}
 	}
 
@@ -249,4 +284,58 @@ public class DriverContactInfoBean implements Serializable {
 		return driver;
 	}
 
+	public String doCheck() throws TNSException, IOException {
+		HttpServletRequest request = (HttpServletRequest) FacesContext
+				.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = request.getSession();
+		// set session attribute
+		session.setAttribute("username", UserName);
+		session.setAttribute("password", Password);
+		// redirect to login page
+		FacesContext.getCurrentInstance().getExternalContext()
+				.redirect("/TN/faces/xhtml/driver/ContactInfo.xhtml");
+		return null;
+	}
+	
+	public void doEdit(){
+		
+	}
+	
+	public String doUpdate() throws IOException, TNSException{
+		
+		Driver updateDriver = new Driver();
+
+		updateDriver.setFirstName(getFirstName());
+		updateDriver.setLastName(getLastName());
+		updateDriver.setMobileNo(getMobieNo());
+		updateDriver.setTaxinetusers(new TaxiNetUsers());
+		updateDriver.getTaxinetusers().setEmail(Email);
+		updateDriver.getTaxinetusers().setUsername(UserName);
+		updateDriver.getTaxinetusers().setPostalCode(Zipcode);
+		// TODO change hardcode of country
+		updateDriver.getTaxinetusers().setCountry(new Country());
+		updateDriver.getTaxinetusers().getCountry().setCode("VN");
+
+		updateDriver.getTaxinetusers().setUsergroup(new UserGroup());
+		updateDriver.getTaxinetusers().getUsergroup()
+				.setGroupCode(Constants.GroupUser.DRIVER);
+		updateDriver.getTaxinetusers().setStatus(Constants.UserStatus.ACTIVE);
+		updateDriver.getTaxinetusers().setLanguage(new Language());
+		updateDriver.getTaxinetusers().getLanguage()
+				.setLanguageCode(Constants.Language.LANG_EN_CODE);
+
+		updateDriver.setMobileNo(MobieNo);
+		updateDriver.setFirstName(FirstName);
+		updateDriver.setLastName(LastName);
+		driverBO.update(updateDriver);
+		HttpServletRequest request = (HttpServletRequest) FacesContext
+				.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = request.getSession();
+		// set session attribute
+		session.setAttribute("username", UserName);
+		session.setAttribute("password", Password);
+		FacesContext.getCurrentInstance().getExternalContext()
+		.redirect("/TN/faces/xhtml/driver/ContactInfo.xhtml");
+		return null;
+	}
 }
