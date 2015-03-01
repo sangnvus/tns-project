@@ -43,7 +43,7 @@ public class ChangePasswordBean implements Serializable {
 //			UserID = session.getAttribute("UserID").toString();
 //			Username = session.getAttribute("Username").toString();
 //			Password = session.getAttribute("Password").toString();
-//			newPass = "";
+			newPass = "";
 			renewPass = "";
 		} catch (Exception ex) {
 			try {
@@ -71,6 +71,7 @@ public class ChangePasswordBean implements Serializable {
 		} else {
 			String result = taxiNetUserBO.changePass(UserID, newPass);
 			if (result != null) {
+				//TODO set new password to the session value
 				FacesContext.getCurrentInstance()
 						.addMessage(
 								null,
