@@ -427,10 +427,10 @@ public class DriverBOImpl implements DriverBO {
 		}
 	}
 	
-	public Driver findDriverByEmail(String Email) throws TNSException {
+	public Driver findDriverByUsername(String Username) throws TNSException {
 		try {
 			// Check if user name not exist in DB
-			TaxiNetUsers user = taxiNetUserDAO.select(Email);
+			TaxiNetUsers user = taxiNetUserDAO.select(Username);
 			if (user == null) {
 				if (user.getPassword().equals(user.getPassword())) {
 					throw new FunctionalException(THIS,
@@ -446,6 +446,45 @@ public class DriverBOImpl implements DriverBO {
 
 			}
 			return driver;
+		} catch (TNSException tnex) {
+			throw tnex;
+		} catch (Throwable t) {
+			throw new SystemException(THIS, t);
+		}
+	}
+	
+	public List<Language> getLanguageList() {
+		// TODO Auto-generated method stub
+		return languageDAO.selectAllLanguage();
+	}
+
+	public void update(Driver updateDriver) throws TNSException {
+		// TODO Auto-generated method stub
+		try {
+			// Insert parent tables first, then insert child tables
+			// 1. Insert user table
+			// Check if user name not exist in DB
+			TaxiNetUsers updateUser = updateDriver.getTaxinetusers();
+			TaxiNetUsers oldUser = taxiNetUserDAO.select(updateUser.getUsername());
+			if (oldUser == null) {
+				if (updateUser.getPassword().equals(oldUser.getPassword())) {
+					throw new FunctionalException(THIS,
+							"Driver User is not existing",
+							Constants.Errors.DUPLICATED_ERROR);
+				}
+			}
+			// User Name always is in lower case
+			oldUser.setEmail(updateUser.getEmail());
+			oldUser.setLastModifiedDate(Utility.getCurrentDateTime());
+			oldUser.setLastModifiedBy(updateUser.getUsername());
+			taxiNetUserDAO.update(oldUser);
+			Driver oldDriver = driverDAO.findDriverById(oldUser.getUserId());
+			// 5. Update data into Driver table
+			oldDriver.setFirstName(updateDriver.getFirstName());
+			oldDriver.setLastName(updateDriver.getLastName());
+			oldDriver.setLastModifiedDate(Utility.getCurrentDateTime());
+			oldDriver.setLastModifiedBy(updateUser.getUsername());
+			driverDAO.update(oldDriver);
 		} catch (TNSException tnex) {
 			throw tnex;
 		} catch (Throwable t) {
