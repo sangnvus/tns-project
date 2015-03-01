@@ -2,6 +2,7 @@ package vn.co.taxinet.dao;
 
 import java.util.List;
 
+import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.Driver;
 
 ;
@@ -21,7 +22,7 @@ public interface DriverDAO extends BaseDAO {
 	 * @param companyID
 	 * @return driver and current status
 	 */
-	public List<Driver> findDriverByCompanyID(String companyID, int pageIndex,
+	public List<DriverDTO> findDriverByCompanyID(String companyID, int pageIndex,
 			int pageSize);
 	
 	/**

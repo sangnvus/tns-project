@@ -16,9 +16,8 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dao.DriverDAO;
-import vn.co.taxinet.dto.MessageDTO;
+import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.Trip;
@@ -172,16 +171,18 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 	 * @see vn.co.taxinet.dao.DriverDAO#findDriverByCompanyID(java.lang.String)
 	 */
 	@Transactional
-	public List<Driver> findDriverByCompanyID(String companyID, int pageIndex,
+	public List<DriverDTO> findDriverByCompanyID(String companyID, int pageIndex,
 			int pageSize) {
 		Session session = getSessionFactory().getCurrentSession();
 		StringBuilder stringBuilder = new StringBuilder();
-		String hql1 = "Select D FROM TaxiNetUsers U, Driver D, CurrentStatus CS ";
-		String hql2 = "WHERE U.company.companyId = :companyId AND D.driverId = CS.driverId";
-		String hql3 = " AND U.userId = D.driverId";
+		String hql1 = "Select D FROM TaxiNetUsers U, Driver D, CurrentStatus CS, Vehicle V";
+		String hql2 = " WHERE U.company.companyId = :companyId AND D.driverId = CS.driverId";
+		String hql3 = " AND U.userId = D.driverId and D.vehicle.vehicleId = V.vehicleId";
+		String hql4 = " AND CS.currentStatus = 'AC'";
 		stringBuilder.append(hql1);
 		stringBuilder.append(hql2);
 		stringBuilder.append(hql3);
+		stringBuilder.append(hql4);
 		System.out.println("HQL : " + stringBuilder.toString());
 		Query query = session.createQuery(stringBuilder.toString());
 		query.setParameter("companyId", Integer.parseInt(companyID));
@@ -189,9 +190,20 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		query.setMaxResults(pageSize);
 		List<Driver> driverList = query.list();
 		if (driverList != null) {
-			return driverList;
+			String plate = driverList.get(0).getVehicle().getPlate();
+			List<DriverDTO> listDriverDTO = new ArrayList<DriverDTO>();
+			for ( int i = 0; i < driverList.size(); i++) {
+				DriverDTO driverDTO = new DriverDTO();
+				driverDTO.setFirstName(driverList.get(i).getFirstName());
+				driverDTO.setLastName(driverList.get(i).getLastName());
+				driverDTO.setPlate(driverList.get(0).getVehicle().getPlate());
+				driverDTO.setCurrentStatus(driverList.get(0).getCurrentstatus().getCurrentStatus());
+				driverDTO.setCurrentLocation(driverList.get(0).getCurrentstatus().getCurrentLocation());
+				listDriverDTO.add(driverDTO);
+			}
+			return listDriverDTO;
 		} else {
-			return new ArrayList<Driver>();
+			return new ArrayList<DriverDTO>();
 		}
 	}
 
@@ -204,16 +216,19 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 	public List<Driver> countDriverByCompanyID(String companyID) {
 		Session session = getSessionFactory().getCurrentSession();
 		StringBuilder stringBuilder = new StringBuilder();
-		String hql1 = "Select D FROM TaxiNetUsers U, Driver D, CurrentStatus CS";
+		String hql1 = "Select D FROM TaxiNetUsers U, Driver D, CurrentStatus CS, Vehicle V";
 		String hql2 = " WHERE U.company.companyId = :companyId AND D.driverId = CS.driverId";
-		String hql3 = " AND U.userId = D.driverId";
+		String hql3 = " AND U.userId = D.driverId and D.vehicle.vehicleId = V.vehicleId";
+		String hql4 = " AND CS.currentStatus = 'AC'";
 		stringBuilder.append(hql1);
 		stringBuilder.append(hql2);
 		stringBuilder.append(hql3);
+		stringBuilder.append(hql4);
 		log.debug("HQL " + stringBuilder.toString());
 		Query query = session.createQuery(stringBuilder.toString());
 		query.setParameter("companyId", Integer.parseInt(companyID));
 		List<Driver> driverList = query.list();
+		String i = driverList.get(0).getVehicle().getPlate();
 		return driverList;
 	}
 }
