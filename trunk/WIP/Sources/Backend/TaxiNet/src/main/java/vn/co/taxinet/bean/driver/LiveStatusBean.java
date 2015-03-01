@@ -29,6 +29,11 @@ import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
 
+/**
+ * @author Ecchi
+ * controller for live status 
+ *
+ */
 @ManagedBean(name = "liveStatusBean", eager = true)
 @SessionScoped
 public class LiveStatusBean extends BaseBean {
