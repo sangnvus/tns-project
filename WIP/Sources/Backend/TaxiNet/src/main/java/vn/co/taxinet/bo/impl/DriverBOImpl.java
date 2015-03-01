@@ -378,7 +378,7 @@ public class DriverBOImpl implements DriverBO {
 	 * int, int)
 	 */
 	@Transactional
-	public List<Driver> findDriverByCompanyID(String companyID, int pageIndex,
+	public List<DriverDTO> findDriverByCompanyID(String companyID, int pageIndex,
 			int pageSize) {
 		return driverDAO.findDriverByCompanyID(companyID, pageIndex, pageSize);
 	}
@@ -425,6 +425,13 @@ public class DriverBOImpl implements DriverBO {
 		} catch (NumberFormatException e) {
 			throw new TNException(Constants.Message.NUMBER_FORMAT_EXCEPTION);
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.DriverBO#getVehicleFromVehicleID(java.lang.String)
+	 */
+	public Vehicle getVehicleFromVehicleID(String vehicleID) {
+		return vehicleDAO.getVehicleFromID(vehicleID);
 	}
 	
 	public Driver findDriverByUsername(String Username) throws TNSException {
