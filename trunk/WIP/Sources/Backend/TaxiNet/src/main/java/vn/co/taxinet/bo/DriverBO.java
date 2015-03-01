@@ -147,7 +147,10 @@ public interface DriverBO {
 	 */
 	public Vehicle getVehicleFromVehicleID(String vehicleID);
 
-	public Driver findDriverByEmail(String email) throws TNSException;
-	
+	public Driver findDriverByUsername(String Username) throws TNSException;
+
+	public List<Language> getLanguageList();
+
+	public void update(Driver updateDriver) throws TNSException;
 }
 
