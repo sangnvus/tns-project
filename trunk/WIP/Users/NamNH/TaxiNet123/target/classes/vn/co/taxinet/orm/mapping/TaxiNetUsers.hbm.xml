@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.TaxiNetUsers" table="taxinetusers" catalog="taxinet">
+        <id name="userId" type="string">
+            <column name="UserID" length="50" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="usergroup" class="vn.co.taxinet.orm.UserGroup" fetch="select">
+            <column name="GroupCode" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="language" class="vn.co.taxinet.orm.Language" fetch="select">
+            <column name="LanguageCode" length="4" not-null="true" />
+        </many-to-one>
+        <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
+            <column name="CompanyID" />
+        </many-to-one>
+        <many-to-one name="country" class="vn.co.taxinet.orm.Country" fetch="select">
+            <column name="CountryCode" length="4" not-null="true" />
+        </many-to-one>
+        <property name="username" type="string">
+            <column name="Username" length="50" not-null="true" unique="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="Password" length="40" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="50" />
+        </property>
+        <property name="cityId" type="java.lang.Integer">
+            <column name="CityID" />
+        </property>
+        <property name="status" type="string">
+            <column name="Status" length="10" not-null="true" />
+        </property>
+        <property name="image" type="string">
+            <column name="Image" />
+        </property>
+        <property name="postalCode" type="string">
+            <column name="PostalCode" length="5" />
+        </property>
+        <property name="deactivatedDate" type="date">
+            <column name="DeactivatedDate" length="0" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
+        </property>
+        <one-to-one name="agent" class="vn.co.taxinet.orm.Agent"></one-to-one>
+        <set name="payments" table="payment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="UserID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Payment" />
+        </set>
+        <set name="payments_1" table="payment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="UserID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Payment" />
+        </set>
+        <set name="accounttransactions" table="accounttransaction" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="UserID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.AccountTransaction" />
+        </set>
+        <one-to-one name="driver" class="vn.co.taxinet.orm.Driver"></one-to-one>
+        <one-to-one name="rider" class="vn.co.taxinet.orm.Rider"></one-to-one>
+        <set name="accounttransactions_1" table="accounttransaction" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="UserID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.AccountTransaction" />
+        </set>
+    </class>
+</hibernate-mapping>

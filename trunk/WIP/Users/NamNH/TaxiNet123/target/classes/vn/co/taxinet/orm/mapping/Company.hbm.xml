@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Company" table="company" catalog="taxinet">
+        <id name="companyId" type="java.lang.Integer">
+            <column name="CompanyID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="documentByOperatingLisence" class="vn.co.taxinet.orm.Document" fetch="select">
+            <column name="OperatingLisence" />
+        </many-to-one>
+        <many-to-one name="documentByBusinessRegistration" class="vn.co.taxinet.orm.Document" fetch="select">
+            <column name="BusinessRegistration" />
+        </many-to-one>
+        <many-to-one name="address" class="vn.co.taxinet.orm.Address" fetch="select">
+            <column name="AddressID" length="50" />
+        </many-to-one>
+        <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
+            <column name="ParentID" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="Name" length="100" not-null="true" />
+        </property>
+        <property name="businessType" type="string">
+            <column name="BusinessType" length="10" not-null="true" />
+        </property>
+        <property name="balance" type="java.lang.Double">
+            <column name="Balance" precision="22" scale="0" />
+        </property>
+        <property name="vatnumber" type="string">
+            <column name="VATNumber" length="20" />
+        </property>
+        <property name="mobileNo" type="string">
+            <column name="MobileNo" length="20" />
+        </property>
+        <property name="serviceCharge" type="string">
+            <column name="ServiceCharge" length="5" />
+        </property>
+        <property name="rate" type="java.lang.Double">
+            <column name="Rate" precision="22" scale="0" />
+        </property>
+        <property name="bankNo" type="string">
+            <column name="BankNo" length="20" />
+        </property>
+        <property name="bankId" type="java.lang.Integer">
+            <column name="BankID" />
+        </property>
+        <property name="currentPromotionCode" type="string">
+            <column name="CurrentPromotionCode" length="20" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
+        </property>
+        <set name="taxinetuserses" table="taxinetusers" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CompanyID" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
+        </set>
+        <set name="taxinetuserses_1" table="taxinetusers" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CompanyID" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
+        </set>
+        <set name="pricepanels" table="pricepanel" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CompanyID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.PricePanel" />
+        </set>
+        <set name="companies" table="company" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ParentID" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Company" />
+        </set>
+        <set name="pricepanels_1" table="pricepanel" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CompanyID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.PricePanel" />
+        </set>
+        <set name="companyparkareas" table="companyparkarea" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CompanyID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.CompanyParkArea" />
+        </set>
+        <set name="companies_1" table="company" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ParentID" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Company" />
+        </set>
+        <set name="companyparkareas_1" table="companyparkarea" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CompanyID" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.CompanyParkArea" />
+        </set>
+    </class>
+</hibernate-mapping>

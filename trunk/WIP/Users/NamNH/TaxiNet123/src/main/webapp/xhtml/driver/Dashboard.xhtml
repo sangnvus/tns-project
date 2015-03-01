@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<f:event listener="#{feeAgentHomeController.initData}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<p:megaMenu orientation="horizontal">
+		<p:menuitem value="#{msg['feeAgent.homePage']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+	</p:megaMenu>
+	<p:megaMenu orientation="vertical">
+		<p:menuitem value="#{msg['feeAgent.dashboard']}"
+			url="../driver/Dashboard.xhtml" style="background:orange"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
+			url="../driver/ContactInfo.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.document']}"
+			url="../driver/Document.xhtml"></p:menuitem>			
+		<p:menuitem value="#{msg['driver.vehicle']}"
+			url="../driver/Vehicles.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.partnerInvoice']}"
+			url="../driver/PartnerInvoices.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.tripsInvoice']}"
+			url="../driver/TripInvoices.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.driver']}"
+			url="../driver/Drivers.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.liveStatus']}"
+			url="../driver/LiveStatus.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.promotionRegister']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+	</p:megaMenu>
+
+	<br></br>
+	
+	<p:outputLabel for="days" value="#{msg['driver.showDataOf']}"/>
+	<p:inputText id="days" />#{msg['driver.days']}
+	
+	<br></br>
+
+	<p:dataTable id="Summary" rows="7">
+		<f:facet name="header">
+        Thống kê
+    	</f:facet>
+		<p:column headerText="#{msg['feeAgent.autonumber']}"
+			style="text-align:left" width="35">
+		</p:column>
+		<p:column headerText="#{msg['driver.driver']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['driver.rating']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['driver.trips']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['driver.fare']}"
+			style="text-align:left">
+		</p:column>
+		<p:columnGroup type="footer">
+			<p:row >
+				<p:column footerText="" />
+				<p:column colspan="2" footerText="#{msg['feeAgent.total']}" style="text-align:left" />
+				<p:column footerText="" />
+				<p:column footerText="" />
+			</p:row>
+		</p:columnGroup>
+	</p:dataTable>
+
+	<br></br>
+
+	<p:outputLabel for="trips" value="#{msg['driver.tripsLook']}"/>
+	<p:selectOneMenu id="trips">
+		<f:selectItem itemValue="#{msg['driver.all']}"/>
+	</p:selectOneMenu>	
+
+	<br></br>
+
+	<p:dataTable id="myTripsAndDriver" rows="10">
+		<f:facet name="header">
+        #{msg['driver.myTripsAndDriver']}
+    	</f:facet>
+		<p:column headerText="#{msg['feeAgent.autonumber']}"
+			style="text-align:left" width="35">
+		</p:column>
+		<p:column headerText="#{msg['driver.driver']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['driver.time']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['driver.duration']}(#{msg['driver.minute']})"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['driver.mileage']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['driver.fare']}"
+			style="text-align:left">
+		</p:column>	
+		<f:facet name="footer">
+        #{msg['feeAgent.show']} #{msg['feeAgent.of']} #{msg['driver.trip']}
+    	</f:facet>	
+	</p:dataTable>
+
+	<br></br>
+	
+	<p:commandButton value="#{msg['driver.newDriverAdd']}"/>
+</h:body>
+</html>

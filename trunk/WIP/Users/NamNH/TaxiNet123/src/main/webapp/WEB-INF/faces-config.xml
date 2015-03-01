@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" >
+ 
+ 	<application>
+ 		<message-bundle>vn.co.taxinet.bean.i18n.MessageResources</message-bundle>
+   		<variable-resolver>
+      		org.springframework.web.jsf.DelegatingVariableResolver
+   		</variable-resolver>
+   		<!-- Internationalized Configuration -->
+   		<locale-config>
+   			<default-locale>vi</default-locale>
+   			<supported-locale>en</supported-locale>
+   			<supported-locale>jp</supported-locale>
+   		</locale-config>
+   		<resource-bundle>
+      		<base-name>vn.co.taxinet.bean.i18n.MessageResources</base-name>
+      		<var>msg</var>
+   		</resource-bundle>   		
+	</application>
+	<!-- Backing bean configuration -->
+  	<managed-bean>
+      	<managed-bean-name>userData</managed-bean-name>
+      	<managed-bean-class>vn.co.taxinet.bean.TNUser</managed-bean-class>
+      	<managed-bean-scope>request</managed-bean-scope>
+      	<!-- <managed-property>
+        	 <property-name>authenticationBO</property-name>
+         	<value>#{authenBO}</value>
+      	</managed-property>
+      	-->
+   	</managed-bean>
+  	<managed-bean>
+      	<managed-bean-name>loginForm</managed-bean-name>
+      	<managed-bean-class>vn.co.taxinet.bean.LoginBean</managed-bean-class>
+      	<managed-bean-scope>request</managed-bean-scope>
+      	<managed-property>
+         	<property-name>authenticationBO</property-name>
+         	<value>#{authenticationService}</value>
+      	</managed-property>
+   	</managed-bean>
+   	 	<managed-bean>
+      	<managed-bean-name>riderRegisterController</managed-bean-name>
+      	<managed-bean-class>vn.co.taxinet.bean.rider.RiderRegisterBean</managed-bean-class>
+      	<managed-bean-scope>session</managed-bean-scope>
+      	<managed-property>
+         	<property-name>riderBO</property-name>
+         	<value>#{riderBO}</value>
+      	</managed-property>
+   	</managed-bean>
+   	 <managed-bean>
+      	<managed-bean-name>vehiclesController</managed-bean-name>
+      	<managed-bean-class>vn.co.taxinet.bean.driver.VehiclesBean</managed-bean-class>
+      	<managed-bean-scope>session</managed-bean-scope>
+      	<managed-property>
+         	<property-name>driverBO</property-name>
+         	<value>#{driverBO}</value>
+      	</managed-property>
+   	</managed-bean>
+  	<navigation-rule>
+  		<display-name>Login</display-name>
+  		<from-view-id>/Login.xhtml</from-view-id>
+  		<navigation-case>
+  			<from-action>#{LogonForm.logon}</from-action>
+  			<from-outcome>success</from-outcome>
+  			<to-view-id>/main.xhtml</to-view-id>
+  		</navigation-case>
+  	</navigation-rule>
+  	<navigation-rule>
+  		<display-name>Login</display-name>
+  		<from-view-id>/Login.xhtml</from-view-id>
+  		<navigation-case>
+  			<from-action>#{LogonForm.logon}</from-action>
+  			<from-outcome>failed</from-outcome>
+  			<to-view-id>/error.xhtml</to-view-id>
+  		</navigation-case>
+  	</navigation-rule>
+   	
+   	<!-- Navigation Configuration -->		
+ </faces-config>

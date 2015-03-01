@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>TaxiNet</title>
+</h:head>
+<body>
+	<h:form>
+		<table>
+			<tr>
+				<td colspan="2"><h:messages errorClass="errorMessage" /></td>
+			</tr>
+			<tr>
+				<td><p:outputLabel value="#{msg['login.userName']}" /></td>
+				<td><p:inputText size="50" value="#{loginForm.userName}"
+						id="userName" required="true"
+						requiredMessage="#{msg['login.username.error']}" /> <h:message
+						for="userName" serrorClass="errorMessage" /></td>
+			</tr>
+			<tr>
+				<td><p:outputLabel value="#{msg['login.password']}" /></td>
+				<td><p:inputText size="50" value="#{loginForm.password}"
+						id="password" required="true"
+						requiredMessage="#{msg['login.password.error']}" /> <h:message
+						for="password" errorClass="errorMessage" /></td>
+			</tr>
+			<tr>
+				<td><p:commandButton value="Login" type="submit"
+						action="#{loginForm.logon}" /></td>
+				<td></td>
+			</tr>
+		</table>
+	</h:form>
+</body>
+</html>

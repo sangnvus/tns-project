@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14162926328500" configfile="/TaxiNet123/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="Login" x="12" id="pf141662702314325" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf141662702314326 pf141662705404228" path="/Login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="error" x="84" y="180" id="pf141662702314327" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf141662702314326" path="/error.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="home" x="252" y="108" id="pf141662705404329" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf141662705404228" path="/main.xhtml"/>
+  <links id="pf141662702314326" target="pf141662702314327" source="pf141662702314325"/>
+  <links id="pf141662705404228" target="pf141662705404329" source="pf141662702314325"/>
+</pageflow:Pageflow>

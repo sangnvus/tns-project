@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Payment" table="payment" catalog="taxinet">
+        <id name="paymentId" type="java.lang.Integer">
+            <column name="PaymentID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="bank" class="vn.co.taxinet.orm.Bank" fetch="select">
+            <column name="BankID" />
+        </many-to-one>
+        <many-to-one name="taxinetusers" class="vn.co.taxinet.orm.TaxiNetUsers" fetch="select">
+            <column name="UserID" length="50" not-null="true" />
+        </many-to-one>
+        <property name="cardNo" type="string">
+            <column name="CardNo" length="15" not-null="true" unique="true" />
+        </property>
+        <property name="expiredYear" type="string">
+            <column name="ExpiredYear" length="4" />
+        </property>
+        <property name="expiredMonth" type="string">
+            <column name="ExpiredMonth" length="2" />
+        </property>
+        <property name="cvv" type="string">
+            <column name="CVV" length="4" />
+        </property>
+        <property name="type" type="string">
+            <column name="Type" length="2" />
+        </property>
+        <property name="status" type="string">
+            <column name="Status" length="2" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
+        </property>
+        <set name="trips" table="trip" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PaymentID" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Trip" />
+        </set>
+        <set name="trips_1" table="trip" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PaymentID" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Trip" />
+        </set>
+    </class>
+</hibernate-mapping>

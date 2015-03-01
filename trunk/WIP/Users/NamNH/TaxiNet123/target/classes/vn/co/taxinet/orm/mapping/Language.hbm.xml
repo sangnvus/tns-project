@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Language" table="language" catalog="taxinet">
+        <id name="languageCode" type="string">
+            <column name="LanguageCode" length="4" />
+            <generator class="assigned" />
+        </id>
+        <property name="language" type="string">
+            <column name="Language" length="20" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
+        </property>
+        <set name="citynames" table="cityname" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="LanguageCode" length="4" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.CityName" />
+        </set>
+        <set name="citynames_1" table="cityname" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="LanguageCode" length="4" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.CityName" />
+        </set>
+        <set name="taxinetuserses" table="taxinetusers" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="LanguageCode" length="4" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
+        </set>
+        <set name="taxinetuserses_1" table="taxinetusers" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="LanguageCode" length="4" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<f:event listener="#{feeAgentHomeController.initData}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<p:megaMenu orientation="horizontal">
+		<p:menuitem value="#{msg['feeAgent.homePage']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+	</p:megaMenu>
+	<p:megaMenu orientation="vertical">
+		<p:menuitem value="#{msg['feeAgent.dashboard']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
+			url="../driver/ContactInfo.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.document']}"
+			url="../driver/Document.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.vehicle']}"
+			url="../driver/Vehicles.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.partnerInvoice']}"
+			url="../driver/PartnerInvoices.xhtml" style="background:orange"></p:menuitem>
+		<p:menuitem value="#{msg['driver.tripsInvoice']}"
+			url="../driver/TripInvoices.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.driver']}"
+			url="../driver/Drivers.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.liveStatus']}"
+			url="../driver/LiveStatus.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.promotionRegister']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+	</p:megaMenu>
+
+	<br></br>
+
+	<center>
+		<h1>#{msg['driver.partnerInvoice']}</h1>
+		<h:panelGrid columns="2">
+			<p:outputLabel for="date" value="#{msg['driver.date']}" />
+			<p:calendar id="date"
+				value="#{feeAgentChargingInvoicesController.fromDate}">
+				<f:convertDateTime pattern="dd-MM-yyyy" />
+			</p:calendar>
+		</h:panelGrid>
+		<br></br>
+		<p:commandButton value="#{msg['feeAgent.invoiceFilter']}" />
+	</center>
+
+	<br></br>
+
+	<p:dataTable id="invoice-list" paginator="true" rows="10"
+		paginatorPosition="top"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="5,10,15">
+		<f:facet name="header">
+        #{msg['feeAgent.invoiceList']}
+    	</f:facet>
+		<p:column headerText="#{msg['feeAgent.autonumber']}"
+			style="text-align:left" width="35">
+		</p:column>
+		<p:column headerText="#{msg['feeAgent.invoiceNo']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['feeAgent.invoiceDate']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['driver.rating']}" style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['driver.service']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['feeAgent.download']}"
+			style="text-align:left">
+		</p:column>
+		<f:facet name="footer">
+        #{msg['feeAgent.show']}#{msg['feeAgent.of']}#{msg['driver.trip']}
+    	</f:facet>
+	</p:dataTable>
+
+</h:body>
+</html>

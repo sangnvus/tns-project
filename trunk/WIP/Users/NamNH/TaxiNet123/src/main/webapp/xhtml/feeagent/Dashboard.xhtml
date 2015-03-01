@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<f:event listener="#{feeAgentHomeController.initData}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<p:megaMenu orientation="horizontal">
+		<p:menuitem value="#{msg['feeAgent.homePage']}"
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.transactionHistory']}"
+			url="../feeagent/TransactionHistory.xhtml"></p:menuitem>
+	</p:megaMenu>
+	<p:megaMenu orientation="vertical">
+		<p:menuitem value="#{msg['feeAgent.dashboard']}"
+			url="../feeagent/Dashboard.xhtml" style="background:orange"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
+			url="../feeagent/ContactInfo.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.accountCharging']}"
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.agentInvoice']}"
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.transactionInvoice']}"
+			url="../feeagent/ChargingInvoice.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
+			url="../feeagent/AgentHome.xhtml"></p:menuitem>
+	</p:megaMenu>
+
+	<br></br>
+
+	<center>
+		<h1>#{msg['feeAgent.accountSearching']}</h1>
+		<h:panelGrid columns="4">
+			<p:outputLabel for="balance" value="#{msg['feeAgent.balance']}:" />
+			<p:outputLabel id="balance" value="VND" />
+			<p:outputLabel for="discountRate"
+				value="#{msg['feeAgent.discountRate']}:" />
+			<p:outputLabel id="discountRate" value="%" />
+			<p:outputLabel for="month" value="#{msg['feeAgent.month']}:" />
+			<p:selectOneMenu id="month">
+			</p:selectOneMenu>
+			<p:outputLabel for="year" value="#{msg['feeAgent.year']}:" />
+			<p:selectOneMenu id="year">
+			</p:selectOneMenu>
+		</h:panelGrid>
+
+		<br></br>
+
+		<h:panelGrid columns="2">
+			<p:outputLabel for="inMonthCollectedAmount"
+				value="#{msg['feeAgent.inMonthCollectedAmount']}:" />
+			<p:outputLabel id="inMonthCollectedAmount" value="VND" />
+			<p:outputLabel for="discountedAmount"
+				value="#{msg['feeAgent.discountedAmount']}:" />
+			<p:outputLabel id="discountedAmount" value="VND" />
+			<p:outputLabel for="paidAmount"
+				value="#{msg['feeAgent.paidAmount']}:" />
+			<p:outputLabel id="paidAmount" value="VND" />
+			<p:outputLabel for="inMonthTotalPayment"
+				value="#{msg['feeAgent.inMonthTotalPayment']}:" />
+			<p:outputLabel id="inMonthTotalPayment" value="VND" />
+			<p:outputLabel for="inMonthPaidAmount"
+				value="#{msg['feeAgent.inMonthPaidAmount']}:" />
+			<p:outputLabel id="inMonthPaidAmount" value="VND" />
+			<p:outputLabel for="lastMonthBalance"
+				value="#{msg['feeAgent.lastMonthBalance']}:" />
+			<p:outputLabel id="lastMonthBalance" value="VND" />
+			<p:outputLabel for="totalPayment"
+				value="#{msg['feeAgent.totalPayment']}:" />
+			<p:outputLabel id="totalPayment" value="VND" />
+		</h:panelGrid>
+	</center>
+
+	<br></br>
+
+	<p:dataTable id="transactionSummary" rows="10">
+		<f:facet name="header">
+        #{msg['feeAgent.transactionSummary']}
+    	</f:facet>
+		<p:column headerText="#{msg['feeAgent.autonumber']}"
+			style="text-align:left" width="35">
+		</p:column>
+		<p:column headerText="#{msg['feeAgent.account']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['feeAgent.customerName']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['feeAgent.chargeAmount']}(VND)"
+			style="text-align:left">
+		</p:column>
+		<p:columnGroup type="footer">
+			<p:row>
+				<p:column footerText="" />
+				<p:column colspan="2" footerText="Tổng số " style="text-align:left" />
+				<p:column footerText="" />
+			</p:row>
+		</p:columnGroup>
+	</p:dataTable>
+
+	<br></br>
+
+	<p:dataTable id="paymentTransactions" rows="10">
+		<f:facet name="header">
+        #{msg['feeAgent.paymentTransactions']}
+    	</f:facet>
+		<p:column headerText="#{msg['feeAgent.autonumber']}"
+			style="text-align:left" width="35">
+		</p:column>
+		<p:column headerText="#{msg['feeAgent.chargePerson']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['feeAgent.chargeDate']}"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['feeAgent.chargeAmount']}(VND)"
+			style="text-align:left">
+		</p:column>
+		<p:column headerText="#{msg['feeAgent.chargeMethod']}"
+			style="text-align:left">
+		</p:column>
+		<p:columnGroup type="footer">
+			<p:row>
+				<p:column footerText="" />
+				<p:column colspan="2" footerText="Tổng số " style="text-align:left" />
+				<p:column footerText="" />
+				<p:column footerText="" />
+			</p:row>
+		</p:columnGroup>
+	</p:dataTable>
+</h:body>
+</html>
