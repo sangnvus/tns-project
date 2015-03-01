@@ -452,11 +452,6 @@ public class DriverBOImpl implements DriverBO {
 			throw new SystemException(THIS, t);
 		}
 	}
-	
-	public List<Language> getLanguageList() {
-		// TODO Auto-generated method stub
-		return languageDAO.selectAllLanguage();
-	}
 
 	public void update(Driver updateDriver) throws TNSException {
 		// TODO Auto-generated method stub

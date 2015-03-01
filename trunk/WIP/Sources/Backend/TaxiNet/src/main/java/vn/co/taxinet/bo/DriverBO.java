@@ -149,8 +149,6 @@ public interface DriverBO {
 
 	public Driver findDriverByUsername(String Username) throws TNSException;
 
-	public List<Language> getLanguageList();
-
 	public void update(Driver updateDriver) throws TNSException;
 }
 
