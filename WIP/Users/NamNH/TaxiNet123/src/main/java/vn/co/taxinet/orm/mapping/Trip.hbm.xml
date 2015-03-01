@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Trip" table="trip" catalog="taxinet">
+        <id name="requestId" type="string">
+            <column name="RequestID" length="50" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="rider" class="vn.co.taxinet.orm.Rider" fetch="select">
+            <column name="RiderID" length="50" not-null="true" />
+        </many-to-one>
+        <many-to-one name="vehicle" class="vn.co.taxinet.orm.Vehicle" fetch="select">
+            <column name="VehicleID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="driver" class="vn.co.taxinet.orm.Driver" fetch="select">
+            <column name="DriverID" length="50" not-null="true" />
+        </many-to-one>
+        <many-to-one name="city" class="vn.co.taxinet.orm.City" fetch="select">
+            <column name="FromCity" />
+        </many-to-one>
+        <many-to-one name="payment" class="vn.co.taxinet.orm.Payment" fetch="select">
+            <column name="PaymentID" />
+        </many-to-one>
+        <property name="requestDatetime" type="timestamp">
+            <column name="RequestDatetime" length="0" />
+        </property>
+        <property name="countryId" type="java.lang.Integer">
+            <column name="CountryID" />
+        </property>
+        <property name="fromAddress" type="string">
+            <column name="FromAddress" length="50" />
+        </property>
+        <property name="toCity" type="java.lang.Integer">
+            <column name="ToCity" />
+        </property>
+        <property name="toAddress" type="string">
+            <column name="ToAddress" length="50" />
+        </property>
+        <property name="timeRequest" type="java.lang.Integer">
+            <column name="TimeRequest" />
+        </property>
+        <property name="timeStart" type="timestamp">
+            <column name="TimeStart" length="0" />
+        </property>
+        <property name="timeEnd" type="timestamp">
+            <column name="TImeEnd" length="0" />
+        </property>
+        <property name="startLatitude" type="java.lang.Double">
+            <column name="StartLatitude" precision="22" scale="0" />
+        </property>
+        <property name="startLongtitude" type="java.lang.Double">
+            <column name="StartLongtitude" precision="22" scale="0" />
+        </property>
+        <property name="endLatitude" type="java.lang.Double">
+            <column name="EndLatitude" precision="22" scale="0" />
+        </property>
+        <property name="endLongtitude" type="java.lang.Double">
+            <column name="EndLongtitude" precision="22" scale="0" />
+        </property>
+        <property name="fee" type="java.lang.Double">
+            <column name="Fee" precision="22" scale="0" />
+        </property>
+        <property name="status" type="string">
+            <column name="Status" length="20" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

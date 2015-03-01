@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<f:event listener="#{driverRegisterController.init1}"
+			type="preRenderView" />
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<f:view>
+		<h:form id="registerForm" prependId="false">
+			<p:growl id="msg" showDetail="true" />
+			<center>
+				<p:panel header="ĐĂNG KÍ TÀI KHOẢN">
+					<h4>ĐĂNG KÝ ĐỂ LÁI XE</h4>
+					<h:panelGrid id="CountryOfUser" columns="1">
+						<h:selectOneMenu id="country"
+							value="#{driverRegisterController.country}">
+							<f:selectItems
+								value="{driverRegisterController.getCountryList()}" var="c"
+								itemValue="c.country.code" itemLabel="c.country.name"></f:selectItems>
+						</h:selectOneMenu>
+					</h:panelGrid>
+					<h4>LOẠI XE VÀ KIỂU TÀI XẾ CỦA BẠN</h4>
+					<h:panelGrid id="register" columns="1">
+						<!-- <h:outputLabel for="youare"
+							value="#{msg['driverRegister.infoUser']}" />
+						<h:selectOneMenu id="youare"
+							value="#{driverRegisterController.documentByDriverLisense}">
+							<f:selectItem itemValue="0" itemLabel="0. A"></f:selectItem>
+							<f:selectItem itemValue="1" itemLabel="1. B"></f:selectItem>
+						</h:selectOneMenu> -->
+						<p:outputLabel for="vehicle"
+							value="#{msg['driver.vehicle']}" />
+						<h:selectOneMenu id="vehicle"
+							value="#{driverRegisterController.vehicle}">
+							<f:selectItem itemValue="0" itemLabel="0. Taxi 5 chỗ"></f:selectItem>
+							<f:selectItem itemValue="1" itemLabel="1. Taxi 7 chỗ"></f:selectItem>
+							<f:selectItem itemValue="2"
+								itemLabel="2. Xe SUV 5 chỗ màu đen, dạng
+						town car (xe cổ)"></f:selectItem>
+							<f:selectItem itemValue="3"
+								itemLabel="3. Xe SUV 5 chỗ dạng crossover
+						có chỗ ngồi thoải mái cho 4 hành khách trở lên"></f:selectItem>
+							<f:selectItem itemValue="4"
+								itemLabel="4. Xe SUV cỡ lớn có chỗ ngồi
+						thoải mái cho từ 6 hành khách trở lên"></f:selectItem>
+						</h:selectOneMenu>
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:commandButton value="Đăng kí với TAXINET" validateClient="true"
+						action="#{driverRegisterController.doRegister1}"
+						update="registerForm"></p:commandButton>
+					<br />
+					<p:outputLabel
+						value="Bạn có cấu hỏi vui lòng liên hệ với chúng tôi" />
+				</p:panel>
+			</center>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

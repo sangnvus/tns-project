@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Document" table="document" catalog="taxinet">
+        <id name="documentId" type="java.lang.Integer">
+            <column name="DocumentID" />
+            <generator class="identity" />
+        </id>
+        <property name="fileName" type="string">
+            <column name="FileName" length="30" not-null="true" />
+        </property>
+        <property name="link" type="string">
+            <column name="Link" not-null="true" unique="true" />
+        </property>
+        <property name="expiredMonth" type="string">
+            <column name="ExpiredMonth" length="2" not-null="true" />
+        </property>
+        <property name="expiredYear" type="string">
+            <column name="ExpiredYear" length="4" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
+        </property>
+        <set name="companiesForBusinessRegistration" table="company" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="BusinessRegistration" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Company" />
+        </set>
+        <set name="companiesForOperatingLisence" table="company" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OperatingLisence" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Company" />
+        </set>
+        <set name="driversForDriverLisense" table="driver" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DriverLisense" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Driver" />
+        </set>
+        <set name="driversForDriverLisense_1" table="driver" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DriverLisense" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Driver" />
+        </set>
+        <set name="driversForDriveExperience" table="driver" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DriveExperience" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Driver" />
+        </set>
+        <set name="driversForDriveExperience_1" table="driver" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DriveExperience" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Driver" />
+        </set>
+        <set name="companiesForOperatingLisence_1" table="company" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="OperatingLisence" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Company" />
+        </set>
+        <set name="companiesForBusinessRegistration_1" table="company" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="BusinessRegistration" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Company" />
+        </set>
+    </class>
+</hibernate-mapping>

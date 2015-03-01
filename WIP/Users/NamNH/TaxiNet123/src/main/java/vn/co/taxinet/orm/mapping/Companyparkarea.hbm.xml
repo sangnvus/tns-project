@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.CompanyParkArea" table="companyparkarea" catalog="taxinet">
+        <id name="parkAreaId" type="java.lang.Integer">
+            <column name="ParkAreaID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
+            <column name="CompanyID" not-null="true" />
+        </many-to-one>
+        <property name="latitute" type="double">
+            <column name="Latitute" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="longtitude" type="double">
+            <column name="Longtitude" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="Name" length="50" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

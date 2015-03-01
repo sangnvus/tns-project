@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>TaxiNet</title>
+	<f:metadata>
+	</f:metadata>
+</h:head>
+<h:body>
+	<!-- @author Dương -->
+	<f:view>
+		<h:form id="rider-mytrips" prependId="false">
+			<center>
+				<h:panelGrid columns="5">
+					<p:outputLabel for="from-date" value="Từ ngày"/>	
+					<p:calendar id="from-date" />
+					<p:outputLabel/>
+					<p:outputLabel for="to-date" value="Đến ngày"/>
+					<p:calendar id="to-date"/>
+					<p:outputLabel for="city" value="Thành phố"/>
+					<p:inputText id="city"/>
+					<p:outputLabel for="payment-type" value="Hình thức thanh toán"/>
+					<p:inputText id="payment-type"/>
+					<p:outputLabel/>
+					<p:outputLabel/>
+					<p:commandButton value="Lọc chuyến đi" style="margin-top:10px;margin-bottom:10px;"></p:commandButton>
+					<p:outputLabel/>
+					<p:outputLabel/>
+				</h:panelGrid>
+				<p:dataTable id="rider-mytrips" paginator="true"
+				paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				rows="10">
+					<p:column headerText="STT" style="text-align:left;">
+					</p:column>
+					<p:column headerText="Ngày" style="text-align:left">
+					</p:column>
+					<p:column headerText="Điểm đi" style="text-align:left">
+					</p:column>
+					<p:column headerText="Điểm đến" style="text-align:left">
+					</p:column>
+					<p:column headerText="Lái xe" style="text-align:left">
+					</p:column>
+					<p:column headerText="Phí" style="text-align:left">
+					</p:column>
+					<p:column headerText="Xe ô tô" style="text-align:left">
+					</p:column>
+					<p:column headerText="Hình thức thanh toán" style="text-align:left">
+					</p:column>
+				</p:dataTable>
+			</center>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

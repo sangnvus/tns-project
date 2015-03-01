@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>TaxiNet</title>
+	<f:metadata>
+		<f:event listener="#{feeAgentHistoryController.initData}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+</h:head>
+<h:body>
+	<f:view>
+		<h:form id="feeagent-history" prependId="false">
+			<p:megaMenu orientation="horizontal">
+				<p:menuitem value="#{msg['feeAgent.homePage']}"
+					url="../feeagent/AgentHome.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['feeAgent.transactionHistory']}"
+					url="../feeagent/TransactionHistory.xhtml" style="background:orange"></p:menuitem>
+			</p:megaMenu>
+			<p:megaMenu orientation="vertical">
+				<p:menuitem value="#{msg['feeAgent.dashboard']}"
+					url="../feeagent/Dashboard.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['feeAgent.contactInfo']}"
+					url="../feeagent/ContactInfo.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['feeAgent.accountCharging']}"
+					url="../feeagent/AgentHome.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['feeAgent.agentInvoice']}"
+					url="../feeagent/AgentHome.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['feeAgent.transactionInvoice']}"
+					url="../feeagent/ChargingInvoice.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['feeAgent.supportQnA']}"
+					url="../feeagent/AgentHome.xhtml"></p:menuitem>
+			</p:megaMenu>
+
+			<br></br>
+
+			<center>
+				<h1>#{msg['feeAgent.transactionHistory']}</h1>
+				<h:panelGrid columns="5">
+					<p:outputLabel for="account-name"
+						value="#{msg['feeAgent.account']}" />
+					<p:inputText id="account-name"
+						value="#{feeAgentHistoryController.accountSearchName}" />
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel for="username" value="#{msg['feeAgent.username']}" />
+					<p:inputText id="username"
+						value="#{feeAgentHistoryController.userSearchName}" />
+					<p:outputLabel for="from-date" value="#{msg['feeAgent.fromDate']}" />
+					<p:calendar id="from-date"
+						value="#{feeAgentHistoryController.fromDate}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</p:calendar>
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel for="to-date" value="#{msg['feeAgent.toDate']}" />
+					<p:calendar id="to-date"
+						value="#{feeAgentHistoryController.toDate}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</p:calendar>
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel></p:outputLabel>
+					<p:commandButton value="#{msg['feeAgent.search']}"
+						style="margin-top:10px;margin-bottom:20px;"></p:commandButton>
+					<p:outputLabel></p:outputLabel>
+					<p:outputLabel></p:outputLabel>
+				</h:panelGrid>
+
+				<br></br>
+
+				<p:dataTable id="feeagent-history-list" paginator="true"
+					paginatorPosition="bottom" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					<p:column headerText="#{msg['feeAgent.autonumber']}" width="35"
+						style="text-align:left;">
+					</p:column>
+					<p:column headerText="#{msg['feeAgent.account']}"
+						style="text-align:left;">
+					</p:column>
+					<p:column headerText="#{msg['feeAgent.username']}"
+						style="text-align:left;">
+					</p:column>
+					<p:column headerText="#{msg['feeAgent.chargeDate']}"
+						style="text-align:left;">
+					</p:column>
+					<p:column headerText="#{msg['feeAgent.cashier']}"
+						style="text-align:left;">
+					</p:column>
+				</p:dataTable>
+			</center>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

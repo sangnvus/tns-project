@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.CurrentStatus" table="currentstatus" catalog="taxinet">
+        <id name="driverId" type="string">
+            <column name="DriverID" length="50" />
+            <generator class="foreign">
+                <param name="property">driver</param>
+            </generator>
+        </id>
+        <one-to-one name="driver" class="vn.co.taxinet.orm.Driver" constrained="true"></one-to-one>
+        <property name="currentLatitude" type="java.lang.Double">
+            <column name="CurrentLatitude" precision="22" scale="0" />
+        </property>
+        <property name="currentLongtitude" type="java.lang.Double">
+            <column name="CurrentLongtitude" precision="22" scale="0" />
+        </property>
+        <property name="currentStatus" type="string">
+            <column name="CurrentStatus" length="2" />
+        </property>
+        <property name="currentLocation" type="string">
+            <column name="CurrentLocation" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<!-- <f:event listener="#{driverRegisterController.init}"
+			type="preRenderView" /> -->
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<f:view>
+		<h:form id="test" prependId="false">
+			<p:growl id="msg" showDetail="true" />
+			<center>
+				<p:panel header="LOGIN DRIVER">
+					<h4>Đăng nhập</h4>
+					<h:panelGrid id="CityOfUser" columns="1">
+						<p:outputLabel for="Username" value="#{msg['driver.userName']}" />
+						<p:inputText id="Username" value="#{driverCIController.userName}"></p:inputText>
+						<p:outputLabel for="Password" value="#{msg['driver.password']}" />
+						<p:password id="Password" value="#{driverCIController.password}"></p:password>
+					</h:panelGrid>
+					<!-- h:selectOneRadio  id="custom-radio" layout="custom"
+						value="#{uploadImgController.test}" required="true"
+						requiredMessage="Please select">
+						<f:selectItem itemValue="1" itemLabel="1"/>
+						<f:selectItem itemValue="2" itemLabel="2"/>
+						<f:selectItem itemValue="3" itemLabel="3"/>
+						<f:ajax render="inputs"></f:ajax>
+					</h:selectOneRadio > -->
+
+					<p:commandButton value="Enable"
+						action="#{uploadImgController.enable}" update="test"></p:commandButton>
+						<p:commandButton value="Disable"
+						action="#{uploadImgController.disable}" update="test"></p:commandButton>
+					<h:panelGrid id="inputs" columns="2">
+						<h:inputText id="inputs1" value="#{uploadImgController.input1}"
+							disabled="#{uploadImgController.test == '0'}" />
+						<h:inputText id="inputs2" value="#{uploadImgController.input2}"
+							disabled="#{uploadImgController.test == '0'}" />
+						<h:inputText id="inputs3" value="#{uploadImgController.input3}"
+							disabled="#{uploadImgController.test == '0'}" />
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:commandButton value="Login" validateClient="true"
+						action="#{driverCIController.doCheck}" update="test"></p:commandButton>
+					<br />
+					<p:outputLabel
+						value="Bạn có cấu hỏi vui lòng liên hệ với chúng tôi" />
+				</p:panel>
+			</center>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

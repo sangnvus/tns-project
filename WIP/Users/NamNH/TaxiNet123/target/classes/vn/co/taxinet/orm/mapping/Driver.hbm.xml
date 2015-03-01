@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.Driver" table="driver" catalog="taxinet">
+        <id name="driverId" type="string">
+            <column name="DriverID" length="50" />
+            <generator class="foreign">
+                <param name="property">taxinetusers</param>
+            </generator>
+        </id>
+        <one-to-one name="taxinetusers" class="vn.co.taxinet.orm.TaxiNetUsers" constrained="true"></one-to-one>
+        <many-to-one name="documentByDriverLisense" class="vn.co.taxinet.orm.Document" fetch="select">
+            <column name="DriverLisense" />
+        </many-to-one>
+        <many-to-one name="vehicle" class="vn.co.taxinet.orm.Vehicle" fetch="select">
+            <column name="CurrentVehicle" />
+        </many-to-one>
+        <many-to-one name="address" class="vn.co.taxinet.orm.Address" fetch="select">
+            <column name="AddressID" length="50" />
+        </many-to-one>
+        <many-to-one name="documentByDriveExperience" class="vn.co.taxinet.orm.Document" fetch="select">
+            <column name="DriveExperience" />
+        </many-to-one>
+        <property name="firstName" type="string">
+            <column name="FirstName" length="30" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="LastName" length="50" />
+        </property>
+        <property name="mobileNo" type="string">
+            <column name="MobileNo" length="20" />
+        </property>
+        <property name="invitationCode" type="string">
+            <column name="InvitationCode" length="20" />
+        </property>
+        <property name="regId" type="string">
+            <column name="RegId" length="200" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
+        </property>
+        <one-to-one name="currentstatus" class="vn.co.taxinet.orm.CurrentStatus"></one-to-one>
+        <set name="trips" table="trip" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DriverID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Trip" />
+        </set>
+    </class>
+</hibernate-mapping>

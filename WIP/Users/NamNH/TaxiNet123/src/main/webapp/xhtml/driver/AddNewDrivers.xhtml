@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<f:event listener="#{feeAgentHomeController.initData}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<p:megaMenu orientation="horizontal">
+		<p:menuitem value="#{msg['feeAgent.homePage']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+	</p:megaMenu>
+	<p:megaMenu orientation="vertical">
+		<p:menuitem value="#{msg['feeAgent.dashboard']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
+			url="../driver/ContactInfo.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.document']}"
+			url="../driver/Document.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.vehicle']}"
+			url="../driver/Vehicles.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.partnerInvoice']}"
+			url="../driver/PartnerInvoices.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.tripsInvoice']}"
+			url="../driver/TripInvoices.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.driver']}"
+			url="../driver/Drivers.xhtml" style="background:orange"></p:menuitem>
+		<p:menuitem value="#{msg['driver.liveStatus']}"
+			url="../driver/LiveStatus.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['driver.promotionRegister']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
+			url="../driver/Dashboard.xhtml"></p:menuitem>
+	</p:megaMenu>
+
+	<br></br>
+
+	<center>
+		<h1>#{msg['driver.newDriverAdd']}</h1>
+		<h2>#{msg['feeAgent.personalInfo']}</h2>
+		<h:panelGrid columns="2">
+			<p:outputLabel for="firstName" value="#{msg['driver.firstName']}:" />
+			<p:inputText id="firstName" required="true" />
+			<p:outputLabel for="lastName" value="#{msg['driver.lastName']}:" />
+			<p:inputText id="lastName" required="true" />
+			<p:outputLabel for="emailAddress"
+				value="#{msg['driver.emailAddress']}:" />
+			<p:inputText id="emailAddress" required="true" />
+			<p:outputLabel for="nation" value="#{msg['feeAgent.nation']}:" />
+			<p:selectOneMenu id="nation">
+			</p:selectOneMenu>
+			<p:outputLabel for="phoneNo" value="#{msg['riderRegister.phoneNo']}:" />
+			<p:inputText id="phoneNo" required="true" />
+		</h:panelGrid>
+
+		<br></br>
+
+		<h2>#{msg['feeAgent.accountInfo']}</h2>
+		<h:panelGrid columns="2">
+			<p:outputLabel for="language"
+				value="#{msg['riderRegister.languages']}:" />
+			<p:selectOneMenu id="language">
+			</p:selectOneMenu>
+			<p:outputLabel for="username" value="#{msg['feeAgent.username']}:" />
+			<p:inputText id="username" required="true" />
+			<p:outputLabel for="password"
+				value="#{msg['riderRegister.password']}:" />
+			<p:inputText id="password" required="true" />
+			<p:outputLabel for="passwordConfirm"
+				value="#{msg['feeAgent.passwordConfirm']}:" />
+			<p:inputText id="passwordConfirm" required="true" />
+			<p:selectBooleanCheckbox id="acceptTermDesc"
+				value="#{selectBooleanView.value1}" />
+			<p:outputLabel for="acceptTermDesc"
+				value="#{msg['driver.acceptTermDesc']}" />
+
+			<p:commandButton value="#{msg['driver.sent']}" />
+			<p:commandButton value="#{msg['feeAgent.cancel']}" />
+		</h:panelGrid>
+	</center>
+</h:body>
+</html>

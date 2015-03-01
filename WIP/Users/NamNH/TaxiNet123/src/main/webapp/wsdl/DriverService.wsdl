@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.taxinet.co.vn" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.taxinet.co.vn" xmlns:intf="http://ws.taxinet.co.vn" xmlns:tns1="http://bean.taxinet.co.vn" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws.taxinet.co.vn" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://bean.taxinet.co.vn"/>
+   <element name="getDriverInfo">
+    <complexType>
+     <sequence>
+      <element name="uid" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getDriverInfoResponse">
+    <complexType>
+     <sequence>
+      <element name="getDriverInfoReturn" type="tns1:Driver"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://bean.taxinet.co.vn" xmlns="http://www.w3.org/2001/XMLSchema">
+   <complexType name="Driver">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getDriverInfoRequest">
+
+      <wsdl:part element="impl:getDriverInfo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getDriverInfoResponse">
+
+      <wsdl:part element="impl:getDriverInfoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="DriverService">
+
+      <wsdl:operation name="getDriverInfo">
+
+         <wsdl:input message="impl:getDriverInfoRequest" name="getDriverInfoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getDriverInfoResponse" name="getDriverInfoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="DriverServiceSoapBinding" type="impl:DriverService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getDriverInfo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getDriverInfoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getDriverInfoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="DriverServiceService">
+
+      <wsdl:port binding="impl:DriverServiceSoapBinding" name="DriverService">
+
+         <wsdlsoap:address location="http://localhost:8080/TaxiNet/services/DriverService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
