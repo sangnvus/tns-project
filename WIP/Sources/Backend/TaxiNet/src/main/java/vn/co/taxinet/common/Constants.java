@@ -11,7 +11,8 @@ public interface Constants {
 	public static final String CVV_PATTERN_REGEX = "^[0-9]{3,4}$";
 	public static final String PHONENO_PATTERN_REGEX = "^[0-9]{10,11}$";
 	// end regex
-
+	
+	public static final int PAGE_SIZE = 10;
 	public static final String STR_DATE_FORMAT = "";
 	public static final Locale DEFAULT_LOCALE = null;
 	public static final String STR_DATE_TIME_FORMAT = "";
