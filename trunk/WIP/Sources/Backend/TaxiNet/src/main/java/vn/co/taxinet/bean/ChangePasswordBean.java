@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import vn.co.taxinet.bo.TaxiNetUserBO;
+import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
@@ -40,9 +41,9 @@ public class ChangePasswordBean implements Serializable {
 			HttpServletRequest request = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			HttpSession session = request.getSession();
-//			UserID = session.getAttribute("UserID").toString();
-//			Username = session.getAttribute("Username").toString();
-//			Password = session.getAttribute("Password").toString();
+			// UserID = session.getAttribute("UserID").toString();
+			// Username = session.getAttribute("Username").toString();
+			// Password = session.getAttribute("Password").toString();
 			newPass = "";
 			renewPass = "";
 		} catch (Exception ex) {
@@ -69,21 +70,30 @@ public class ChangePasswordBean implements Serializable {
 							"New password and confirm password are different"));
 			return null;
 		} else {
-			String result = taxiNetUserBO.changePass(UserID, newPass);
-			if (result != null) {
-				//TODO set new password to the session value
-				FacesContext.getCurrentInstance()
-						.addMessage(
-								null,
-								new FacesMessage("Success",
-										"Your password was updated"));
+			if (renewPass.length() < Constants.MAX_PASSWORD_LENGTH
+					|| renewPass.length() > Constants.MIN_PASSWORD_LENGTH) {
+				String result = taxiNetUserBO.changePass(UserID, newPass);
+				if (result != null) {
+					// TODO set new password to the session value
+					FacesContext.getCurrentInstance().addMessage(
+							null,
+							new FacesMessage("Success",
+									"Your password was updated"));
+					return null;
+				} else {
+					FacesContext.getCurrentInstance().addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_ERROR,
+									"Error", "Something was crushed"));
+					return null;
+				}
 			} else {
 				FacesContext.getCurrentInstance().addMessage(
 						null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-								"Something was crushed"));
+						new FacesMessage(FacesMessage.SEVERITY_WARN, "Error",
+								"Password must be from 6 to 10 characters"));
+				return null;
 			}
-			return null;
 		}
 	}
 
