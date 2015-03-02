@@ -297,8 +297,8 @@ public class DriverContactInfoBean implements Serializable {
 		return null;
 	}
 	
-	public void doEdit(){
-		
+	public String doEdit(){
+		return "EditContactInfo.xhtml";
 	}
 	
 	public String doUpdate() throws IOException, TNSException{
