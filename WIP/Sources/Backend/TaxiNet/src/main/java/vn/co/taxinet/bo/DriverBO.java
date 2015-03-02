@@ -142,10 +142,29 @@ public interface DriverBO {
 	public List<Driver> countAllDriverByCompanyID(String companyID);
 	
 	/**
+	 * @author Ecchi
+	 * @category dummy functions
 	 * @param vehicleID
 	 * @return vehicle
 	 */
 	public Vehicle getVehicleFromVehicleID(String vehicleID);
+	
+	
+	/**
+	 * @author Ecchi
+	 * function to list all of driver
+	 * @param companyID
+	 * @return
+	 */
+	public List<DriverDTO> getAllDriverOfCompany(String companyID, int pageIndex, int pageSize);
+	
+	/**
+	 * @author Ecchi
+	 * function to count the number of company's driver
+	 * @param companyID
+	 * @return number of the company's driver
+	 */
+	public int countAllDriverOfCompany(String companyID);
 
 	public Driver findDriverByUsername(String Username) throws TNSException;
 
