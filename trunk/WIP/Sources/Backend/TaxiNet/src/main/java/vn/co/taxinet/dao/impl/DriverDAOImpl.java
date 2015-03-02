@@ -231,4 +231,53 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		String i = driverList.get(0).getVehicle().getPlate();
 		return driverList;
 	}
+	
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.DriverDAO#getAllDriver(java.lang.String, int, int)
+	 */
+	@Transactional
+	public List<DriverDTO> getAllDriver(String companyID, int pageIndex,
+			int pageSize) {
+		Session session = getSessionFactory().getCurrentSession();
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("SELECT D from Driver D, TaxiNetUsers U, Vehicle V");
+		stringBuilder.append(" WHERE U.company.companyId = :companyId AND D.vehicle.vehicleId = V.vehicleId");
+		stringBuilder.append(" AND U.userId = D.driverId");
+		Query query = session.createQuery(stringBuilder.toString());
+		query.setParameter("companyId", Integer.parseInt(companyID));
+		query.setFirstResult(pageIndex);
+		query.setMaxResults(pageSize);
+		List<Driver> driverList = query.list();
+		if (driverList != null) {
+			String plate = driverList.get(0).getVehicle().getPlate();
+			List<DriverDTO> listDriverDTO = new ArrayList<DriverDTO>();
+			for ( int i = 0; i < driverList.size(); i++) {
+				DriverDTO driverDTO = new DriverDTO();
+				driverDTO.setFirstName(driverList.get(i).getFirstName());
+				driverDTO.setLastName(driverList.get(i).getLastName());
+				driverDTO.setPlate(driverList.get(0).getVehicle().getPlate());
+				driverDTO.setEmail(driverList.get(i).getTaxinetusers().getEmail());
+				driverDTO.setPhoneNumber(driverList.get(i).getMobileNo());
+				listDriverDTO.add(driverDTO);
+			}
+			return listDriverDTO;
+		} else {
+			return new ArrayList<DriverDTO>();
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.DriverDAO#countAllDriver(java.lang.String)
+	 */
+	@Transactional
+	public int countAllDriver(String companyID) {
+		Session session = getSessionFactory().getCurrentSession();
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("SELECT COUNT (DISTINCT D.driverId) FROM Driver D, TaxiNetUsers U , Vehicle V");
+		stringBuilder.append(" WHERE D.driverId = U.userId AND U.company.companyId = :companyId");
+		stringBuilder.append(" AND D.vehicle.vehicleId = V.vehicleId");
+		Query query = session.createQuery(stringBuilder.toString());
+		query.setParameter("companyId", Integer.parseInt(companyID));
+		return ((Number) query.uniqueResult()).intValue();
+	}
 }
