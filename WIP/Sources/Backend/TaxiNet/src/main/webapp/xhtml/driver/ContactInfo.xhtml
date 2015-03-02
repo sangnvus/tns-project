@@ -26,52 +26,47 @@
 					<h:panelGrid id="ComInfo" columns="2">
 						<p:outputLabel for="companyName"
 							value="#{msg['driver.companyName']}"></p:outputLabel>
-						<h:inputText id="companyName"
-							value="#{driverCIController.companyName}"></h:inputText>
+						<p:outputLabel id="companyName"
+							value="#{driverCIController.companyName}"></p:outputLabel>
 						<p:outputLabel for="address" value="#{msg['driver.address']}"></p:outputLabel>
-						<h:inputText id="address"
-							value="#{driverCIController.addressNumber}"></h:inputText>
+						<p:outputLabel id="address"
+							value="#{driverCIController.addressNumber}"></p:outputLabel>
 						<p:outputLabel for="city" value="#{msg['driver.city']}"></p:outputLabel>
-						<h:inputText id="city" value="#{driverCIController.city}"></h:inputText>
+						<p:outputLabel id="city" value="#{driverCIController.city}"></p:outputLabel>
 						<p:outputLabel for="zipcode" value="#{msg['driver.zipCode']}"></p:outputLabel>
-						<h:inputText id="zipcode" value="#{driverCIController.zipcode}"></h:inputText>
+						<p:outputLabel id="zipcode" value="#{driverCIController.zipcode}"></p:outputLabel>
 						<p:outputLabel for="MobieNo" value="#{msg['driver.phoneNo']}"></p:outputLabel>
-						<h:inputText id="MobieNo" value="#{driverCIController.mobieNo}"></h:inputText>
+						<p:outputLabel id="MobieNo" value="#{driverCIController.mobieNo}"></p:outputLabel>
 						<p:outputLabel for="VATNumber" value="#{msg['driver.VATNumber']}"></p:outputLabel>
-						<h:inputText id="VATNumber"
-							value="#{driverCIController.VATNumber}"></h:inputText>
+						<p:outputLabel id="VATNumber"
+							value="#{driverCIController.VATNumber}"></p:outputLabel>
 					</h:panelGrid>
 					<h4>Personal Information (Thông Tin Cá Nhân)</h4>
 					<h:panelGrid id="PerInfo" columns="2">
 						<p:outputLabel for="firstname" value="#{msg['driver.firstname']}" />
-						<h:inputText id="firstname"
-							value="#{driverCIController.firstName}"></h:inputText>
+						<p:outputLabel id="firstname"
+							value="#{driverCIController.firstName}"></p:outputLabel>
 						<p:outputLabel for="lastname" value="#{msg['driver.lastname']}" />
-						<h:inputText id="lastname" value="#{driverCIController.lastName}"></h:inputText>
+						<p:outputLabel id="lastname" value="#{driverCIController.lastName}"></p:outputLabel>
 						<p:outputLabel for="Email" value="#{msg['driver.email']}"></p:outputLabel>
-						<h:inputText id="Email" value="#{driverCIController.email}"></h:inputText>
+						<p:outputLabel id="Email" value="#{driverCIController.email}"></p:outputLabel>
 						<p:outputLabel for="Mobie" value="#{msg['driver.phoneNo']}"></p:outputLabel>
-						<h:inputText id="Mobie" value="#{driverCIController.mobieNo}"></h:inputText>
+						<p:outputLabel id="Mobie" value="#{driverCIController.mobieNo}"></p:outputLabel>
 						<p:outputLabel for="Languagues" value="#{msg['driver.languages']}"></p:outputLabel>
-						<h:inputText id="Languagues"
-							value="#{driverCIController.languages}"></h:inputText>
+						<p:outputLabel id="Languagues"
+							value="#{driverCIController.languages}"></p:outputLabel>
 					</h:panelGrid>
 					<h4>TaxiNet Account Info (Thông tin tài khoản)</h4>
 					<h:panelGrid id="AccInfo" columns="2">
 						<p:outputLabel for="Username" value="#{msg['driver.userName']}"></p:outputLabel>
-						<h:inputText id="Username" value="#{driverCIController.userName}"></h:inputText>
+						<p:outputLabel id="Username" value="#{driverCIController.userName}"></p:outputLabel>
 						<p:outputLabel for="Coupon" value="#{msg['driver.coupon']}"></p:outputLabel>
-						<h:inputText id="Coupon" value="#{driverCIController.coupon}"></h:inputText>
-						<p:outputLabel for="Password" value="#{msg['driver.password']}"></p:outputLabel>
-						<h:inputText id="Password" value="#{driverCIController.password}"></h:inputText>
+						<p:outputLabel id="Coupon" value="#{driverCIController.coupon}"></p:outputLabel>
 					</h:panelGrid>
 					<br />
 					<br />
 					<p:commandButton value="Sửa thông tin (Edit)"
 						action="#{driverCIController.doEdit}" update="ContactInfo"></p:commandButton>
-					<p:commandButton value="Lưu (Save)"
-						action="#{driverCIController.doUpdate}" update="ContactInfo"></p:commandButton>
-
 					<p:outputLabel
 						value="Bạn có cấu hỏi vui lòng liên hệ với chúng tôi" />
 				</p:panel>
