@@ -7,10 +7,6 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<f:metadata>
-		<f:event listener="#{feeAgentHomeController.initData}"
-			type="preRenderView"></f:event>
-	</f:metadata>
 	<title>TaxiNet</title>
 </h:head>
 <h:body>
@@ -45,26 +41,29 @@
 		<br></br>
 
 		<h1>#{msg['driver.drivers']}</h1>
-		<p:dataTable id="driver-list" paginator="true" rows="10"
-			paginatorPosition="top"
+		<p:dataTable id="driver-list" paginator="true" rows="5"
+			paginatorPosition="bottom" lazy="true"
+			value="#{driverListBean.driverList}" var="driver"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} ">
-			<p:column headerText="#{msg['feeAgent.autonumber']}"
-				style="text-align:left" width="35">
+			<p:column headerText="#{msg['login.userName']}"
+				style="text-align:left">
+				<h:outputLabel value="#{driver.email}" />
 			</p:column>
 			<p:column headerText="#{msg['riderRegister.name']}"
 				style="text-align:left">
+				<h:outputLabel value="#{driver.firstName} #{driver.lastName}" />
 			</p:column>
-			<p:column headerText="#{msg['driver.currentPosition']}"
+			<p:column headerText="#{msg['riderRegister.email']}"
 				style="text-align:left">
+				<h:outputLabel value="#{driver.email}" />
+			</p:column>
+			<p:column headerText="#{msg['feeAgent.mobileNo']}"
+				style="text-align:left">
+				<h:outputLabel value="#{driver.phoneNumber}" />
 			</p:column>
 			<p:column headerText="#{msg['driver.car']}" style="text-align:left">
+				<h:outputLabel value="#{driver.plate}" />
 			</p:column>
-			<p:column headerText="#{msg['driver.status']}"
-				style="text-align:left">
-			</p:column>
-			<f:facet name="footer">
- 		#{msg['feeAgent.show']}#{msg['feeAgent.of']}#{msg['driver.driver']}
-		</f:facet>
 		</p:dataTable>
 		<br></br>
 		<p:commandButton value="#{msg['driver.driverAdd']}" />

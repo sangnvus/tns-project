@@ -493,4 +493,20 @@ public class DriverBOImpl implements DriverBO {
 			throw new SystemException(THIS, t);
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.DriverBO#getAllDriverOfCompany(java.lang.String, int, int)
+	 */
+	@Transactional
+	public List<DriverDTO> getAllDriverOfCompany(String companyID,int pageIndex, int pageSize) {
+		return driverDAO.getAllDriver(companyID, pageIndex, pageSize);
+	}
+	
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.DriverBO#countAllDriverOfCompany(java.lang.String)
+	 */
+	@Transactional
+	public int countAllDriverOfCompany(String companyID) {
+		return driverDAO.countAllDriver(companyID);
+	}
 }

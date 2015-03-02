@@ -9,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +23,6 @@ import org.primefaces.model.map.Marker;
 
 import vn.co.taxinet.bean.BaseBean;
 import vn.co.taxinet.bo.DriverBO;
-import vn.co.taxinet.dao.TaxiNetUserDAO;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
@@ -59,9 +57,6 @@ public class LiveStatusBean extends BaseBean {
 	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
 
-	@Inject
-	private TaxiNetUserDAO taxiNetUserDAO;
-
 	@PostConstruct
 	public void init() {
 		HttpServletRequest request = (HttpServletRequest) FacesContext
@@ -92,7 +87,6 @@ public class LiveStatusBean extends BaseBean {
 			}
 		};
 		int count = driverList.size();
-		String plate = driverList.get(0).getVehicle().getPlate();
 		lazyDriverList.setRowCount(count);
 
 		for (int i = 0; i < count; i++) {
@@ -236,10 +230,6 @@ public class LiveStatusBean extends BaseBean {
 
 	public void setDriver(Driver driver) {
 		this.driver = driver;
-	}
-
-	public void setTaxiNetUserDAO(TaxiNetUserDAO taxiNetUserDAO) {
-		this.taxiNetUserDAO = taxiNetUserDAO;
 	}
 
 	public LazyDataModel<DriverDTO> getLazyDriverList() {
