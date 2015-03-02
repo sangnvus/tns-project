@@ -1,15 +1,21 @@
 package vn.co.taxinet.bean.driver;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.model.UploadedFile;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.bo.TaxiNetUserBO;
@@ -47,6 +53,7 @@ public class DriverContactInfoBean implements Serializable {
 	private String Languages;
 	private String Coupon;
 	private String Language;
+	private String Image;
 	private TaxiNetUserDAO taxiNetUserDAO;
 	private TaxiNetUserBO taxiNetUserBO;
 	private DriverDAO driverDAO;
@@ -229,6 +236,14 @@ public class DriverContactInfoBean implements Serializable {
 	public void setLanguage(String language) {
 		Language = language;
 	}
+	
+	public String getImage() {
+		return Image;
+	}
+
+	public void setImage(String image) {
+		Image = image;
+	}
 
 	public void init() throws TNSException {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
@@ -297,10 +312,39 @@ public class DriverContactInfoBean implements Serializable {
 		return null;
 	}
 	
-	public void doEdit(){
-		
+	public String doEdit(){
+		return "EditContactInfo.xhtml";
 	}
-	
+	private UploadedFile fileIMG;
+	public UploadedFile getFileIMG() {
+		return fileIMG;
+	}
+
+	public void setFileIMG(UploadedFile fileIMG) {
+		this.fileIMG = fileIMG;
+	}
+	public void upLoad(){
+		System.out.println("sssss");
+        if (fileIMG != null) {
+            try {
+                System.out.println(fileIMG.getFileName());
+                InputStream fin2 = fileIMG.getInputstream();
+                Image = fin2.toString();
+                System.out.println("Inserting Successfully!");
+                System.out.println(Image);
+                FacesMessage msg = new FacesMessage("Succesful", fileIMG.getFileName() + " is uploaded.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+ 
+            } catch (Exception e) {
+                System.out.println("Exception-File Upload." + e.getMessage());
+            }
+        }
+        else{
+        FacesMessage msg = new FacesMessage("Please select image!!");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+	}
+
 	public String doUpdate() throws IOException, TNSException{
 		
 		Driver updateDriver = new Driver();
@@ -315,7 +359,8 @@ public class DriverContactInfoBean implements Serializable {
 		// TODO change hardcode of country
 		updateDriver.getTaxinetusers().setCountry(new Country());
 		updateDriver.getTaxinetusers().getCountry().setCode("VN");
-
+		updateDriver.getTaxinetusers().setImage(Image);
+		System.out.println(updateDriver.getTaxinetusers().getImage());
 		updateDriver.getTaxinetusers().setUsergroup(new UserGroup());
 		updateDriver.getTaxinetusers().getUsergroup()
 				.setGroupCode(Constants.GroupUser.DRIVER);

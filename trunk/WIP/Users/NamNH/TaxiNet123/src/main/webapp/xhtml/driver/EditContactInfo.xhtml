@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,108 +10,77 @@
 
 <h:head>
 	<f:metadata>
-		<f:event listener="#{feeAgentHomeController.initData}"
-			type="preRenderView"></f:event>
+		<f:event listener="#{driverCIController.init}" type="preRenderView" />
 	</f:metadata>
 	<title>TaxiNet</title>
 </h:head>
 <h:body>
-	<p:megaMenu orientation="horizontal">
-		<p:menuitem value="#{msg['feeAgent.homePage']}"
-			url="../driver/Dashboard.xhtml"></p:menuitem>
-	</p:megaMenu>
-	<p:megaMenu orientation="vertical">
-		<p:menuitem value="#{msg['feeAgent.dashboard']}"
-			url="../driver/Dashboard.xhtml" ></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
-			url="../driver/ContactInfo.xhtml" style="background:orange"></p:menuitem>
-		<p:menuitem value="#{msg['driver.document']}"
-			url="../driver/Document.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['driver.vehicle']}"
-			url="../driver/Vehicles.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['driver.partnerInvoice']}"
-			url="../driver/PartnerInvoices.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['driver.tripsInvoice']}"
-			url="../driver/TripInvoices.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['driver.driver']}"
-			url="../driver/Drivers.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['driver.liveStatus']}"
-			url="../driver/LiveStatus.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['driver.promotionRegister']}"
-			url="../driver/Dashboard.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
-			url="../driver/Dashboard.xhtml"></p:menuitem>
-	</p:megaMenu>
-
-	<br></br>
-
-<p:commandButton value="#{msg['feeAgent.save']}" />
-	<br></br>
-	<p:graphicImage />
-	<br></br>
-	<p:commandButton value="#{msg['feeAgent.imageUpload']}" />
-
-	<br></br>
-
-	<center>
-		<h1>#{msg['feeAgent.infoEdit']}</h1>
-		<br></br>
-		<h2>#{msg['driver.companyInfo']}</h2>
-		<h:panelGrid columns="2">
-			<p:outputLabel for="agentName" value="#{msg['driver.companyName']}:" />
-			<p:inputText id="agentName" required="true" />
-			<p:outputLabel for="address" value="#{msg['feeAgent.address']} 1:" />
-			<p:inputText id="address" required="true" />
-			<p:outputLabel for="address2" value="#{msg['feeAgent.address']} 2:" />
-			<p:inputText id="address2" />
-			<p:outputLabel for="nation" value="#{msg['feeAgent.nation']}:" />
-			<p:selectOneMenu id="nation">
-			</p:selectOneMenu>
-			<p:outputLabel for="city" value="#{msg['feeAgent.city']}:" />
-			<p:inputText id="city" required="true" />
-			<p:outputLabel for="stageProvinceRegion"
-				value="#{msg['feeAgent.stageProvinceRegion']}:" />
-			<p:inputText id="stageProvinceRegion" required="true" />
-			<p:outputLabel for="zipPostalCode"
-				value="#{msg['feeAgent.zipPostalCode']}:" />
-			<p:inputText id="zipPostalCode" required="true" />
-			<p:outputLabel for="phoneNo" value="#{msg['riderRegister.phoneNo']}:" />
-			<p:inputText id="phoneNo" required="true" />
-			<p:outputLabel for="VATCode" value="#{msg['feeAgent.VATCode']}:" />
-			<p:inputText id="VATCode" required="true" />
-		</h:panelGrid>
-
-		<br></br>
-
-		<h2>#{msg['feeAgent.personalInfo']}</h2>
-		<h:panelGrid columns="2">
-			<p:outputLabel for="name" value="#{msg['riderRegister.name']}:" />
-			<p:inputText id="name" readonly="true"/>
-			<p:outputLabel for="surname" value="#{msg['riderRegister.surname']}:" />
-			<p:inputText id="surname" readonly="true"/>
-			<p:outputLabel for="email" value="#{msg['riderRegister.email']}:" />
-			<p:inputText id="email" required="true" />
-			<p:outputLabel for="nation" value="#{msg['feeAgent.nation']}:" />
-			<p:selectOneMenu id="nation">
-			</p:selectOneMenu>
-			<p:outputLabel for="phoneNo" value="#{msg['riderRegister.phoneNo']}:" />
-			<p:inputText id="phoneNo" required="true" />
-			<p:outputLabel for="language"
-				value="#{msg['riderRegister.languages']}:" />
-			<p:selectOneMenu id="language">
-			</p:selectOneMenu>
-		</h:panelGrid>
-
-		<br></br>
-
-		<h2>#{msg['feeAgent.accountInfo']}</h2>
-		<h:panelGrid columns="2">
-			<p:outputLabel value="#{msg['login.userName']}:" />
-			<a href="mailto:"></a>
-			<p:outputLabel value="#{msg['login.password']}:" />
-			<a href="http://">#{msg['feeAgent.passwordChange']}</a>
-		</h:panelGrid>
-	</center>
-
+	<f:view>
+		<h:form id="ContactInfo" prependId="false"
+			enctype="multipart/form-data">
+			<p:growl id="msg" showDetail="true" />
+			<center>
+				<p:panel id="test" header="Thông Tin Liên Hệ">
+					<h4>CONTACT INFO (Thông Tin Liên Hệ)</h4>
+					<h5>Company Information</h5>
+					<h:panelGrid id="ComInfo" columns="2">
+						<p:outputLabel for="companyName"
+							value="#{msg['driver.companyName']}"></p:outputLabel>
+						<h:inputText id="companyName"
+							value="#{driverCIController.companyName}"></h:inputText>
+						<p:outputLabel for="address" value="#{msg['driver.address']}"></p:outputLabel>
+						<h:inputText id="address"
+							value="#{driverCIController.addressNumber}"></h:inputText>
+						<p:outputLabel for="city" value="#{msg['driver.city']}"></p:outputLabel>
+						<h:inputText id="city" value="#{driverCIController.city}"></h:inputText>
+						<p:outputLabel for="zipcode" value="#{msg['driver.zipCode']}"></p:outputLabel>
+						<h:inputText id="zipcode" value="#{driverCIController.zipcode}"></h:inputText>
+						<p:outputLabel for="MobieNo" value="#{msg['driver.phoneNo']}"></p:outputLabel>
+						<h:inputText id="MobieNo" value="#{driverCIController.mobieNo}"></h:inputText>
+						<p:outputLabel for="VATNumber" value="#{msg['driver.VATNumber']}"></p:outputLabel>
+						<h:inputText id="VATNumber"
+							value="#{driverCIController.VATNumber}"></h:inputText>
+					</h:panelGrid>
+					<h4>Personal Information (Thông Tin Cá Nhân)</h4>
+					<h:panelGrid id="PerInfo" columns="2">
+						<p:outputLabel for="firstname" value="#{msg['driver.firstname']}" />
+						<h:inputText id="firstname"
+							value="#{driverCIController.firstName}"></h:inputText>
+						<p:outputLabel for="lastname" value="#{msg['driver.lastname']}" />
+						<h:inputText id="lastname" value="#{driverCIController.lastName}"></h:inputText>
+						<p:outputLabel for="Email" value="#{msg['driver.email']}"></p:outputLabel>
+						<h:inputText id="Email" value="#{driverCIController.email}"></h:inputText>
+						<p:outputLabel for="Mobie" value="#{msg['driver.phoneNo']}"></p:outputLabel>
+						<h:inputText id="Mobie" value="#{driverCIController.mobieNo}"></h:inputText>
+						<p:outputLabel for="Languagues" value="#{msg['driver.languages']}"></p:outputLabel>
+						<h:inputText id="Languagues"
+							value="#{driverCIController.languages}"></h:inputText>
+					</h:panelGrid>
+					<h4>TaxiNet Account Info (Thông tin tài khoản)</h4>
+					<h:panelGrid id="AccInfo" columns="2">
+						<p:outputLabel for="Username" value="#{msg['driver.userName']}"></p:outputLabel>
+						<h:inputText id="Username" value="#{driverCIController.userName}"></h:inputText>
+						<p:outputLabel for="Password" value="#{msg['driver.password']}"></p:outputLabel>
+						<h:inputText id="Password" value="#{driverCIController.password}"></h:inputText>
+					</h:panelGrid>
+					<br />
+					<br />
+					<p:commandButton value="Lưu (Save)"
+						action="#{driverCIController.doUpdate}" update="ContactInfo"></p:commandButton>
+					<p:panelGrid columns="2">
+						<h:outputLabel for="image" value="Select Image: *" />
+						<p:fileUpload value="#{driverCIController.fileIMG}" mode="simple"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+						<f:facet name="footer">
+							<p:commandButton value="Thay đổi ảnh" ajax="false"
+								actionListener="#{driverCIController.upLoad}" />
+						</f:facet>
+					</p:panelGrid>
+					<p:outputLabel
+						value="Bạn có cấu hỏi vui lòng liên hệ với chúng tôi" />
+				</p:panel>
+			</center>
+		</h:form>
+	</f:view>
 </h:body>
 </html>
