@@ -494,6 +494,7 @@ public class DriverBOImpl implements DriverBO {
 			}
 			// User Name always is in lower case
 			oldUser.setEmail(updateUser.getEmail());
+			oldUser.setImage(updateUser.getImage());
 			oldUser.setLastModifiedDate(Utility.getCurrentDateTime());
 			oldUser.setLastModifiedBy(updateUser.getUsername());
 			taxiNetUserDAO.update(oldUser);
