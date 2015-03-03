@@ -22,7 +22,7 @@ public class TermController {
 	@Autowired
 	private TermBO termBO;
 
-	@RequestMapping(value = "/GetTerm", method = RequestMethod.GET)
+	@RequestMapping(value = "/GetTerm", method = RequestMethod.POST)
 	public Term findTermByType(@RequestParam Map<String, String> requestParams) {
 
 		String type = requestParams.get("type");

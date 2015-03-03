@@ -41,7 +41,7 @@ public class DriverController {
 		return listDriverDTO;
 	}
 
-	@RequestMapping(value = "/Login", method = RequestMethod.GET)
+	@RequestMapping(value = "/Login", method = RequestMethod.POST)
 	public DriverDTO login(@RequestParam Map<String, String> requestParams)
 			throws TNException {
 		String username = requestParams.get("username");
@@ -87,7 +87,7 @@ public class DriverController {
 			@RequestParam Map<String, String> requestParams) throws TNException {
 		String id = requestParams.get("id");
 		String regId = requestParams.get("regId");
-
+System.out.println("here " + id + " " + regId);
 		MessageDTO result = driverBO.updateRegId(id, regId);
 		return result;
 
