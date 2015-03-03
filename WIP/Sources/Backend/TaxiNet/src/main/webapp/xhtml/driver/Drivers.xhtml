@@ -42,7 +42,8 @@
 
 		<h1>#{msg['driver.drivers']}</h1>
 		<p:dataTable id="driver-list" paginator="true" rows="5"
-			paginatorPosition="bottom" lazy="true"
+			paginatorPosition="bottom" lazy="true" selectionMode="single"
+			selection="#{driverListBean.selectedDriver}" rowKey="#{driver.id}"
 			value="#{driverListBean.driverList}" var="driver"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} ">
 			<p:column headerText="#{msg['login.userName']}"
@@ -64,10 +65,44 @@
 			<p:column headerText="#{msg['driver.car']}" style="text-align:left">
 				<h:outputLabel value="#{driver.plate}" />
 			</p:column>
+			<p:column>
+				<p:commandLink value="Chi tiết"
+					oncomplete="PF('driver-info-dialog').show();"
+					update=":driver-form:info-form"
+					actionListener="#{driverListBean.showChosenDriverInfo(driver)}">
+						<f:setPropertyActionListener value="#{driver}" target="#{driverListBean.selectedDriver}" />
+					</p:commandLink>
+			</p:column>
 		</p:dataTable>
 		<br></br>
 		<p:commandButton value="#{msg['driver.driverAdd']}"
 			action="#{driverListBean.redirectToAddNewDriver}" />
+
+		<p:dialog id="info-form" widgetVar="driver-info-dialog"
+			resizable="false" modal="true" header=" Thông tin chi tiết lái xe">
+			<h:panelGrid id="info" columns="2">
+				<p:outputLabel value="Tên lái xe : " />
+				<p:inputText readonly="true"
+					value="#{driverListBean.driverDTO.firstName} #{driverListBean.driverDTO.lastName}" />
+				<p:outputLabel value="Email : " />
+				<p:inputText readonly="true"
+					value="#{driverListBean.driverDTO.email}" />
+				<p:outputLabel value="Username : " />
+				<p:inputText value="#{driverListBean.driverDTO.username}"
+					readonly="true" />
+				<p:outputLabel value="Phone number : " />
+				<p:inputText readonly="true"
+					value="#{driverListBean.driverDTO.phoneNumber}" />
+				<p:outputLabel value="Plate : "/>
+				<p:inputText value="#{driverListBean.driverDTO.plate}"/>
+				<p:outputLabel value="Country : " />
+				<p:inputText readonly="true"
+					value="#{driverListBean.driverDTO.country}" />
+				<p:outputLabel value="Language : " />
+				<p:inputText readonly="true"
+					value="#{driverListBean.driverDTO.language}" />
+			</h:panelGrid>
+		</p:dialog>
 	</h:form>
 </h:body>
 </html>

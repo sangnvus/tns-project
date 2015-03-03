@@ -1,6 +1,7 @@
 package vn.co.taxinet.dto;
 
 public class DriverDTO {
+	private String username;
 	private String id;
 	private String firstName;
 	private String lastName;
@@ -11,6 +12,32 @@ public class DriverDTO {
 	private String plate;
 	private String currentStatus;
 	private String currentLocation;
+	private String language;
+	private String country;
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public String getCurrentLocation() {
 		return currentLocation;

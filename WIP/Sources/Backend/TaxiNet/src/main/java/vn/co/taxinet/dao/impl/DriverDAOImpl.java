@@ -171,8 +171,8 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 	 * @see vn.co.taxinet.dao.DriverDAO#findDriverByCompanyID(java.lang.String)
 	 */
 	@Transactional
-	public List<DriverDTO> findDriverByCompanyID(String companyID, int pageIndex,
-			int pageSize) {
+	public List<DriverDTO> findDriverByCompanyID(String companyID,
+			int pageIndex, int pageSize) {
 		Session session = getSessionFactory().getCurrentSession();
 		StringBuilder stringBuilder = new StringBuilder();
 		String hql1 = "Select D FROM TaxiNetUsers U, Driver D, CurrentStatus CS, Vehicle V";
@@ -192,13 +192,15 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		if (driverList != null) {
 			String plate = driverList.get(0).getVehicle().getPlate();
 			List<DriverDTO> listDriverDTO = new ArrayList<DriverDTO>();
-			for ( int i = 0; i < driverList.size(); i++) {
+			for (int i = 0; i < driverList.size(); i++) {
 				DriverDTO driverDTO = new DriverDTO();
 				driverDTO.setFirstName(driverList.get(i).getFirstName());
 				driverDTO.setLastName(driverList.get(i).getLastName());
 				driverDTO.setPlate(driverList.get(0).getVehicle().getPlate());
-				driverDTO.setCurrentStatus(driverList.get(0).getCurrentstatus().getCurrentStatus());
-				driverDTO.setCurrentLocation(driverList.get(0).getCurrentstatus().getCurrentLocation());
+				driverDTO.setCurrentStatus(driverList.get(0).getCurrentstatus()
+						.getCurrentStatus());
+				driverDTO.setCurrentLocation(driverList.get(0)
+						.getCurrentstatus().getCurrentLocation());
 				listDriverDTO.add(driverDTO);
 			}
 			return listDriverDTO;
@@ -231,8 +233,10 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		String i = driverList.get(0).getVehicle().getPlate();
 		return driverList;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.dao.DriverDAO#getAllDriver(java.lang.String, int, int)
 	 */
 	@Transactional
@@ -240,9 +244,13 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 			int pageSize) {
 		Session session = getSessionFactory().getCurrentSession();
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("SELECT D from Driver D, TaxiNetUsers U, Vehicle V");
-		stringBuilder.append(" WHERE U.company.companyId = :companyId AND D.vehicle.vehicleId = V.vehicleId");
-		stringBuilder.append(" AND U.userId = D.driverId");
+		stringBuilder
+				.append("SELECT D from Driver D, TaxiNetUsers U, Vehicle V, Country C, Language L");
+		stringBuilder
+				.append(" WHERE U.company.companyId = :companyId AND D.vehicle.vehicleId = V.vehicleId");
+		stringBuilder
+				.append(" AND U.userId = D.driverId AND U.country.code = C.code ");
+		stringBuilder.append(" AND U.language.languageCode = L.languageCode");
 		Query query = session.createQuery(stringBuilder.toString());
 		query.setParameter("companyId", Integer.parseInt(companyID));
 		query.setFirstResult(pageIndex);
@@ -251,13 +259,19 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		if (driverList != null) {
 			String plate = driverList.get(0).getVehicle().getPlate();
 			List<DriverDTO> listDriverDTO = new ArrayList<DriverDTO>();
-			for ( int i = 0; i < driverList.size(); i++) {
+			for (int i = 0; i < driverList.size(); i++) {
 				DriverDTO driverDTO = new DriverDTO();
 				driverDTO.setFirstName(driverList.get(i).getFirstName());
 				driverDTO.setLastName(driverList.get(i).getLastName());
 				driverDTO.setPlate(driverList.get(0).getVehicle().getPlate());
-				driverDTO.setEmail(driverList.get(i).getTaxinetusers().getEmail());
+				driverDTO.setEmail(driverList.get(i).getTaxinetusers()
+						.getEmail());
 				driverDTO.setPhoneNumber(driverList.get(i).getMobileNo());
+				driverDTO.setCountry(driverList.get(i).getTaxinetusers()
+						.getCountry().getName());
+				driverDTO.setUsername(driverList.get(i).getTaxinetusers().getUsername());
+				driverDTO.setLanguage(driverList.get(i).getTaxinetusers().getLanguage().getLanguage());
+				driverDTO.setId(driverList.get(i).getDriverId());
 				listDriverDTO.add(driverDTO);
 			}
 			return listDriverDTO;
@@ -265,16 +279,20 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 			return new ArrayList<DriverDTO>();
 		}
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.dao.DriverDAO#countAllDriver(java.lang.String)
 	 */
 	@Transactional
 	public int countAllDriver(String companyID) {
 		Session session = getSessionFactory().getCurrentSession();
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("SELECT COUNT (DISTINCT D.driverId) FROM Driver D, TaxiNetUsers U , Vehicle V");
-		stringBuilder.append(" WHERE D.driverId = U.userId AND U.company.companyId = :companyId");
+		stringBuilder
+				.append("SELECT COUNT (DISTINCT D.driverId) FROM Driver D, TaxiNetUsers U , Vehicle V");
+		stringBuilder
+				.append(" WHERE D.driverId = U.userId AND U.company.companyId = :companyId");
 		stringBuilder.append(" AND D.vehicle.vehicleId = V.vehicleId");
 		Query query = session.createQuery(stringBuilder.toString());
 		query.setParameter("companyId", Integer.parseInt(companyID));
