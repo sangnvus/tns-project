@@ -240,7 +240,7 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 	 */
 	public String changePassword(String userID, String newPassword) {
 		Session session = getSessionFactory().getCurrentSession();
-		String hql = "UPDATE TaxiNetUsers set password = :password WHERE userId = :userId";
+		String hql = "UPDATE TaxiNetUsers SET password = :password WHERE userId = :userId";
 		Query query = session.createQuery(hql);
 		query.setParameter("password", newPassword);
 		query.setParameter("userId", userID);
