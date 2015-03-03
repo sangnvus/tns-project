@@ -17,7 +17,6 @@ import org.json.JSONObject;
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
 import vn.co.taxinet.mobile.app.AppController;
-import vn.co.taxinet.mobile.bo.GetDriverBO;
 import vn.co.taxinet.mobile.googleapi.DirectionsJSONParser;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
 import vn.co.taxinet.mobile.utils.Const;
@@ -76,11 +75,11 @@ public class HomeActivity extends Activity {
 
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
-	
+
 	// Google Map
 	private GoogleMap googleMap;
 	private Marker lastmarker;
-	private GetDriverBO getDriverBO;
+	//private GetDriverBO getDriverBO;
 
 	private String TAG = HomeActivity.class.getSimpleName();
 	private ProgressDialog pDialog;
@@ -545,6 +544,7 @@ public class HomeActivity extends Activity {
 		Intent it = new Intent(HomeActivity.this, TaxiCompanyActivity.class);
 		startActivity(it);
 	}
+
 	public void createSlideMenu(Bundle savedInstanceState) {
 
 		mTitle = getTitle();
@@ -599,10 +599,9 @@ public class HomeActivity extends Activity {
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 	}
-	
+
 	public void setNavDrawerItemForCustomer() {
 		// adding nav drawer items to array
-
 
 		navDrawerItems.add(new NavDrawerItem("dau ma", 2));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
@@ -622,7 +621,7 @@ public class HomeActivity extends Activity {
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
 				.getResourceId(0, -1)));
 	}
-	
+
 	/**
 	 * Slide menu item click listener
 	 * */
@@ -635,7 +634,7 @@ public class HomeActivity extends Activity {
 			displayView(position);
 		}
 	}
-	
+
 	/**
 	 * Diplaying fragment view for selected nav drawer list item
 	 * */
@@ -688,18 +687,19 @@ public class HomeActivity extends Activity {
 			break;
 		}
 	}
+
 	/* *
 	 * Called when invalidateOptionsMenu() is triggered
 	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
-//		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-//		menu.findItem(R.id.taxi).setVisible(!drawerOpen);
+		// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+		// menu.findItem(R.id.taxi).setVisible(!drawerOpen);
 		mDrawerList.setSelection(0);
 		return super.onPrepareOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public void setTitle(CharSequence title) {
 		mTitle = title;
@@ -724,7 +724,7 @@ public class HomeActivity extends Activity {
 		// Pass any configuration change to the drawer toggls
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return super.onCreateOptionsMenu(menu);
