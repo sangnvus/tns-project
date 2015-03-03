@@ -42,10 +42,6 @@ public class TripBOImpl implements TripBO {
 	@Autowired
 	private CurrentStatusDAO currentStatusDAO;
 
-	public CurrentStatusDAO getCurrentStatusDAO() {
-		return currentStatusDAO;
-	}
-
 	public void setCurrentStatusDAO(CurrentStatusDAO currentStatusDAO) {
 		this.currentStatusDAO = currentStatusDAO;
 	}
@@ -116,6 +112,7 @@ public class TripBOImpl implements TripBO {
 		throw new TNException(Constants.Message.FAIL);
 	}
 
+	@Transactional
 	public MessageDTO updateTrip(String requestId, String userId, String status)
 			throws TNException {
 		if (requestId == null || requestId.equalsIgnoreCase("")) {
@@ -132,26 +129,35 @@ public class TripBOImpl implements TripBO {
 			throw new TNException("trip is null");
 		}
 		if (userId.equalsIgnoreCase(trip.getDriver().getDriverId())) {
+			// update trip
+			MessageDTO mes = tripDAO
+					.updateTripStatus(requestId, userId, status);
 			if (status.equalsIgnoreCase(Constants.TripStatus.CANCELLED)) {
 				// send notification to rider
 				createCancelNotification(userId, status, requestId);
 			} else {
-				// send notification to rider
-				createAcceptNotification(userId, status, requestId);
 
 				// update status of driver
-				CurrentStatus currentStatus = currentStatusDAO
-						.findCurrenStatusById(userId);
-				if (currentStatus == null) {
-					throw new TNException("Invalid Id");
-				}
-				if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
-					currentStatus.setCurrentStatus(Constants.DriverStatus.BUSY);
-					currentStatusDAO.update(currentStatus);
-				}
+//				CurrentStatus currentStatus = currentStatusDAO
+//						.findCurrentStatusById(userId);
+//				if (currentStatus == null) {
+//					throw new TNException("Invalid Id");
+//				}
+//				if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
+//					currentStatus.setCurrentStatus(Constants.DriverStatus.BUSY);
+//					currentStatusDAO.update(currentStatus);
+//				}
+//				if (status.equalsIgnoreCase(Constants.TripStatus.COMPLETED)) {
+//					currentStatus
+//							.setCurrentStatus(Constants.DriverStatus.AVAIABLE);
+//					currentStatusDAO.update(currentStatus);
+//				}
 			}
-			// update trip
-			return tripDAO.updateTripStatus(requestId, userId, status);
+
+			// send notification to rider
+			createAcceptNotification(userId, status, requestId);
+
+			return mes;
 		}
 		if (userId.equalsIgnoreCase(trip.getRider().getRiderId())) {
 			// send notification to driver
