@@ -11,7 +11,7 @@ public interface CurrentStatusDAO extends BaseDAO {
 	 * @param id
 	 * @return
 	 */
-	public CurrentStatus findCurrenStatusById(String id);
+	public CurrentStatus findCurrentStatusById(String id);
 
 	/**
 	 * @author Hieu-Gie
