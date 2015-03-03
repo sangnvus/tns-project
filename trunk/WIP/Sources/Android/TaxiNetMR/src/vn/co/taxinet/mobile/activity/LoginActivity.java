@@ -47,7 +47,7 @@ public class LoginActivity extends Activity {
 	public void login(View v) {
 		
 		Intent it = new Intent(LoginActivity.this,
-				MainActivity.class);
+				HomeActivity.class);
 		startActivity(it);
 
 //		String check = loginBO.checkLoginInfo(mEmail.getText().toString(),
