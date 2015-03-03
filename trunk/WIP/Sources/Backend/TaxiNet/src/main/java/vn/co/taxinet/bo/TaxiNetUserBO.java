@@ -1,13 +1,15 @@
 package vn.co.taxinet.bo;
 
+import vn.co.taxinet.common.exception.TNException;
+import vn.co.taxinet.dto.TaxiNetUserDTO;
+
 
 /**
  * @author Ecchi
  *
  */
 public interface TaxiNetUserBO {
-	public String register(String username, String password, String email, String userGroup,
-		String languageCode, String countryCode);
+	public String register(TaxiNetUserDTO user) throws TNException;
 	
 	/**
 	 * @author Ecchi
