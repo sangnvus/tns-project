@@ -16,6 +16,7 @@ import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dao.CurrentStatusDAO;
 import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.CurrentStatus;
+import vn.co.taxinet.orm.Driver;
 import static org.hibernate.criterion.Example.create;
 
 /**
@@ -90,7 +91,7 @@ public class CurrentStatusDAOImpl extends BaseDAOImpl implements
 		}
 	}
 
-	public CurrentStatus findById(java.lang.String id) {
+	public CurrentStatus findById(String id) {
 		log.debug("getting CurrentStatus instance with id: " + id);
 		try {
 			CurrentStatus instance = (CurrentStatus) getSessionFactory()
@@ -101,6 +102,7 @@ public class CurrentStatusDAOImpl extends BaseDAOImpl implements
 			} else {
 				log.debug("get successful, instance found");
 			}
+			System.out.println("here");
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -128,9 +130,16 @@ public class CurrentStatusDAOImpl extends BaseDAOImpl implements
 			double _latitude, String _status) {
 
 		Session session = getSessionFactory().getCurrentSession();
-		String hql = "UPDATE CurrentStatus cs SET cs.currentStatus =:status, cs.currentLatitude =:latitude, cs.currentLongtitude =:longitude WHERE cs.driverId =:driverId";
 
-		Query query = session.createQuery(hql);
+		StringBuilder hql = new StringBuilder();
+		String hql1 = "UPDATE CurrentStatus cs ";
+		String hql2 = "SET cs.currentStatus =:status, cs.currentLatitude =:latitude, cs.currentLongtitude =:longitude ";
+		String hql3 = "WHERE cs.driverId =:driverId";
+		hql.append(hql1);
+		hql.append(hql2);
+		hql.append(hql3);
+
+		Query query = session.createQuery(hql.toString());
 		query.setParameter("status", _status);
 		query.setParameter("latitude", _latitude);
 		query.setParameter("longitude", _longitude);
@@ -140,9 +149,18 @@ public class CurrentStatusDAOImpl extends BaseDAOImpl implements
 		return new MessageDTO(Constants.Message.SUCCESS);
 	}
 
-	public CurrentStatus findCurrenStatusById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public CurrentStatus findCurrentStatusById(String id) {
+		Session session = getSessionFactory().getCurrentSession();
+		StringBuilder stringBuilder = new StringBuilder();
+		String hql1 = "FROM CurrentStatus c";
+		String hql2 = "WHERE c.driverId = :driverId";
+		stringBuilder.append(hql1);
+		stringBuilder.append(hql2);
+		log.debug("HQL " + stringBuilder.toString());
+		Query query = session.createQuery(stringBuilder.toString());
+		query.setParameter("driverId", id);
+		List<CurrentStatus> driverList = query.list();
+		return driverList.get(0);
 	}
 
 }
