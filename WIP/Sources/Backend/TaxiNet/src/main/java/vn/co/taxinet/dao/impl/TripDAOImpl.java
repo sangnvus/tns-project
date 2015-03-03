@@ -116,9 +116,16 @@ public class TripDAOImpl extends BaseDAOImpl implements TripDAO {
 
 	public MessageDTO updateTripStatus(String requestId, String userId,
 			String status) {
-		String hql = "UPDATE Trip SET status = :status , lastModifiedBy = :userId, lastModifiedDate = :date WHERE requestId = :requestId";
+		StringBuilder hql = new StringBuilder();
+		String hql1 = "UPDATE Trip ";
+		String hql2 = "SET status = :status , lastModifiedBy = :userId, lastModifiedDate = :date ";
+		String hql3 = "WHERE requestId = :requestId";
+		hql.append(hql1);
+		hql.append(hql2);
+		hql.append(hql3);
+
 		Session session = getSessionFactory().getCurrentSession();
-		Query query = session.createQuery(hql);
+		Query query = session.createQuery(hql.toString());
 		query.setParameter("status", status);
 		query.setParameter("userId", userId);
 		query.setParameter("requestId", requestId);
