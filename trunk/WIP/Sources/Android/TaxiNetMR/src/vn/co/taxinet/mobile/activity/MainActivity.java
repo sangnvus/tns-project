@@ -19,6 +19,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -189,6 +190,9 @@ public class MainActivity extends Activity implements
 				long id) {
 			// display view for selected nav drawer item
 			displayView(position);
+			if (position == 1){
+				
+			}
 		}
 	}
 
@@ -310,8 +314,15 @@ public class MainActivity extends Activity implements
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		Toast.makeText(this, "Postion " + itemPosition, Toast.LENGTH_LONG)
-				.show();
+//		Toast.makeText(this, "Postion XXX " + itemPosition, Toast.LENGTH_LONG)
+//				.show();
+		if(itemPosition==0){
+			Toast.makeText(this, "Postion 1 " + itemPosition, Toast.LENGTH_LONG)
+			.show();
+			Intent HomeScreen = new Intent(
+					getApplicationContext(), HomeActivity.class);
+			startActivity(HomeScreen);
+		}
 		return false;
 	}
 
