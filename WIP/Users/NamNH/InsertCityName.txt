@@ -1,0 +1,12 @@
+INSERT INTO `taxinet`.`cityname` (`CityID`, `LanguageCode`, `CityName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) 
+VALUES ('1', 'vi', 'Hà N?i', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO `taxinet`.`cityname` (`CityID`, `LanguageCode`, `CityName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) 
+VALUES ('2', 'vi', 'H? Chí Minh', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO `taxinet`.`cityname` (`CityID`, `LanguageCode`, `CityName`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) 
+VALUES ('3', 'vi', 'Ðà N?ng', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
+
+
+
+INSERT INTO `taxinet`.`city` (`CityID`, `CountryCode`, `NorthBoundary`, `SouthBoundary`, `WestBoundary`, `EastBoundary`, `CreatedBy`, `CreatedDate`, `LastModifiedBy`, `LastModifiedDate`) VALUES ('3', 'VN', '18.22222', '29.222222222', '33.333333333', '33.333333333', 'admin', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP);
