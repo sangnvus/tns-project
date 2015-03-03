@@ -203,5 +203,7 @@
 		<property name="userGroupDAO" ref="userGroupDAO" />
 		<property name="languageDAO" ref="languageDAO" />
 		<property name="countryDAO" ref="countryDAO" />
+		<property name="riderDAO" ref="riderDAO" />
+		<property name="driverDAO" ref="driverDAO" />
 	</bean>
 </beans>
