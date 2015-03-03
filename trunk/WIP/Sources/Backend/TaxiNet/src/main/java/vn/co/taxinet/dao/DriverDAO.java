@@ -8,7 +8,6 @@ import vn.co.taxinet.orm.Driver;
 ;
 public interface DriverDAO extends BaseDAO {
 
-	String createTrip(String riderId, String driverId);
 
 	/**
 	 * @author Hieu-Gie
