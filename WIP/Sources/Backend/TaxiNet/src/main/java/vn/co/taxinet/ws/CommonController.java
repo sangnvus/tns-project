@@ -14,9 +14,11 @@ import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.bo.RiderBO;
 import vn.co.taxinet.bo.TaxiNetUserBO;
 import vn.co.taxinet.common.Constants;
+import vn.co.taxinet.common.exception.TNException;
 import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.RiderDTO;
+import vn.co.taxinet.dto.TaxiNetUserDTO;
 import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
 
@@ -47,19 +49,30 @@ public class CommonController {
 		String language = requestParams.get("language");
 		String userGroup = requestParams.get("usergroup");
 		String countryCode = requestParams.get("countrycode");
+		
+		TaxiNetUserDTO user = new TaxiNetUserDTO();
+		
+		user.setUserName(email);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setPhone(phone);
+		user.setLanguage(language);
+		user.setUserGroup(userGroup);
+		user.setCountryCode(countryCode);
 		if (userGroup == null) {
 			return "";
 		}
 		String result = "1234";
-		String userId = taxiNetUserBO.register(email, password, email,
-				userGroup, language, countryCode);
-		if (userGroup.equalsIgnoreCase(Constants.GroupUser.RIDER) ) {
-			result = riderBO.register(userId, firstName, lastName, phone);
-		}
-		if (userGroup.equalsIgnoreCase(Constants.GroupUser.DRIVER)) {
-			result = driverBO.register(userId, firstName, lastName, phone);
+		String userId = "";
+		try {
+			userId = taxiNetUserBO.register(user);
+		} catch (TNException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-		return result;
+		return userId;
 	}
 }
