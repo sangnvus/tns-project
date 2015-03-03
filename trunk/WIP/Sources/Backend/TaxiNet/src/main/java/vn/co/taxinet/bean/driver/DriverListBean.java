@@ -36,6 +36,8 @@ public class DriverListBean implements Serializable {
 	public String Username;
 	public String companyID = "1";
 	public LazyDataModel<DriverDTO> driverList;
+	public DriverDTO selectedDriver;
+	public DriverDTO driverDTO;
 
 	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
@@ -49,6 +51,8 @@ public class DriverListBean implements Serializable {
 
 			// end of getting value
 			findAllDriver();
+			driverDTO = new DriverDTO();
+			selectedDriver = new DriverDTO();
 		}
 	}
 
@@ -101,10 +105,43 @@ public class DriverListBean implements Serializable {
 		}
 	}
 
+	/**
+	 * action control open dialog command link
+	 */
+	public void showChosenDriverInfo(DriverDTO driver) {
+		if(driver != null) {
+			setDriverDTO(driver);
+		}
+	}
+
 	// getter&setter
 
 	public String getUserID() {
 		return UserID;
+	}
+
+	public String getCompanyID() {
+		return companyID;
+	}
+
+	public void setCompanyID(String companyID) {
+		this.companyID = companyID;
+	}
+
+	public DriverDTO getSelectedDriver() {
+		return selectedDriver;
+	}
+
+	public void setSelectedDriver(DriverDTO selectedDriver) {
+		this.selectedDriver = selectedDriver;
+	}
+
+	public DriverDTO getDriverDTO() {
+		return driverDTO;
+	}
+
+	public void setDriverDTO(DriverDTO driverDTO) {
+		this.driverDTO = driverDTO;
 	}
 
 	public void setUserID(String userID) {
