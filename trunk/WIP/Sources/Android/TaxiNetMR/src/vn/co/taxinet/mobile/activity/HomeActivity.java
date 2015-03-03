@@ -35,6 +35,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -79,7 +80,6 @@ public class HomeActivity extends Activity {
 	// Google Map
 	private GoogleMap googleMap;
 	private Marker lastmarker;
-	//private GetDriverBO getDriverBO;
 
 	private String TAG = HomeActivity.class.getSimpleName();
 	private ProgressDialog pDialog;
@@ -176,7 +176,7 @@ public class HomeActivity extends Activity {
 		if (googleMap == null) {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
 					R.id.map)).getMap();
-			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+//			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 			// check if map is created successfully or not
 			if (googleMap == null) {
 				Toast.makeText(getApplicationContext(),
@@ -684,6 +684,7 @@ public class HomeActivity extends Activity {
 			startActivity(it);
 			break;
 		default:
+			mDrawerLayout.closeDrawer(mDrawerList);
 			break;
 		}
 	}
@@ -728,5 +729,21 @@ public class HomeActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// toggle nav drawer on selecting action bar app icon/title
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+		// Handle action bar actions click
+		switch (item.getItemId()) {
+		case R.id.accept:
+			Toast.makeText(this, "alo", Toast.LENGTH_LONG).show();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }
