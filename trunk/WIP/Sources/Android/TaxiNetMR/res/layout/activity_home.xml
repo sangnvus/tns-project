@@ -8,8 +8,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/call_taxi_firm"
-        android:onClick="callTaxiFirms" />
+        android:onClick="callTaxiFirms"
+        android:text="@string/call_taxi_firm" />
 
     <fragment
         android:id="@+id/map"
@@ -17,5 +17,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/call_taxi_firm" />
+
+    <RelativeLayout
+        android:id="@+id/tyty"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/red" >
+    </RelativeLayout>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!-- Listview to display slider menu -->
+
+        <ListView
+            android:id="@+id/list_slidermenu"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/list_background"
+            android:choiceMode="singleChoice"
+            android:divider="@color/list_divider"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/list_selector" />
+    </android.support.v4.widget.DrawerLayout>
 
 </RelativeLayout>
