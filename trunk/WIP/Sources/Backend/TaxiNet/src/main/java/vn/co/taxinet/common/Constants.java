@@ -10,8 +10,11 @@ public interface Constants {
 	public static final String VISACARD_PATTERN_REGEX = "^4[0-9]{12}(?:[0-9]{3})?$";
 	public static final String CVV_PATTERN_REGEX = "^[0-9]{3,4}$";
 	public static final String PHONENO_PATTERN_REGEX = "^[0-9]{10,11}$";
+	public static final String NAME_PATTERN_REGEX = "^[a-zA-Z]{6,10}$";
+	public static final String PASSWORD_PATTERN_REGEX = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{6,20})";
+	public static final String USERNAME_PATTERN_REGEX = "^[a-z0-9_-]{6,10}$";
 	// end regex
-	
+
 	public static final int PAGE_SIZE = 10;
 	public static final String STR_DATE_FORMAT = "";
 	public static final Locale DEFAULT_LOCALE = null;
@@ -22,7 +25,7 @@ public interface Constants {
 
 	public static final int MAX_PASSWORD_LENGTH = 10;
 	public static final int MIN_PASSWORD_LENGTH = 6;
-	
+
 	public static final String apiKey = "AIzaSyAUJa4mx6s4YzO00RYr2PUXbQgx_o7PPXc";
 
 	public interface Language {
@@ -53,10 +56,11 @@ public interface Constants {
 		public static final String GLOBAL_ADMINISTRATOR = "GA";
 	}
 
-	 public interface UserStatus{
-	 public static final String ACTIVE = "AC";
-	 public static final String DEACTIVED = "DA";
-	 }
+	public interface UserStatus {
+		public static final String ACTIVE = "AC";
+		public static final String DEACTIVED = "DA";
+	}
+
 	public interface ServiceCharge {
 		public static final String MONTHLY = "MO";
 		public static final String TRIP_BASED = "TB";
