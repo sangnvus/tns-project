@@ -4,11 +4,8 @@ import java.util.ArrayList;
 
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
-import vn.co.taxinet.mobile.utils.CircleImage;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +19,6 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
 	private Context context;
 	private ArrayList<NavDrawerItem> navDrawerItems;
-	private CircleImage circleImage;
 
 	public NavDrawerListAdapter(Context context,
 			ArrayList<NavDrawerItem> navDrawerItems) {

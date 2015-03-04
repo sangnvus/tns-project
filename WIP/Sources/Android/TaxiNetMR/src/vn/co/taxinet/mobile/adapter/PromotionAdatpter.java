@@ -3,8 +3,8 @@ package vn.co.taxinet.mobile.adapter;
 import java.util.List;
 
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.DTO.PromotionDTO;
 import vn.co.taxinet.mobile.app.AppController;
+import vn.co.taxinet.mobile.model.Promotion;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,11 +20,11 @@ public class PromotionAdatpter extends BaseAdapter {
 
 	private Activity activity;
 	private LayoutInflater inflater;
-	private List<PromotionDTO> promotionItems;
+	private List<Promotion> promotionItems;
 	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
 	public PromotionAdatpter(Activity activity,
-			List<PromotionDTO> promotionItems) {
+			List<Promotion> promotionItems) {
 		this.activity = activity;
 		this.promotionItems = promotionItems;
 	}
@@ -51,8 +51,7 @@ public class PromotionAdatpter extends BaseAdapter {
 			inflater = (LayoutInflater) activity
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		if (convertView == null)
-			convertView = inflater.inflate(R.layout.item_rider_promotion,
-					null);
+			convertView = inflater.inflate(R.layout.item_rider_promotion, null);
 
 		if (imageLoader == null)
 			imageLoader = AppController.getInstance().getImageLoader();
@@ -62,7 +61,7 @@ public class PromotionAdatpter extends BaseAdapter {
 				.findViewById(R.id.tv_promotion_content);
 
 		// getting movie data for the row
-		PromotionDTO promotionDTO = promotionItems.get(position);
+		Promotion promotionDTO = promotionItems.get(position);
 
 		// thumbnail image
 		thumbNail.setImageUrl(promotionDTO.getImageUri(), imageLoader);
