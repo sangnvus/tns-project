@@ -79,6 +79,18 @@ public class RiderRegisterBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Error", "Invalid Email"));
 			return null;
+		} else if (!password.matches(Constants.PASSWORD_PATTERN_REGEX)) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Invalid password"));
+			return null;
+		} else if (!userName.matches(Constants.USERNAME_PATTERN_REGEX)) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Invalid name"));
+			return null;
+		} else if (!userSurName.matches(Constants.USERNAME_PATTERN_REGEX)) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Error", "Invalid surname"));
+			return null;
 		} else if (!cvv.matches(Constants.CVV_PATTERN_REGEX)) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Error", "Invalid CVV"));
@@ -110,7 +122,7 @@ public class RiderRegisterBean implements Serializable {
 			newRider.getTaxinetusers().setPostalCode(zipCode);
 			newRider.getTaxinetusers().setStatus(Constants.UserStatus.ACTIVE);
 			newRider.getTaxinetusers().setCountry(new Country());
-			//TODO change hardcode of country
+			// TODO change hardcode of country
 			newRider.getTaxinetusers().getCountry().setCode("1");
 
 			newRider.getTaxinetusers().setUsergroup(new UserGroup());
@@ -120,13 +132,13 @@ public class RiderRegisterBean implements Serializable {
 			newRider.getTaxinetusers().setLanguage(new Language());
 			newRider.getTaxinetusers().getLanguage()
 					.setLanguageCode(Constants.Language.LANG_EN_CODE);
-			
-			//TODO set value CreditCard,CVV, ExpiredDate for Payment
-			
+
+			// TODO set value CreditCard,CVV, ExpiredDate for Payment
+
 			newRider.setMobileNo(mobileNo);
 			newRider.setFirstName(userName);
 			newRider.setLastName(userSurName);
-			
+
 			try {
 				riderBO.register(newRider);
 				HttpServletRequest request = (HttpServletRequest) FacesContext
@@ -149,7 +161,7 @@ public class RiderRegisterBean implements Serializable {
 		}
 	}
 
-	//getter & setter
+	// getter & setter
 	public String getUserName() {
 		return userName;
 	}
