@@ -6,7 +6,6 @@ import static org.hibernate.criterion.Example.create;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.Driver;
-import vn.co.taxinet.orm.Rider;
-import vn.co.taxinet.orm.Trip;
 
 /**
  * Home object for domain model class Driver.
@@ -127,42 +124,14 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 	public List<Driver> getNearListDriver() {
 		Session session = getSessionFactory().getCurrentSession();
 		StringBuilder stringBuilder = new StringBuilder();
-		String hql1 = "SELECT D FROM Driver D, CurrentStatus C WHERE D.driverId = C.driverId ";
-		String hql2 = "AND C.currentStatus = 'AC' AND D.vehicle is not null";
+		String hql1 = "SELECT D FROM Driver D, CurrentStatus C ";
+		String hql2 = "WHERE D.driverId = C.driverId AND C.currentStatus = 'AC' AND D.vehicle is not null";
 		stringBuilder.append(hql1);
 		stringBuilder.append(hql2);
 		System.out.println(" HQL : " + stringBuilder.toString());
 		Query query = session.createQuery(stringBuilder.toString());
 		List<Driver> result = query.list();
 		return result;
-	}
-
-	public String createTrip(String riderId, String driverId) {
-		Session session = getSessionFactory().getCurrentSession();
-		// get rider
-		String hql = "select R from Rider R where R.riderId = :rid";
-		Query query = session.createQuery(hql);
-		query.setParameter("rid", riderId.toLowerCase());
-		List<Rider> listRider = query.list();
-		Rider rider = null;
-		if (!listRider.isEmpty()) {
-			rider = listRider.get(0);
-		}
-		// get driver
-		hql = "select D from Driver where D.driverId = :did";
-		query = session.createQuery(hql);
-		query.setParameter("did", driverId.toLowerCase());
-		List<Driver> listDriver = query.list();
-		Driver driver = null;
-		if (!listDriver.isEmpty()) {
-			driver = listDriver.get(0);
-		}
-		Trip trip = new Trip();
-		UUID id = UUID.randomUUID();
-		trip.setRequestId(id.toString());
-		trip.setRider(rider);
-		trip.setDriver(driver);
-		return rider.getRiderId();
 	}
 
 	/*
@@ -269,8 +238,10 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 				driverDTO.setPhoneNumber(driverList.get(i).getMobileNo());
 				driverDTO.setCountry(driverList.get(i).getTaxinetusers()
 						.getCountry().getName());
-				driverDTO.setUsername(driverList.get(i).getTaxinetusers().getUsername());
-				driverDTO.setLanguage(driverList.get(i).getTaxinetusers().getLanguage().getLanguage());
+				driverDTO.setUsername(driverList.get(i).getTaxinetusers()
+						.getUsername());
+				driverDTO.setLanguage(driverList.get(i).getTaxinetusers()
+						.getLanguage().getLanguage());
 				driverDTO.setId(driverList.get(i).getDriverId());
 				listDriverDTO.add(driverDTO);
 			}

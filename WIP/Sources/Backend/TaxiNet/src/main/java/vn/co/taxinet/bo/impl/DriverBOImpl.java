@@ -98,11 +98,11 @@ public class DriverBOImpl implements DriverBO {
 			TaxiNetUsers user = Driver.getTaxinetusers();
 			TaxiNetUsers oldUser = taxiNetUserDAO.select(user.getEmail());
 			if (oldUser != null) {
-					if (user.getPassword().equals(oldUser.getPassword())) {
-						throw new FunctionalException(THIS,
-								"Driver User is existing",
-								Constants.Errors.DUPLICATED_ERROR);
-					}
+				if (user.getPassword().equals(oldUser.getPassword())) {
+					throw new FunctionalException(THIS,
+							"Driver User is existing",
+							Constants.Errors.DUPLICATED_ERROR);
+				}
 			}
 			UUID id = UUID.randomUUID();
 			user.setUserId(id.toString());
@@ -113,7 +113,7 @@ public class DriverBOImpl implements DriverBO {
 			user.setLastModifiedDate(Utility.getCurrentDateTime());
 			user.setLastModifiedBy(user.getUsername());
 			taxiNetUserDAO.insert(user);
-			
+
 			// 5. Insert data into Driver table
 			Driver.setDriverId(id.toString());
 			Driver.setCreatedDate(Utility.getCurrentDateTime());
@@ -136,15 +136,41 @@ public class DriverBOImpl implements DriverBO {
 		List<Driver> listDriver = driverDAO.getNearListDriver();
 		List<DriverDTO> listDriverDTO = new ArrayList<DriverDTO>();
 		for (int i = 0; i < listDriver.size(); i++) {
-			DriverDTO driverDTO = new DriverDTO();
-			listDriverDTO.add(driverDTO);
+			Driver driver = listDriver.get(i);
+			// parse log lat
+			double log1, lat1, log2, lat2;
+			try {
+				log1 = Double.parseDouble(longitude);
+				lat1 = Double.parseDouble(latitude);
+				log2 = driver.getCurrentstatus().getCurrentLongtitude();
+				lat2 = driver.getCurrentstatus().getCurrentLatitude();
+			} catch (NumberFormatException e) {
+				return null;
+			}
+
+			// calculate distance
+			double theta = log1
+					- driver.getCurrentstatus().getCurrentLongtitude();
+			double dist = Math.sin(Utility.deg2rad(lat1))
+					* Math.sin(Utility.deg2rad(lat2))
+					+ Math.cos(Utility.deg2rad(lat1))
+					* Math.cos(Utility.deg2rad(lat2))
+					* Math.cos(Utility.deg2rad(theta));
+			dist = Math.acos(dist);
+			dist = Utility.rad2deg(dist);
+			dist = dist * 60 * 1.1515 * 1.609344;
+
+			if (dist < 5) {
+				DriverDTO driverDTO = new DriverDTO();
+				driverDTO.setId(driver.getDriverId());
+				driverDTO.setLongitude(log2);
+				driverDTO.setLatitude(lat2);
+				listDriverDTO.add(driverDTO);
+			}
+
 		}
 		return listDriverDTO;
 	}
-
-	// public String createTrip(String riderId, String driverId) {
-	// return tripDAO.createTrip(riderId, driverId);
-	// }
 
 	/*
 	 * (non-Javadoc)
@@ -378,8 +404,8 @@ public class DriverBOImpl implements DriverBO {
 	 * int, int)
 	 */
 	@Transactional
-	public List<DriverDTO> findDriverByCompanyID(String companyID, int pageIndex,
-			int pageSize) {
+	public List<DriverDTO> findDriverByCompanyID(String companyID,
+			int pageIndex, int pageSize) {
 		return driverDAO.findDriverByCompanyID(companyID, pageIndex, pageSize);
 	}
 
@@ -394,8 +420,11 @@ public class DriverBOImpl implements DriverBO {
 		return driverDAO.countDriverByCompanyID(companyID);
 	}
 
-	/* (non-Javadoc)
-	 * @see vn.co.taxinet.bo.DriverBO#updateCurrentStatus(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.DriverBO#updateCurrentStatus(java.lang.String,
+	 * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Transactional
 	public MessageDTO updateCurrentStatus(String driverId, String longitude,
@@ -427,13 +456,15 @@ public class DriverBOImpl implements DriverBO {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.bo.DriverBO#getVehicleFromVehicleID(java.lang.String)
 	 */
 	public Vehicle getVehicleFromVehicleID(String vehicleID) {
 		return vehicleDAO.getVehicleFromID(vehicleID);
 	}
-	
+
 	public Driver findDriverByUsername(String Username) throws TNSException {
 		try {
 			// Check if user name not exist in DB
@@ -467,7 +498,8 @@ public class DriverBOImpl implements DriverBO {
 			// 1. Insert user table
 			// Check if user name not exist in DB
 			TaxiNetUsers updateUser = updateDriver.getTaxinetusers();
-			TaxiNetUsers oldUser = taxiNetUserDAO.select(updateUser.getUsername());
+			TaxiNetUsers oldUser = taxiNetUserDAO.select(updateUser
+					.getUsername());
 			if (oldUser == null) {
 				if (updateUser.getPassword().equals(oldUser.getPassword())) {
 					throw new FunctionalException(THIS,
@@ -493,16 +525,22 @@ public class DriverBOImpl implements DriverBO {
 			throw new SystemException(THIS, t);
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see vn.co.taxinet.bo.DriverBO#getAllDriverOfCompany(java.lang.String, int, int)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.DriverBO#getAllDriverOfCompany(java.lang.String,
+	 * int, int)
 	 */
 	@Transactional
-	public List<DriverDTO> getAllDriverOfCompany(String companyID,int pageIndex, int pageSize) {
+	public List<DriverDTO> getAllDriverOfCompany(String companyID,
+			int pageIndex, int pageSize) {
 		return driverDAO.getAllDriver(companyID, pageIndex, pageSize);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.bo.DriverBO#countAllDriverOfCompany(java.lang.String)
 	 */
 	@Transactional

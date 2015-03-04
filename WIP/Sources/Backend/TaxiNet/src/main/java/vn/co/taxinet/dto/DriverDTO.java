@@ -14,6 +14,33 @@ public class DriverDTO {
 	private String currentLocation;
 	private String language;
 	private String country;
+	private double longitude;
+	private double latitude;
+	private double price;
+	
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
 
 	public String getLanguage() {
 		return language;
