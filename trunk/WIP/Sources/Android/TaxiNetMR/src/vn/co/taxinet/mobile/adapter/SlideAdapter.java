@@ -1,13 +1,12 @@
 package vn.co.taxinet.mobile.adapter;
 
+import vn.co.taxinet.mobile.R;
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import vn.co.taxinet.mobile.R;
 
 public class SlideAdapter extends PagerAdapter {
 

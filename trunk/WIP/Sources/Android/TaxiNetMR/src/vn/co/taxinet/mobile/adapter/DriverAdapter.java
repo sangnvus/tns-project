@@ -36,7 +36,7 @@ public class DriverAdapter extends ArrayAdapter<Driver> {
 		initialize(v);
 		Driver favoriteDriverItem = favoriteDriverItems
 				.get(position);
-		name.setText(favoriteDriverItem.getName());
+//		name.setText(favoriteDriverItem.getName());
 		return v;
 	}
 
