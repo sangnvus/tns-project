@@ -1,9 +1,8 @@
-package vn.co.taxinet.mobile.fragment;
+package vn.co.taxinet.mobile.newactivity;
 
 import java.util.ArrayList;
 
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.activity.FavoriteDriverDetails;
 import vn.co.taxinet.mobile.adapter.DriverAdapter;
 import vn.co.taxinet.mobile.model.Driver;
 import android.app.Fragment;

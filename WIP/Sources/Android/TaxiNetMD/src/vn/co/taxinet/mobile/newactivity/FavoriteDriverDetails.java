@@ -1,4 +1,4 @@
-package vn.co.taxinet.mobile.activity;
+package vn.co.taxinet.mobile.newactivity;
 
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.model.Driver;
