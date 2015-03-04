@@ -8,7 +8,7 @@ public class Driver implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8026349913914275141L;
-	private int id;
+	private String id;
 	private String firstName;
 	private String lastName;
 	private String image;
@@ -16,11 +16,11 @@ public class Driver implements Serializable {
 	private String phoneNumber;
 	private String password;
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -72,7 +72,7 @@ public class Driver implements Serializable {
 		this.password = password;
 	}
 
-	public Driver(int id, String firstName, String lastName, String image,
+	public Driver(String id, String firstName, String lastName, String image,
 			String email, String phoneNumber, String password) {
 		super();
 		this.id = id;

@@ -45,19 +45,18 @@ public class Utils {
 	 *         both by the UI and the background service.
 	 * 
 	 * @param context
-	 * @param driverImage
+	 * @param riderImage
 	 * @param longitude
 	 * @param latitude
 	 * @param price
 	 */
-	public static void displayRequest(Context context, String driverImage,
-			String driverName, String longitude, String latitude, String price) {
+	public static void displayRequest(Context context, String riderImage,
+			String riderName, String longitude, String latitude) {
 		Intent intent = new Intent(Constants.BroadcastAction.DISPLAY_REQUEST);
-		intent.putExtra(Constants.DRIVER_IMAGE, driverImage);
-		intent.putExtra(Constants.RIDER_NAME, driverName);
+		intent.putExtra(Constants.DRIVER_IMAGE, riderImage);
+		intent.putExtra(Constants.NAME, riderName);
 		intent.putExtra(Constants.LONGITUDE, longitude);
 		intent.putExtra(Constants.LATITUDE, latitude);
-		intent.putExtra(Constants.PRICE, price);
 		context.sendBroadcast(intent);
 	}
 

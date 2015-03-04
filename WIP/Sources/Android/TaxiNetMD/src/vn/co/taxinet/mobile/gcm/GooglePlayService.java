@@ -37,7 +37,6 @@ public class GooglePlayService {
 	private GoogleCloudMessaging gcm;
 	private AtomicInteger msgId = new AtomicInteger();
 	private String regid;
-	private MapBO mapBO;
 
 	// Google client to interact with Google API
 
@@ -47,11 +46,9 @@ public class GooglePlayService {
 	 * Google Play Store or enable it in the device's system settings.
 	 */
 	public GooglePlayService(Activity context) {
-		mapBO = new MapBO(context);
 		// Check device for Play Services APK. If check succeeds, proceed with
 		// GCM registration.
 		if (checkPlayServices(context)) {
-
 			gcm = GoogleCloudMessaging.getInstance(context);
 			regid = getRegistrationId(context);
 
@@ -193,10 +190,10 @@ public class GooglePlayService {
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 			nameValuePairs.add(new BasicNameValuePair("regId", regid));
 			nameValuePairs.add(new BasicNameValuePair("id", AppController
 					.getDriverId()));
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 			// Execute HTTP Post Request
 			HttpResponse response = httpclient.execute(httppost);
 			int respnseCode = response.getStatusLine().getStatusCode();

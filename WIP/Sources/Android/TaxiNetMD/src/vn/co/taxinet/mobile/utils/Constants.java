@@ -31,13 +31,14 @@ public interface Constants {
 	 * define url
 	 */
 	public interface URL {
-		public static final String GET_TERM = "http://192.168.1.100:8080/TN/restServices/TermController/GetTerm";
-		public static final String LOGIN_AUTHEN = "http://192.168.1.100:8080/TN/restServices/DriverController/Login";
-		public static final String UPDATE_DRIVER = "http://192.168.1.100:8080/TN/restServices/DriverController/UpdateDriver";
-		public static final String UPDATE_REG_ID = "http://192.168.1.100:8080/TN/restServices/DriverController/UpdateRegID";
-		public static final String REGISTER_DRIVER = "http://192.168.1.100:8080/TN/restServices/CommonController/register";
-		public static final String UPDATE_CURRENT_STATUS = "http://192.168.1.100:8080/TN/restServices/DriverController/UpdateCurrentStatus";
-		}
+		public static final String GET_TERM = "http://192.168.234.53:8080/TN/restServices/TermController/GetTerm";
+		public static final String LOGIN_AUTHEN = "http://192.168.234.53:8080/TN/restServices/DriverController/Login";
+		public static final String UPDATE_DRIVER = "http://192.168.234.53:8080/TN/restServices/DriverController/UpdateDriver";
+		public static final String UPDATE_REG_ID = "http://192.168.234.53:8080/TN/restServices/DriverController/UpdateRegId";
+		public static final String REGISTER_DRIVER = "http://192.168.234.53:8080/TN/restServices/CommonController/register";
+		public static final String UPDATE_CURRENT_STATUS = "http://192.168.234.53:8080/TN/restServices/DriverController/UpdateCurrentStatus";
+		public static final String UPDATE_TRIP = "http://192.168.234.53:8080/TN/restServices/TripController/UpdateTrip";
+	}
 
 	/*
 	 * define String const
@@ -55,12 +56,13 @@ public interface Constants {
 	public static final String EXTRA_MESSAGE = "MESSGE";
 	public static final String DRIVER_IMAGE = "DRIVER_IMAGE";
 	public static final String DRIVER_NAME = "DRIVER_NAME";
-	public static final String LONGITUDE = "LONGITUDE";
-	public static final String LATITUDE = "LATITUDE";
+	public static final String LONGITUDE = "longitude";
+	public static final String LATITUDE = "latitude";
 	public static final String PRICE = "PRICE";
-	public static final String RIDER_IMAGE = "RIDER_IMAGE";
-	public static final String RIDER_NAME = "RIDER_NAME";
-	public static final String RIDER_ID = "RIDER_ID";
+	public static final String IMAGE = "image";
+	public static final String NAME = "name";
+	public static final String PHONE = "phone";
+	public static final String ID = "id";
 	public static final String RESPONSE_REQUEST = "RESPONSE_REQUEST";
 	public static final String UPDATE_CURRENT_STATUS = "UPDATE_CURRENT_STATUS";
 
@@ -81,7 +83,7 @@ public interface Constants {
 		public static final String CANCELLED = "CA";
 		public static final String COMPLETED = "TC";
 	}
-	
+
 	// These are used for Reference Data
 	public interface UserGroup {
 		public static final String RIDER = "RD";

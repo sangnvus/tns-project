@@ -42,7 +42,6 @@ public class LoginBO {
 		this.activity = activity;
 		this.account = account;
 		this.password = password;
-		pd = new ProgressDialog(activity);
 
 		if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
 			// return Const.EMPTY_ERROR;
@@ -51,13 +50,13 @@ public class LoginBO {
 					Toast.LENGTH_LONG).show();
 			return;
 		}
-		if (Utils.validateEmail(account)) {
-
-			Toast.makeText(activity,
-					this.activity.getString(R.string.account_error),
-					Toast.LENGTH_LONG).show();
-			return;
-		}
+		// if (Utils.validateEmail(account)) {
+		//
+		// Toast.makeText(activity,
+		// this.activity.getString(R.string.account_error),
+		// Toast.LENGTH_LONG).show();
+		// return;
+		// }
 		new LoginAsyncTask().execute();
 		// loginAuthen(activity);
 	}
@@ -74,7 +73,7 @@ public class LoginBO {
 
 				// parse json
 				Driver driver = new Driver();
-				driver.setId(Integer.parseInt(id));
+				driver.setId(id);
 				driver.setFirstName(jsonObject.getString("firstName"));
 				driver.setLastName(jsonObject.getString("lastName"));
 				driver.setEmail(jsonObject.getString("email"));
@@ -85,13 +84,12 @@ public class LoginBO {
 				// save to database offline
 				DatabaseHandler handler = new DatabaseHandler(activity);
 				handler.createDriver(driver);
-
 				// move to map activity
 				Intent it = new Intent(activity, MapActivity.class);
 				activity.startActivity(it);
 
 				// save to global id
-				AppController.setDriverId(id);
+				AppController.setDriverId(driver.getId());
 
 			} else {
 				Toast.makeText(activity,
@@ -115,6 +113,7 @@ public class LoginBO {
 		protected void onPreExecute() {
 			// TODO Auto-generated method stub
 			super.onPreExecute();
+			pd = new ProgressDialog(activity);
 			pd.setTitle("Login");
 			pd.setMessage("Please wait until we check your infomation");
 			pd.setCancelable(false);
@@ -145,7 +144,6 @@ public class LoginBO {
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair("username", account));
 			nameValuePairs.add(new BasicNameValuePair("password", password));
-			// httppost.setHeader("Content-Type","application/json;charset=UTF-8");
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 
 			// Execute HTTP Post Request

@@ -2,13 +2,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.MapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/call_taxi_firm" />
-
     <!--
     <RelativeLayout
         android:id="@+id/relativelayout_connection"
@@ -33,6 +26,31 @@
     </RelativeLayout>
     -->
 
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/call_taxi_firm" />
+        <!-- Listview to display slider menu -->
+
+        <ListView
+            android:id="@+id/list_slidermenu"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/list_background"
+            android:choiceMode="singleChoice"
+            android:divider="@color/list_divider"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/list_selector" />
+    </android.support.v4.widget.DrawerLayout>
+
     <LinearLayout
         android:id="@+id/request_layout"
         android:layout_width="fill_parent"
@@ -55,60 +73,53 @@
             <TextView
                 android:id="@+id/tv_rider_name"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="@string/driver"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/tv_rider_phone_number"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/phone_number"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal" >
 
                 <Button
                     android:id="@+id/bt_accept"
-                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:onClick="accept"
-                    android:text="@string/driver"
+                    android:text="@string/accept"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/bt_deni"
-                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:onClick="deni"
-                    android:text="@string/driver"
+                    android:text="@string/deni"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <!-- Listview to display slider menu -->
-
-        <ListView
-            android:id="@+id/list_slidermenu"
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/list_background"
-            android:choiceMode="singleChoice"
-            android:divider="@color/list_divider"
-            android:dividerHeight="1dp"
-            android:listSelector="@drawable/list_selector" />
-    </android.support.v4.widget.DrawerLayout>
 
 </RelativeLayout>

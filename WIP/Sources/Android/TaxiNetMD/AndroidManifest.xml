@@ -125,6 +125,8 @@
                 <category android:name="vn.co.taxinet.mobile" />
             </intent-filter>
         </receiver>
+        
+        <service android:name="vn.co.taxinet.mobile.gcm.GcmIntentService" />
 
         <!-- Goolge API Key -->
         <meta-data

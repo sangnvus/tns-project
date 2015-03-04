@@ -24,7 +24,6 @@ import vn.co.taxinet.mobile.database.DatabaseHandler;
 import vn.co.taxinet.mobile.fragment.FavoriteDriverFragment;
 import vn.co.taxinet.mobile.fragment.HistoryCallFragment;
 import vn.co.taxinet.mobile.fragment.JourneyFragment;
-import vn.co.taxinet.mobile.fragment.MapsFragment;
 import vn.co.taxinet.mobile.fragment.SettingFragment;
 import vn.co.taxinet.mobile.fragment.TaxiCompanyFragment;
 import vn.co.taxinet.mobile.gcm.GooglePlayService;
@@ -41,7 +40,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -62,12 +63,15 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.internal.bt;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Main UI for the demo app.
@@ -94,7 +98,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	private GoogleMap googleMap;
 
 	// These tags will be used to cancel the requests
-	private TextView mRiderName;
+	private TextView mRiderName, mRiderPhoneNumber;
 	private LinearLayout mReqestLayout;
 
 	private BroadcastReceiver receiver;
@@ -119,6 +123,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	private static int DISPLACEMENT = 100; // 100 meters
 	private String requestId;
 	private String status;
+	private DatabaseHandler handler;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -151,16 +156,29 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		registerReceiver(receiver, filter);
 
 		mRiderName = (TextView) findViewById(R.id.tv_rider_name);
+		mRiderPhoneNumber = (TextView) findViewById(R.id.tv_rider_phone_number);
 		mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
 		mReqestLayout.setVisibility(View.GONE);
+
+		handler = new DatabaseHandler(this);
 	}
 
 	private void initilizeMap() {
 		if (googleMap == null) {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
 					R.id.map)).getMap();
-			// googleMap.setMyLocationEnabled(true);
-			// googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+			googleMap.setMyLocationEnabled(true);
+			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+			LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			Criteria criteria = new Criteria();
+			String bestProvider = locationManager.getBestProvider(criteria,
+					true);
+			Location location = locationManager
+					.getLastKnownLocation(bestProvider);
+			if (location != null) {
+				onLocationChanged(location);
+			}
 
 			// check if map is created successfully or not
 			if (googleMap == null) {
@@ -193,6 +211,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
 			startLocationUpdates();
 		}
+		System.out.println("notifi");
 	}
 
 	@Override
@@ -202,46 +221,56 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	}
 
 	public void accept(View v) {
-		Button mButton = (Button) findViewById(R.id.accept);
+		Driver driver = handler.findDriver();
+		System.out.println("id : " + driver.getId());
+		Button mButton = (Button) findViewById(R.id.bt_accept);
 		if (status.equalsIgnoreCase(Constants.TripStatus.NEW_TRIP)) {
 			status = Constants.TripStatus.PICKING;
-			String params[] = { Constants.RESPONSE_REQUEST,
-					Constants.TripStatus.PICKING, requestId };
+			String params[] = { Constants.RESPONSE_REQUEST, requestId,
+					Constants.TripStatus.PICKING, driver.getId() };
+			mapBO = new MapBO(MapActivity.this);
 			mapBO.execute(params);
 			mButton.setText(getString(R.string.picked));
+			return;
 
 		}
 		if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
 			status = Constants.TripStatus.PICKED;
-			String params[] = { Constants.RESPONSE_REQUEST,
-					Constants.TripStatus.PICKED, requestId };
+			String params[] = { Constants.RESPONSE_REQUEST, requestId,
+					Constants.TripStatus.PICKED, driver.getId() };
+			mapBO = new MapBO(MapActivity.this);
 			mapBO.execute(params);
 			mButton.setText(getString(R.string.return_customer));
 			LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
 			mReqestLayout.setVisibility(View.GONE);
 			Button deni = (Button) findViewById(R.id.deni);
 			deni.setVisibility(View.GONE);
+			return;
 
 		}
 		if (status.equalsIgnoreCase(Constants.TripStatus.PICKED)) {
 			status = Constants.TripStatus.PICKED;
-			String params[] = { Constants.RESPONSE_REQUEST,
-					Constants.TripStatus.PICKED, requestId };
+			String params[] = { Constants.RESPONSE_REQUEST, requestId,
+					Constants.TripStatus.PICKED, driver.getId() };
+			mapBO = new MapBO(MapActivity.this);
 			mapBO.execute(params);
 			mButton.setText(getString(R.string.return_customer));
 			LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
 			mReqestLayout.setVisibility(View.GONE);
 			Button deni = (Button) findViewById(R.id.deni);
 			deni.setVisibility(View.GONE);
+			return;
 
 		}
 	}
 
 	public void deni(View v) {
-		String params[] = { Constants.RESPONSE_REQUEST,
-				Constants.TripStatus.REJECTED, requestId };
+		Driver driver = handler.findDriver();
+		String params[] = { Constants.RESPONSE_REQUEST, requestId,
+				Constants.TripStatus.CANCELLED, driver.getId() };
 		LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
 		mReqestLayout.setVisibility(View.GONE);
+		mapBO = new MapBO(MapActivity.this);
 		mapBO.execute(params);
 	}
 
@@ -250,19 +279,20 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		public void onReceive(Context context, Intent intent) {
 
 			rider = new Rider();
-			rider.setId(Integer.parseInt(intent
-					.getStringExtra(Constants.RIDER_ID)));
-			rider.setName(intent.getStringExtra(Constants.RIDER_NAME));
-			rider.setImage(intent.getStringExtra(Constants.RIDER_IMAGE));
+			rider.setId(Integer.parseInt(intent.getStringExtra(Constants.ID)));
+			rider.setName(intent.getStringExtra(Constants.NAME));
+			rider.setImage(intent.getStringExtra(Constants.IMAGE));
 			rider.setLongitude(Double.parseDouble(intent
 					.getStringExtra(Constants.LONGITUDE)));
 			rider.setLatitude(Double.parseDouble(intent
 					.getStringExtra(Constants.LATITUDE)));
+			rider.setPhone(intent.getStringExtra(Constants.PHONE));
 			// display request
 
 			mReqestLayout.setVisibility(View.VISIBLE);
 			mRiderName.setText(rider.getName());
-			requestId = intent.getStringExtra("requestId");
+			mRiderPhoneNumber.setText(rider.getPhone());
+			requestId = intent.getStringExtra("id");
 
 			ImageLoader.ImageCache imageCache = new LruBitmapCache();
 			ImageLoader imageLoader = new ImageLoader(
@@ -273,6 +303,22 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 			// wake mobile up
 			WakeLocker.acquire(context);
 			WakeLocker.release();
+
+			// create marker
+			MarkerOptions marker = new MarkerOptions().position(
+					new LatLng(rider.getLatitude(), rider.getLongitude()))
+					.title(rider.getName());
+			// adding marker
+			googleMap.addMarker(marker);
+			// Moving Camera to a Location with animation
+			CameraPosition cameraPosition = new CameraPosition.Builder()
+					.target(new LatLng(rider.getLatitude(), rider
+							.getLongitude())).zoom(14).build();
+
+			googleMap.animateCamera(CameraUpdateFactory
+					.newCameraPosition(cameraPosition));
+
+			status = Constants.TripStatus.NEW_TRIP;
 		}
 	};
 
@@ -323,10 +369,6 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		switch (position) {
 		case 0:
 			it = new Intent(this, ProfileActivity.class);
-			startActivity(it);
-			break;
-		case 1:
-			it = new Intent(this, MapsFragment.class);
 			startActivity(it);
 			break;
 		case 2:
@@ -399,6 +441,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 				.obtainTypedArray(R.array.nav_drawer_icons);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
 		navDrawerItems = new ArrayList<NavDrawerItem>();
@@ -524,7 +567,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	public void onConnected(Bundle arg0) {
 
 		if (mRequestingLocationUpdates) {
-			startLocationUpdates();
+			// startLocationUpdates();
 		}
 
 	}
@@ -542,17 +585,24 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	@Override
 	public void onLocationChanged(Location location) {
 		// // Assign the new location
-		mLastLocation = location;
+		// mLastLocation = location;
+		//
+		// Toast.makeText(getApplicationContext(), "Location changed!",
+		// Toast.LENGTH_SHORT).show();
+		//
+		// // Displaying the new location on UI
+		// String[] params = { Constants.UPDATE_CURRENT_STATUS,
+		// String.valueOf(mLastLocation.getLongitude()),
+		// String.valueOf(mLastLocation.getLatitude()) };
+		//
+		// mapBO.execute(params);
 
-		Toast.makeText(getApplicationContext(), "Location changed!",
-				Toast.LENGTH_SHORT).show();
-
-		// Displaying the new location on UI
-		String[] params = { Constants.UPDATE_CURRENT_STATUS,
-				String.valueOf(mLastLocation.getLongitude()),
-				String.valueOf(mLastLocation.getLatitude()) };
-
-		mapBO.execute(params);
+		double latitude = location.getLatitude();
+		double longitude = location.getLongitude();
+		LatLng latLng = new LatLng(latitude, longitude);
+		googleMap.addMarker(new MarkerOptions().position(latLng));
+		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+		googleMap.animateCamera(CameraUpdateFactory.zoomTo(14));
 
 	}
 }
