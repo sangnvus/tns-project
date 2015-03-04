@@ -1,7 +1,6 @@
 package vn.co.taxinet.mobile.newactivity;
 
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.activity.ResetPasswordActivity;
 import vn.co.taxinet.mobile.bo.ForgotPasswordBO;
 import android.app.Activity;
 import android.content.Intent;

@@ -3,7 +3,6 @@ package vn.co.taxinet.mobile.newactivity;
 import java.util.ArrayList;
 
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.activity.JourneyDetails;
 import vn.co.taxinet.mobile.adapter.JourneyAdapter;
 import vn.co.taxinet.mobile.model.Journey;
 import android.app.Fragment;
