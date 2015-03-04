@@ -82,7 +82,13 @@ public class TripBOImpl implements TripBO {
 			throw new TNException("Invalid location");
 		}
 		Rider rider = riderDAO.findById(riderId);
+		if (rider == null) {
+			throw new TNException("Rider not found");
+		}
 		Driver driver = driverDAO.findDriverById(driverId);
+		if (driver == null) {
+			throw new TNException("Driver not found");
+		}
 		Trip trip = new Trip();
 		UUID id = UUID.randomUUID();
 		trip.setRequestId(id.toString());
@@ -101,7 +107,7 @@ public class TripBOImpl implements TripBO {
 		trip.setLastModifiedDate(Utility.getCurrentDateTime());
 		tripDAO.insert(trip);
 
-		Content content = createRequestNotification(driver.getDriverId(), rider
+		Content content = createRequestNotification(rider.getRiderId(), rider
 				.getTaxinetusers().getImage(), rider.getFirstName() + " "
 				+ rider.getLastName(), longitude, latitude, String.valueOf(id));
 
@@ -138,20 +144,19 @@ public class TripBOImpl implements TripBO {
 			} else {
 
 				// update status of driver
-//				CurrentStatus currentStatus = currentStatusDAO
-//						.findCurrentStatusById(userId);
-//				if (currentStatus == null) {
-//					throw new TNException("Invalid Id");
-//				}
-//				if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
-//					currentStatus.setCurrentStatus(Constants.DriverStatus.BUSY);
-//					currentStatusDAO.update(currentStatus);
-//				}
-//				if (status.equalsIgnoreCase(Constants.TripStatus.COMPLETED)) {
-//					currentStatus
-//							.setCurrentStatus(Constants.DriverStatus.AVAIABLE);
-//					currentStatusDAO.update(currentStatus);
-//				}
+				CurrentStatus currentStatus = currentStatusDAO.findById(userId);
+				if (currentStatus == null) {
+					throw new TNException("Invalid Id");
+				}
+				if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
+					currentStatus.setCurrentStatus(Constants.DriverStatus.BUSY);
+					currentStatusDAO.update(currentStatus);
+				}
+				if (status.equalsIgnoreCase(Constants.TripStatus.COMPLETED)) {
+					currentStatus
+							.setCurrentStatus(Constants.DriverStatus.AVAIABLE);
+					currentStatusDAO.update(currentStatus);
+				}
 			}
 
 			// send notification to rider
