@@ -6,6 +6,23 @@ public class Rider {
 	private String image;
 	private double longitude;
 	private double latitude;
+	private String phone;
+
+	public Rider(int id, String name, String image, double longitude,
+			double latitude, String phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.image = image;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.phone = phone;
+	}
+
+	public Rider() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getId() {
 		return id;
@@ -47,18 +64,12 @@ public class Rider {
 		this.latitude = latitude;
 	}
 
-	public Rider(int id, String name, String image, double longitude,
-			double latitude) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.image = image;
-		this.longitude = longitude;
-		this.latitude = latitude;
+	public String getPhone() {
+		return phone;
 	}
 
-	public Rider() {
-		super();
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 }

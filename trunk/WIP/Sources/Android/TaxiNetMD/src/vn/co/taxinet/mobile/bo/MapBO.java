@@ -37,7 +37,7 @@ public class MapBO extends AsyncTask<String, Void, String> {
 	@Override
 	protected String doInBackground(String... params) {
 		if (params[0].equalsIgnoreCase(Constants.RESPONSE_REQUEST)) {
-			return responseRequest(params[2], params[1]);
+			return responseRequest(params[1], params[2], params[3]);
 		}
 		if (params[0].equalsIgnoreCase(Constants.UPDATE_CURRENT_STATUS)) {
 			return updateCurrentStatus(params[1], params[2], params[3]);
@@ -54,18 +54,22 @@ public class MapBO extends AsyncTask<String, Void, String> {
 		}
 	}
 
-	public String responseRequest(String requestId, String status) {
+	public String responseRequest(String requestId, String status,
+			String driverId) {
 		// Create a new HttpClient and Post Header
+
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(Constants.URL.LOGIN_AUTHEN);
+		HttpPost httppost = new HttpPost(Constants.URL.UPDATE_TRIP);
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+
 			nameValuePairs.add(new BasicNameValuePair("requestId", requestId));
 			nameValuePairs.add(new BasicNameValuePair("status", status));
-			nameValuePairs.add(new BasicNameValuePair("driverId", AppController
-					.getDriverId()));
+			nameValuePairs.add(new BasicNameValuePair("driverId", driverId));
+
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+
 			// Execute HTTP Post Request
 			HttpResponse response = httpclient.execute(httppost);
 			int respnseCode = response.getStatusLine().getStatusCode();
@@ -108,30 +112,19 @@ public class MapBO extends AsyncTask<String, Void, String> {
 		return null;
 	}
 
-	public String parseJson(String response) {
+	public void parseJson(String response) {
 		try {
 			JSONObject jsonObject = new JSONObject(response);
 			// get message from json
-			String message = jsonObject.getString("role");
+			String message = jsonObject.getString("message");
 			// success
 			// move to mapactivity and save to database offline
-			if (message.equalsIgnoreCase("driver")) {
-				// save to database offline
-
-				// move to map activity
-				Intent it = new Intent(activity, MapActivity.class);
-				activity.startActivity(it);
-
-			}
+			Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
 		} catch (JSONException e) {
 			Toast.makeText(activity,
 					activity.getString(R.string.wrong_email_or_password),
 					Toast.LENGTH_LONG).show();
 		}
-
-		//
-		return null;
-
 	}
 
 }

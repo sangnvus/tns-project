@@ -41,7 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// DRIVER table create statement
 	private static final String CREATE_TABLE_DRIVER = "CREATE TABLE "
 			+ TABLE_DRIVER + "(" + COLUMN_DRIVER_ID
-			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_DRIVER_IMAGES
+			+ " TEXT," + COLUMN_DRIVER_IMAGES
 			+ " TEXT," + COLUMN_DRIVER_FIRST_NAME + " TEXT,"
 			+ COLUMN_DRIVER_LAST_NAME + " TEXT," + COLUMN_DRIVER_EMAIL
 			+ " TEXT," + COLUMN_DRIVER_PASSWORD + " TEXT,"
@@ -154,7 +154,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// looping through all rows and adding to list
 		if (c.moveToFirst()) {
 			driver = new Driver();
-			driver.setId(c.getInt(c.getColumnIndex(COLUMN_DRIVER_ID)));
+			System.out.println(c.getString(c.getColumnIndex(COLUMN_DRIVER_ID)));
+			driver.setId(c.getString(c.getColumnIndex(COLUMN_DRIVER_ID)));
 			driver.setFirstName((c.getString(c
 					.getColumnIndex(COLUMN_DRIVER_FIRST_NAME))));
 			driver.setLastName(c.getString(c
@@ -188,6 +189,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(COLUMN_DRIVER_EMAIL, driver.getEmail());
 		values.put(COLUMN_DRIVER_PHONE_NUMBER, driver.getPhoneNumber());
 		values.put(COLUMN_DRIVER_PASSWORD, driver.getPassword());
+		db.execSQL("delete from " + TABLE_DRIVER);
 
 		// updating row
 		int temp = db.update(TABLE_DRIVER, values, COLUMN_DRIVER_ID + " = ?",
@@ -200,10 +202,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	/*
 	 * Deleting a driver
 	 */
-	public int deleteDriverById(long id) {
+	public int deleteDriverById(String id) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		int temp = db.delete(TABLE_DRIVER, COLUMN_DRIVER_ID + " = ?",
-				new String[] { String.valueOf(id) });
+				new String[] { id });
 
 		if (db != null && db.isOpen())
 			db.close();
@@ -222,7 +224,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		if (c.moveToFirst()) {
 			do {
 				Driver driver = new Driver();
-				driver.setId(c.getInt(c.getColumnIndex(COLUMN_DRIVER_ID)));
+				driver.setId(c.getString(c.getColumnIndex(COLUMN_DRIVER_ID)));
 				driver.setFirstName((c.getString(c
 						.getColumnIndex(COLUMN_DRIVER_FIRST_NAME))));
 				driver.setLastName(c.getString(c

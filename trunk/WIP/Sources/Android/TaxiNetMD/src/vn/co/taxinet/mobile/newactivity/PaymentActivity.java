@@ -49,7 +49,7 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_distance_calculating);
+		setContentView(R.layout.activity_payment);
 
 		lblLocation = (TextView) findViewById(R.id.lblLocation);
 		btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
