@@ -10,7 +10,7 @@ public interface TripDAO extends BaseDAO {
 	 * @param id
 	 * @return trip
 	 */
-	public Trip findTripById(java.lang.String id);
+	public Trip findTripById(String id);
 
 	/**
 	 * @author Hieu-Gie
