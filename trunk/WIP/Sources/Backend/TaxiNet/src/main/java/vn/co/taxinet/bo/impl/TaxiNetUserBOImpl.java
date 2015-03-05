@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.bo.TaxiNetUserBO;
 import vn.co.taxinet.common.Constants;
+import vn.co.taxinet.common.Constants.GroupUser;
 import vn.co.taxinet.common.exception.TNException;
 import vn.co.taxinet.dao.CountryDAO;
 import vn.co.taxinet.dao.DriverDAO;
@@ -17,6 +18,7 @@ import vn.co.taxinet.dao.RiderDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
 import vn.co.taxinet.dao.UserGroupDAO;
 import vn.co.taxinet.dto.DriverDTO;
+import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.dto.TaxiNetUserDTO;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
@@ -63,8 +65,9 @@ public class TaxiNetUserBOImpl implements TaxiNetUserBO {
 	public void setTaxiNetUserDAO(TaxiNetUserDAO taxiNetUserDAO) {
 		this.taxiNetUserDAO = taxiNetUserDAO;
 	}
+
 	@Transactional
-	public String register(TaxiNetUserDTO user) throws TNException{
+	public String register(TaxiNetUserDTO user) throws TNException {
 		if (user.getUserName() == null) {
 			return "";
 		}
@@ -89,22 +92,22 @@ public class TaxiNetUserBOImpl implements TaxiNetUserBO {
 		}
 		TaxiNetUsers taxiNetUser = new TaxiNetUsers();
 		// check
-		if(userGroupDAO.findById(user.getUserGroup())!=null){
-			taxiNetUser.setUserGroup(userGroupDAO.findById(user.getUserGroup()));
-		}else {
+		if (userGroupDAO.findById(user.getUserGroup()) != null) {
+			taxiNetUser
+					.setUserGroup(userGroupDAO.findById(user.getUserGroup()));
+		} else {
 			return "user group not found";
 		}
-		if(languageDAO.findById(user.getLanguage())!= null){
+		if (languageDAO.findById(user.getLanguage()) != null) {
 			taxiNetUser.setLanguage(languageDAO.findById(user.getLanguage()));
-		}else{
+		} else {
 			return "language code not found";
 		}
-		if(countryDAO.findById(user.getCountryCode())!=null){
+		if (countryDAO.findById(user.getCountryCode()) != null) {
 			taxiNetUser.setCountry(countryDAO.findById(user.getCountryCode()));
-		}else{
+		} else {
 			return "counntry code not found";
 		}
-		
 
 		String uid = UUID.randomUUID().toString();
 		taxiNetUser.setUserId(uid);
@@ -125,7 +128,7 @@ public class TaxiNetUserBOImpl implements TaxiNetUserBO {
 			driver.setLastName(user.getLastName());
 			driver.setMobileNo(user.getPhone());
 			driver.setTaxinetusers(taxiNetUser);
-			
+
 			driver.setCreatedBy(taxiNetUser.getUserId());
 			driver.setCreatedDate(Utility.getCurrentDateTime());
 			driver.setLastModifiedBy(taxiNetUser.getUserId());
@@ -139,7 +142,7 @@ public class TaxiNetUserBOImpl implements TaxiNetUserBO {
 			rider.setLastName(user.getLastName());
 			rider.setMobileNo(user.getPhone());
 			rider.setTaxinetusers(taxiNetUser);
-			
+
 			rider.setCreatedBy(taxiNetUser.getUserId());
 			rider.setCreatedDate(Utility.getCurrentDateTime());
 			rider.setLastModifiedBy(taxiNetUser.getUserId());
@@ -163,18 +166,54 @@ public class TaxiNetUserBOImpl implements TaxiNetUserBO {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.bo.TaxiNetUserBO#listAllCountry()
 	 */
 	public List<Country> listAllCountry() {
 		return countryDAO.selectAllCountry();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.bo.TaxiNetUserBO#listAllLanguage()
 	 */
 	public List<Language> listAllLanguage() {
 		return languageDAO.listAllLanguage();
+	}
+
+	public MessageDTO updateRegId(String id, String groupUser, String regId)
+			throws TNException {
+		if (id == null || regId == null || regId.equalsIgnoreCase("")
+				|| id.equalsIgnoreCase("") || groupUser == null
+				|| groupUser.equalsIgnoreCase("")) {
+			throw new TNException("data it null");
+		}
+		if (groupUser.equalsIgnoreCase(GroupUser.DRIVER)) {
+			Driver driver = driverDAO.findDriverById(id);
+			if (driver == null) {
+				return null;
+			}
+			driver.setRegId(regId);
+			driverDAO.update(driver);
+
+			return new MessageDTO(Constants.Message.SUCCESS);
+		}
+
+		if (groupUser.equalsIgnoreCase(GroupUser.RIDER)) {
+			Rider rider = riderDAO.findById(id);
+			if (rider == null) {
+				return null;
+			}
+			rider.setRegId(regId);
+			riderDAO.update(rider);
+
+			return new MessageDTO(Constants.Message.SUCCESS);
+		}
+		throw new TNException("Error");
+
 	}
 
 }
