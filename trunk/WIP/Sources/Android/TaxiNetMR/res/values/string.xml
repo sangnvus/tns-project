@@ -118,6 +118,11 @@
     <string name="picked">Picked</string>
     <string name="return_customer">Return Customer</string>
     <string name="email_or_password">Email or phone number</string>
+    <string name="price">Price</string>
+    <string name="start_point">Start Point</string>
+    <string name="end_point">End Point</string>
+    <string name="cost_estimate">Cost Estimate</string>
+    <string name="send_request">Send Request</string>
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
         <item>Profile</item>

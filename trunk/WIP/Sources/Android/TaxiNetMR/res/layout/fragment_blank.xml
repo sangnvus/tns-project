@@ -1,31 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-    <!--
-    <RelativeLayout
-        android:id="@+id/relativelayout_connection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:alpha="0.8"
-        android:background="@android:color/black" >
-
-        <TextView
-            android:id="@+id/textView_noInternetConnection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:drawableLeft="@drawable/ic_warning"
-            android:text="@string/no_internet_connection"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
-    </RelativeLayout>
-    -->
-
+	
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
@@ -35,8 +11,11 @@
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.MapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/call_taxi_firm" />
+            android:layout_height="match_parent" />
+        
+        
+
+        
         <!-- Listview to display slider menu -->
 
         <ListView
@@ -50,76 +29,109 @@
             android:dividerHeight="1dp"
             android:listSelector="@drawable/list_selector" />
     </android.support.v4.widget.DrawerLayout>
-
-    <LinearLayout
-        android:id="@+id/request_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="120dp"
-        android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
-        android:orientation="horizontal" >
-
-        <com.android.volley.toolbox.NetworkImageView
-            android:id="@+id/iv_driver_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop" />
-
-        <LinearLayout
+    <RelativeLayout
+            android:id="@+id/no_driver_nearby"
             android:layout_width="fill_parent"
-            android:layout_height="120dp"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" 
+            android:background="@color/light_green">
 
-            <TextView
-                android:id="@+id/tv_rider_name"
+            <Button
+                android:id="@+id/call_taxi_firm"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@string/driver"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_alignParentBottom="true"
+                android:onClick="callTaxiFirms"
+                android:text="@string/call_taxi_firm" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rider_send_request_information"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp" 
+            android:background="@color/light_green">
 
             <TextView
-                android:id="@+id/tv_rider_phone_number"
-                android:layout_width="fill_parent"
+                android:id="@+id/price"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@string/phone_number"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_alignParentTop="true"
+                android:text="@string/price" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/first_price_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/price"
+                android:text="100.000 VND" />
+
+            <TextView
+                android:id="@+id/start_point"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/price"
+                android:text="@string/start_point" />
+
+            <TextView
+                android:id="@+id/start_point_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/first_price_value"
+                android:layout_toRightOf="@+id/start_point"
+                android:text="ABC" />
+
+            <TextView
+                android:id="@+id/end_point"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/start_point"
+                android:text="@string/end_point" />
+
+            <TextView
+                android:id="@+id/end_point_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/start_point_value"
+                android:layout_toRightOf="@+id/end_point"
+                android:text="XYZ" />
+
+            <TextView
+                android:id="@+id/cost_estimate"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/end_point"
+                android:text="@string/cost_estimate" />
+
+            <TextView
+                android:id="@+id/cost_estimate_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/end_point_value"
+                android:layout_toRightOf="@+id/cost_estimate"
+                android:text="500.000VND" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rider_send_request_first_step"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true" 
+            android:background="@color/light_green">
+
+            <TextView
+                android:id="@+id/driver_full_name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Anh: NVX" />
+
+            <Button
+                android:id="@+id/btn_rider_send_request"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal" >
-
-                <Button
-                    android:id="@+id/bt_accept"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:onClick="accept"
-                    android:text="@string/accept"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/bt_deni"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:onClick="deni"
-                    android:text="@string/deni"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+                android:layout_toRightOf="@+id/driver_full_name"
+                android:text="@string/send_request" />
+        </RelativeLayout>
 
 </RelativeLayout>
