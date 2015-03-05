@@ -22,6 +22,9 @@ public interface Constants {
 	public static final String COMMA_SYMBOL = ",";
 	public static final double MAX_VAL_MONEY = 0.0;
 	public static final String STR_MONEY_FORMAT = "";
+	
+	public static final String SUCCESS = "SUCCESS";
+	public static final String FAILED = "FAILED";
 
 	public static final int MAX_PASSWORD_LENGTH = 10;
 	public static final int MIN_PASSWORD_LENGTH = 6;
