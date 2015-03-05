@@ -1,5 +1,6 @@
 package vn.co.taxinet.bo.impl;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,9 @@ import vn.co.taxinet.dao.TaxiNetUserDAO;
 import vn.co.taxinet.dao.UserGroupDAO;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.TaxiNetUserDTO;
+import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
+import vn.co.taxinet.orm.Language;
 import vn.co.taxinet.orm.Rider;
 import vn.co.taxinet.orm.TaxiNetUsers;
 import vn.co.taxinet.utils.Utility;
@@ -158,6 +161,20 @@ public class TaxiNetUserBOImpl implements TaxiNetUserBO {
 	public String changePass(String userID, String newPassword) {
 		String result = taxiNetUserDAO.changePassword(userID, newPassword);
 		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.TaxiNetUserBO#listAllCountry()
+	 */
+	public List<Country> listAllCountry() {
+		return countryDAO.selectAllCountry();
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.TaxiNetUserBO#listAllLanguage()
+	 */
+	public List<Language> listAllLanguage() {
+		return languageDAO.listAllLanguage();
 	}
 
 }
