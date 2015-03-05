@@ -168,7 +168,6 @@ public class DriverBOImpl implements DriverBO {
 				driverDTO.setLatitude(lat2);
 				listDriverDTO.add(driverDTO);
 			}
-
 		}
 		return listDriverDTO;
 	}
