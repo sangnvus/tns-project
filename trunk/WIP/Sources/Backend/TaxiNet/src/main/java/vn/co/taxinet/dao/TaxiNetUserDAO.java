@@ -62,4 +62,11 @@ public interface TaxiNetUserDAO extends BaseDAO {
 
 	List<TaxiNetUsers> listAllUsers(String username, String email);
 	List<TaxiNetUsers> paginationList(int page, int numberOfElement);
+	
+	/**
+	 * @author Ecchi
+	 * @param email
+	 * @return
+	 */
+	List<TaxiNetUsers> listUsersByEmail(String email);
 }
