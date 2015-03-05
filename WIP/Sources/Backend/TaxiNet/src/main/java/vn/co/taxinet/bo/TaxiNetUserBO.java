@@ -1,7 +1,11 @@
 package vn.co.taxinet.bo;
 
+import java.util.List;
+
 import vn.co.taxinet.common.exception.TNException;
 import vn.co.taxinet.dto.TaxiNetUserDTO;
+import vn.co.taxinet.orm.Country;
+import vn.co.taxinet.orm.Language;
 
 
 /**
@@ -18,4 +22,16 @@ public interface TaxiNetUserBO {
 	 * @return
 	 */
 	public String changePass(String userID, String newPassword);
+	
+	/**
+	 * @author Ecchi
+	 * @return
+	 */
+	public List<Country> listAllCountry();
+	
+	/**
+	 * @author Ecchi
+	 * @return
+	 */
+	public List<Language> listAllLanguage();
 }

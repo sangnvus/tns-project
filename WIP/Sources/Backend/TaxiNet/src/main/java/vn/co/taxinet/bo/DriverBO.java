@@ -169,5 +169,12 @@ public interface DriverBO {
 	public Driver findDriverByUsername(String Username) throws TNSException;
 
 	public void update(Driver updateDriver) throws TNSException;
+	
+	/**
+	 * @category Add New Driver
+	 * @param driver
+	 * @return result
+	 */
+	public String addNewDriver(Driver driver);
 }
 

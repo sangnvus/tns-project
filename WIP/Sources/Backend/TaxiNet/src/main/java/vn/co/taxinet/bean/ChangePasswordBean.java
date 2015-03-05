@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import vn.co.taxinet.bo.TaxiNetUserBO;
 import vn.co.taxinet.common.Constants;
-import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
  * @author Ecchi
