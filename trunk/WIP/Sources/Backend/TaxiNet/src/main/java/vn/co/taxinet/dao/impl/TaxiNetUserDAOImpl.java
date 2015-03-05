@@ -238,6 +238,7 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 	 * @see vn.co.taxinet.dao.TaxiNetUserDAO#changePassword(java.lang.String,
 	 * java.lang.String)
 	 */
+	@Transactional
 	public String changePassword(String userID, String newPassword) {
 		Session session = getSessionFactory().getCurrentSession();
 		String hql = "UPDATE TaxiNetUsers SET password = :password WHERE userId = :userId";
@@ -246,5 +247,18 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		query.setParameter("userId", userID);
 		int result = query.executeUpdate();
 		return String.valueOf(result);
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.TaxiNetUserDAO#listUsersByEmail(java.lang.String)
+	 */
+	@Transactional
+	public List<TaxiNetUsers> listUsersByEmail(String email) {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "FROM TaxiNetUsers U WHERE U.email = :email";
+		Query query = session.createQuery(hql);
+		query.setParameter("email", email);
+		List<TaxiNetUsers> userList = query.list();
+		return userList;
 	}
 }
