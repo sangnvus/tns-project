@@ -149,7 +149,9 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	String cbb = null;
 	private int checkPolyLine = 0;
 	private Polyline line = null;
-	RelativeLayout tyty;
+	RelativeLayout rider_send_request_information;
+	RelativeLayout rider_send_request_first_step;
+	RelativeLayout no_driver_nearby;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -167,7 +169,14 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		// Loading map
 		initilizeMap();
 		displayLocation();
+		rider_send_request_information = (RelativeLayout) findViewById(R.id.rider_send_request_information);
+		rider_send_request_information.setVisibility(View.GONE);
 		
+		rider_send_request_first_step = (RelativeLayout) findViewById(R.id.rider_send_request_first_step);
+		rider_send_request_first_step.setVisibility(View.GONE);
+		
+		no_driver_nearby = (RelativeLayout) findViewById(R.id.no_driver_nearby);
+		no_driver_nearby.setVisibility(View.GONE);
 		initialize();
 	}
 
@@ -180,13 +189,9 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		IntentFilter filter = new IntentFilter(
 				Constants.BroadcastAction.DISPLAY_REQUEST);
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
-		receiver = new mHandleMessageReceiver();
+		//receiver = new mHandleMessageReceiver();
 		registerReceiver(receiver, filter);
 
-		mRiderName = (TextView) findViewById(R.id.tv_rider_name);
-		mRiderPhoneNumber = (TextView) findViewById(R.id.tv_rider_phone_number);
-		mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
-		mReqestLayout.setVisibility(View.GONE);
 
 		handler = new DatabaseHandler(this);
 	}
@@ -272,7 +277,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 					// Start downloading json data from Google Directions API
 					downloadTask.execute(url);
-					//tyty.setVisibility(View.VISIBLE);
+					rider_send_request_information.setVisibility(View.VISIBLE);
+					rider_send_request_first_step.setVisibility(View.VISIBLE);
 
 					return false;
 				}
@@ -283,6 +289,11 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 				@Override
 				public void onMapClick(LatLng arg0) {
 					// TODO Auto-generated method stub
+					
+					//Hide infor box
+					rider_send_request_first_step.setVisibility(View.GONE);
+					rider_send_request_information.setVisibility(View.GONE);
+					
 					Location targetLocation = new Location("");// provider name
 																// is unecessary
 					targetLocation.setLatitude(arg0.latitude);// your coords of
@@ -519,106 +530,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		super.onDestroy();
 	}
 
-	public void accept(View v) {
-		Driver driver = handler.findDriver();
-		Button mButton = (Button) findViewById(R.id.bt_accept);
-		if (status.equalsIgnoreCase(Constants.TripStatus.NEW_TRIP)) {
-			status = Constants.TripStatus.PICKING;
-			String params[] = { Constants.RESPONSE_REQUEST, requestId,
-					Constants.TripStatus.PICKING, driver.getId() };
-			mapBO = new MapBO(MapActivity.this);
-			mapBO.execute(params);
-			mButton.setText(getString(R.string.picked));
-			return;
-
-		}
-		if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
-			status = Constants.TripStatus.PICKED;
-			String params[] = { Constants.RESPONSE_REQUEST, requestId,
-					Constants.TripStatus.PICKED, driver.getId() };
-			mapBO = new MapBO(MapActivity.this);
-			mapBO.execute(params);
-			mButton.setText(getString(R.string.return_customer));
-			LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
-			mReqestLayout.setVisibility(View.GONE);
-			Button deni = (Button) findViewById(R.id.deni);
-			deni.setVisibility(View.GONE);
-			return;
-
-		}
-		if (status.equalsIgnoreCase(Constants.TripStatus.PICKED)) {
-			status = Constants.TripStatus.PICKED;
-			String params[] = { Constants.RESPONSE_REQUEST, requestId,
-					Constants.TripStatus.PICKED, driver.getId() };
-			mapBO = new MapBO(MapActivity.this);
-			mapBO.execute(params);
-			mButton.setText(getString(R.string.return_customer));
-			LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
-			mReqestLayout.setVisibility(View.GONE);
-			Button deni = (Button) findViewById(R.id.deni);
-			deni.setVisibility(View.GONE);
-			return;
-
-		}
-	}
-
-	public void deni(View v) {
-		Driver driver = handler.findDriver();
-		String params[] = { Constants.RESPONSE_REQUEST, requestId,
-				Constants.TripStatus.CANCELLED, driver.getId() };
-		LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
-		mReqestLayout.setVisibility(View.GONE);
-		mapBO = new MapBO(MapActivity.this);
-		mapBO.execute(params);
-	}
-
-	public class mHandleMessageReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-
-			rider = new Rider();
-			rider.setId(Integer.parseInt(intent.getStringExtra(Constants.ID)));
-			rider.setName(intent.getStringExtra(Constants.NAME));
-			rider.setImage(intent.getStringExtra(Constants.IMAGE));
-			rider.setLongitude(Double.parseDouble(intent
-					.getStringExtra(Constants.LONGITUDE)));
-			rider.setLatitude(Double.parseDouble(intent
-					.getStringExtra(Constants.LATITUDE)));
-			rider.setPhone(intent.getStringExtra(Constants.PHONE));
-			// display request
-
-			mReqestLayout.setVisibility(View.VISIBLE);
-			mRiderName.setText(rider.getName());
-			mRiderPhoneNumber.setText(rider.getPhone());
-			requestId = intent.getStringExtra("id");
-
-			ImageLoader.ImageCache imageCache = new LruBitmapCache();
-			ImageLoader imageLoader = new ImageLoader(
-					Volley.newRequestQueue(getApplicationContext()), imageCache);
-			NetworkImageView imgAvatar = (NetworkImageView) findViewById(R.id.iv_driver_image);
-			imgAvatar.setImageUrl(rider.getImage(), imageLoader);
-
-			// wake mobile up
-			WakeLocker.acquire(context);
-			WakeLocker.release();
-
-			// create marker
-			MarkerOptions marker = new MarkerOptions().position(
-					new LatLng(rider.getLatitude(), rider.getLongitude()))
-					.title(rider.getName());
-			// adding marker
-			googleMap.addMarker(marker);
-			// Moving Camera to a Location with animation
-			CameraPosition cameraPosition = new CameraPosition.Builder()
-					.target(new LatLng(rider.getLatitude(), rider
-							.getLongitude())).zoom(14).build();
-
-			googleMap.animateCamera(CameraUpdateFactory
-					.newCameraPosition(cameraPosition));
-
-			status = Constants.TripStatus.NEW_TRIP;
-		}
-	};
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
