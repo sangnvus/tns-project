@@ -114,7 +114,7 @@ public class TripDAOImpl extends BaseDAOImpl implements TripDAO {
 		}
 	}
 
-	public MessageDTO updateTripStatus(String requestId, String userId,
+	public int updateTripStatus(String requestId, String userId,
 			String status) {
 		StringBuilder hql = new StringBuilder();
 		String hql1 = "UPDATE Trip ";
@@ -130,14 +130,8 @@ public class TripDAOImpl extends BaseDAOImpl implements TripDAO {
 		query.setParameter("userId", userId);
 		query.setParameter("requestId", requestId);
 		query.setParameter("date", Utility.getCurrentDateTime());
-		int result = query.executeUpdate();
-		if (result == 0) {
-			return new MessageDTO(Constants.Message.REQUEST_NOT_FOUND);
-		} else if (result > 1) {
-			return new MessageDTO(Constants.Message.ERROR);
-		} else {
-			return new MessageDTO(Constants.Message.SUCCESS);
-		}
+		return query.executeUpdate();
+		
 	}
 
 }

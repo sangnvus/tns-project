@@ -37,7 +37,7 @@ public class TripController {
 		return tripBO.createTrip(riderId, driverId, longitude, latitude);
 	}
 
-	@RequestMapping(value = "/UpdateTrip", method = RequestMethod.GET)
+	@RequestMapping(value = "/UpdateTrip", method = RequestMethod.POST)
 	public MessageDTO updateTrip(@RequestParam Map<String, String> requestParams)
 			throws TNException {
 		String requestId = requestParams.get("requestId");

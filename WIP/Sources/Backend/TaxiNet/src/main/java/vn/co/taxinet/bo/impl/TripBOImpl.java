@@ -136,8 +136,7 @@ public class TripBOImpl implements TripBO {
 		}
 		if (userId.equalsIgnoreCase(trip.getDriver().getDriverId())) {
 			// update trip
-			MessageDTO mes = tripDAO
-					.updateTripStatus(requestId, userId, status);
+			int result = tripDAO.updateTripStatus(requestId, userId, status);
 			if (status.equalsIgnoreCase(Constants.TripStatus.CANCELLED)) {
 				// send notification to rider
 				createCancelNotification(userId, status, requestId);
@@ -162,12 +161,26 @@ public class TripBOImpl implements TripBO {
 			// send notification to rider
 			createAcceptNotification(userId, status, requestId);
 
-			return mes;
+			if (result == 0) {
+				return new MessageDTO(Constants.Message.REQUEST_NOT_FOUND);
+			} else if (result > 1) {
+				return new MessageDTO(Constants.Message.ERROR);
+			} else {
+				return new MessageDTO(status);
+			}
 		}
 		if (userId.equalsIgnoreCase(trip.getRider().getRiderId())) {
 			// send notification to driver
 			createCancelNotification(userId, status, requestId);
-			return tripDAO.updateTripStatus(requestId, userId, status);
+			int result = tripDAO.updateTripStatus(requestId, userId, status);
+			
+			if (result == 0) {
+				return new MessageDTO(Constants.Message.REQUEST_NOT_FOUND);
+			} else if (result > 1) {
+				return new MessageDTO(Constants.Message.ERROR);
+			} else {
+				return new MessageDTO(status);
+			}
 		}
 		throw new TNException("Invalid Id");
 	}
