@@ -29,7 +29,9 @@ import org.json.JSONObject;
 
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
+import vn.co.taxinet.mobile.alert.AlertDialogManager;
 import vn.co.taxinet.mobile.bo.MapBO;
+import vn.co.taxinet.mobile.bo.TripBO;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
 import vn.co.taxinet.mobile.gcm.GooglePlayService;
 import vn.co.taxinet.mobile.googleapi.DirectionsJSONParser;
@@ -38,6 +40,7 @@ import vn.co.taxinet.mobile.model.NavDrawerItem;
 import vn.co.taxinet.mobile.model.Rider;
 import vn.co.taxinet.mobile.utils.Constants;
 import vn.co.taxinet.mobile.utils.LruBitmapCache;
+import vn.co.taxinet.mobile.utils.Utils;
 import vn.co.taxinet.mobile.utils.WakeLocker;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -59,6 +62,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -122,6 +126,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	private Rider rider = null;
 	private GooglePlayService googlePlayService;
 	private MapBO mapBO;
+	private TripBO tripBO;
+	private Driver x;
 
 	private Location mLastLocation;
 
@@ -141,6 +147,9 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	private String status;
 	private DatabaseHandler handler;
 
+	private String driverid, riderid;
+	private AlertDialogManager alert;
+
 	// Google Map
 	private Marker lastmarker;
 	private ProgressDialog pDialog;
@@ -152,6 +161,11 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	RelativeLayout rider_send_request_information;
 	RelativeLayout rider_send_request_first_step;
 	RelativeLayout no_driver_nearby;
+	RelativeLayout rider_send_request_waiting_step;
+	RelativeLayout rider_send_request_driver_accept;
+
+	private Button send_request;
+	private double start_lat, start_lng, end_lat, end_lng;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -171,12 +185,19 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		displayLocation();
 		rider_send_request_information = (RelativeLayout) findViewById(R.id.rider_send_request_information);
 		rider_send_request_information.setVisibility(View.GONE);
-		
+
 		rider_send_request_first_step = (RelativeLayout) findViewById(R.id.rider_send_request_first_step);
 		rider_send_request_first_step.setVisibility(View.GONE);
-		
+
 		no_driver_nearby = (RelativeLayout) findViewById(R.id.no_driver_nearby);
 		no_driver_nearby.setVisibility(View.GONE);
+		
+		rider_send_request_waiting_step = (RelativeLayout) findViewById(R.id.rider_send_request_waiting_step);
+		rider_send_request_waiting_step.setVisibility(View.GONE);
+		
+		rider_send_request_driver_accept = (RelativeLayout) findViewById(R.id.rider_send_request_driver_accept);
+		rider_send_request_driver_accept.setVisibility(View.GONE);
+		
 		initialize();
 	}
 
@@ -189,9 +210,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		IntentFilter filter = new IntentFilter(
 				Constants.BroadcastAction.DISPLAY_REQUEST);
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
-		//receiver = new mHandleMessageReceiver();
+		// receiver = new mHandleMessageReceiver();
 		registerReceiver(receiver, filter);
-
 
 		handler = new DatabaseHandler(this);
 	}
@@ -280,6 +300,39 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 					rider_send_request_information.setVisibility(View.VISIBLE);
 					rider_send_request_first_step.setVisibility(View.VISIBLE);
 
+					x = new Driver();
+
+					send_request = (Button) findViewById(R.id.btn_rider_send_request);
+					send_request.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							tripBO = new TripBO();
+							if (Utils
+									.isConnectingToInternet(getApplicationContext())) {
+
+								driverid = "3";
+								riderid="3";
+								tripBO.CreateTrip(MapActivity.this, driverid, riderid, ""+start_lat, ""+start_lng, ""+end_lat, ""+end_lng, "1");
+									
+								rider_send_request_first_step.setVisibility(View.GONE);
+								rider_send_request_waiting_step.setVisibility(View.VISIBLE);
+							} else {
+								// show error message
+								alert.showAlertDialog(
+										MapActivity.this,
+										getResources()
+												.getString(
+														R.string.alert_internet_error_title),
+										getResources()
+												.getString(
+														R.string.alert_internet_error_message),
+										false);
+							}
+
+						}
+					});
+
 					return false;
 				}
 			});
@@ -289,11 +342,11 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 				@Override
 				public void onMapClick(LatLng arg0) {
 					// TODO Auto-generated method stub
-					
-					//Hide infor box
+
+					// Hide infor box
 					rider_send_request_first_step.setVisibility(View.GONE);
 					rider_send_request_information.setVisibility(View.GONE);
-					
+
 					Location targetLocation = new Location("");// provider name
 																// is unecessary
 					targetLocation.setLatitude(arg0.latitude);// your coords of
@@ -335,8 +388,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 		}
 	}
-	
-	//Direction
+
+	// Direction
 	private String getDirectionsUrl(LatLng origin, LatLng dest) {
 
 		// Origin of route
@@ -529,8 +582,6 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		unregisterReceiver(receiver);
 		super.onDestroy();
 	}
-
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
