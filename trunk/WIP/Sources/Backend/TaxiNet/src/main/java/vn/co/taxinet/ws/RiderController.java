@@ -49,21 +49,5 @@ public class RiderController {
 			String password = requestParams.get("password");
 			return riderBO.login(username, password);
 		}
-		@RequestMapping("/register")
-		public String register(@RequestParam Map<String,String> requestParams){
-			String email = requestParams.get("email");
-			String password = requestParams.get("password");
-			String firstName = requestParams.get("firstname");
-			String lastName = requestParams.get("lastname");
-			String phone = requestParams.get("phone");
-			String language = requestParams.get("language");
-			String userGroup = requestParams.get("usergroup");
-			String countryCode = requestParams.get("countrycode");
-			if(userGroup == null){
-				return "";
-			}
-			String riderId = taxiNetUserBO.register(email, password, email, userGroup, language, countryCode);
-			String result = riderBO.register(riderId, firstName, lastName, phone);
-			return result;
-		}
+
 }
