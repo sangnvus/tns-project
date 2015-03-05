@@ -1,5 +1,6 @@
 package vn.co.taxinet.ws;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class DriverController {
 		return driverBO.login(username, password);
 	}
 
-	@RequestMapping(value = "/UpdateCurrentStatus", method = RequestMethod.GET)
+	@RequestMapping(value = "/UpdateCurrentStatus", method = RequestMethod.POST, produces={"application/json"})
 	@ResponseBody
 	public MessageDTO updateCurrentStatus(
 			@RequestParam Map<String, String> requestParams) throws TNException {
@@ -58,6 +59,8 @@ public class DriverController {
 		String latitude = requestParams.get("latitude");
 		String status = requestParams.get("status");
 		String location = requestParams.get("location");
+		System.out.println(location);
+		
 		MessageDTO result = driverBO.updateCurrentStatus(driverId, longitude,
 				latitude, status, location);
 		return result;

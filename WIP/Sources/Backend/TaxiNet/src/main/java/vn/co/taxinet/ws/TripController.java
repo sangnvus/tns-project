@@ -31,10 +31,13 @@ public class TripController {
 			throws TNException {
 		String riderId = requestParams.get("riderId");
 		String driverId = requestParams.get("driverId");
-		String longitude = requestParams.get("longitude");
-		String latitude = requestParams.get("latitude");
+		String startLongitude = requestParams.get("startlongitude");
+		String startLatitude = requestParams.get("startlatitude");
+		String stopLongitude = requestParams.get("stoplongitude");
+		String stopLatitude = requestParams.get("stoplatitude");
 
-		return tripBO.createTrip(riderId, driverId, longitude, latitude);
+		return tripBO.createTrip(riderId, driverId, startLongitude,
+				startLatitude, stopLongitude, stopLatitude);
 	}
 
 	@RequestMapping(value = "/UpdateTrip", method = RequestMethod.POST)

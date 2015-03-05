@@ -71,6 +71,14 @@ public class DriverBOImpl implements DriverBO {
 	@Autowired
 	private CurrentStatusDAO currentStatusDAO;
 
+	public CurrentStatusDAO getCurrentStatusDAO() {
+		return currentStatusDAO;
+	}
+
+	public void setCurrentStatusDAO(CurrentStatusDAO currentStatusDAO) {
+		this.currentStatusDAO = currentStatusDAO;
+	}
+
 	public void setPricePanelDAO(PricePanelDAO pricePanelDAO) {
 		this.pricePanelDAO = pricePanelDAO;
 	}
