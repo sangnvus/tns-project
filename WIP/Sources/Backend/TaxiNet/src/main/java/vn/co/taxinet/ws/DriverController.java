@@ -80,16 +80,4 @@ public class DriverController {
 		return result;
 
 	}
-
-	@RequestMapping(value = "/UpdateRegId", method = RequestMethod.POST)
-	@ResponseBody
-	public MessageDTO updateRegId(
-			@RequestParam Map<String, String> requestParams) throws TNException {
-		String id = requestParams.get("id");
-		String regId = requestParams.get("regId");
-System.out.println("here " + id + " " + regId);
-		MessageDTO result = driverBO.updateRegId(id, regId);
-		return result;
-
-	}
 }

@@ -3,6 +3,7 @@ package vn.co.taxinet.bo;
 import java.util.List;
 
 import vn.co.taxinet.common.exception.TNException;
+import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.dto.TaxiNetUserDTO;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Language;
@@ -34,4 +35,6 @@ public interface TaxiNetUserBO {
 	 * @return
 	 */
 	public List<Language> listAllLanguage();
+	
+	public MessageDTO updateRegId(String id, String groupUser, String regId) throws TNException;
 }
