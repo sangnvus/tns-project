@@ -20,7 +20,7 @@ public interface TripDAO extends BaseDAO {
 	 * @param status
 	 * @return status
 	 */
-	public MessageDTO updateTripStatus(String requestId, String userId,
+	public int updateTripStatus(String requestId, String userId,
 			String status);
 
 }

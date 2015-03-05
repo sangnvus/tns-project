@@ -159,8 +159,9 @@ public class DriverBOImpl implements DriverBO {
 			dist = Math.acos(dist);
 			dist = Utility.rad2deg(dist);
 			dist = dist * 60 * 1.1515 * 1.609344;
-
+			System.out.println(dist);
 			if (dist < 5) {
+				
 				DriverDTO driverDTO = new DriverDTO();
 				driverDTO.setId(driver.getDriverId());
 				driverDTO.setLongitude(log2);
