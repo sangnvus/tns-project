@@ -193,6 +193,7 @@
 		<property name="carModelDAO" ref="carModelDAO" />
 		<property name="vehicleDAO" ref="vehicleDAO" />
 		<property name="taxiNetUserDAO" ref="taxiNetUserDAO" />
+		<property name="currentStatusDAO" ref="currentStatusDAO" />
 	</bean>
 	<bean id="tripBO" class="vn.co.taxinet.bo.impl.TripBOImpl">
 		<property name="tripDAO" ref="tripDAO" />

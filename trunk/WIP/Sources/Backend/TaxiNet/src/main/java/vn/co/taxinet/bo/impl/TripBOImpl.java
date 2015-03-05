@@ -68,16 +68,20 @@ public class TripBOImpl implements TripBO {
 
 	@Transactional
 	public MessageDTO createTrip(String riderId, String driverId,
-			String longitude, String latitude) throws TNException {
+			String startLongitude, String startLatitude, String stopLongitude,
+			String stopLatitude) throws TNException {
 		if (driverId == null || driverId.equalsIgnoreCase("")) {
 			throw new TNException("DriverID is null");
 		}
 		if (riderId == null || riderId.equalsIgnoreCase("")) {
 			throw new TNException("RiderId is null");
 		}
+		double log1, log2, lat1, lat2;
 		try {
-			Double.parseDouble(longitude);
-			Double.parseDouble(latitude);
+			log1 = Double.parseDouble(startLongitude);
+			lat1 = Double.parseDouble(startLatitude);
+			log2 = Double.parseDouble(stopLongitude);
+			lat2 = Double.parseDouble(stopLatitude);
 		} catch (NumberFormatException e) {
 			throw new TNException("Invalid location");
 		}
@@ -95,6 +99,10 @@ public class TripBOImpl implements TripBO {
 		trip.setDriver(driver);
 		trip.setRider(rider);
 		trip.setVehicle(driver.getVehicle());
+		trip.setStartLatitude(lat1);
+		trip.setStartLongtitude(log1);
+		trip.setEndLatitude(lat2);
+		trip.setEndLongtitude(lat2);
 		// hard code
 		trip.setCity(cityDAO.findById(1));
 		trip.setPayment(paymentDAO.findById(1));
@@ -105,11 +113,13 @@ public class TripBOImpl implements TripBO {
 		trip.setCreatedDate(Utility.getCurrentDateTime());
 		trip.setLastModifiedBy(rider.getRiderId());
 		trip.setLastModifiedDate(Utility.getCurrentDateTime());
+
 		tripDAO.insert(trip);
 
 		Content content = createRequestNotification(rider.getRiderId(), rider
 				.getTaxinetusers().getImage(), rider.getFirstName() + " "
-				+ rider.getLastName(), longitude, latitude, String.valueOf(id));
+				+ rider.getLastName(), startLongitude, startLatitude,
+				String.valueOf(id));
 
 		String message = POST2GCM.post(Constants.apiKey, content);
 		if (message.equals(Constants.Message.SUCCESS)) {
@@ -173,7 +183,7 @@ public class TripBOImpl implements TripBO {
 			// send notification to driver
 			createCancelNotification(userId, status, requestId);
 			int result = tripDAO.updateTripStatus(requestId, userId, status);
-			
+
 			if (result == 0) {
 				return new MessageDTO(Constants.Message.REQUEST_NOT_FOUND);
 			} else if (result > 1) {

@@ -14,8 +14,9 @@ public interface TripBO {
 	 * @return MessageDTO
 	 * @throws TNException
 	 */
-	public MessageDTO createTrip(String riderId, String driverId, String longitude,
-			String latitude) throws TNException;
+	public MessageDTO createTrip(String riderId, String driverId,
+			String startLongitude, String startLlatitude, String stopLongitude,
+			String stopLatitude) throws TNException;
 
 	/**
 	 * @author Hieu-Gie
@@ -26,5 +27,6 @@ public interface TripBO {
 	 * @return MessageDTO
 	 * @throws TNException
 	 */
-	public MessageDTO updateTrip(String requestId, String userId, String status) throws TNException;
+	public MessageDTO updateTrip(String requestId, String userId, String status)
+			throws TNException;
 }
