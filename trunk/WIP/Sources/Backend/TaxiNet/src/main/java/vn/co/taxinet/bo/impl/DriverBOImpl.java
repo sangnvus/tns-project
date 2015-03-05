@@ -547,4 +547,47 @@ public class DriverBOImpl implements DriverBO {
 	public int countAllDriverOfCompany(String companyID) {
 		return driverDAO.countAllDriver(companyID);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.DriverBO#addNewDriver(vn.co.taxinet.orm.Driver)
+	 */
+	@Transactional
+	public String addNewDriver(Driver driver) {
+		if (driver != null) {
+			UUID id = UUID.randomUUID();
+			Driver oldDriver = driverDAO.findDriverById(String.valueOf(id));
+			if (oldDriver == null) {
+				String email = driver.getTaxinetusers().getEmail();
+				List<TaxiNetUsers> userList = taxiNetUserDAO
+						.listUsersByEmail(email);
+				if (userList.size() > 0) {
+					return Constants.FAILED;
+				} else {
+					driver.getTaxinetusers().setUserId(id.toString());
+					driver.setDriverId(id.toString());
+					taxiNetUserDAO.insert(driver.getTaxinetusers());
+					driverDAO.insert(driver);
+					return Constants.SUCCESS;
+				}
+			} else {
+				id = UUID.randomUUID();
+				String email = driver.getTaxinetusers().getEmail();
+				List<TaxiNetUsers> userList = taxiNetUserDAO
+						.listUsersByEmail(email);
+				if (userList.size() > 0) {
+					return Constants.FAILED;
+				} else {
+					driver.getTaxinetusers().setUserId(id.toString());
+					driver.setDriverId(id.toString());
+					taxiNetUserDAO.insert(driver.getTaxinetusers());
+					driverDAO.insert(driver);
+					return Constants.SUCCESS;
+				}
+			}
+		} else {
+			return Constants.FAILED;
+		}
+	}
 }
