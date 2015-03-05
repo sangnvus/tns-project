@@ -133,8 +133,8 @@ public class GcmIntentService extends IntentService {
 				.setContentText(msg);
 
 		mBuilder.setContentIntent(contentIntent);
-		long[] vi = { 0, 100, 0, 2000, 0, 3000, 0, 4000 };
-		mBuilder.setVibrate(vi);
+//		long[] vi = { 0, 100, 0, 2000, 0, 3000, 0, 4000 };
+//		mBuilder.setVibrate(vi);
 		mBuilder.setAutoCancel(true);
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 	}

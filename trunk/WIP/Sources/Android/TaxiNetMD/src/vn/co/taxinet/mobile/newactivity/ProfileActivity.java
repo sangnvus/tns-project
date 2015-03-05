@@ -1,5 +1,7 @@
 package vn.co.taxinet.mobile.newactivity;
 
+import com.google.android.gms.internal.mb;
+
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.alert.AlertDialogManager;
 import vn.co.taxinet.mobile.bo.ProfileBO;
@@ -14,17 +16,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class ProfileActivity extends Activity {
 
-	private EditText mEmail, mPhone, mPassword, mFirstName, mLastName;
+	private EditText mEmail, mPhone, mFirstName, mLastName;
 	private MenuItem mSaveMenu, mEditMenu, mCancelMenu;
-	private String email, phone, password, firstName, lastName;
+	private String email, phone, firstName, lastName;
 	private ProfileBO bo;
 	private ActionBar actionBar;
 	private DatabaseHandler handler;
+	private Button mPassword;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +55,17 @@ public class ProfileActivity extends Activity {
 
 	public void initialize() {
 
-		mEmail = (EditText) findViewById(R.id.et_email_profile);
+		mEmail = (EditText) findViewById(R.id.et_email);
 		mPhone = (EditText) findViewById(R.id.et_phone);
-		mPassword = (EditText) findViewById(R.id.et_password_profile);
-		mFirstName = (EditText) findViewById(R.id.et_first_name_profile);
-		mLastName = (EditText) findViewById(R.id.et_last_name_profile);
+		mFirstName = (EditText) findViewById(R.id.et_first_name);
+		mLastName = (EditText) findViewById(R.id.et_last_name);
+		mPassword = (Button) findViewById(R.id.bt_password);
 		bo = new ProfileBO();
 		handler = new DatabaseHandler(this);
 
 		Driver driver = handler.findDriver();
 		mEmail.setText(driver.getEmail());
 		mPhone.setText(driver.getPhoneNumber());
-		mPassword.setText(driver.getPassword());
 		mFirstName.setText(driver.getFirstName());
 		mLastName.setText(driver.getLastName());
 
@@ -94,7 +97,7 @@ public class ProfileActivity extends Activity {
 	public void updateProfile() {
 		if (Utils.isConnectingToInternet(this)) {
 			String result = bo.checkProfile(ProfileActivity.this, firstName,
-					lastName, email, phone, password);
+					lastName, email, phone);
 			if (result.equalsIgnoreCase(Constants.SUCCESS)) {
 				disableEdittext();
 				disableEdit();
@@ -145,9 +148,14 @@ public class ProfileActivity extends Activity {
 	public void getInfo() {
 		email = mEmail.getText().toString();
 		phone = mPhone.getText().toString();
-		password = mPassword.getText().toString();
 		firstName = mFirstName.getText().toString();
 		lastName = mLastName.getText().toString();
+	}
+
+	public void changePassword(View v) {
+		Intent it = new Intent(ProfileActivity.this,
+				ChangPasswordActivity.class);
+		startActivityForResult(it, 1);
 	}
 
 	public void logout(View v) {
