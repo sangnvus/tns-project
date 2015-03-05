@@ -12,6 +12,8 @@
     <string name="register">Register</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
     <string name="connected_account">Connected Account</string>
     <string name="connected">Connected</string>
     <string name="usual_palce">Usual Place</string>
@@ -37,6 +39,7 @@
     <string name="get_password">Get Password</string>
     <string name="reset_password">Reset Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="change_password">Change Password</string>
     <string name="confirm_code">Confirm Code</string>
     <string name="guideline_get_password">* Enter you email or number, we will re-create password for you</string>
     <string name="your_request">Your request</string>
@@ -106,6 +109,8 @@
     <string name="picked">Picked</string>
     <string name="return_customer">Return Customer</string>
     <string name="email_or_password">Email or phone number</string>
+    <string name="response_request">Response Request</string>
+    <string name="response_request_message">Responsing request to server</string>
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">

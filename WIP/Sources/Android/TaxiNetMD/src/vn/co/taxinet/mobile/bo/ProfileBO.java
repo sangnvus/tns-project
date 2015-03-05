@@ -50,11 +50,10 @@ public class ProfileBO {
 	 * @param lastName
 	 * @param email
 	 * @param phone
-	 * @param password
 	 */
 
 	public String checkProfile(Activity activity, String firstName,
-			String lastName, String email, String phone, String password) {
+			String lastName, String email, String phone) {
 		this.activity = activity;
 		handler = new DatabaseHandler(activity);
 		driver = handler.findDriver();
@@ -72,16 +71,6 @@ public class ProfileBO {
 		if (phone.equalsIgnoreCase("")) {
 			return Constants.PHONE_NUMBER_ERROR;
 		}
-		if (password.equalsIgnoreCase("")) {
-			return Constants.PASSWORD_ERROR;
-		}
-
-		// check length
-		if (password.length() < 6) {
-			Toast.makeText(activity, Constants.PASSWORD_ERROR,
-					Toast.LENGTH_LONG).show();
-			return Constants.PASSWORD_ERROR;
-		}
 
 		// check email
 		if (!Utils.validateEmail(email)) {
@@ -96,15 +85,14 @@ public class ProfileBO {
 
 		// check if no info change
 		if (!driver.getEmail().equalsIgnoreCase(email)
-				|| !driver.getPassword().equalsIgnoreCase(password)
-				|| !driver.getFirstName().equalsIgnoreCase(firstName)
+
+		|| !driver.getFirstName().equalsIgnoreCase(firstName)
 				|| !driver.getLastName().equalsIgnoreCase(lastName)
 				|| !driver.getPhoneNumber().equalsIgnoreCase(phone)) {
-			String param[] = { firstName, lastName, email, password, phone };
+			String param[] = { firstName, lastName, email, phone };
 			driver.setFirstName(firstName);
 			driver.setLastName(lastName);
 			driver.setEmail(email);
-			driver.setPassword(password);
 			driver.setPhoneNumber(phone);
 			new UpdateDriverAsyncTask().execute(param);
 		}
@@ -146,7 +134,7 @@ public class ProfileBO {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			pd = new ProgressDialog(activity);
-			pd.setTitle("Login");
+			pd.setTitle("Update");
 			pd.setMessage("Please wait until we check your infomation");
 			pd.setCancelable(false);
 			pd.show();
@@ -173,14 +161,12 @@ public class ProfileBO {
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			nameValuePairs.add(new BasicNameValuePair("id", AppController
-					.getDriverId()));
+			nameValuePairs.add(new BasicNameValuePair("id", AppController.getDriverId()));
 			nameValuePairs.add(new BasicNameValuePair("firstname", params[0]));
 			nameValuePairs.add(new BasicNameValuePair("lastname", params[1]));
 			nameValuePairs.add(new BasicNameValuePair("email", params[2]));
-			nameValuePairs.add(new BasicNameValuePair("password", params[3]));
 			nameValuePairs
-					.add(new BasicNameValuePair("phoneNumber", params[4]));
+					.add(new BasicNameValuePair("phoneNumber", params[3]));
 			// httppost.setHeader("Content-Type","application/json;charset=UTF-8");
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 

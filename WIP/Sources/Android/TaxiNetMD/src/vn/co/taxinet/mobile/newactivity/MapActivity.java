@@ -204,7 +204,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		googlePlayService.checkPlayServices(MapActivity.this);
 
 		if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
-			startLocationUpdates();
+			// startLocationUpdates();
 		}
 		System.out.println("notifi");
 	}
@@ -217,7 +217,6 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 	public void accept(View v) {
 		Driver driver = handler.findDriver();
-		System.out.println("id : " + driver.getId());
 		Button mButton = (Button) findViewById(R.id.bt_accept);
 		if (status.equalsIgnoreCase(Constants.TripStatus.NEW_TRIP)) {
 			status = Constants.TripStatus.PICKING;
@@ -238,7 +237,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 			mButton.setText(getString(R.string.return_customer));
 			LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
 			mReqestLayout.setVisibility(View.GONE);
-			Button deni = (Button) findViewById(R.id.deni);
+			Button deni = (Button) findViewById(R.id.bt_deni);
 			deni.setVisibility(View.GONE);
 			return;
 
@@ -252,8 +251,6 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 			mButton.setText(getString(R.string.return_customer));
 			LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
 			mReqestLayout.setVisibility(View.GONE);
-			Button deni = (Button) findViewById(R.id.deni);
-			deni.setVisibility(View.GONE);
 			return;
 
 		}
@@ -299,16 +296,17 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 			WakeLocker.acquire(context);
 			WakeLocker.release();
 
-			// create marker
-			MarkerOptions marker = new MarkerOptions().position(
-					new LatLng(rider.getLatitude(), rider.getLongitude()))
-					.title(rider.getName());
-			// adding marker
-			googleMap.addMarker(marker);
 			// Moving Camera to a Location with animation
 			CameraPosition cameraPosition = new CameraPosition.Builder()
 					.target(new LatLng(rider.getLatitude(), rider
 							.getLongitude())).zoom(14).build();
+
+			// add maker
+			MarkerOptions marker = new MarkerOptions().position(
+					new LatLng(rider.getLatitude(), rider.getLongitude()))
+					.title(rider.getName());
+
+			googleMap.addMarker(marker);
 
 			googleMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPosition));
@@ -595,7 +593,6 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		double latitude = location.getLatitude();
 		double longitude = location.getLongitude();
 		LatLng latLng = new LatLng(latitude, longitude);
-		googleMap.addMarker(new MarkerOptions().position(latLng));
 		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 		googleMap.animateCamera(CameraUpdateFactory.zoomTo(14));
 

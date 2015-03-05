@@ -88,9 +88,6 @@ public class LoginBO {
 				Intent it = new Intent(activity, MapActivity.class);
 				activity.startActivity(it);
 
-				// save to global id
-				AppController.setDriverId(driver.getId());
-
 			} else {
 				Toast.makeText(activity,
 						activity.getString(R.string.wrong_email_or_password),
