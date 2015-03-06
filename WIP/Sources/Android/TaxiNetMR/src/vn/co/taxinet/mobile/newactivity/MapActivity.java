@@ -115,7 +115,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	private NavDrawerListAdapter adapter;
 
 	// Google Map
-	private GoogleMap googleMap;
+	private GoogleMap googleMap, googleMap_pp;
 
 	// These tags will be used to cancel the requests
 	private TextView mRiderName, mRiderPhoneNumber;
@@ -163,9 +163,11 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	RelativeLayout no_driver_nearby;
 	RelativeLayout rider_send_request_waiting_step;
 	RelativeLayout rider_send_request_driver_accept;
+	RelativeLayout pick_point;
+	RelativeLayout pick_point_new_screen;
 
 	private Button send_request;
-	private double start_lat, start_lng, end_lat, end_lng;
+	private double start_lat=1, start_lng=2, end_lat=3, end_lng=4;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -191,13 +193,19 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 		no_driver_nearby = (RelativeLayout) findViewById(R.id.no_driver_nearby);
 		no_driver_nearby.setVisibility(View.GONE);
-		
+
 		rider_send_request_waiting_step = (RelativeLayout) findViewById(R.id.rider_send_request_waiting_step);
 		rider_send_request_waiting_step.setVisibility(View.GONE);
-		
+
 		rider_send_request_driver_accept = (RelativeLayout) findViewById(R.id.rider_send_request_driver_accept);
 		rider_send_request_driver_accept.setVisibility(View.GONE);
-		
+
+		pick_point = (RelativeLayout) findViewById(R.id.pick_point);
+		pick_point.setVisibility(View.GONE);
+
+		pick_point_new_screen = (RelativeLayout) findViewById(R.id.pick_point_new_screen);
+		pick_point_new_screen.setVisibility(View.GONE);
+
 		initialize();
 	}
 
@@ -299,6 +307,29 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 					downloadTask.execute(url);
 					rider_send_request_information.setVisibility(View.VISIBLE);
 					rider_send_request_first_step.setVisibility(View.VISIBLE);
+					pick_point.setVisibility(View.VISIBLE);
+
+					pick_point.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							Toast.makeText(getApplicationContext(), "AAA", 5)
+									.show();
+							pick_point_new_screen.setVisibility(View.VISIBLE);
+							if (googleMap_pp == null) {
+								// googleMap_pp = ((MapFragment)
+								// getFragmentManager().findFragmentById(
+								// R.id.map_pick_point)).getMap();
+								if (googleMap_pp == null) {
+									Toast.makeText(getApplicationContext(),
+											"Sorry! unable to create maps",
+											Toast.LENGTH_SHORT).show();
+								}
+							}
+
+						}
+					});
 
 					x = new Driver();
 
@@ -311,12 +342,17 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 							if (Utils
 									.isConnectingToInternet(getApplicationContext())) {
 
-								driverid = "3";
-								riderid="3";
-								tripBO.CreateTrip(MapActivity.this, driverid, riderid, ""+start_lat, ""+start_lng, ""+end_lat, ""+end_lng, "1");
-									
-								rider_send_request_first_step.setVisibility(View.GONE);
-								rider_send_request_waiting_step.setVisibility(View.VISIBLE);
+								driverid = "1";
+								riderid = "2";
+								tripBO.CreateTrip(MapActivity.this, riderid,
+										driverid, "" + start_lat, ""
+												+ start_lng, "" + end_lat, ""
+												+ end_lng);
+
+								rider_send_request_first_step
+										.setVisibility(View.GONE);
+								rider_send_request_waiting_step
+										.setVisibility(View.VISIBLE);
 							} else {
 								// show error message
 								alert.showAlertDialog(

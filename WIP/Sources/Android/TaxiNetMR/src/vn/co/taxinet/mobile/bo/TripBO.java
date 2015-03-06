@@ -35,10 +35,10 @@ public class TripBO {
 	private String account, password;
 	private ProgressDialog pd;
 
-	public void CreateTrip(Activity context, String driverid, String riderid,
-			String start_lat, String start_lng, String end_lat, String end_lng, String status) {
+	public void CreateTrip(Activity context, String riderid, String driverid,
+			String start_lat, String start_lng, String end_lat, String end_lng) {
 		this.activity = context;
-		String[] params = {driverid,riderid,start_lat,start_lng,end_lng};
+		String[] params = {riderid,driverid,start_lng,start_lat,end_lng,end_lat};
 		new CreateTripAsyncTask().execute(params);
 
 	}
@@ -96,15 +96,12 @@ public class TripBO {
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			nameValuePairs.add(new BasicNameValuePair("driverId", params[0]));
-			nameValuePairs.add(new BasicNameValuePair("riderId", params[1]));
-//			nameValuePairs.add(new BasicNameValuePair("start_lat", params[2]));
-//			nameValuePairs.add(new BasicNameValuePair("start_lng", params[3]));
-//			nameValuePairs.add(new BasicNameValuePair("end_lng", params[4]));
-//			nameValuePairs.add(new BasicNameValuePair("end_lng", params[5]));
-			nameValuePairs.add(new BasicNameValuePair("latitude", params[2]));
-			nameValuePairs.add(new BasicNameValuePair("longitude", params[3]));
-			nameValuePairs.add(new BasicNameValuePair("status", params[4]));
+			nameValuePairs.add(new BasicNameValuePair("riderId", params[0]));
+			nameValuePairs.add(new BasicNameValuePair("driverId", params[1]));
+			nameValuePairs.add(new BasicNameValuePair("startlongitude", params[2]));
+			nameValuePairs.add(new BasicNameValuePair("startlatitude", params[3]));
+			nameValuePairs.add(new BasicNameValuePair("stoplongitude", params[4]));
+			nameValuePairs.add(new BasicNameValuePair("stoplatitude", params[5]));
 			
 			// httppost.setHeader("Content-Type","application/json;charset=UTF-8");
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));

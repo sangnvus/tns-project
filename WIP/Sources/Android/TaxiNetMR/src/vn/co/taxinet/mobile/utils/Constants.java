@@ -37,7 +37,7 @@ public interface Constants {
 		public static final String UPDATE_REG_ID = "http://192.168.234.53:8080/TN/restServices/DriverController/UpdateRegId";
 		public static final String REGISTER_DRIVER = "http://192.168.234.53:8080/TN/restServices/CommonController/register";
 		public static final String UPDATE_CURRENT_STATUS = "http://192.168.234.53:8080/TN/restServices/DriverController/UpdateCurrentStatus";
-		public static final String UPDATE_TRIP = "http://192.168.234.53:8080/TN/restServices/TripController/UpdateTrip";
+		public static final String UPDATE_TRIP = "http://192.168.234.1:8080/TN/restServices/TripController/UpdateTrip";
 		public static final String CREATE_TRIP = "http://192.168.234.1:8080/TN/restServices/TripController/CreateTrip";		
 	}
 

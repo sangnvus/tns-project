@@ -29,6 +29,19 @@
             android:dividerHeight="1dp"
             android:listSelector="@drawable/list_selector" />
     </android.support.v4.widget.DrawerLayout>
+    
+    <RelativeLayout
+            android:id="@+id/pick_point_new_screen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+            android:id="@+id/map_pick_point"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        </RelativeLayout>
+    
     <RelativeLayout
             android:id="@+id/no_driver_nearby"
             android:layout_width="fill_parent"
@@ -66,19 +79,25 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/price"
                 android:text="100.000 VND" />
+            <RelativeLayout
+            android:id="@+id/pick_point"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/price"
+            android:background="@color/light_green">
 
             <TextView
                 android:id="@+id/start_point"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/price"
+                android:layout_alignParentTop="true"
                 android:text="@string/start_point" />
 
             <TextView
                 android:id="@+id/start_point_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/first_price_value"
+                android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/start_point"
                 android:text="ABC" />
 
@@ -96,19 +115,19 @@
                 android:layout_below="@+id/start_point_value"
                 android:layout_toRightOf="@+id/end_point"
                 android:text="XYZ" />
-
+			</RelativeLayout>
             <TextView
                 android:id="@+id/cost_estimate"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/end_point"
+                android:layout_below="@+id/pick_point"
                 android:text="@string/cost_estimate" />
 
             <TextView
                 android:id="@+id/cost_estimate_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/end_point_value"
+                android:layout_below="@+id/pick_point"
                 android:layout_toRightOf="@+id/cost_estimate"
                 android:text="500.000VND" />
         </RelativeLayout>
