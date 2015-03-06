@@ -83,4 +83,17 @@ public class DriverController {
 		return result;
 
 	}
+	
+	@RequestMapping(value = "/ChangePassword", method = RequestMethod.GET)
+	@ResponseBody
+	public MessageDTO changePassword(
+			@RequestParam Map<String, String> requestParams) throws TNException {
+		String id = requestParams.get("id");
+		String oldPassword = requestParams.get("oldpassword");
+		String newPassword = requestParams.get("newpassword");
+
+		MessageDTO result = driverBO.changePassword(id, oldPassword, newPassword);
+		return result;
+
+	}
 }

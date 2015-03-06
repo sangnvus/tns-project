@@ -128,5 +128,10 @@ public interface Constants {
 		public static final String REQUEST_NOT_FOUND = "REQUEST_NOT_FOUND";
 		public static final String NUMBER_FORMAT_EXCEPTION = "NUMBER_FORMAT_EXCEPTION";
 		public static final String EMTPY_STATUS = "EMTPY_STATUS";
+		public static final String NULL_PARAMS = "NULL_PARAMS";
+		public static final String DATA_NOT_FOUND = "DATA_NOT_FOUND";
+		public static final String PASSWORD_LENGTH = "PASSWORD_LENGTH";
+		public static final String PASSWORD_NOT_SAME = "PASSWORD_NOT_SAME";
+		public static final String PASSWORD_ERROR = "PASSWORD_ERROR";
 	}
 }
