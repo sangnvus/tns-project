@@ -256,6 +256,7 @@ public class RiderBOImpl implements RiderBO {
 				riderDTO.setMessage("Success");
 				riderDTO.setImage(taxiNetUser.getImage());
 				riderDTO.setEmail(taxiNetUser.getEmail());
+				riderDTO.setPhone(rider.getMobileNo());
 				if (taxiNetUser.getRider().getAddressByHomeAddressId() != null) {
 					riderDTO.setHomeAddress(taxiNetUser.getRider()
 							.getAddressByHomeAddressId().getAddressDetail());

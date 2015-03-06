@@ -84,6 +84,7 @@ public class CommonController {
 		String id = requestParams.get("id");
 		String regId = requestParams.get("regId");
 		String groupUser = requestParams.get("groupUser");
+		System.out.println(regId);
 		MessageDTO result = taxiNetUserBO.updateRegId(id, groupUser, regId);
 		return result;
 
