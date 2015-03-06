@@ -25,6 +25,8 @@ public interface DriverBO {
 	public String register(String driverId, String firstName, String lastName,
 			String mobileNo);
 
+	public MessageDTO changePassword(String id, String oldpassword, String newpassword) throws TNException;
+	
 	/**
 	 * @author Hieu-Gie
 	 * 

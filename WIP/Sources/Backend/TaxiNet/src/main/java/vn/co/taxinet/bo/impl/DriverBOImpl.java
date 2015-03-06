@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.common.Constants;
+import vn.co.taxinet.common.Constants.Message;
 import vn.co.taxinet.common.exception.FunctionalException;
 import vn.co.taxinet.common.exception.SystemException;
 import vn.co.taxinet.common.exception.TNException;
@@ -169,7 +170,7 @@ public class DriverBOImpl implements DriverBO {
 			dist = dist * 60 * 1.1515 * 1.609344;
 			System.out.println(dist);
 			if (dist < 5) {
-				
+
 				DriverDTO driverDTO = new DriverDTO();
 				driverDTO.setId(driver.getDriverId());
 				driverDTO.setLongitude(log2);
@@ -597,5 +598,31 @@ public class DriverBOImpl implements DriverBO {
 		} else {
 			return Constants.FAILED;
 		}
+	}
+
+	@Transactional
+	public MessageDTO changePassword(String id, String oldpassword,
+			String newpassword) throws TNException {
+		if (id == null || id.equalsIgnoreCase("") || oldpassword == null
+				|| oldpassword.equalsIgnoreCase("") || newpassword == null
+				|| newpassword.equalsIgnoreCase("")) {
+			throw new TNException(Message.NULL_PARAMS);
+		}
+
+		if (newpassword.length() < 6) {
+			throw new TNException(Message.PASSWORD_LENGTH);
+		}
+
+		Driver driver = driverDAO.findDriverById(id);
+		if (driver == null) {
+			throw new TNException(Message.DATA_NOT_FOUND);
+		}
+		if (driver.getTaxinetusers().getPassword().equals(oldpassword)) {
+			driver.getTaxinetusers().setPassword(newpassword);
+			driverDAO.update(driver);
+			return new MessageDTO(Message.SUCCESS);
+		}
+
+		return new MessageDTO(Message.PASSWORD_ERROR);
 	}
 }
