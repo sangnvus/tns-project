@@ -13,7 +13,7 @@ public class CarType implements java.io.Serializable {
 
 	private Integer carTypeId;
 	private CarMaker carMaker;
-	private String carTittle;
+	private String carTitle;
 	private String level;
 	private int capacity;
 	private String createdBy;
@@ -26,11 +26,11 @@ public class CarType implements java.io.Serializable {
 	public CarType() {
 	}
 
-	public CarType(CarMaker carMaker, String carTittle, int capacity,
+	public CarType(CarMaker carMaker, String carTitle, int capacity,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate) {
 		this.carMaker = carMaker;
-		this.carTittle = carTittle;
+		this.carTitle = carTitle;
 		this.capacity = capacity;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
@@ -38,12 +38,12 @@ public class CarType implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public CarType(CarMaker carMaker, String carTittle, String level,
+	public CarType(CarMaker carMaker, String carTitle, String level,
 			int capacity, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate,
 			Set<Vehicle> vehicles, Set<Vehicle> vehicles_1) {
 		this.carMaker = carMaker;
-		this.carTittle = carTittle;
+		this.carTitle = carTitle;
 		this.level = level;
 		this.capacity = capacity;
 		this.createdBy = createdBy;
@@ -68,14 +68,6 @@ public class CarType implements java.io.Serializable {
 
 	public void setCarMaker(CarMaker carMaker) {
 		this.carMaker = carMaker;
-	}
-
-	public String getCarTtittle() {
-		return this.carTittle;
-	}
-
-	public void setCarTtittle(String carTittle) {
-		this.carTittle = carTittle;
 	}
 
 	public String getLevel() {
@@ -140,6 +132,14 @@ public class CarType implements java.io.Serializable {
 
 	public void setVehicles_1(Set<Vehicle> vehicles_1) {
 		this.vehicles_1 = vehicles_1;
+	}
+
+	public String getCarTitle() {
+		return carTitle;
+	}
+
+	public void setCarTitle(String carTitle) {
+		this.carTitle = carTitle;
 	}
 
 }
