@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.bo.TripBO;
 import vn.co.taxinet.common.Constants;
+import vn.co.taxinet.common.Constants.DriverStatus;
 import vn.co.taxinet.common.Constants.Message;
 import vn.co.taxinet.common.Constants.TripStatus;
 import vn.co.taxinet.common.exception.TNException;
@@ -105,7 +106,7 @@ public class TripBOImpl implements TripBO {
 		trip.setStartLatitude(lat1);
 		trip.setStartLongtitude(log1);
 		trip.setEndLatitude(lat2);
-		trip.setEndLongtitude(lat2);
+		trip.setEndLongtitude(log2);
 		// hard code
 		trip.setCity(cityDAO.findById(1));
 		trip.setPayment(paymentDAO.findById(1));
@@ -159,6 +160,10 @@ public class TripBOImpl implements TripBO {
 				return new MessageDTO(Constants.Message.ERROR);
 			}
 			if (status.equalsIgnoreCase(Constants.TripStatus.CANCELLED)) {
+				// CurrentStatus currentStatus =
+				// trip.getDriver().getCurrentstatus();
+				// currentStatus.setCurrentStatus(DriverStatus.BUSY);
+				// currentStatusDAO.update(currentStatus);
 				// send notification to rider
 				createNotification(trip.getRider().getRegId(), null, null,
 						null, null, null, TripStatus.CANCELLED);
@@ -200,11 +205,6 @@ public class TripBOImpl implements TripBO {
 		throw new TNException(Message.DATA_NOT_FOUND);
 	}
 
-	private void acceptNotification(String userId, String status,
-			String requestId) {
-
-	}
-
 	public static Content createNotification(String regId, String name,
 			String image, String longitude, String latitude, String requestId,
 			String status) {
@@ -213,16 +213,6 @@ public class TripBOImpl implements TripBO {
 		c.addRegId(regId);
 		c.createNotification(image, name, longitude, latitude, requestId,
 				status);
-
-		return c;
-	}
-
-	public static Content cancelNotification(String regId, String status,
-			String requestId) {
-
-		Content c = new Content();
-		c.addRegId(regId);
-		c.createNotificationSendToRider(status, requestId);
 
 		return c;
 	}
