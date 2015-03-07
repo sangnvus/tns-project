@@ -175,6 +175,9 @@ public class DriverBOImpl implements DriverBO {
 				driverDTO.setId(driver.getDriverId());
 				driverDTO.setLongitude(log2);
 				driverDTO.setLatitude(lat2);
+				driverDTO.setFirstName(driver.getFirstName());
+				driverDTO.setLastName(driver.getLastName());
+				driverDTO.setImage(driver.getTaxinetusers().getImage());
 				listDriverDTO.add(driverDTO);
 			}
 		}
