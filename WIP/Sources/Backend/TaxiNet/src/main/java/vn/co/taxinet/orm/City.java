@@ -23,6 +23,8 @@ public class City implements java.io.Serializable {
 	private Date lastModifiedDate;
 	private Set<Address> addresses = new HashSet<Address>(0);
 	private Set<Address> addresses_1 = new HashSet<Address>(0);
+	private Set<BussinessUnit> bussinessUnits = new HashSet<BussinessUnit>(0);
+	private Set<BussinessUnit> bussinessUnits_1 = new HashSet<BussinessUnit>(0);
 	private Set<CityName> cityNames = new HashSet<CityName>(0);
 	private Set<Trip> trips = new HashSet<Trip>(0);
 	private Set<Trip> trips_1 = new HashSet<Trip>(0);
@@ -51,8 +53,9 @@ public class City implements java.io.Serializable {
 			double southBoundary, double westBoundary, double eastBoundary,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate, Set<Address> addresses,
-			Set<Address> addresses_1, Set<CityName> cityNames, Set<Trip> trips,
-			Set<Trip> trips_1, Set<CityName> citynames_1) {
+			Set<Address> addresses_1, Set<BussinessUnit> bussinessUnits,
+			Set<BussinessUnit> bussinessUnits_1, Set<CityName> cityNames,
+			Set<Trip> trips, Set<Trip> trips_1, Set<CityName> citynames_1) {
 		this.cityId = cityId;
 		this.country = country;
 		this.northBoundary = northBoundary;
@@ -65,6 +68,8 @@ public class City implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 		this.addresses = addresses;
 		this.addresses_1 = addresses_1;
+		this.bussinessUnits = bussinessUnits;
+		this.bussinessUnits_1 = bussinessUnits_1;
 		this.cityNames = cityNames;
 		this.trips = trips;
 		this.trips_1 = trips_1;
@@ -165,6 +170,22 @@ public class City implements java.io.Serializable {
 
 	public void setAddresses_1(Set<Address> addresses_1) {
 		this.addresses_1 = addresses_1;
+	}
+
+	public Set<BussinessUnit> getBussinessUnits() {
+		return this.bussinessUnits;
+	}
+
+	public void setBussinessUnits(Set<BussinessUnit> bussinessUnits) {
+		this.bussinessUnits = bussinessUnits;
+	}
+
+	public Set<BussinessUnit> getBussinessUnits_1() {
+		return this.bussinessUnits_1;
+	}
+
+	public void setBussinessUnits_1(Set<BussinessUnit> bussinessUnits_1) {
+		this.bussinessUnits_1 = bussinessUnits_1;
 	}
 
 	public Set<CityName> getCitynames() {

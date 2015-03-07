@@ -21,11 +21,13 @@ public class Country implements java.io.Serializable {
 	private String lastModifiedBy;
 	private Date lastModifiedDate;
 	private Set<TaxiNetUsers> taxinetuserses = new HashSet<TaxiNetUsers>(0);
+	private Set<BussinessUnit> bussinessUnits = new HashSet<BussinessUnit>(0);
 	private Set<City> cities = new HashSet<City>(0);
 	private Set<TaxiNetUsers> taxinetuserses_1 = new HashSet<TaxiNetUsers>(0);
 	private Set<City> cities_1 = new HashSet<City>(0);
 	private Set<Address> addresses = new HashSet<Address>(0);
 	private Set<Address> addresses_1 = new HashSet<Address>(0);
+	private Set<BussinessUnit> bussinessUnits_1 = new HashSet<BussinessUnit>(0);
 
 	public Country() {
 	}
@@ -47,9 +49,11 @@ public class Country implements java.io.Serializable {
 	public Country(String code, String name, String postalCode,
 			String currency, String internationalCode, String createdBy,
 			Date createdDate, String lastModifiedBy, Date lastModifiedDate,
-			Set<TaxiNetUsers> taxinetuserses, Set<City> cities,
+			Set<TaxiNetUsers> taxinetuserses,
+			Set<BussinessUnit> bussinessUnits, Set<City> cities,
 			Set<TaxiNetUsers> taxinetuserses_1, Set<City> cities_1,
-			Set<Address> addresses, Set<Address> addresses_1) {
+			Set<Address> addresses, Set<Address> addresses_1,
+			Set<BussinessUnit> bussinessUnits_1) {
 		this.code = code;
 		this.name = name;
 		this.postalCode = postalCode;
@@ -60,11 +64,13 @@ public class Country implements java.io.Serializable {
 		this.lastModifiedBy = lastModifiedBy;
 		this.lastModifiedDate = lastModifiedDate;
 		this.taxinetuserses = taxinetuserses;
+		this.bussinessUnits = bussinessUnits;
 		this.cities = cities;
 		this.taxinetuserses_1 = taxinetuserses_1;
 		this.cities_1 = cities_1;
 		this.addresses = addresses;
 		this.addresses_1 = addresses_1;
+		this.bussinessUnits_1 = bussinessUnits_1;
 	}
 
 	public String getCode() {
@@ -147,6 +153,14 @@ public class Country implements java.io.Serializable {
 		this.taxinetuserses = taxinetuserses;
 	}
 
+	public Set<BussinessUnit> getBussinessUnits() {
+		return this.bussinessUnits;
+	}
+
+	public void setBussinessUnits(Set<BussinessUnit> bussinessUnits) {
+		this.bussinessUnits = bussinessUnits;
+	}
+
 	public Set<City> getCities() {
 		return this.cities;
 	}
@@ -185,6 +199,14 @@ public class Country implements java.io.Serializable {
 
 	public void setAddresses_1(Set<Address> addresses_1) {
 		this.addresses_1 = addresses_1;
+	}
+
+	public Set<BussinessUnit> getBussinessUnits_1() {
+		return this.bussinessUnits_1;
+	}
+
+	public void setBussinessUnits_1(Set<BussinessUnit> bussinessUnits_1) {
+		this.bussinessUnits_1 = bussinessUnits_1;
 	}
 
 }
