@@ -1,12 +1,9 @@
 package vn.co.taxinet.mobile.newactivity;
 
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.alert.AlertDialogManager;
 import vn.co.taxinet.mobile.bo.ProfileBO;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
-import vn.co.taxinet.mobile.model.Driver;
-import vn.co.taxinet.mobile.utils.Constants;
-import vn.co.taxinet.mobile.utils.Utils;
+import vn.co.taxinet.mobile.model.Rider;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class ProfileActivity extends Activity {
 
@@ -59,12 +55,12 @@ public class ProfileActivity extends Activity {
 		bo = new ProfileBO();
 		handler = new DatabaseHandler(this);
 
-		Driver driver = handler.findDriver();
-		mEmail.setText(driver.getEmail());
-		mPhone.setText(driver.getPhoneNumber());
-		mPassword.setText(driver.getPassword());
-		mFirstName.setText(driver.getFirstName());
-		mLastName.setText(driver.getLastName());
+//		Driver driver = handler.findDriver();
+//		mEmail.setText(driver.getEmail());
+//		mPhone.setText(driver.getPhoneNumber());
+//		mPassword.setText(driver.getPassword());
+//		mFirstName.setText(driver.getFirstName());
+//		mLastName.setText(driver.getLastName());
 
 	}
 
@@ -92,21 +88,21 @@ public class ProfileActivity extends Activity {
 	}
 
 	public void updateProfile() {
-		if (Utils.isConnectingToInternet(this)) {
-			String result = bo.checkProfile(ProfileActivity.this, firstName,
-					lastName, email, phone, password);
-			if (result.equalsIgnoreCase(Constants.SUCCESS)) {
-				disableEdittext();
-				disableEdit();
-
-			} else {
-				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-			}
-		} else {
-			AlertDialogManager manager = new AlertDialogManager();
-			manager.showAlertDialog(this, "Connection Errer",
-					"Please connect to the Internet before update", false);
-		}
+//		if (Utils.isConnectingToInternet(this)) {
+//			String result = bo.checkProfile(ProfileActivity.this, firstName,
+//					lastName, email, phone, password);
+//			if (result.equalsIgnoreCase(Constants.SUCCESS)) {
+//				disableEdittext();
+//				disableEdit();
+//
+//			} else {
+//				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+//			}
+//		} else {
+//			AlertDialogManager manager = new AlertDialogManager();
+//			manager.showAlertDialog(this, "Connection Errer",
+//					"Please connect to the Internet before update", false);
+//		}
 	}
 
 	public void disableEdittext() {
@@ -152,8 +148,8 @@ public class ProfileActivity extends Activity {
 
 	public void logout(View v) {
 		// delete database
-		Driver driver = handler.findDriver();
-		handler.deleteDriverById(driver.getId());
+		Rider rider = handler.findRider();
+		handler.deleteRiderById(rider.getId());
 		// move to login screen
 
 		Intent it = new Intent(ProfileActivity.this, LoginActivity.class);

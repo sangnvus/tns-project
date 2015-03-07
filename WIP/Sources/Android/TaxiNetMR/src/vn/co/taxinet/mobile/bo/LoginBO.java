@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
-import vn.co.taxinet.mobile.model.Driver;
+import vn.co.taxinet.mobile.model.Rider;
 import vn.co.taxinet.mobile.newactivity.MapActivity;
 import vn.co.taxinet.mobile.utils.Constants;
 import vn.co.taxinet.mobile.utils.Utils;
@@ -66,30 +66,27 @@ public class LoginBO {
 			JSONObject jsonObject = new JSONObject(response);
 			// get message from json
 			System.out.println(response);
-			String id = jsonObject.getString("id");
+			String message = jsonObject.getString("message");
 			// success
 			// move to mapactivity and save to database offline
-			if (!id.equalsIgnoreCase("null")) {
+			Toast.makeText(activity, jsonObject.toString(), Toast.LENGTH_LONG).show();
+			if (message.equalsIgnoreCase(Constants.SUCCESS)) {
 
 				// parse json
-				Driver driver = new Driver();
-				driver.setId(id);
-				driver.setFirstName(jsonObject.getString("firstName"));
-				driver.setLastName(jsonObject.getString("lastName"));
-				driver.setEmail(jsonObject.getString("email"));
-				driver.setPassword(jsonObject.getString("password"));
-				driver.setPhoneNumber(jsonObject.getString("phoneNumber"));
-				driver.setImage(jsonObject.getString("image"));
+				Rider Rider = new Rider();
+				Rider.setId(jsonObject.getString("riderId"));
+				Rider.setFullname(jsonObject.getString("riderName"));
+				Rider.setEmail(jsonObject.getString("email"));
+				Rider.setImage(jsonObject.getString("image"));
 
 				// save to database offline
 				DatabaseHandler handler = new DatabaseHandler(activity);
-				handler.createDriver(driver);
+				handler.createRider(Rider);
 				// move to map activity
 				Intent it = new Intent(activity, MapActivity.class);
 				activity.startActivity(it);
 
-				// save to global id
-//				AppController.setDriverId(driver.getId());
+//				 save to global id
 
 			} else {
 				Toast.makeText(activity,
