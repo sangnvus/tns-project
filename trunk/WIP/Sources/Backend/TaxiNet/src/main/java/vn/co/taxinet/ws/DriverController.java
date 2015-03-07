@@ -31,7 +31,7 @@ public class DriverController {
 		this.driverBO = driverBO;
 	}
 
-	@RequestMapping(value = "/getNearDriver", method = RequestMethod.GET)
+	@RequestMapping(value = "/getNearDriver", method = RequestMethod.POST)
 	public List<DriverDTO> getListDriver(
 			@RequestParam Map<String, String> requestParams) throws TNException {
 		String longitude = requestParams.get("longitude");
