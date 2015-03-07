@@ -3,10 +3,10 @@ package vn.co.taxinet.mobile.database;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
-import vn.co.taxinet.mobile.model.Driver;
+import vn.co.taxinet.mobile.model.Rider;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -22,17 +22,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "TaxiNet";
 
 	// Table Names
-	private static final String TABLE_DRIVER = "Driver";
+	private static final String TABLE_RIDER = "Driver";
 	private static final String TABLE_TERM = "term";
 
 	// DRIVER Table - column names
-	private static final String COLUMN_DRIVER_ID = "COLUMN_DRIVER_ID";
-	private static final String COLUMN_DRIVER_IMAGES = "COLUMN_DRIVER_IMAGES";
-	private static final String COLUMN_DRIVER_FIRST_NAME = "COLUMN_DRIVER_FIRST_NAME";
+	private static final String COLUMN_RIDER_ID = "COLUMN_DRIVER_ID";
+	private static final String COLUMN_RIDER_IMAGES = "COLUMN_DRIVER_IMAGES";
+	private static final String COLUMN_RIDER_FIRST_NAME = "COLUMN_DRIVER_FIRST_NAME";
 	private static final String COLUMN_DRIVER_LAST_NAME = "COLUMN_DRIVER_LAST_NAME";
-	private static final String COLUMN_DRIVER_EMAIL = "COLUMN_DRIVER_EMAIL";
+	private static final String COLUMN_RIDER_EMAIL = "COLUMN_DRIVER_EMAIL";
 	private static final String COLUMN_DRIVER_PASSWORD = "COLUMN_DRIVER_PASSWORD";
-	private static final String COLUMN_DRIVER_PHONE_NUMBER = "COLUMN_DRIVER_PHONE_NUMBER";
+	private static final String COLUMN_RIDER_PHONE_NUMBER = "COLUMN_DRIVER_PHONE_NUMBER";
 
 	// TERM Table - column names
 	private static final String COLUMN_TERM_ID = "COLUMN_TERM_ID";
@@ -40,12 +40,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// DRIVER table create statement
 	private static final String CREATE_TABLE_DRIVER = "CREATE TABLE "
-			+ TABLE_DRIVER + "(" + COLUMN_DRIVER_ID
-			+ " TEXT," + COLUMN_DRIVER_IMAGES
-			+ " TEXT," + COLUMN_DRIVER_FIRST_NAME + " TEXT,"
-			+ COLUMN_DRIVER_LAST_NAME + " TEXT," + COLUMN_DRIVER_EMAIL
+			+ TABLE_RIDER + "(" + COLUMN_RIDER_ID
+			+ " TEXT," + COLUMN_RIDER_IMAGES
+			+ " TEXT," + COLUMN_RIDER_FIRST_NAME + " TEXT,"
+			+ COLUMN_DRIVER_LAST_NAME + " TEXT," + COLUMN_RIDER_EMAIL
 			+ " TEXT," + COLUMN_DRIVER_PASSWORD + " TEXT,"
-			+ COLUMN_DRIVER_PHONE_NUMBER + " TEXT" + ")";
+			+ COLUMN_RIDER_PHONE_NUMBER + " TEXT" + ")";
 
 	// TERM table create statement
 	private static final String CREATE_TABLE_TERM = "CREATE TABLE "
@@ -78,7 +78,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// on upgrade drop older tables
 
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRIVER);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RIDER);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_TERM);
 		// create new tables
 		onCreate(db);
@@ -122,20 +122,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	}
 
-	public long createDriver(Driver driver) {
+	public long createRider(Rider rider) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		values.put(COLUMN_DRIVER_ID, driver.getId());
-		values.put(COLUMN_DRIVER_FIRST_NAME, driver.getFirstName());
-		values.put(COLUMN_DRIVER_LAST_NAME, driver.getLastName());
-		values.put(COLUMN_DRIVER_IMAGES, driver.getImage());
-		values.put(COLUMN_DRIVER_EMAIL, driver.getEmail());
-		values.put(COLUMN_DRIVER_PHONE_NUMBER, driver.getPhoneNumber());
-		values.put(COLUMN_DRIVER_PASSWORD, driver.getPassword());
+		values.put(COLUMN_RIDER_ID, rider.getId());
+		values.put(COLUMN_RIDER_FIRST_NAME, rider.getFullname());
+		values.put(COLUMN_RIDER_IMAGES, rider.getImage());
+		values.put(COLUMN_RIDER_EMAIL, rider.getEmail());
+		values.put(COLUMN_RIDER_PHONE_NUMBER, rider.getPhone());
 
 		// Inserting Row
-		long _id = db.insert(TABLE_DRIVER, null, values);
+		long _id = db.insert(TABLE_RIDER, null, values);
 		if (db != null && db.isOpen())
 			db.close();
 		return _id;
@@ -144,56 +142,50 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	/*
 	 * find a driver
 	 */
-	public Driver findDriver() {
+	public Rider findRider() {
 		SQLiteDatabase db = this.getReadableDatabase();
 
-		String selectQuery = "SELECT  * FROM " + TABLE_DRIVER;
+		String selectQuery = "SELECT  * FROM " + TABLE_RIDER;
 
 		Cursor c = db.rawQuery(selectQuery, null);
-		Driver driver = null;
+		Rider rider = null;
 		// looping through all rows and adding to list
 		if (c.moveToFirst()) {
-			driver = new Driver();
-			System.out.println(c.getString(c.getColumnIndex(COLUMN_DRIVER_ID)));
-			driver.setId(c.getString(c.getColumnIndex(COLUMN_DRIVER_ID)));
-			driver.setFirstName((c.getString(c
-					.getColumnIndex(COLUMN_DRIVER_FIRST_NAME))));
-			driver.setLastName(c.getString(c
-					.getColumnIndex(COLUMN_DRIVER_LAST_NAME)));
-			driver.setImage(c.getString(c.getColumnIndex(COLUMN_DRIVER_IMAGES)));
-			driver.setEmail(c.getString(c.getColumnIndex(COLUMN_DRIVER_EMAIL)));
-			driver.setPhoneNumber(c.getString(c
-					.getColumnIndex(COLUMN_DRIVER_PHONE_NUMBER)));
-			driver.setPassword(c.getString(c
-					.getColumnIndex(COLUMN_DRIVER_PASSWORD)));
+			rider = new Rider();
+			System.out.println(c.getString(c.getColumnIndex(COLUMN_RIDER_ID)));
+			rider.setId(c.getString(c.getColumnIndex(COLUMN_RIDER_ID)));
+			rider.setFullname((c.getString(c
+					.getColumnIndex(COLUMN_RIDER_FIRST_NAME))));
+			rider.setImage(c.getString(c.getColumnIndex(COLUMN_RIDER_IMAGES)));
+			rider.setEmail(c.getString(c.getColumnIndex(COLUMN_RIDER_EMAIL)));
+			rider.setPhone(c.getString(c
+					.getColumnIndex(COLUMN_RIDER_PHONE_NUMBER)));
 
 		}
 
 		if (db != null && db.isOpen())
 			db.close();
 
-		return driver;
+		return rider;
 	}
 
 	/*
 	 * Updating a driver
 	 */
-	public int updateDriver(Driver driver) {
+	public int updateRider(Rider rider) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		values.put(COLUMN_DRIVER_ID, driver.getId());
-		values.put(COLUMN_DRIVER_FIRST_NAME, driver.getFirstName());
-		values.put(COLUMN_DRIVER_LAST_NAME, driver.getLastName());
-		values.put(COLUMN_DRIVER_IMAGES, driver.getImage());
-		values.put(COLUMN_DRIVER_EMAIL, driver.getEmail());
-		values.put(COLUMN_DRIVER_PHONE_NUMBER, driver.getPhoneNumber());
-		values.put(COLUMN_DRIVER_PASSWORD, driver.getPassword());
-		db.execSQL("delete from " + TABLE_DRIVER);
+		values.put(COLUMN_RIDER_ID, rider.getId());
+		values.put(COLUMN_RIDER_FIRST_NAME, rider.getFullname());
+		values.put(COLUMN_RIDER_IMAGES, rider.getImage());
+		values.put(COLUMN_RIDER_EMAIL, rider.getEmail());
+		values.put(COLUMN_RIDER_PHONE_NUMBER, rider.getPhone());
+		db.execSQL("delete from " + TABLE_RIDER);
 
 		// updating row
-		int temp = db.update(TABLE_DRIVER, values, COLUMN_DRIVER_ID + " = ?",
-				new String[] { String.valueOf(driver.getId()) });
+		int temp = db.update(TABLE_RIDER, values, COLUMN_RIDER_ID + " = ?",
+				new String[] { String.valueOf(rider.getId()) });
 		if (db != null && db.isOpen())
 			db.close();
 		return temp;
@@ -202,9 +194,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	/*
 	 * Deleting a driver
 	 */
-	public int deleteDriverById(String id) {
+	public int deleteRiderById(String id) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		int temp = db.delete(TABLE_DRIVER, COLUMN_DRIVER_ID + " = ?",
+		int temp = db.delete(TABLE_RIDER, COLUMN_RIDER_ID + " = ?",
 				new String[] { id });
 
 		if (db != null && db.isOpen())
@@ -213,9 +205,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return temp;
 	}
 
-	public ArrayList<Driver> getListDriver() {
-		ArrayList<Driver> listDrivers = new ArrayList<Driver>();
-		String selectQuery = "SELECT  * FROM " + TABLE_DRIVER;
+	public ArrayList<Rider> getListRider() {
+		ArrayList<Rider> listRiders = new ArrayList<Rider>();
+		String selectQuery = "SELECT  * FROM " + TABLE_RIDER;
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = db.rawQuery(selectQuery, null);
@@ -223,28 +215,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// looping through all rows and adding to list
 		if (c.moveToFirst()) {
 			do {
-				Driver driver = new Driver();
-				driver.setId(c.getString(c.getColumnIndex(COLUMN_DRIVER_ID)));
-				driver.setFirstName((c.getString(c
-						.getColumnIndex(COLUMN_DRIVER_FIRST_NAME))));
-				driver.setLastName(c.getString(c
-						.getColumnIndex(COLUMN_DRIVER_LAST_NAME)));
-				driver.setImage(c.getString(c
-						.getColumnIndex(COLUMN_DRIVER_IMAGES)));
-				driver.setEmail(c.getString(c
-						.getColumnIndex(COLUMN_DRIVER_EMAIL)));
-				driver.setPhoneNumber(c.getString(c
-						.getColumnIndex(COLUMN_DRIVER_PHONE_NUMBER)));
-				driver.setPassword(c.getString(c
-						.getColumnIndex(COLUMN_DRIVER_PASSWORD)));
-				listDrivers.add(driver);
+				Rider rider = new Rider();
+				rider.setId(c.getString(c.getColumnIndex(COLUMN_RIDER_ID)));
+				rider.setFullname((c.getString(c
+						.getColumnIndex(COLUMN_RIDER_FIRST_NAME))));
+				rider.setImage(c.getString(c
+						.getColumnIndex(COLUMN_RIDER_IMAGES)));
+				rider.setEmail(c.getString(c
+						.getColumnIndex(COLUMN_RIDER_EMAIL)));
+				rider.setPhone(c.getString(c
+						.getColumnIndex(COLUMN_RIDER_PHONE_NUMBER)));
+				listRiders.add(rider);
 			} while (c.moveToNext());
 		}
 
 		if (db != null && db.isOpen())
 			db.close();
 
-		return listDrivers;
+		return listRiders;
 	}
 
 }

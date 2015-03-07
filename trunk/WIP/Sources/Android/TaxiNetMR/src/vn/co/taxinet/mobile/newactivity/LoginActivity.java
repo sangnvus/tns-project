@@ -5,6 +5,7 @@ import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.bo.LoginBO;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
 import vn.co.taxinet.mobile.model.Driver;
+import vn.co.taxinet.mobile.model.Rider;
 import vn.co.taxinet.mobile.utils.Utils;
 import android.app.Activity;
 import android.content.Intent;
@@ -34,29 +35,30 @@ public class LoginActivity extends Activity {
 
 		// check database
 
-		// Driver driver = handler.findDriver();
-		// if (driver != null) {
-		// AppController.setDriverId(String.valueOf(driver.getId()));
-		//
-		// Intent it = new Intent(LoginActivity.this, MapActivity.class);
-		// startActivity(it);
-		// }
+		Rider rider = handler.findRider();
+		if (rider != null) {
+
+			AppController.setRiderId(rider.getId());
+			
+			Intent it = new Intent(LoginActivity.this, MapActivity.class);
+			startActivity(it);
+		}
 
 	}
 
 	public void login(View v) {
 
 		// check internet
-		// if (Utils.isConnectingToInternet(this)) {
-		// loginBO.checkLoginInfo(LoginActivity.this, mEmail.getText()
-		// .toString(), mPassword.getText().toString());
-		// } else {
-		// // alert internet connection error
-		// Toast.makeText(this, getString(R.string.no_internet_connection),
-		// Toast.LENGTH_LONG).show();
-		// }
-		Intent it = new Intent(LoginActivity.this, MapActivity.class);
-		startActivity(it);
+		if (Utils.isConnectingToInternet(this)) {
+			loginBO.checkLoginInfo(LoginActivity.this, mEmail.getText()
+					.toString(), mPassword.getText().toString());
+		} else {
+			// alert internet connection error
+			Toast.makeText(this, getString(R.string.no_internet_connection),
+					Toast.LENGTH_LONG).show();
+		}
+		// Intent it = new Intent(LoginActivity.this, MapActivity.class);
+		// startActivity(it);
 
 	}
 

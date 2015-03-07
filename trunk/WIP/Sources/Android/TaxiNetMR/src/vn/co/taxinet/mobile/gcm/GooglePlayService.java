@@ -16,8 +16,11 @@ import org.apache.http.message.BasicNameValuePair;
 
 import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.bo.MapBO;
+import vn.co.taxinet.mobile.database.DatabaseHandler;
+import vn.co.taxinet.mobile.model.Rider;
 import vn.co.taxinet.mobile.newactivity.MapActivity;
 import vn.co.taxinet.mobile.utils.Constants;
+import vn.co.taxinet.mobile.utils.Constants.UserGroup;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -152,7 +155,7 @@ public class GooglePlayService {
 					regid = gcm.register(Constants.SENDER_ID);
 					msg = "Device registered, registration ID=" + regid;
 					System.out.println(msg);
-					sendRegistrationIdToBackend();
+					sendRegistrationIdToBackend(context);
 					storeRegistrationId(context, regid);
 				} catch (IOException ex) {
 					msg = "Error :" + ex.getMessage();
@@ -183,7 +186,10 @@ public class GooglePlayService {
 	 * since the device sends upstream messages to a server that echoes back the
 	 * message using the 'from' address in the message.
 	 */
-	private void sendRegistrationIdToBackend() {
+	private void sendRegistrationIdToBackend(Context context) {
+		
+		DatabaseHandler handler = new DatabaseHandler(context);
+		Rider rider = handler.findRider();
 		// Create a new HttpClient and Post Header
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(Constants.URL.UPDATE_REG_ID);
@@ -191,7 +197,9 @@ public class GooglePlayService {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair("regId", regid));
-			nameValuePairs.add(new BasicNameValuePair("id", ""));
+			nameValuePairs.add(new BasicNameValuePair("id", rider.getId()));
+			nameValuePairs.add(new BasicNameValuePair("groupUser", UserGroup.RIDER));
+			
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 			// Execute HTTP Post Request
 			HttpResponse response = httpclient.execute(httppost);

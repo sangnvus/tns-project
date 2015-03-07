@@ -19,6 +19,17 @@ public class AppController extends Application {
 
 	private static AppController mInstance;
 
+	public static String riderId;
+	
+
+	public static String getRiderId() {
+		return riderId;
+	}
+
+	public static void setRiderId(String riderId) {
+		AppController.riderId = riderId;
+	}
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
