@@ -38,16 +38,17 @@ public class Content implements Serializable {
 		registration_ids.add(regId);
 	}
 
-	public void createTripNotification(String riderimage,
-			String ridername, String longitude, String latitude,
-			String requestId) {
+	public void createNotification(String image,
+			String name, String longitude, String latitude,
+			String requestId,String status) {
 		if (data == null)
 			data = new HashMap<String, String>();
-		data.put("riderimage", riderimage);
-		data.put("ridername", ridername);
+		data.put("riderimage", image);
+		data.put("ridername", name);
 		data.put("longitude", longitude);
 		data.put("latitude", latitude);
 		data.put("requestId", requestId);
+		data.put("status", status);
 	}
 
 	public void createNotificationSendToRider(String status, String requestId) {
