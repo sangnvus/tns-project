@@ -29,4 +29,7 @@ public interface TripBO {
 	 */
 	public MessageDTO updateTrip(String requestId, String userId, String status)
 			throws TNException;
+
+	public MessageDTO completeTrip(String requestId, String driverId,
+			String cost) throws TNException;
 }
