@@ -22,7 +22,7 @@ public interface Constants {
 	public static final String COMMA_SYMBOL = ",";
 	public static final double MAX_VAL_MONEY = 0.0;
 	public static final String STR_MONEY_FORMAT = "";
-	
+
 	public static final String SUCCESS = "SUCCESS";
 	public static final String FAILED = "FAILED";
 
@@ -34,6 +34,13 @@ public interface Constants {
 	public interface Language {
 		public static final String LANG_EN_CODE = "en";
 		public static final String LANG_VN_CODE = "vi";
+	}
+
+	public interface FacesMess {
+		public static final String WARNING = "WARNING";
+		public static final String INFO = "SUCCESSFUL";
+		public static final String FATAL = "FATAL ERROR";
+		public static final String ERROR = "ERROR";
 	}
 
 	// These are used for Reference Data
@@ -107,6 +114,7 @@ public interface Constants {
 		public static final String PARSE_NUMBER_ERROR = "";
 		public static final String INVALID_PATH = "";
 		public static final String WRITTING_FILE_ERROR = "";
+		public static final String CANT_GET_REQUEST = "System can't receive user request";
 	}
 
 	public interface MailKeys {
