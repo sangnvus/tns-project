@@ -57,5 +57,21 @@ public interface DriverDAO extends BaseDAO {
 	 * @return
 	 */
 	public Driver findDriverById(String id);
+	
+	
+	/**
+	 * @author Ecchi
+	 * @param driverDTO
+	 * @return
+	 */
+	public String editDriverInfo(DriverDTO driverDTO);
+	
+	
+	/**
+	 * @author Ecchi
+	 * @param driverID
+	 * @return
+	 */
+	public String removeDriver(String driverID);
 
 }
