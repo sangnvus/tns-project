@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 7, 2015 10:20:43 AM by Hibernate Tools 4.0.0 -->
+<!-- Generated Mar 7, 2015 6:16:49 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="vn.co.taxinet.orm.CarType" table="cartype" catalog="taxinet">
         <id name="carTypeId" type="java.lang.Integer">
@@ -11,8 +11,8 @@
         <many-to-one name="carMaker" class="vn.co.taxinet.orm.CarMaker" fetch="select">
             <column name="CarMakerID" not-null="true" />
         </many-to-one>
-        <property name="carTtittle" type="string">
-            <column name="CarTtittle" length="30" not-null="true" />
+        <property name="carTitle" type="string">
+            <column name="CarTitle" length="30" not-null="true" />
         </property>
         <property name="level" type="string">
             <column name="Level" length="4" />
