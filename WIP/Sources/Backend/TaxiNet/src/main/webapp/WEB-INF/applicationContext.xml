@@ -48,7 +48,7 @@
 				<value>classpath:vn/co/taxinet/orm/mapping/Agent.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Bank.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Carmaker.hbm.xml</value>
-				<value>classpath:vn/co/taxinet/orm/mapping/Carmodel.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Cartype.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/City.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Cityname.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Company.hbm.xml</value>
@@ -101,9 +101,6 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<bean id="carMakerDAO" class="vn.co.taxinet.dao.impl.CarMakerDAOImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean id="carModelDAO" class="vn.co.taxinet.dao.impl.CarModelDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<bean id="cityDAO" class="vn.co.taxinet.dao.impl.CityDAOImpl">
@@ -190,7 +187,6 @@
 		<property name="cityNameDAO" ref="cityNameDAO" />
 		<property name="countryDAO" ref="countryDAO" />
 		<property name="carMakerDAO" ref="carMakerDAO" />
-		<property name="carModelDAO" ref="carModelDAO" />
 		<property name="vehicleDAO" ref="vehicleDAO" />
 		<property name="taxiNetUserDAO" ref="taxiNetUserDAO" />
 		<property name="currentStatusDAO" ref="currentStatusDAO" />
