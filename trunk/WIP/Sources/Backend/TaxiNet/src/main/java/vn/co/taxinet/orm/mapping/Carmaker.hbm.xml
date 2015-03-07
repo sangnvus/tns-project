@@ -23,17 +23,17 @@
         <property name="lastModifiedDate" type="timestamp">
             <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
-        <set name="carmodels" table="carmodel" inverse="true" lazy="true" fetch="select">
+        <set name="cartypes" table="cartype" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="CarMakerID" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.CarModel" />
+            <one-to-many class="vn.co.taxinet.orm.CarType" />
         </set>
-        <set name="carmodels_1" table="carmodel" inverse="true" lazy="true" fetch="select">
+        <set name="cartypes_1" table="cartype" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="CarMakerID" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.CarModel" />
+            <one-to-many class="vn.co.taxinet.orm.CarType" />
         </set>
     </class>
 </hibernate-mapping>

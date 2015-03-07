@@ -8,14 +8,11 @@
             <column name="PricePanelID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="carmodel" class="vn.co.taxinet.orm.CarModel" fetch="select">
-            <column name="CarModelID" not-null="true" />
-        </many-to-one>
         <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
             <column name="CompanyID" not-null="true" />
         </many-to-one>
-        <property name="price" type="java.lang.Integer">
-            <column name="Price" />
+        <property name="tittle" type="string">
+            <column name="Tittle" length="100" />
         </property>
         <property name="startDate" type="date">
             <column name="StartDate" length="0" not-null="true" />
@@ -23,20 +20,20 @@
         <property name="endDate" type="date">
             <column name="EndDate" length="0" />
         </property>
-        <property name="openKm" type="java.lang.Integer">
-            <column name="OpenKM" />
+        <property name="openKm" type="java.lang.Double">
+            <column name="OpenKM" precision="22" scale="0" />
         </property>
         <property name="openPrice" type="java.lang.Double">
             <column name="OpenPrice"  precision="22" scale="0" />
         </property>
-        <property name="firstKm" type="java.lang.Integer">
-            <column name="FirstKM" />
+        <property name="firstKm" type="java.lang.Double">
+            <column name="FirstKM" precision="22" scale="0" />
         </property>
         <property name="firstKmprice" type="java.lang.Double">
             <column name="FirstKMPrice" precision="22" scale="0" />
         </property>
-        <property name="nextKm" type="java.lang.Integer">
-            <column name="NextKM" />
+        <property name="nextKm" type="java.lang.Double">
+            <column name="NextKM" precision="22" scale="0" />
         </property>
         <property name="nextKmprice" type="java.lang.Double">
             <column name="NextKMPrice" precision="22" scale="0" />

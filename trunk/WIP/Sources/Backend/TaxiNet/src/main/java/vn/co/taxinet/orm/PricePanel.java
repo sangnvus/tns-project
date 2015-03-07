@@ -12,16 +12,15 @@ import java.util.Set;
 public class PricePanel implements java.io.Serializable {
 
 	private Integer pricePanelId;
-	private CarModel carModel;
 	private Company company;
-	private Integer price;
+	private String tittle;
 	private Date startDate;
 	private Date endDate;
-	private Integer openKm;
+	private Double openKm;
 	private Double openPrice;
-	private Integer firstKm;
+	private Double firstKm;
 	private Double firstKmprice;
-	private Integer nextKm;
+	private Double nextKm;
 	private Double nextKmprice;
 	private Double waitingPrice;
 	private Double returnTripPrice;
@@ -35,10 +34,9 @@ public class PricePanel implements java.io.Serializable {
 	public PricePanel() {
 	}
 
-	public PricePanel(CarModel carModel, Company company, Date startDate,
+	public PricePanel(Company company, Date startDate,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate) {
-		this.carModel = carModel;
 		this.company = company;
 		this.startDate = startDate;
 		this.createdBy = createdBy;
@@ -47,16 +45,15 @@ public class PricePanel implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public PricePanel(CarModel carModel, Company company, Integer price,
-			Date startDate, Date endDate, Integer openKm, Double openPrice,
-			Integer firstKm, Double firstKmprice, Integer nextKm,
+	public PricePanel(Company company, String tittle,
+			Date startDate, Date endDate, Double openKm, Double openPrice,
+			Double firstKm, Double firstKmprice, Double nextKm,
 			Double nextKmprice, Double waitingPrice, Double returnTripPrice,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate, Set<Vehicle> vehicles,
 			Set<Vehicle> vehicles_1) {
-		this.carModel = carModel;
 		this.company = company;
-		this.price = price;
+		this.tittle = tittle;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.openKm = openKm;
@@ -83,14 +80,6 @@ public class PricePanel implements java.io.Serializable {
 		this.pricePanelId = pricePanelId;
 	}
 
-	public CarModel getCarmodel() {
-		return this.carModel;
-	}
-
-	public void setCarmodel(CarModel carModel) {
-		this.carModel = carModel;
-	}
-
 	public Company getCompany() {
 		return this.company;
 	}
@@ -99,12 +88,12 @@ public class PricePanel implements java.io.Serializable {
 		this.company = company;
 	}
 
-	public Integer getPrice() {
-		return this.price;
+	public String getTittle() {
+		return this.tittle;
 	}
 
-	public void setPrice(Integer price) {
-		this.price = price;
+	public void setTittle(String tittle) {
+		this.tittle = tittle;
 	}
 
 	public Date getStartDate() {
@@ -123,11 +112,11 @@ public class PricePanel implements java.io.Serializable {
 		this.endDate = endDate;
 	}
 
-	public Integer getOpenKm() {
+	public Double getOpenKm() {
 		return this.openKm;
 	}
 
-	public void setOpenKm(Integer openKm) {
+	public void setOpenKm(Double openKm) {
 		this.openKm = openKm;
 	}
 
@@ -139,11 +128,11 @@ public class PricePanel implements java.io.Serializable {
 		this.openPrice = openPrice;
 	}
 
-	public Integer getFirstKm() {
+	public Double getFirstKm() {
 		return this.firstKm;
 	}
 
-	public void setFirstKm(Integer firstKm) {
+	public void setFirstKm(Double firstKm) {
 		this.firstKm = firstKm;
 	}
 
@@ -155,11 +144,11 @@ public class PricePanel implements java.io.Serializable {
 		this.firstKmprice = firstKmprice;
 	}
 
-	public Integer getNextKm() {
+	public Double getNextKm() {
 		return this.nextKm;
 	}
 
-	public void setNextKm(Integer nextKm) {
+	public void setNextKm(Double nextKm) {
 		this.nextKm = nextKm;
 	}
 

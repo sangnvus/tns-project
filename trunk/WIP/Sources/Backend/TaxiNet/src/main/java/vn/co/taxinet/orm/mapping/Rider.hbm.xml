@@ -18,16 +18,16 @@
             <column name="OfficeAddressID" length="50" />
         </many-to-one>
         <property name="firstName" type="string">
-            <column name="FirstName" length="30" />
+            <column name="FirstName" length="30" not-null="true" />
         </property>
         <property name="lastName" type="string">
-            <column name="LastName" length="50" />
+            <column name="LastName" length="50" not-null="true" />
         </property>
         <property name="mobileNo" type="string">
             <column name="MobileNo" length="20" />
         </property>
         <property name="regId" type="string">
-            <column name="RegId" length="200" />
+            <column name="MobileDeviceID" length="200" />
         </property>
         <property name="createdBy" type="string">
             <column name="CreatedBy" length="50" not-null="true" />
