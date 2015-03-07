@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -18,8 +19,11 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 import vn.co.taxinet.bo.DriverBO;
+import vn.co.taxinet.bo.TaxiNetUserBO;
 import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dto.DriverDTO;
+import vn.co.taxinet.orm.CarMaker;
+import vn.co.taxinet.orm.Language;
 
 /**
  * @author Ecchi
@@ -39,8 +43,16 @@ public class DriverListBean implements Serializable {
 	public DriverDTO selectedDriver;
 	public DriverDTO driverDTO;
 
+	public List<Language> langList;
+	public List<CarMaker> carMakerList;
+
+	private boolean isReadOnly;
+
 	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
+
+	@ManagedProperty(value = "#{taxiNetUserBO}")
+	private TaxiNetUserBO taxiNetUserBO;
 
 	@PostConstruct
 	public void initData() {
@@ -51,9 +63,20 @@ public class DriverListBean implements Serializable {
 
 			// end of getting value
 			findAllDriver();
+			getDefaultValue();
+			setReadOnly(true);
 			driverDTO = new DriverDTO();
 			selectedDriver = new DriverDTO();
 		}
+	}
+
+	/**
+	 * get Default value for nation, language, carmaker
+	 */
+	public void getDefaultValue() {
+		carMakerList = driverBO.getCarMakerList();
+		langList = taxiNetUserBO.listAllLanguage();
+
 	}
 
 	/**
@@ -107,10 +130,57 @@ public class DriverListBean implements Serializable {
 
 	/**
 	 * action control open dialog command link
+	 * 
+	 * @param driver
 	 */
 	public void showChosenDriverInfo(DriverDTO driver) {
-		if(driver != null) {
+		if (driver != null) {
+			// TODO set value for driverDTO and readOnly
+			setReadOnly(true);
 			setDriverDTO(driver);
+		} else {
+			// TODO facesmessage for notify error
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_FATAL,
+							Constants.FacesMess.FATAL,
+							Constants.Errors.CANT_GET_REQUEST));
+		}
+	}
+
+	/**
+	 * action event for button edit
+	 * 
+	 * @param driver
+	 */
+	public void editSelectedDriverInfo(DriverDTO driver) {
+		if (driver != null) {
+			// TODO set value for readonly and driverDTO
+			setReadOnly(false);
+			setDriverDTO(driver);
+		} else {
+			// TODO facesmessage for notify error
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_FATAL,
+							Constants.FacesMess.FATAL,
+							Constants.Errors.CANT_GET_REQUEST));
+		}
+	}
+
+	/**
+	 * @param driver
+	 */
+	public void removeDriver(DriverDTO driver) {
+		if (driver != null) {
+			// TODO remove driver
+		} else {
+			// TODO facesmessage to notify error
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_FATAL,
+							Constants.FacesMess.FATAL,
+							Constants.Errors.CANT_GET_REQUEST));
 		}
 	}
 
@@ -171,4 +241,33 @@ public class DriverListBean implements Serializable {
 	public void setDriverBO(DriverBO driverBO) {
 		this.driverBO = driverBO;
 	}
+
+	public boolean isReadOnly() {
+		return isReadOnly;
+	}
+
+	public void setReadOnly(boolean isReadOnly) {
+		this.isReadOnly = isReadOnly;
+	}
+
+	public List<Language> getLangList() {
+		return langList;
+	}
+
+	public void setLangList(List<Language> langList) {
+		this.langList = langList;
+	}
+
+	public List<CarMaker> getCarMakerList() {
+		return carMakerList;
+	}
+
+	public void setCarMakerList(List<CarMaker> carMakerList) {
+		this.carMakerList = carMakerList;
+	}
+
+	public void setTaxiNetUserBO(TaxiNetUserBO taxiNetUserBO) {
+		this.taxiNetUserBO = taxiNetUserBO;
+	}
+
 }
