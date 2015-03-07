@@ -47,6 +47,18 @@
             </key>
             <one-to-many class="vn.co.taxinet.orm.Address" />
         </set>
+        <set name="bussinessUnits" table="bussinessUnit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CityID" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.BussinessUnit" />
+        </set>
+        <set name="bussinessUnits_1" table="bussinessUnit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CityID" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.BussinessUnit" />
+        </set>
         <set name="citynames" table="cityname" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="CityID" not-null="true" />

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2015 10:20:43 AM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="vn.co.taxinet.orm.BussinessUnit" table="bussinessUnit" catalog="taxinet">
+        <id name="businessUnitId" type="string">
+            <column name="BusinessUnitID" length="50" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="city" class="vn.co.taxinet.orm.City" fetch="select">
+            <column name="CityID" />
+        </many-to-one>
+        <many-to-one name="country" class="vn.co.taxinet.orm.Country" fetch="select">
+            <column name="CountryID" length="4" not-null="true" />
+        </many-to-one>
+        <many-to-one name="bussinessUnit" class="vn.co.taxinet.orm.BussinessUnit" fetch="select">
+            <column name="ParentID" length="50" />
+        </many-to-one>
+        <property name="businessUnitName" type="string">
+            <column name="BusinessUnitName" length="300" />
+        </property>
+        <property name="status" type="string">
+            <column name="Status" length="15" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CreatedBy" length="50" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="0" not-null="true" />
+        </property>
+        <property name="lastModifiedBy" type="string">
+            <column name="LastModifiedBy" length="50" not-null="true" />
+        </property>
+        <property name="lastModifiedDate" type="timestamp">
+            <column name="LastModifiedDate" length="0" not-null="true" />
+        </property>
+        <set name="staffs" table="staff" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="BusinessUnitID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Staff" />
+        </set>
+        <set name="bussinessUnits" table="bussinessUnit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ParentID" length="50" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.BussinessUnit" />
+        </set>
+        <set name="staffs_1" table="staff" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="BusinessUnitID" length="50" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Staff" />
+        </set>
+        <set name="bussinessUnits_1" table="bussinessUnit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ParentID" length="50" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.BussinessUnit" />
+        </set>
+    </class>
+</hibernate-mapping>

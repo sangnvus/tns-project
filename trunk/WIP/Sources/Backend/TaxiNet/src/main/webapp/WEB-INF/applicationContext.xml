@@ -47,6 +47,7 @@
 				<value>classpath:vn/co/taxinet/orm/mapping/Address.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Agent.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Bank.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Bussinessunit.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Carmaker.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Cartype.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/City.hbm.xml</value>
@@ -70,6 +71,7 @@
 				<value>classpath:vn/co/taxinet/orm/mapping/Referencedata.hbm.xml
 				</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Rider.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Staff.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/TaxiNetUsers.hbm.xml
 				</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Term.hbm.xml</value>

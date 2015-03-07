@@ -38,6 +38,12 @@
             </key>
             <one-to-many class="vn.co.taxinet.orm.TaxiNetUsers" />
         </set>
+        <set name="bussinessUnits" table="bussinessUnit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryID" length="4" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.BussinessUnit" />
+        </set>
         <set name="cities" table="city" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="CountryCode" length="4" not-null="true" />
@@ -67,6 +73,12 @@
                 <column name="CountryID" length="4" not-null="true" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Address" />
+        </set>
+        <set name="bussinessUnits_1" table="bussinessUnit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryID" length="4" not-null="true" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.BussinessUnit" />
         </set>
     </class>
 </hibernate-mapping>
