@@ -17,8 +17,8 @@ public class CarMaker implements java.io.Serializable {
 	private Date createdDate;
 	private String lastModifiedBy;
 	private Date lastModifiedDate;
-	private Set<CarModel> carModels = new HashSet<CarModel>(0);
-	private Set<CarModel> carmodels_1 = new HashSet<CarModel>(0);
+	private Set<CarType> carTypes = new HashSet<CarType>(0);
+	private Set<CarType> cartypes_1 = new HashSet<CarType>(0);
 
 	public CarMaker() {
 	}
@@ -34,14 +34,14 @@ public class CarMaker implements java.io.Serializable {
 
 	public CarMaker(String carMaker, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate,
-			Set<CarModel> carModels, Set<CarModel> carmodels_1) {
+			Set<CarType> carTypes, Set<CarType> cartypes_1) {
 		this.carMaker = carMaker;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
 		this.lastModifiedDate = lastModifiedDate;
-		this.carModels = carModels;
-		this.carmodels_1 = carmodels_1;
+		this.carTypes = carTypes;
+		this.cartypes_1 = cartypes_1;
 	}
 
 	public Integer getCarMakerId() {
@@ -92,20 +92,20 @@ public class CarMaker implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Set<CarModel> getCarmodels() {
-		return this.carModels;
+	public Set<CarType> getCartypes() {
+		return this.carTypes;
 	}
 
-	public void setCarmodels(Set<CarModel> carModels) {
-		this.carModels = carModels;
+	public void setCartypes(Set<CarType> carTypes) {
+		this.carTypes = carTypes;
 	}
 
-	public Set<CarModel> getCarmodels_1() {
-		return this.carmodels_1;
+	public Set<CarType> getCartypes_1() {
+		return this.cartypes_1;
 	}
 
-	public void setCarmodels_1(Set<CarModel> carmodels_1) {
-		this.carmodels_1 = carmodels_1;
+	public void setCartypes_1(Set<CarType> cartypes_1) {
+		this.cartypes_1 = cartypes_1;
 	}
 
 }

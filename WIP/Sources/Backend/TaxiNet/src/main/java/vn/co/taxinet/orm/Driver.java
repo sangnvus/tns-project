@@ -26,6 +26,7 @@ public class Driver implements java.io.Serializable {
 	private Date createdDate;
 	private String lastModifiedBy;
 	private Date lastModifiedDate;
+	private double balance;
 	private CurrentStatus currentStatus;
 	private Set<Trip> trips = new HashSet<Trip>(0);
 	private Set<Trip> trips_1 = new HashSet<Trip>(0);
@@ -212,6 +213,14 @@ public class Driver implements java.io.Serializable {
 
 	public void setTrips_1(Set<Trip> trips_1) {
 		this.trips_1 = trips_1;
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 
 }

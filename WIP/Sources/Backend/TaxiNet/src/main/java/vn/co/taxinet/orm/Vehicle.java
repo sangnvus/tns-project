@@ -12,6 +12,8 @@ import java.util.Set;
 public class Vehicle implements java.io.Serializable {
 
 	private Integer vehicleId;
+	private Company company;
+	private CarType carType;
 	private PricePanel pricePanel;
 	private String plate;
 	private String interiorColor;
@@ -31,9 +33,9 @@ public class Vehicle implements java.io.Serializable {
 	public Vehicle() {
 	}
 
-	public Vehicle(PricePanel pricePanel, String plate, String createdBy,
+	public Vehicle(CarType carType, String plate, String createdBy,
 			Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
-		this.pricePanel = pricePanel;
+		this.carType = carType;
 		this.plate = plate;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
@@ -41,12 +43,14 @@ public class Vehicle implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Vehicle(PricePanel pricePanel, String plate, String interiorColor,
-			String exteriorColor, String produceYear,
-			Integer lisencePlatCountry, Integer lisencePlatState,
-			String level, String createdBy, Date createdDate,
-			String lastModifiedBy, Date lastModifiedDate, Set<Driver> drivers,
-			Set<Driver> drivers_1, Set<Trip> trips, Set<Trip> trips_1) {
+	public Vehicle(Company company, CarType carType, PricePanel pricePanel,
+			String plate, String interiorColor, String exteriorColor,
+			String produceYear, Integer lisencePlatCountry,
+			Integer lisencePlatState, String level, String createdBy,
+			Date createdDate, String lastModifiedBy, Date lastModifiedDate, Set<Driver> drivers,
+			Set<Trip> trips, Set<Trip> trips_1) {
+		this.company = company;
+		this.carType = carType;
 		this.pricePanel = pricePanel;
 		this.plate = plate;
 		this.interiorColor = interiorColor;
@@ -70,6 +74,22 @@ public class Vehicle implements java.io.Serializable {
 
 	public void setVehicleId(Integer vehicleId) {
 		this.vehicleId = vehicleId;
+	}
+
+	public Company getCompany() {
+		return this.company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public CarType getCartype() {
+		return this.carType;
+	}
+
+	public void setCartype(CarType carType) {
+		this.carType = carType;
 	}
 
 	public PricePanel getPricepanel() {

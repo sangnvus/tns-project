@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
+<!-- Generated Mar 7, 2015 10:20:43 AM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="vn.co.taxinet.orm.CarModel" table="carmodel" catalog="taxinet">
-        <id name="carModelId" type="java.lang.Integer">
-            <column name="CarModelID" />
+    <class name="vn.co.taxinet.orm.CarType" table="cartype" catalog="taxinet">
+        <id name="carTypeId" type="java.lang.Integer">
+            <column name="CarTypeID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="carmaker" class="vn.co.taxinet.orm.CarMaker" fetch="select">
+        <many-to-one name="carMaker" class="vn.co.taxinet.orm.CarMaker" fetch="select">
             <column name="CarMakerID" not-null="true" />
         </many-to-one>
-        <property name="carModel" type="string">
-            <column name="CarModel" length="20" not-null="true" />
+        <property name="carTtittle" type="string">
+            <column name="CarTtittle" length="30" not-null="true" />
         </property>
-        <property name="carType" type="string">
-            <column name="CarType" length="10" not-null="true" />
+        <property name="level" type="string">
+            <column name="Level" length="4" />
         </property>
         <property name="capacity" type="int">
             <column name="Capacity" not-null="true" />
@@ -32,17 +32,17 @@
         <property name="lastModifiedDate" type="timestamp">
             <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
-        <set name="pricepanels" table="pricepanel" inverse="true" lazy="true" fetch="select">
+        <set name="vehicles" table="vehicle" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CarModelID" not-null="true" />
+                <column name="CarTypeID" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.PricePanel" />
+            <one-to-many class="vn.co.taxinet.orm.Vehicle" />
         </set>
-        <set name="pricepanels_1" table="pricepanel" inverse="true" lazy="true" fetch="select">
+        <set name="vehicles_1" table="vehicle" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CarModelID" not-null="true" />
+                <column name="CarTypeID" not-null="true" />
             </key>
-            <one-to-many class="vn.co.taxinet.orm.PricePanel" />
+            <one-to-many class="vn.co.taxinet.orm.Vehicle" />
         </set>
     </class>
 </hibernate-mapping>
