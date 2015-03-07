@@ -269,4 +269,15 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		query.setParameter("companyId", Integer.parseInt(companyID));
 		return ((Number) query.uniqueResult()).intValue();
 	}
+
+	public String editDriverInfo(DriverDTO driverDTO) {
+		Session session = getSessionFactory().getCurrentSession();
+		
+		return null;
+	}
+
+	public String removeDriver(String driverID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
