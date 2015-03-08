@@ -30,6 +30,8 @@ import org.json.JSONObject;
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
 import vn.co.taxinet.mobile.alert.AlertDialogManager;
+import vn.co.taxinet.mobile.app.AppController;
+import vn.co.taxinet.mobile.bo.GetDriverBO;
 import vn.co.taxinet.mobile.bo.MapBO;
 import vn.co.taxinet.mobile.bo.TripBO;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
@@ -50,6 +52,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.database.MergeCursor;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
@@ -78,6 +81,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.internal.bt;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -86,6 +90,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -127,7 +132,9 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	private GooglePlayService googlePlayService;
 	private MapBO mapBO;
 	private TripBO tripBO;
-	private Driver x;
+	private GetDriverBO getDriverBO;
+	private Driver driver;
+	private MarkerOptions riderPosition;
 
 	private Location mLastLocation;
 
@@ -146,12 +153,18 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	private String requestId;
 	private String status;
 	private DatabaseHandler handler;
+	private String distance;
 
 	private String driverid, riderid;
 	private AlertDialogManager alert;
 
+	Double PointLongitude;
+	Double PointLatitude;
+
+	private Boolean isPickedStartPoint = false, isPickedEndPoint = false;
+
 	// Google Map
-	private Marker lastmarker;
+	private Marker lastMarker, lastMarker2, lastMarker3;
 	private ProgressDialog pDialog;
 	// These tags will be used to cancel the requests
 	private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
@@ -166,8 +179,12 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	RelativeLayout pick_point;
 	RelativeLayout pick_point_new_screen;
 
-	private Button send_request;
-	private double start_lat=1, start_lng=2, end_lat=3, end_lng=4;
+	private Button send_request, pick_start_point, pick_end_point,
+			pick_start_point_value, pick_end_point_value;
+	private double start_lat = 1, start_lng = 2, end_lat = 3, end_lng = 4;
+	LatLng rider_current_position;
+
+	ArrayList<Driver> listDriver;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -185,26 +202,6 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		// Loading map
 		initilizeMap();
 		displayLocation();
-		rider_send_request_information = (RelativeLayout) findViewById(R.id.rider_send_request_information);
-		rider_send_request_information.setVisibility(View.GONE);
-
-		rider_send_request_first_step = (RelativeLayout) findViewById(R.id.rider_send_request_first_step);
-		rider_send_request_first_step.setVisibility(View.GONE);
-
-		no_driver_nearby = (RelativeLayout) findViewById(R.id.no_driver_nearby);
-		no_driver_nearby.setVisibility(View.GONE);
-
-		rider_send_request_waiting_step = (RelativeLayout) findViewById(R.id.rider_send_request_waiting_step);
-		rider_send_request_waiting_step.setVisibility(View.GONE);
-
-		rider_send_request_driver_accept = (RelativeLayout) findViewById(R.id.rider_send_request_driver_accept);
-		rider_send_request_driver_accept.setVisibility(View.GONE);
-
-		pick_point = (RelativeLayout) findViewById(R.id.pick_point);
-		pick_point.setVisibility(View.GONE);
-
-		pick_point_new_screen = (RelativeLayout) findViewById(R.id.pick_point_new_screen);
-		pick_point_new_screen.setVisibility(View.GONE);
 
 		initialize();
 	}
@@ -250,8 +247,38 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		}
 	}
 
+	private void displayMarker() {
+
+	}
+
 	// Display Location
 	private void displayLocation() {
+
+		rider_send_request_information = (RelativeLayout) findViewById(R.id.rider_send_request_information);
+		rider_send_request_information.setVisibility(View.GONE);
+
+		rider_send_request_first_step = (RelativeLayout) findViewById(R.id.rider_send_request_first_step);
+		rider_send_request_first_step.setVisibility(View.GONE);
+
+		no_driver_nearby = (RelativeLayout) findViewById(R.id.no_driver_nearby);
+		no_driver_nearby.setVisibility(View.GONE);
+
+		rider_send_request_waiting_step = (RelativeLayout) findViewById(R.id.rider_send_request_waiting_step);
+		rider_send_request_waiting_step.setVisibility(View.GONE);
+
+		rider_send_request_driver_accept = (RelativeLayout) findViewById(R.id.rider_send_request_driver_accept);
+		rider_send_request_driver_accept.setVisibility(View.GONE);
+
+		pick_point = (RelativeLayout) findViewById(R.id.pick_point);
+		pick_point.setVisibility(View.GONE);
+
+		pick_start_point = (Button) findViewById(R.id.btn_pick_start_point);
+		pick_end_point = (Button) findViewById(R.id.btn_pick_end_point);
+
+		pick_start_point_value = (Button) findViewById(R.id.btn_pick_start_point_value);
+		pick_end_point_value = (Button) findViewById(R.id.btn_pick_end_point_value);
+		pick_start_point_value.setVisibility(View.GONE);
+		pick_end_point_value.setVisibility(View.GONE);
 
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
@@ -262,76 +289,196 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		Toast.makeText(getApplicationContext(), "111", Toast.LENGTH_SHORT)
 				.show();
 		if (lastLocation != null) {
-			LatLng Taxi1 = new LatLng(21.009809, 105.523515);
-			LatLng Taxi2 = new LatLng(21.014917, 105.530317);
-			LatLng Taxi3 = new LatLng(21.010250, 105.532162);
-			final LatLng me = new LatLng(21.013475, 105.525425);
+			getDriverBO = new GetDriverBO(this,
+					"" + lastLocation.getLatitude(), ""
+							+ lastLocation.getLongitude(), googleMap);
 
-			MarkerOptions tx1 = new MarkerOptions();
-			tx1.title("Nguyễn Văn A");
-			tx1.snippet("5KM");
-			tx1.position(Taxi1);
-			MarkerOptions tx2 = new MarkerOptions();
-			tx2.title("Nguyễn Văn B");
-			tx2.snippet("1KM");
-			tx2.position(Taxi2);
-			MarkerOptions tx3 = new MarkerOptions();
-			tx3.title("Nguyễn Văn C");
-			tx3.snippet("2KM");
-			tx3.position(Taxi3);
-			MarkerOptions me1 = new MarkerOptions();
-			me1.title("Here I stand");
-			me1.position(me);
+			// for (int i = 0; i < listDriver.size(); i++) {
+			// Driver driver = listDriver.get(i);
+			// LatLng latLng = new LatLng(driver.getLatitude(),
+			// driver.getLongitude());
+			// MarkerOptions markerOptions = new MarkerOptions();
+			// markerOptions.title(driver.getFirstName() + " "
+			// + driver.getLastName());
+			// markerOptions.snippet(distance);
+			// markerOptions.position(latLng);
+			// googleMap.addMarker(markerOptions);
+			// }
 
-			googleMap.addMarker(tx1);
-			googleMap.addMarker(tx2);
-			googleMap.addMarker(tx3);
-			googleMap.addMarker(me1);
+			// rider_current_position = new LatLng(lastLocation.getLatitude(),
+			// lastLocation.getLongitude());
+			//
+			// riderPosition.title("U stand here");
+			// riderPosition.position(rider_current_position);
+			// googleMap.addMarker(riderPosition);
+
+			// LatLng Taxi1 = new LatLng(21.009809, 105.523515);
+			// LatLng Taxi2 = new LatLng(21.014917, 105.530317);
+			// LatLng Taxi3 = new LatLng(21.010250, 105.532162);
+			// final LatLng me = new LatLng(21.013475, 105.525425);
+			//
+			// MarkerOptions tx1 = new MarkerOptions();
+			// tx1.title("Nguyễn Văn A");
+			// tx1.snippet("5KM");
+			// tx1.position(Taxi1);
+			// MarkerOptions tx2 = new MarkerOptions();
+			// tx2.title("Nguyễn Văn B");
+			// tx2.snippet("1KM");
+			// tx2.position(Taxi2);
+			// MarkerOptions tx3 = new MarkerOptions();
+			// tx3.title("Nguyễn Văn C");
+			// tx3.snippet("2KM");
+			// tx3.position(Taxi3);
+			// MarkerOptions me1 = new MarkerOptions();
+			// me1.title("Here I stand");
+			// me1.position(me);
+			//
+			// googleMap.addMarker(tx1);
+			// googleMap.addMarker(tx2);
+			// googleMap.addMarker(tx3);
+			// googleMap.addMarker(me1);
 
 			googleMap.setMyLocationEnabled(true);
 
 			googleMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 
 				@Override
-				public boolean onMarkerClick(Marker arg0) {
+				public boolean onMarkerClick(Marker maker) {
 					// TODO Auto-generated method stub
 					Toast.makeText(getApplicationContext(),
-							arg0.getPosition().toString(), Toast.LENGTH_SHORT)
+							maker.getPosition().toString(), Toast.LENGTH_SHORT)
 							.show();
+					List<Driver> drivers = AppController.getListDrivers();
+					for (int i = 0; i < drivers.size(); i++) {
+						LatLng latLng = new LatLng(drivers.get(i).getLatitude(), drivers.get(i).getLongitude());
+						if (latLng.equals(maker.getPosition())) {
+							driver = drivers.get(i);
+						}
+					}
+					System.out.println("Name : " + driver.getFirstName());
+					
 					// Getting URL to the Google Directions API
-					String url = getDirectionsUrl(me, arg0.getPosition());
+					// String url = getDirectionsUrl(rider_current_position,
+					// arg0.getPosition());
 
-					DownloadTask downloadTask = new DownloadTask();
+					// DownloadTask downloadTask = new DownloadTask();
 
 					// Start downloading json data from Google Directions API
-					downloadTask.execute(url);
+					// downloadTask.execute(url);
 					rider_send_request_information.setVisibility(View.VISIBLE);
 					rider_send_request_first_step.setVisibility(View.VISIBLE);
 					pick_point.setVisibility(View.VISIBLE);
 
-					pick_point.setOnClickListener(new OnClickListener() {
+					pick_start_point_value = (Button) findViewById(R.id.btn_pick_start_point_value);
+					pick_end_point_value = (Button) findViewById(R.id.btn_pick_end_point_value);
+
+					// Pich Start Point
+					pick_start_point.setOnClickListener(new OnClickListener() {
 
 						@Override
 						public void onClick(View v) {
-							// TODO Auto-generated method stub
-							Toast.makeText(getApplicationContext(), "AAA", 5)
-									.show();
-							pick_point_new_screen.setVisibility(View.VISIBLE);
-							if (googleMap_pp == null) {
-								// googleMap_pp = ((MapFragment)
-								// getFragmentManager().findFragmentById(
-								// R.id.map_pick_point)).getMap();
-								if (googleMap_pp == null) {
-									Toast.makeText(getApplicationContext(),
-											"Sorry! unable to create maps",
-											Toast.LENGTH_SHORT).show();
-								}
-							}
+							pick_start_point_value.setVisibility(View.VISIBLE);
+							// googleMap.clear();
+							googleMap
+									.setOnMapClickListener(new OnMapClickListener() {
+
+										@Override
+										public void onMapClick(LatLng arg0) {
+											Location targetLocation = new Location(
+													"");
+											targetLocation
+													.setLatitude(arg0.latitude);
+											targetLocation
+													.setLongitude(arg0.longitude);
+
+											PointLongitude = arg0.longitude;
+											PointLatitude = arg0.latitude;
+
+											if (lastMarker2 != null) {
+												lastMarker2.remove();
+											}
+											MarkerOptions startPoint = new MarkerOptions();
+											startPoint.position(arg0);
+											startPoint
+													.icon(BitmapDescriptorFactory
+															.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+											Marker marker = googleMap
+													.addMarker(startPoint);
+											lastMarker2 = marker;
+
+										}
+									});
+							pick_start_point_value
+									.setOnClickListener(new OnClickListener() {
+
+										@Override
+										public void onClick(View v) {
+											Toast.makeText(getApplicationContext(), ""+PointLatitude, Toast.LENGTH_SHORT).show();
+											if(PointLatitude!=null & PointLongitude!=null){
+												start_lat = PointLatitude;
+												start_lng = PointLongitude;
+											}
+											else Toast.makeText(getApplicationContext(), "Please pick Start Point", Toast.LENGTH_LONG).show();
+											pick_start_point_value
+													.setVisibility(View.GONE);
+											pick_start_point.setText("Repick");
+
+										}
+									});
 
 						}
 					});
 
-					x = new Driver();
+					// Pick End Point
+
+					pick_end_point.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							pick_end_point_value.setVisibility(View.VISIBLE);
+							// googleMap.clear();
+							googleMap
+									.setOnMapClickListener(new OnMapClickListener() {
+
+										@Override
+										public void onMapClick(LatLng arg0) {
+
+											PointLongitude = arg0.longitude;
+											PointLatitude = arg0.latitude;
+
+											if (lastMarker3 != null) {
+												lastMarker3.remove();
+											}
+											MarkerOptions startPoint = new MarkerOptions();
+											startPoint.position(arg0);
+											startPoint
+													.icon(BitmapDescriptorFactory
+															.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+											Marker marker = googleMap
+													.addMarker(startPoint);
+											lastMarker3 = marker;
+
+										}
+									});
+							pick_end_point_value
+									.setOnClickListener(new OnClickListener() {
+
+										@Override
+										public void onClick(View v) {
+											if(PointLatitude!=null & PointLongitude!=null){
+											end_lat = PointLatitude;
+											end_lng = PointLongitude;
+											}
+											else Toast.makeText(getApplicationContext(), "Please pick End Point", Toast.LENGTH_LONG).show();
+											pick_end_point_value
+													.setVisibility(View.GONE);
+											pick_end_point.setText("Repick");
+
+										}
+									});
+
+						}
+					});
 
 					send_request = (Button) findViewById(R.id.btn_rider_send_request);
 					send_request.setOnClickListener(new OnClickListener() {
@@ -341,16 +488,18 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 							tripBO = new TripBO();
 							if (Utils
 									.isConnectingToInternet(getApplicationContext())) {
-
-								driverid = "1";
-								riderid = "2";
+								DatabaseHandler handler = new DatabaseHandler(getApplicationContext());
+								Rider rider = handler.findRider();
+								driverid = driver.getId();
+								riderid = rider.getId();
 								tripBO.CreateTrip(MapActivity.this, riderid,
 										driverid, "" + start_lat, ""
 												+ start_lng, "" + end_lat, ""
 												+ end_lng);
-
+								Toast.makeText(getApplicationContext(), ""+start_lat, 5).show();
 								rider_send_request_first_step
 										.setVisibility(View.GONE);
+								removeLayout();
 								rider_send_request_waiting_step
 										.setVisibility(View.VISIBLE);
 							} else {
@@ -398,13 +547,13 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 					Toast.makeText(getApplicationContext(),
 							" " + arg0.latitude + "  " + arg0.longitude,
 							Toast.LENGTH_SHORT).show();
-					if (lastmarker != null) {
-						lastmarker.remove();
+					if (lastMarker != null) {
+						lastMarker.remove();
 					}
 					MarkerOptions hereIStand = new MarkerOptions();
 					hereIStand.position(arg0);
 					Marker marker = googleMap.addMarker(hereIStand);
-					lastmarker = marker;
+					lastMarker = marker;
 
 				}
 			});
@@ -423,6 +572,15 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 					.newCameraPosition(cameraPosition));
 
 		}
+	}
+
+	private void removeLayout() {
+		rider_send_request_information.setVisibility(View.GONE);
+		rider_send_request_first_step.setVisibility(View.GONE);
+		no_driver_nearby.setVisibility(View.GONE);
+		rider_send_request_waiting_step.setVisibility(View.GONE);
+		rider_send_request_driver_accept.setVisibility(View.GONE);
+		pick_point.setVisibility(View.GONE);
 	}
 
 	// Direction
@@ -561,7 +719,10 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 				List<HashMap<String, String>> path = result.get(i);
 
 				// Fetching all the points in i-th route
-				for (int j = 0; j < path.size(); j++) {
+				HashMap<String, String> point2 = path.get(path.size());
+				distance = point2.get("distance");
+				// TODO
+				for (int j = 0; j < path.size() - 1; j++) {
 					HashMap<String, String> point = path.get(j);
 
 					double lat = Double.parseDouble(point.get("lat"));
@@ -573,7 +734,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 				// Adding all the points in the route to LineOptions
 				lineOptions.addAll(points);
-				lineOptions.width(2);
+				lineOptions.width(5);
 				lineOptions.color(Color.RED);
 			}
 

@@ -1,5 +1,8 @@
 package vn.co.taxinet.mobile.app;
 
+import java.util.List;
+
+import vn.co.taxinet.mobile.model.Driver;
 import vn.co.taxinet.mobile.utils.LruBitmapCache;
 import android.app.Application;
 import android.text.TextUtils;
@@ -21,6 +24,26 @@ public class AppController extends Application {
 
 	public static String riderId;
 	
+	public static List<Driver> listDrivers;
+	
+	public static String tripID;
+	
+
+	public static String getTripID() {
+		return tripID;
+	}
+
+	public static void setTripID(String tripID) {
+		AppController.tripID = tripID;
+	}
+
+	public static List<Driver> getListDrivers() {
+		return listDrivers;
+	}
+
+	public static void setListDrivers(List<Driver> listDrivers) {
+		AppController.listDrivers = listDrivers;
+	}
 
 	public static String getRiderId() {
 		return riderId;

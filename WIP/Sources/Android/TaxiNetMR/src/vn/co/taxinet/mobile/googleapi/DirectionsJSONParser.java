@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.location.Location;
+
 import com.google.android.gms.maps.model.LatLng;
 
 public class DirectionsJSONParser {
@@ -22,14 +24,18 @@ public class DirectionsJSONParser {
 		JSONArray jRoutes = null;
 		JSONArray jLegs = null;
 		JSONArray jSteps = null;
+		String distance = null;
 
 		try {
-
 			jRoutes = jObject.getJSONArray("routes");
-
 			/** Traversing all routes */
 			for (int i = 0; i < jRoutes.length(); i++) {
 				jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
+				if (i == 0) {
+					JSONArray jo = ((JSONObject) jLegs.get(0))
+							.getJSONArray("distance");
+					distance = jo.getJSONObject(0).getString("text");
+				}
 				List path = new ArrayList<HashMap<String, String>>();
 
 				/** Traversing all legs */
@@ -52,6 +58,9 @@ public class DirectionsJSONParser {
 									Double.toString(((LatLng) list.get(l)).longitude));
 							path.add(hm);
 						}
+						HashMap<String, String> hm = new HashMap<String, String>();
+						hm.put("distance", distance);
+						path.add(hm);
 					}
 					routes.add(path);
 				}
