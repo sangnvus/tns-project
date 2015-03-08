@@ -19,7 +19,7 @@ import vn.co.taxinet.common.exception.SystemException;
 import vn.co.taxinet.common.exception.TNException;
 import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dao.CarMakerDAO;
-import vn.co.taxinet.dao.CarModelDAO;
+import vn.co.taxinet.dao.CarTypeDAO;
 import vn.co.taxinet.dao.CityNameDAO;
 import vn.co.taxinet.dao.CountryDAO;
 import vn.co.taxinet.dao.CurrentStatusDAO;
@@ -30,7 +30,7 @@ import vn.co.taxinet.dao.VehicleDAO;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.CarMaker;
-import vn.co.taxinet.orm.CarModel;
+import vn.co.taxinet.orm.CarType;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.CurrentStatus;
@@ -52,7 +52,7 @@ public class DriverBOImpl implements DriverBO {
 	private CarMakerDAO carMakerDAO;
 
 	@Autowired
-	private CarModelDAO carModelDAO;
+	private CarTypeDAO carTypeDAO;
 
 	@Autowired
 	private CountryDAO countryDAO;
@@ -201,9 +201,9 @@ public class DriverBOImpl implements DriverBO {
 	 * @see vn.co.taxinet.bo.DriverBO#getCarModelList(java.lang.String)
 	 */
 	@Transactional
-	public List<CarModel> getCarModelList(String carMakerID) {
+	public List<CarType> getCarModelList(String carMakerID) {
 		logger.debug("---- Select Car Model ----");
-		return carModelDAO.selectCarModelByCarMakerID(carMakerID);
+		return carTypeDAO.getAllCarTypeByCarMaker(carMakerID);
 	}
 
 	/*
@@ -232,16 +232,16 @@ public class DriverBOImpl implements DriverBO {
 		this.carMakerDAO = carMakerDAO;
 	}
 
-	public void setCarModelDAO(CarModelDAO carModelDAO) {
-		this.carModelDAO = carModelDAO;
-	}
-
 	public void setCountryDAO(CountryDAO countryDAO) {
 		this.countryDAO = countryDAO;
 	}
 
 	public void setCityNameDAO(CityNameDAO cityNameDAO) {
 		this.cityNameDAO = cityNameDAO;
+	}
+
+	public void setCarTypeDAO(CarTypeDAO carTypeDAO) {
+		this.carTypeDAO = carTypeDAO;
 	}
 
 	/*
@@ -601,6 +601,15 @@ public class DriverBOImpl implements DriverBO {
 		} else {
 			return Constants.FAILED;
 		}
+	}
+
+	public String editDriverInfo(DriverDTO driverDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String removeDriver(String driverID) {
+		return driverDAO.removeDriver(driverID);
 	}
 
 	@Transactional

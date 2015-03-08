@@ -7,7 +7,7 @@ import vn.co.taxinet.common.exception.TNSException;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.CarMaker;
-import vn.co.taxinet.orm.CarModel;
+import vn.co.taxinet.orm.CarType;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
@@ -47,7 +47,7 @@ public interface DriverBO {
 	 * @param carMakerID
 	 * @return car model of car maker
 	 */
-	public List<CarModel> getCarModelList(String carMakerID);
+	public List<CarType> getCarModelList(String carMakerID);
 
 	/**
 	 * @author Ecchi
@@ -173,10 +173,28 @@ public interface DriverBO {
 	public void update(Driver updateDriver) throws TNSException;
 	
 	/**
+	 * @author Ecchi
 	 * @category Add New Driver
 	 * @param driver
 	 * @return result
 	 */
 	public String addNewDriver(Driver driver);
+	
+	
+	/**
+	 * @author Ecchi
+	 * @param driverDTO
+	 * @return
+	 */
+	public String editDriverInfo(DriverDTO driverDTO);
+	
+	/**
+	 * @author Ecchi
+	 * @param driverID
+	 * @return
+	 */
+	public String removeDriver(String driverID);
 }
+
+
 

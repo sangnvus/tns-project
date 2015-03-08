@@ -141,5 +141,7 @@ public interface Constants {
 		public static final String PASSWORD_LENGTH = "PASSWORD_LENGTH";
 		public static final String PASSWORD_NOT_SAME = "PASSWORD_NOT_SAME";
 		public static final String PASSWORD_ERROR = "PASSWORD_ERROR";
+		public static final String EMAIL_ERROR = "EMAIL ERROR";
+		public static final String PHONE_ERROR = "PHONE NUMBER ERROR";
 	}
 }

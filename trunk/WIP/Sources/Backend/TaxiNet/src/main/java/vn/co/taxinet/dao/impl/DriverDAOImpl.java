@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dao.DriverDAO;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.Driver;
@@ -270,14 +271,44 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		return ((Number) query.uniqueResult()).intValue();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * vn.co.taxinet.dao.DriverDAO#editDriverInfo(vn.co.taxinet.dto.DriverDTO)
+	 */
 	public String editDriverInfo(DriverDTO driverDTO) {
 		Session session = getSessionFactory().getCurrentSession();
 		
-		return null;
+		//TODO edit language code and email in taxinetusers table
+		String hql = "UPDATE TaxiNetUsers U set U.email = :email AND U.language.languageCode = :langCode WHERE U.userId = :userId";
+		Query query = session.createQuery(hql);
+		query.setParameter("email", driverDTO.getEmail());
+		query.setParameter("langCode", driverDTO.getLanguage());
+		query.setParameter("userId", driverDTO.getId());
+		int result = query.executeUpdate();
+		
+		//TODO edit mobileNo in driver table
+		String hql1 = "UPDATE Driver D set D.mobileNo = :mobileNo WHERE D.driverId = :driverId";
+		Query query1 = session.createQuery(hql1);
+		query1.setParameter("driverId", driverDTO.getId());
+		
+		//TODO edit vehicle info
+		
+		return String.valueOf(result);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.dao.DriverDAO#removeDriver(java.lang.String)
+	 */
 	public String removeDriver(String driverID) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "UPDATE TaxiNetUsers U set U.company.companyId = null WHERE U.userId = :userId";
+		Query query = session.createQuery(hql);
+		query.setParameter("userID", driverID);
+		query.executeUpdate();
+		return Constants.SUCCESS;
 	}
 }

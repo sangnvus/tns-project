@@ -2,26 +2,31 @@ package vn.co.taxinet.dao.impl;
 
 // Generated Mar 7, 2015 10:20:44 AM by Hibernate Tools 4.0.0
 
+import static org.hibernate.criterion.Example.create;
+
 import java.util.List;
-import javax.naming.InitialContext;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.CarTypeDAO;
 import vn.co.taxinet.orm.CarType;
-import static org.hibernate.criterion.Example.create;
 
 /**
  * Home object for domain model class CarType.
+ * 
  * @see vn.co.taxinet.orm.CarType
  * @author Hibernate Tools
  */
-public class CarTypeDAOImplement extends BaseDAOImpl implements CarTypeDAO{
+public class CarTypeDAOImplement extends BaseDAOImpl implements CarTypeDAO {
 
-	private static final Logger log = LogManager.getLogger(CarTypeDAOImplement.class);
-
+	private static final long serialVersionUID = -5573632391517264339L;
+	private static final Logger log = LogManager
+			.getLogger(CarTypeDAOImplement.class);
 
 	public void persist(CarType transientInstance) {
 		log.debug("persisting CarType instance");
@@ -48,7 +53,8 @@ public class CarTypeDAOImplement extends BaseDAOImpl implements CarTypeDAO{
 	public void attachClean(CarType instance) {
 		log.debug("attaching clean CarType instance");
 		try {
-			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance,
+					LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -83,8 +89,8 @@ public class CarTypeDAOImplement extends BaseDAOImpl implements CarTypeDAO{
 	public CarType findById(java.lang.Integer id) {
 		log.debug("getting CarType instance with id: " + id);
 		try {
-			CarType instance = (CarType) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.orm.CarType", id);
+			CarType instance = (CarType) getSessionFactory()
+					.getCurrentSession().get("vn.co.taxinet.orm.CarType", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -111,5 +117,21 @@ public class CarTypeDAOImplement extends BaseDAOImpl implements CarTypeDAO{
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * vn.co.taxinet.dao.CarTypeDAO#getAllCarTypeByCarMaker(java.lang.String)
+	 */
+	@Transactional
+	public List<CarType> getAllCarTypeByCarMaker(String carMakerID) {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "FROM CarType U WHERE U.CarMaker.carMakerId = :carMakerID";
+		Query query = session.createQuery(hql);
+		query.setParameter("carMakerID", carMakerID);
+		List<CarType> carTypeList = query.list();
+		return carTypeList;
 	}
 }
