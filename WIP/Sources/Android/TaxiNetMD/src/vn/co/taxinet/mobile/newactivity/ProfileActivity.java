@@ -1,7 +1,5 @@
 package vn.co.taxinet.mobile.newactivity;
 
-import com.google.android.gms.internal.mb;
-
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.alert.AlertDialogManager;
 import vn.co.taxinet.mobile.bo.ProfileBO;
@@ -11,6 +9,9 @@ import vn.co.taxinet.mobile.utils.Constants;
 import vn.co.taxinet.mobile.utils.Utils;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -159,13 +160,41 @@ public class ProfileActivity extends Activity {
 	}
 
 	public void logout(View v) {
+		deleteAndLogout();
+	}
+
+	public void deleteAndLogout() {
 		// delete database
-		Driver driver = handler.findDriver();
-		handler.deleteDriverById(driver.getId());
+		handler.deleteDriverById();
 		// move to login screen
 
 		Intent it = new Intent(ProfileActivity.this, LoginActivity.class);
 		startActivity(it);
 		finish();
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		if (requestCode == 1) {
+			if (resultCode == RESULT_OK) {
+				Toast.makeText(getApplicationContext(),
+						getString(R.string.change_password_success_message),
+						Toast.LENGTH_LONG).show();
+			}
+			if (resultCode == RESULT_CANCELED) {
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+				alertDialog.setTitle(getString(R.string.error));
+				alertDialog
+						.setMessage(getString(R.string.change_password_fail_message));
+				alertDialog.setPositiveButton(getString(R.string.accept),
+						new OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								deleteAndLogout();
+							}
+						});
+			}
+		}
 	}
 }

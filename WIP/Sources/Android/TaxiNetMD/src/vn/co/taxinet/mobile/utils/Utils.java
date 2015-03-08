@@ -1,5 +1,8 @@
 package vn.co.taxinet.mobile.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -111,5 +114,13 @@ public class Utils {
 		matcher = pattern.matcher(hex);
 		return matcher.matches();
 
+	}
+	
+	// -------------------common methods---------------------------------//
+	public String getDateTime() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
+				Locale.getDefault());
+		Date date = new Date();
+		return dateFormat.format(date);
 	}
 }

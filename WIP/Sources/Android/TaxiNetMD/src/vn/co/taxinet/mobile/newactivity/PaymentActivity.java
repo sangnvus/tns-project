@@ -1,17 +1,19 @@
 package vn.co.taxinet.mobile.newactivity;
 
 import vn.co.taxinet.mobile.R;
+import vn.co.taxinet.mobile.bo.PaymentBO;
+import vn.co.taxinet.mobile.database.DatabaseHandler;
+import vn.co.taxinet.mobile.gps.GooglePlayService;
+import vn.co.taxinet.mobile.model.Driver;
+import vn.co.taxinet.mobile.utils.Constants.TripStatus;
 import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
@@ -25,9 +27,7 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 	// LogCat tag
 	private static final String TAG = PaymentActivity.class.getSimpleName();
 
-	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
-
-	private Location mLastLocation;
+	private Location newLocation, oldLocation;
 
 	// Google client to interact with Google API
 	private GoogleApiClient mGoogleApiClient;
@@ -43,45 +43,39 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 	private static int DISPLACEMENT = 10; // 10 meters
 
 	// UI elements
-	private TextView lblLocation;
-	private Button btnShowLocation, btnStartLocationUpdates;
+	private TextView tvDistance;
+	private GooglePlayService googlePlayService;
+	private float distance, price, cost;
+	private String requestId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_payment);
 
-		lblLocation = (TextView) findViewById(R.id.lblLocation);
-		btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
-		btnStartLocationUpdates = (Button) findViewById(R.id.btnLocationUpdates);
+		tvDistance = (TextView) findViewById(R.id.tv_distance);
 
 		// First we need to check availability of play services
-		if (checkPlayServices()) {
+		googlePlayService = new GooglePlayService(this);
+
+		if (googlePlayService.checkPlayServices(this)) {
 
 			// Building the GoogleApi client
 			buildGoogleApiClient();
-
 			createLocationRequest();
+			mRequestingLocationUpdates = true;
 		}
+		Bundle bd = getIntent().getExtras();
+		requestId = bd.getString("requestId");
+		price = bd.getFloat("price");
+	}
 
-		// Show location button click listener
-		btnShowLocation.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				displayLocation();
-			}
-		});
-
-		// Toggling the periodic location updates
-		btnStartLocationUpdates.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				togglePeriodicLocationUpdates();
-			}
-		});
-
+	public void pay(View v) {
+		DatabaseHandler handler = new DatabaseHandler(this);
+		Driver driver = handler.findDriver();
+		String params[] = { requestId, driver.getId(), String.valueOf(cost) };
+		PaymentBO bo = new PaymentBO(this);
+		bo.execute(params);
 	}
 
 	@Override
@@ -96,7 +90,7 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 	protected void onResume() {
 		super.onResume();
 
-		checkPlayServices();
+		googlePlayService.checkPlayServices(this);
 
 		// Resuming the periodic location updates
 		if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
@@ -119,57 +113,6 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 	}
 
 	/**
-	 * Method to display the location on UI
-	 * */
-	private void displayLocation() {
-
-		mLastLocation = LocationServices.FusedLocationApi
-				.getLastLocation(mGoogleApiClient);
-
-		if (mLastLocation != null) {
-			double latitude = mLastLocation.getLatitude();
-			double longitude = mLastLocation.getLongitude();
-
-			lblLocation.setText(latitude + ", " + longitude);
-
-		} else {
-
-			lblLocation
-					.setText("(Couldn't get the location. Make sure location is enabled on the device)");
-		}
-	}
-
-	/**
-	 * Method to toggle periodic location updates
-	 * */
-	private void togglePeriodicLocationUpdates() {
-		if (!mRequestingLocationUpdates) {
-			// Changing the button text
-			btnStartLocationUpdates
-					.setText(getString(R.string.btn_stop_location_updates));
-
-			mRequestingLocationUpdates = true;
-
-			// Starting the location updates
-			startLocationUpdates();
-
-			Log.d(TAG, "Periodic location updates started!");
-
-		} else {
-			// Changing the button text
-			btnStartLocationUpdates
-					.setText(getString(R.string.btn_start_location_updates));
-
-			mRequestingLocationUpdates = false;
-
-			// Stopping the location updates
-			stopLocationUpdates();
-
-			Log.d(TAG, "Periodic location updates stopped!");
-		}
-	}
-
-	/**
 	 * Creating google api client object
 	 * */
 	protected synchronized void buildGoogleApiClient() {
@@ -188,27 +131,6 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 		mLocationRequest.setFastestInterval(FATEST_INTERVAL);
 		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 		mLocationRequest.setSmallestDisplacement(DISPLACEMENT);
-	}
-
-	/**
-	 * Method to verify google play services on the device
-	 * */
-	private boolean checkPlayServices() {
-		int resultCode = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(this);
-		if (resultCode != ConnectionResult.SUCCESS) {
-			if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-				GooglePlayServicesUtil.getErrorDialog(resultCode, this,
-						PLAY_SERVICES_RESOLUTION_REQUEST).show();
-			} else {
-				Toast.makeText(getApplicationContext(),
-						"This device is not supported.", Toast.LENGTH_LONG)
-						.show();
-				finish();
-			}
-			return false;
-		}
-		return true;
 	}
 
 	/**
@@ -242,7 +164,6 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 	public void onConnected(Bundle arg0) {
 
 		// Once connected with google api, get the location
-		displayLocation();
 
 		if (mRequestingLocationUpdates) {
 			startLocationUpdates();
@@ -257,13 +178,14 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 	@Override
 	public void onLocationChanged(Location location) {
 		// Assign the new location
-		mLastLocation = location;
+		oldLocation = newLocation;
+		newLocation = location;
 
-		Toast.makeText(getApplicationContext(), "Location changed!",
-				Toast.LENGTH_SHORT).show();
+		distance += oldLocation.distanceTo(newLocation);
 
-		// Displaying the new location on UI
-		displayLocation();
+		cost = distance * price / 1000;
+
+		tvDistance.setText(distance / 1000 + " KM\n" + cost);
+
 	}
-
 }

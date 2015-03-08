@@ -14,7 +14,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.drive.Drive;
 
 import vn.co.taxinet.mobile.R;
@@ -25,6 +28,8 @@ import vn.co.taxinet.mobile.model.Driver;
 import vn.co.taxinet.mobile.utils.Constants;
 import vn.co.taxinet.mobile.utils.Utils;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -57,11 +62,11 @@ public class ChangPasswordActivity extends Activity {
 			String oldPassword = mOldPassword.getText().toString();
 			String newPassword = mNewPassword.getText().toString();
 			String confirmPassword = mConfirmPassword.getText().toString();
-			if (!driver.getPassword().equals(oldPassword)) {
-				alert.showAlertDialog(this, getString(R.string.error),
-						getString(R.string.error), true);
-			}
-			
+			// if (!driver.getPassword().equals(oldPassword)) {
+			// alert.showAlertDialog(this, getString(R.string.error),
+			// getString(R.string.error), true);
+			// }
+
 			// check 2 password
 			if (!newPassword.equals(confirmPassword)) {
 				alert.showAlertDialog(this, getString(R.string.error),
@@ -83,13 +88,25 @@ public class ChangPasswordActivity extends Activity {
 			}
 
 			// send new password to server
-			String params[] = { driver.getId(), oldPassword };
+			String params[] = { driver.getId(), oldPassword, newPassword };
 			new ChangePassword().execute(params);
 
 		}
 	}
 
 	public class ChangePassword extends AsyncTask<String, Void, String> {
+
+		private ProgressDialog pd;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pd = new ProgressDialog(getApplicationContext());
+			pd.setTitle(getString(R.string.change_password));
+			pd.setMessage(getString(R.string.change_password));
+			pd.setCancelable(false);
+			pd.show();
+		}
 
 		@Override
 		protected String doInBackground(String... params) {
@@ -104,8 +121,10 @@ public class ChangPasswordActivity extends Activity {
 				// Add your data
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 				nameValuePairs.add(new BasicNameValuePair("id", params[0]));
-				nameValuePairs
-						.add(new BasicNameValuePair("password", params[1]));
+				nameValuePairs.add(new BasicNameValuePair("oldpassword",
+						params[1]));
+				nameValuePairs.add(new BasicNameValuePair("newpassword",
+						params[2]));
 				// httppost.setHeader("Content-Type","application/json;charset=UTF-8");
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs,
 						"UTF-8"));
@@ -121,6 +140,31 @@ public class ChangPasswordActivity extends Activity {
 			} catch (IOException e) {
 			}
 			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			if (pd.isShowing()) {
+				pd.dismiss();
+			}
+			try {
+				JSONObject object = new JSONObject(result);
+				if (object.getString("message").equalsIgnoreCase(
+						Constants.SUCCESS)) {
+					Intent returnIntent = new Intent();
+					setResult(RESULT_OK, returnIntent);
+					finish();
+				}
+				if (object.getString("message").equalsIgnoreCase(
+						Constants.PASSWORD_ERROR)) {
+					Intent returnIntent = new Intent();
+					setResult(RESULT_CANCELED, returnIntent);
+					finish();
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

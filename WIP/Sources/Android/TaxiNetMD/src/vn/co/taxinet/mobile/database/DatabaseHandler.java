@@ -1,10 +1,6 @@
 package vn.co.taxinet.mobile.database;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import vn.co.taxinet.mobile.model.Driver;
 import android.content.ContentValues;
@@ -40,12 +36,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// DRIVER table create statement
 	private static final String CREATE_TABLE_DRIVER = "CREATE TABLE "
-			+ TABLE_DRIVER + "(" + COLUMN_DRIVER_ID
-			+ " TEXT," + COLUMN_DRIVER_IMAGES
-			+ " TEXT," + COLUMN_DRIVER_FIRST_NAME + " TEXT,"
-			+ COLUMN_DRIVER_LAST_NAME + " TEXT," + COLUMN_DRIVER_EMAIL
-			+ " TEXT," + COLUMN_DRIVER_PASSWORD + " TEXT,"
-			+ COLUMN_DRIVER_PHONE_NUMBER + " TEXT" + ")";
+			+ TABLE_DRIVER + "(" + COLUMN_DRIVER_ID + " TEXT,"
+			+ COLUMN_DRIVER_IMAGES + " TEXT," + COLUMN_DRIVER_FIRST_NAME
+			+ " TEXT," + COLUMN_DRIVER_LAST_NAME + " TEXT,"
+			+ COLUMN_DRIVER_EMAIL + " TEXT," + COLUMN_DRIVER_PASSWORD
+			+ " TEXT," + COLUMN_DRIVER_PHONE_NUMBER + " TEXT" + ")";
 
 	// TERM table create statement
 	private static final String CREATE_TABLE_TERM = "CREATE TABLE "
@@ -84,14 +79,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
-	// -------------------common methods---------------------------------//
-	private String getDateTime() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
-				Locale.getDefault());
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
-
 	// ------------------------ "driver" table methods
 	// -----------------------------------//
 	/*
@@ -124,7 +111,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	public long createDriver(Driver driver) {
 		SQLiteDatabase db = this.getWritableDatabase();
-
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_DRIVER_ID, driver.getId());
 		values.put(COLUMN_DRIVER_FIRST_NAME, driver.getFirstName());
@@ -202,15 +188,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	/*
 	 * Deleting a driver
 	 */
-	public int deleteDriverById(String id) {
+	public void deleteDriverById() {
 		SQLiteDatabase db = this.getWritableDatabase();
-		int temp = db.delete(TABLE_DRIVER, COLUMN_DRIVER_ID + " = ?",
-				new String[] { id });
+		db.execSQL("delete from " + TABLE_DRIVER);
 
 		if (db != null && db.isOpen())
 			db.close();
 
-		return temp;
 	}
 
 	public ArrayList<Driver> getListDriver() {

@@ -35,7 +35,7 @@
     <string name="last_name">Last Name</string>
     <string name="cancel">Cancel</string>
     <string name="term">Term</string>
-    <string name="deni">Deni</string>
+    <string name="reject">Reject</string>
     <string name="get_password">Get Password</string>
     <string name="reset_password">Reset Password</string>
     <string name="confirm_password">Confirm Password</string>
@@ -44,11 +44,12 @@
     <string name="guideline_get_password">* Enter you email or number, we will re-create password for you</string>
     <string name="your_request">Your request</string>
     <string name="request_to_you">Request to you</string>
+    <string name="cancel_request_title">Request</string>
+    <string name="cancel_request_message">Request was cancel by rider</string>
     <string name="time">03:12</string>
     <string name="note">Note</string>
     <string name="desc_list_item_icon">Note</string>
     <string name="driver">Driver</string>
-    <string name="distance">Distance | Price</string>
     <string name="busy">• Busy</string>
     <string name="avalible">• Avalible</string>
     <string name="phone_number">Phone Number</string>
@@ -76,22 +77,6 @@
     <string name="register_blank_error">You must fill all the information</string>
     <string name="title_activity_main">Push Notifications</string>
     <string name="error">Error</string>
-    <string name="already_registered">Device is already registered on server.</string>
-    <string name="gcm_registered">From GCM: device successfully registered!</string>
-    <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
-    <string name="gcm_message">From GCM: you got message!</string>
-    <string name="gcm_error">From GCM: error (%1$s).</string>
-    <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
-    <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
-    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Demo Server.</string>
-    <string name="server_registered">From Demo Server: successfully added device!</string>
-    <string name="server_unregistered">From Demo Server: successfully removed device!</string>
-    <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
-    <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
-    <string name="options_register">Register</string>
-    <string name="options_unregister">Unregister</string>
-    <string name="options_clear">Clear</string>
-    <string name="options_exit">Exit</string>
     <string name="alert_internet_error_title">Internet Connection Error</string>
     <string name="alert_internet_error_message">Please connect to working Internet connection</string>
     <string name="alert_term_title">Term Error</string>
@@ -99,10 +84,7 @@
     <string name="alert_invalid_info">Invalid Information</string>
     <string name="no_internet_connection">No Internet Connection.</string>
     <string name="wrong_email_or_password">Email or password is incorrect</string>
-    <string name="lbl_you_are_at">YOU ARE AT</string>
-    <string name="btn_get_location">GET MY LOCATION</string>
-    <string name="btn_start_location_updates">START LOCATION UPDATES</string>
-    <string name="btn_stop_location_updates">STOP LOCATION UPDATES</string>
+    <string name="distance">Distance</string>
     <string name="password_length_error">Password must be more than 6 character</string>
     <string name="continues">Continue</string>
     <string name="agree_with_term">I agree with term</string>
@@ -111,6 +93,9 @@
     <string name="email_or_password">Email or phone number</string>
     <string name="response_request">Response Request</string>
     <string name="response_request_message">Responsing request to server</string>
+    <string name="pay">Pay</string>
+    <string name="change_password_success_message">Change password success</string>
+    <string name="change_password_fail_message">Your old password is not corrent, you need to login before change password again</string>
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">

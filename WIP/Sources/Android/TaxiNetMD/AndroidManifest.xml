@@ -103,9 +103,14 @@
             android:label="@string/app_name"
             android:parentActivityName=".newactivity.MapActivity" >
         </activity>
+        <activity
+            android:name="vn.co.taxinet.mobile.newactivity.ChangPasswordActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".newactivity.ProfileActivity" >
+        </activity>
 
         <receiver
-            android:name=".gcm.GcmBroadcastReceiver"
+            android:name="vn.co.taxinet.mobile.gps.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -114,7 +119,7 @@
             </intent-filter>
         </receiver>
         
-        <service android:name="vn.co.taxinet.mobile.gcm.GcmIntentService" />
+        <service android:name="vn.co.taxinet.mobile.gps.GcmIntentService" />
 
         <!-- Goolge API Key -->
         <meta-data
