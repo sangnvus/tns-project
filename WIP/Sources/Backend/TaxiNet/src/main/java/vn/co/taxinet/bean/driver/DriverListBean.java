@@ -169,11 +169,20 @@ public class DriverListBean implements Serializable {
 	}
 
 	/**
+	 * action of remove button
+	 * 
 	 * @param driver
 	 */
 	public void removeDriver(DriverDTO driver) {
 		if (driver != null) {
 			// TODO remove driver
+			String id = driver.getId();
+			String result = driverBO.removeDriver(id);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, result,
+							Constants.SUCCESS));
+			findAllDriver();
 		} else {
 			// TODO facesmessage to notify error
 			FacesContext.getCurrentInstance().addMessage(
@@ -181,6 +190,39 @@ public class DriverListBean implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_FATAL,
 							Constants.FacesMess.FATAL,
 							Constants.Errors.CANT_GET_REQUEST));
+		}
+	}
+
+	/**
+	 * action of Save button on Driver Information dialog
+	 * 
+	 * @return
+	 */
+	public String editButton() {
+		// validate infomation
+		if (!driverDTO.getPhoneNumber()
+				.matches(Constants.PHONENO_PATTERN_REGEX)) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							Constants.Message.ERROR,
+							Constants.Message.PHONE_ERROR));
+			return null;
+		} else if (!driverDTO.getEmail().matches(Constants.EMAIL_PATTERN_REGEX)) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							Constants.Message.ERROR,
+							Constants.Message.EMAIL_ERROR));
+			return null;
+		} else {
+			String result = driverBO.editDriverInfo(driverDTO);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							Constants.Message.SUCCESS,
+							Constants.Message.SUCCESS));
+			return null;
 		}
 	}
 
