@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.orm.CarMaker;
-import vn.co.taxinet.orm.CarModel;
+import vn.co.taxinet.orm.CarType;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
 
@@ -31,7 +31,7 @@ public class VehiclesBean implements Serializable {
 	public String carMaker;
 	public CarMaker selectedCarMaker;
 	public List<CarMaker> carMakerList;
-	public List<CarModel> carModelList;
+	public List<CarType> carTypeList;
 	public Country selectedCountry;
 	public List<Country> countryList;
 	public List<CityName> cityList;
@@ -70,7 +70,7 @@ public class VehiclesBean implements Serializable {
 			setExColor("");
 			carMakerList = new ArrayList<CarMaker>();
 			countryList = new ArrayList<Country>();
-			carModelList = new ArrayList<CarModel>();
+			carTypeList = new ArrayList<CarType>();
 			cityList = new ArrayList<CityName>();
 			carMakerList = driverBO.getCarMakerList();
 			countryList = driverBO.getCountryList();
@@ -132,7 +132,7 @@ public class VehiclesBean implements Serializable {
 	 */
 	public void handleSelectCarMaker() {
 		if (carMaker != null) {
-			carModelList = driverBO.getCarModelList(carMaker);
+			carTypeList = driverBO.getCarModelList(carMaker);
 		}
 	}
 
@@ -208,10 +208,8 @@ public class VehiclesBean implements Serializable {
 						new FacesMessage("Success",
 								"Thêm phương tiện thành công"));
 			} else {
-				FacesContext.getCurrentInstance().addMessage(
-						null,
-						new FacesMessage("Error",
-								"Thêm phương tiện thất bại"));
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("Error", "Thêm phương tiện thất bại"));
 			}
 			return null;
 		}
@@ -298,12 +296,12 @@ public class VehiclesBean implements Serializable {
 		this.carMakerList = carMakerList;
 	}
 
-	public List<CarModel> getCarModelList() {
-		return carModelList;
+	public List<CarType> getCarTypeList() {
+		return carTypeList;
 	}
 
-	public void setCarModelList(List<CarModel> carModelList) {
-		this.carModelList = carModelList;
+	public void setCarTypeList(List<CarType> carTypeList) {
+		this.carTypeList = carTypeList;
 	}
 
 	public Country getSelectedCountry() {
