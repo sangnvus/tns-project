@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.co.taxinet.mobile.R;
+import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.bo.RegisterBO.RegisterAsyncTask;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
 import vn.co.taxinet.mobile.model.Driver;
@@ -34,6 +35,10 @@ public class TripBO {
 	private Activity activity;
 	private String account, password;
 	private ProgressDialog pd;
+	
+	public void UpdateTrip() {
+		
+	}
 
 	public void CreateTrip(Activity context, String riderid, String driverid,
 			String start_lat, String start_lng, String end_lat, String end_lng) {
@@ -79,7 +84,8 @@ public class TripBO {
 			JSONObject jsonObject = new JSONObject(response);
 			// get message from json
 			System.out.println(response);
-			String message = jsonObject.getString("mesage");
+			String message = jsonObject.getString("message");
+			//AppController.setTripID(message);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
