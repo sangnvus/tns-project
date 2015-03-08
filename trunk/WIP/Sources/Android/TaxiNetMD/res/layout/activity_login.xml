@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/common_signin_btn_text_focus_dark" />
+        android:src="@drawable/ic_launcher" />
 
     <EditText
         android:id="@+id/et_email"
@@ -44,28 +44,13 @@
         android:onClick="login"
         android:text="@string/login" />
 
-    <LinearLayout
+    <Button
+        android:id="@+id/bn_forgot_password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bt_login"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/bt_register"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:onClick="register"
-            android:text="@string/register" />
-
-        <Button
-            android:id="@+id/bn_forgot_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="getPassword"
-            android:text="@string/forgot_password" />
-    </LinearLayout>
+        android:layout_below="@id/bt_login"
+        android:layout_marginTop="10dp"
+        android:onClick="getPassword"
+        android:text="@string/forgot_password" />
 
 </RelativeLayout>

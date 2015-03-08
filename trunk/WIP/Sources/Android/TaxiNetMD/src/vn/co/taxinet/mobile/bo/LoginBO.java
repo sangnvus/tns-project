@@ -85,8 +85,11 @@ public class LoginBO {
 				DatabaseHandler handler = new DatabaseHandler(activity);
 				handler.createDriver(driver);
 				// move to map activity
+				AppController.setDriverId(id);
+				
 				Intent it = new Intent(activity, MapActivity.class);
 				activity.startActivity(it);
+				activity.finish();
 
 			} else {
 				Toast.makeText(activity,

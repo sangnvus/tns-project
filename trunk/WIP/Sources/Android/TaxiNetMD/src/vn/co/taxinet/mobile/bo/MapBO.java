@@ -13,19 +13,18 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.co.taxinet.mobile.R;
-import vn.co.taxinet.mobile.app.AppController;
-import vn.co.taxinet.mobile.newactivity.MapActivity;
 import vn.co.taxinet.mobile.newactivity.PaymentActivity;
 import vn.co.taxinet.mobile.utils.Constants;
-import vn.co.taxinet.mobile.utils.Constants.TripStatus;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -34,20 +33,24 @@ public class MapBO extends AsyncTask<String, Void, String> {
 	private Activity activity;
 	private ProgressDialog pd;
 	private String action;
+	private boolean flag;
 
-	public MapBO(Activity activity) {
+	public MapBO(Activity activity, boolean flag) {
 		this.activity = activity;
+		this.flag = flag;
 	}
 
 	@Override
 	protected void onPreExecute() {
-		// TODO Auto-generated method stub
 		super.onPreExecute();
 		pd = new ProgressDialog(activity);
-		pd.setTitle(activity.getString(R.string.response_request));
-		pd.setMessage(activity.getString(R.string.response_request_message));
-		pd.setCancelable(false);
-		pd.show();
+		if (flag) {
+			pd.setTitle(activity.getString(R.string.response_request));
+			pd.setMessage(activity.getString(R.string.response_request_message));
+			pd.setCancelable(false);
+			pd.show();
+		}
+
 	}
 
 	@Override
@@ -58,7 +61,7 @@ public class MapBO extends AsyncTask<String, Void, String> {
 		}
 		if (action.equalsIgnoreCase(Constants.UPDATE_CURRENT_STATUS)) {
 			return updateCurrentStatus(params[1], params[2], params[3],
-					params[4]);
+					params[4], params[5]);
 		}
 		return null;
 
@@ -90,7 +93,6 @@ public class MapBO extends AsyncTask<String, Void, String> {
 			nameValuePairs.add(new BasicNameValuePair("userId", driverId));
 
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
-
 			// Execute HTTP Post Request
 			HttpResponse response = httpclient.execute(httppost);
 			int respnseCode = response.getStatusLine().getStatusCode();
@@ -104,19 +106,25 @@ public class MapBO extends AsyncTask<String, Void, String> {
 		return null;
 	}
 
-	public String updateCurrentStatus(String longitude, String latitude,
-			String status, String id) {
+	public String updateCurrentStatus(String latitude, String longitude,
+			String address, String status, String id) {
+		Location location = new Location("location");
+		location.setLongitude(Double.parseDouble(longitude));
+		location.setLatitude(Double.parseDouble(latitude));
 		// Create a new HttpClient and Post Header
 		HttpClient httpclient = new DefaultHttpClient();
+		System.out.println(address);
 		HttpPost httppost = new HttpPost(Constants.URL.UPDATE_CURRENT_STATUS);
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
-			nameValuePairs.add(new BasicNameValuePair("userId", id));
+			nameValuePairs.add(new BasicNameValuePair("driverId", id));
 			nameValuePairs.add(new BasicNameValuePair("longitude", longitude));
 			nameValuePairs.add(new BasicNameValuePair("latitude", latitude));
 			nameValuePairs.add(new BasicNameValuePair("status", status));
+			nameValuePairs.add(new BasicNameValuePair("location", address));
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs,
+					HTTP.UTF_8));
 			// Execute HTTP Post Request
 			HttpResponse response = httpclient.execute(httppost);
 			int respnseCode = response.getStatusLine().getStatusCode();
@@ -127,8 +135,8 @@ public class MapBO extends AsyncTask<String, Void, String> {
 		} catch (ClientProtocolException e) {
 		} catch (IOException e) {
 		}
-		Toast.makeText(activity, activity.getString(R.string.error),
-				Toast.LENGTH_LONG).show();
+		// Toast.makeText(activity, activity.getString(R.string.error),
+		// Toast.LENGTH_LONG).show();
 		return null;
 	}
 
@@ -141,7 +149,11 @@ public class MapBO extends AsyncTask<String, Void, String> {
 				activity.startActivity(it);
 				return;
 			}
-			Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+			if (message.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
+				Toast.makeText(activity, activity.getString(R.string.success),
+						Toast.LENGTH_LONG).show();
+			}
+
 		} catch (JSONException e) {
 			Toast.makeText(activity, activity.getString(R.string.error),
 					Toast.LENGTH_LONG).show();

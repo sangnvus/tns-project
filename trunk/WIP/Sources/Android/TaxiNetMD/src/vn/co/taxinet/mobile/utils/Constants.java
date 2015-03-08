@@ -1,10 +1,5 @@
 package vn.co.taxinet.mobile.utils;
 
-import java.net.URI;
-
-import android.content.Context;
-import android.content.Intent;
-
 /**
  * @author Hieu-Gie
  * 
@@ -34,10 +29,12 @@ public interface Constants {
 		public static final String GET_TERM = "http://192.168.0.114:8080/TN/restServices/TermController/GetTerm";
 		public static final String LOGIN_AUTHEN = "http://192.168.0.114:8080/TN/restServices/DriverController/Login";
 		public static final String UPDATE_DRIVER = "http://192.168.0.114:8080/TN/restServices/DriverController/UpdateDriver";
-		public static final String UPDATE_REG_ID = "http://192.168.0.114:8080/TN/restServices/DriverController/UpdateRegId";
+		public static final String UPDATE_REG_ID = "http://192.168.0.114:8080/TN/restServices/CommonController/UpdateRegId";
 		public static final String REGISTER_DRIVER = "http://192.168.0.114:8080/TN/restServices/CommonController/register";
 		public static final String UPDATE_CURRENT_STATUS = "http://192.168.0.114:8080/TN/restServices/DriverController/UpdateCurrentStatus";
 		public static final String UPDATE_TRIP = "http://192.168.0.114:8080/TN/restServices/TripController/UpdateTrip";
+		public static final String COMPLETE_TRIP = "http://192.168.0.114:8080/TN/restServices/TripController/ConpelteTrip";
+		public static final String CHANGE_PASSWORD = "http://192.168.0.114:8080/TN/restServices/DriverController/ChangePassword";
 	}
 
 	/*
@@ -62,6 +59,7 @@ public interface Constants {
 	public static final String IMAGE = "image";
 	public static final String NAME = "name";
 	public static final String PHONE = "phone";
+	public static final String STATUS = "STATUS";
 	public static final String ID = "id";
 	public static final String RESPONSE_REQUEST = "RESPONSE_REQUEST";
 	public static final String UPDATE_CURRENT_STATUS = "UPDATE_CURRENT_STATUS";

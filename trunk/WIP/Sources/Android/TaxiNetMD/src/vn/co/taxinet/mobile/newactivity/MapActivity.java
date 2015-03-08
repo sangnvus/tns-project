@@ -15,17 +15,23 @@
  */
 package vn.co.taxinet.mobile.newactivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.adapter.NavDrawerListAdapter;
+import vn.co.taxinet.mobile.alert.AlertDialogManager;
 import vn.co.taxinet.mobile.bo.MapBO;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
-import vn.co.taxinet.mobile.gcm.GooglePlayService;
+import vn.co.taxinet.mobile.gps.GooglePlayService;
 import vn.co.taxinet.mobile.model.Driver;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
 import vn.co.taxinet.mobile.model.Rider;
 import vn.co.taxinet.mobile.utils.Constants;
+import vn.co.taxinet.mobile.utils.Constants.DriverStatus;
+import vn.co.taxinet.mobile.utils.Constants.TripStatus;
 import vn.co.taxinet.mobile.utils.LruBitmapCache;
 import vn.co.taxinet.mobile.utils.WakeLocker;
 import android.app.Activity;
@@ -35,12 +41,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,23 +111,26 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	private GooglePlayService googlePlayService;
 	private MapBO mapBO;
 
+	// boolean flag to toggle periodic location updates
+	private String requestId;
+	private String tripStatus, driverStatus;
+	private DatabaseHandler handler;
+
 	private Location mLastLocation;
 
 	// Google client to interact with Google API
 	private GoogleApiClient mGoogleApiClient;
 
 	// boolean flag to toggle periodic location updates
-	private boolean mRequestingLocationUpdates = true;
+	private boolean mRequestingLocationUpdates = false;
 
 	private LocationRequest mLocationRequest;
 
 	// Location updates intervals in sec
-	private static int UPDATE_INTERVAL = 60000; // 60 sec
-	private static int FATEST_INTERVAL = 30000; // 30 sec
-	private static int DISPLACEMENT = 100; // 100 meters
-	private String requestId;
-	private String status;
-	private DatabaseHandler handler;
+	private static int UPDATE_INTERVAL = 10000; // 10 sec
+	private static int FATEST_INTERVAL = 5000; // 5 sec
+	private static int DISPLACEMENT = 10; // 10 meters
+	private Context mContext = this;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -129,20 +141,23 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 		// register gcm id
 		googlePlayService = new GooglePlayService(MapActivity.this);
+		if (googlePlayService.checkPlayServices(this)) {
+
+			// Building the GoogleApi client
+			buildGoogleApiClient();
+
+			createLocationRequest();
+		}
 
 		// create slide menu
 		createSlideMenu(savedInstanceState);
 
+		initialize();
 		// Loading map
 		initilizeMap();
-		initialize();
 	}
 
 	private void initialize() {
-		// Building the GoogleApi client
-		buildGoogleApiClient();
-		// startLocationUpdates();
-
 		// set up broadcast receiver
 		IntentFilter filter = new IntentFilter(
 				Constants.BroadcastAction.DISPLAY_REQUEST);
@@ -156,6 +171,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		mReqestLayout.setVisibility(View.GONE);
 
 		handler = new DatabaseHandler(this);
+		driverStatus = DriverStatus.AVAIABLE;
 	}
 
 	private void initilizeMap() {
@@ -172,6 +188,11 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 			Location location = locationManager
 					.getLastKnownLocation(bestProvider);
 			if (location != null) {
+				double latitude = location.getLatitude();
+				double longitude = location.getLongitude();
+				LatLng latLng = new LatLng(latitude, longitude);
+				googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+				googleMap.animateCamera(CameraUpdateFactory.zoomTo(14));
 				onLocationChanged(location);
 			}
 
@@ -194,19 +215,28 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	@Override
 	protected void onPause() {
 		super.onPause();
-		// stopLocationUpdates();
+		stopLocationUpdates();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		// Check device for Play Services APK.
-		googlePlayService.checkPlayServices(MapActivity.this);
+		googlePlayService.checkPlayServices(this);
 
+		// Resuming the periodic location updates
 		if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
-			// startLocationUpdates();
+			startLocationUpdates();
 		}
-		System.out.println("notifi");
+
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (mGoogleApiClient.isConnected()) {
+			mGoogleApiClient.disconnect();
+		}
 	}
 
 	@Override
@@ -216,23 +246,24 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	}
 
 	public void accept(View v) {
+		driverStatus = DriverStatus.BUSY;
 		Driver driver = handler.findDriver();
 		Button mButton = (Button) findViewById(R.id.bt_accept);
-		if (status.equalsIgnoreCase(Constants.TripStatus.NEW_TRIP)) {
-			status = Constants.TripStatus.PICKING;
+		if (tripStatus.equalsIgnoreCase(Constants.TripStatus.NEW_TRIP)) {
+			tripStatus = Constants.TripStatus.PICKING;
 			String params[] = { Constants.RESPONSE_REQUEST, requestId,
 					Constants.TripStatus.PICKING, driver.getId() };
-			mapBO = new MapBO(MapActivity.this);
+			mapBO = new MapBO(MapActivity.this, true);
 			mapBO.execute(params);
 			mButton.setText(getString(R.string.picked));
 			return;
 
 		}
-		if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
-			status = Constants.TripStatus.PICKED;
+		if (tripStatus.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
+			tripStatus = Constants.TripStatus.PICKED;
 			String params[] = { Constants.RESPONSE_REQUEST, requestId,
 					Constants.TripStatus.PICKED, driver.getId() };
-			mapBO = new MapBO(MapActivity.this);
+			mapBO = new MapBO(MapActivity.this, true);
 			mapBO.execute(params);
 			mButton.setText(getString(R.string.return_customer));
 			LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
@@ -242,11 +273,11 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 			return;
 
 		}
-		if (status.equalsIgnoreCase(Constants.TripStatus.PICKED)) {
-			status = Constants.TripStatus.PICKED;
+		if (tripStatus.equalsIgnoreCase(Constants.TripStatus.PICKED)) {
+			tripStatus = Constants.TripStatus.PICKED;
 			String params[] = { Constants.RESPONSE_REQUEST, requestId,
 					Constants.TripStatus.PICKED, driver.getId() };
-			mapBO = new MapBO(MapActivity.this);
+			mapBO = new MapBO(MapActivity.this, true);
 			mapBO.execute(params);
 			mButton.setText(getString(R.string.return_customer));
 			LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
@@ -262,7 +293,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 				Constants.TripStatus.CANCELLED, driver.getId() };
 		LinearLayout mReqestLayout = (LinearLayout) findViewById(R.id.request_layout);
 		mReqestLayout.setVisibility(View.GONE);
-		mapBO = new MapBO(MapActivity.this);
+		mapBO = new MapBO(MapActivity.this, true);
 		mapBO.execute(params);
 	}
 
@@ -270,48 +301,67 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		@Override
 		public void onReceive(Context context, Intent intent) {
 
-			rider = new Rider();
-			rider.setId(Integer.parseInt(intent.getStringExtra(Constants.ID)));
-			rider.setName(intent.getStringExtra(Constants.NAME));
-			rider.setImage(intent.getStringExtra(Constants.IMAGE));
-			rider.setLongitude(Double.parseDouble(intent
-					.getStringExtra(Constants.LONGITUDE)));
-			rider.setLatitude(Double.parseDouble(intent
-					.getStringExtra(Constants.LATITUDE)));
-			rider.setPhone(intent.getStringExtra(Constants.PHONE));
-			// display request
+			// lấy trạng thái của trip
+			String status = intent.getStringExtra(Constants.STATUS);
+			// nếu trạng thái là new trip
+			if (status.equalsIgnoreCase(TripStatus.NEW_TRIP)) {
 
-			mReqestLayout.setVisibility(View.VISIBLE);
-			mRiderName.setText(rider.getName());
-			mRiderPhoneNumber.setText(rider.getPhone());
-			requestId = intent.getStringExtra("id");
+				rider = new Rider();
+				rider.setId(Integer.parseInt(intent
+						.getStringExtra(Constants.ID)));
+				rider.setName(intent.getStringExtra(Constants.NAME));
+				rider.setImage(intent.getStringExtra(Constants.IMAGE));
+				rider.setLongitude(Double.parseDouble(intent
+						.getStringExtra(Constants.LONGITUDE)));
+				rider.setLatitude(Double.parseDouble(intent
+						.getStringExtra(Constants.LATITUDE)));
+				rider.setPhone(intent.getStringExtra(Constants.PHONE));
+				// display request
 
-			ImageLoader.ImageCache imageCache = new LruBitmapCache();
-			ImageLoader imageLoader = new ImageLoader(
-					Volley.newRequestQueue(getApplicationContext()), imageCache);
-			NetworkImageView imgAvatar = (NetworkImageView) findViewById(R.id.iv_driver_image);
-			imgAvatar.setImageUrl(rider.getImage(), imageLoader);
+				mReqestLayout.setVisibility(View.VISIBLE);
+				mRiderName.setText(rider.getName());
+				mRiderPhoneNumber.setText(rider.getPhone());
+				requestId = intent.getStringExtra("id");
 
-			// wake mobile up
-			WakeLocker.acquire(context);
-			WakeLocker.release();
+				ImageLoader.ImageCache imageCache = new LruBitmapCache();
+				ImageLoader imageLoader = new ImageLoader(
+						Volley.newRequestQueue(getApplicationContext()),
+						imageCache);
+				NetworkImageView imgAvatar = (NetworkImageView) findViewById(R.id.iv_driver_image);
+				imgAvatar.setImageUrl(rider.getImage(), imageLoader);
 
-			// Moving Camera to a Location with animation
-			CameraPosition cameraPosition = new CameraPosition.Builder()
-					.target(new LatLng(rider.getLatitude(), rider
-							.getLongitude())).zoom(14).build();
+				// wake mobile up
+				WakeLocker.acquire(context);
+				WakeLocker.release();
 
-			// add maker
-			MarkerOptions marker = new MarkerOptions().position(
-					new LatLng(rider.getLatitude(), rider.getLongitude()))
-					.title(rider.getName());
+				// Moving Camera to a Location with animation
+				CameraPosition cameraPosition = new CameraPosition.Builder()
+						.target(new LatLng(rider.getLatitude(), rider
+								.getLongitude())).zoom(14).build();
 
-			googleMap.addMarker(marker);
+				// add maker
+				MarkerOptions marker = new MarkerOptions().position(
+						new LatLng(rider.getLatitude(), rider.getLongitude()))
+						.title(rider.getName());
 
-			googleMap.animateCamera(CameraUpdateFactory
-					.newCameraPosition(cameraPosition));
+				googleMap.addMarker(marker);
 
-			status = Constants.TripStatus.NEW_TRIP;
+				googleMap.animateCamera(CameraUpdateFactory
+						.newCameraPosition(cameraPosition));
+
+				tripStatus = Constants.TripStatus.NEW_TRIP;
+			}
+			// nếu trạng thái là cancel, thông báo ra màn hình và tắt thông tin
+			// chuyến đi
+			if (status.equalsIgnoreCase(TripStatus.CANCELLED)) {
+				if (mReqestLayout.isShown()) {
+					mReqestLayout.setVisibility(View.GONE);
+				}
+				AlertDialogManager manager = new AlertDialogManager();
+				manager.showCancelRequestAlert(mContext,
+						getString(R.string.cancel_request_title),
+						getString(R.string.cancel_request_message));
+			}
 		}
 	};
 
@@ -539,14 +589,6 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	}
 
 	/**
-	 * Stopping location updates
-	 */
-	protected void stopLocationUpdates() {
-		LocationServices.FusedLocationApi.removeLocationUpdates(
-				mGoogleApiClient, this);
-	}
-
-	/**
 	 * Starting the location updates
 	 * */
 	protected void startLocationUpdates() {
@@ -556,45 +598,85 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 	}
 
+	/**
+	 * Stopping location updates
+	 */
+	protected void stopLocationUpdates() {
+		LocationServices.FusedLocationApi.removeLocationUpdates(
+				mGoogleApiClient, this);
+	}
+
+	/**
+	 * Google api callback methods
+	 */
+	@Override
+	public void onConnectionFailed(ConnectionResult result) {
+		Log.i("", "Connection failed: ConnectionResult.getErrorCode() = "
+				+ result.getErrorCode());
+	}
+
 	@Override
 	public void onConnected(Bundle arg0) {
 
-		if (mRequestingLocationUpdates) {
-			// startLocationUpdates();
-		}
+		// Once connected with google api, get the location
 
+		if (mRequestingLocationUpdates) {
+			startLocationUpdates();
+		}
 	}
 
 	@Override
 	public void onConnectionSuspended(int arg0) {
 		mGoogleApiClient.connect();
-
-	}
-
-	@Override
-	public void onConnectionFailed(ConnectionResult arg0) {
 	}
 
 	@Override
 	public void onLocationChanged(Location location) {
-		// // Assign the new location
-		// mLastLocation = location;
-		//
-		// Toast.makeText(getApplicationContext(), "Location changed!",
-		// Toast.LENGTH_SHORT).show();
-		//
-		// // Displaying the new location on UI
-		// String[] params = { Constants.UPDATE_CURRENT_STATUS,
-		// String.valueOf(mLastLocation.getLongitude()),
-		// String.valueOf(mLastLocation.getLatitude()) };
-		//
-		// mapBO.execute(params);
+		// Assign the new location
+		mLastLocation = location;
 
-		double latitude = location.getLatitude();
-		double longitude = location.getLongitude();
-		LatLng latLng = new LatLng(latitude, longitude);
-		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-		googleMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+		Driver driver = handler.findDriver();
+		mapBO = new MapBO(this, true);
+		String address = GetAddress(mLastLocation.getLatitude(),
+				mLastLocation.getLongitude());
+		String params[] = { Constants.UPDATE_CURRENT_STATUS,
+				String.valueOf(mLastLocation.getLatitude()),
+				String.valueOf(mLastLocation.getLongitude()), address,
+				driverStatus, driver.getId() };
+		mapBO.execute(params);
+		// Displaying the new location on UI
+		Toast.makeText(
+				this,
+				"Latitude : " + mLastLocation.getLatitude() + "\nLongitude : "
+						+ mLastLocation.getLongitude(), Toast.LENGTH_LONG)
+				.show();
+	}
 
+	public String GetAddress(double lat, double lon) {
+		Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+		String ret = "";
+		try {
+			List<Address> addresses = geocoder.getFromLocation(lat, lon, 1);
+			if (addresses != null) {
+				Address returnedAddress = addresses.get(0);
+				StringBuilder strReturnedAddress = new StringBuilder();
+				for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
+					if (!returnedAddress.getAddressLine(i).equalsIgnoreCase(
+							"Unnamed Rd")) {
+						strReturnedAddress.append(
+								returnedAddress.getAddressLine(i)).append(" ");
+					}
+
+				}
+				ret = strReturnedAddress.toString();
+			} else {
+				ret = "No Address returned!";
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			ret = "Can't get Address!";
+		}
+		return ret;
 	}
 }
