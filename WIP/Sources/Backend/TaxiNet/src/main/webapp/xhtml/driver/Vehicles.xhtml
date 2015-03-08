@@ -64,8 +64,8 @@
 			</p:selectOneMenu>
 			<p:selectOneMenu id="carModel" value="#{vehiclesController.carModel}">
 				<f:selectItem itemLabel="Hãy chọn loại xe" itemValue="" />
-				<f:selectItems value="#{vehiclesController.carModelList}" var="item"
-					itemLabel="#{item.carModel}" itemValue="#{item.carModelId}" />
+				<f:selectItems value="#{vehiclesController.carTypeList}" var="item"
+					itemLabel="#{item.carTitle}" itemValue="#{item.carTypeId}" />
 			</p:selectOneMenu>
 			<p:outputLabel for="manufactureYear"
 				value="#{msg['driver.manufactureYear']}:" />
@@ -100,7 +100,8 @@
 				<f:selectItem itemLabel="Hãy chọn quốc gia" itemValue="" />
 				<f:selectItems value="#{vehiclesController.countryList}" var="item"
 					itemLabel="#{item.name}" itemValue="#{item.code}" />
-				<p:ajax listener="#{vehiclesController.handlSelectCountry()}" update="licensePlatState"></p:ajax>
+				<p:ajax listener="#{vehiclesController.handlSelectCountry()}"
+					update="licensePlatState"></p:ajax>
 			</p:selectOneMenu>
 			<p:outputLabel />
 			<p:outputLabel for="licensePlatState"
@@ -113,9 +114,11 @@
 			</p:selectOneMenu>
 			<p:outputLabel />
 			<br></br>
-			<p:commandButton value="#{msg['driver.vehicleAdd']}" actionListener="#{vehiclesController.addVehiclesButton}"/>
+			<p:commandButton value="#{msg['driver.vehicleAdd']}"
+				actionListener="#{vehiclesController.addVehiclesButton}" />
 		</h:panelGrid>
-		<p:growl id="messages" showSummary="true" autoUpdate="true" sticky="true"></p:growl>
+		<p:growl id="messages" showSummary="true" autoUpdate="true"
+			sticky="true"></p:growl>
 	</h:form>
 </h:body>
 </html>
