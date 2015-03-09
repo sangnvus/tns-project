@@ -63,7 +63,8 @@
         android:id="@+id/rider_send_request_information"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true"
+        android:background="@color/white" >
 
         <TextView
             android:id="@+id/price"
@@ -164,7 +165,8 @@
         android:id="@+id/rider_send_request_first_step"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true" 
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/driver_full_name"
@@ -184,7 +186,8 @@
         android:id="@+id/rider_send_request_waiting_step"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true" 
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/rider_waiting_response"
@@ -205,7 +208,8 @@
         android:id="@+id/rider_send_request_driver_accept"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true" 
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/driver_response_accept"

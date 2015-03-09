@@ -41,6 +41,7 @@ import vn.co.taxinet.mobile.model.Driver;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
 import vn.co.taxinet.mobile.model.Rider;
 import vn.co.taxinet.mobile.utils.Constants;
+import vn.co.taxinet.mobile.utils.Constants.TripStatus;
 import vn.co.taxinet.mobile.utils.LruBitmapCache;
 import vn.co.taxinet.mobile.utils.Utils;
 import vn.co.taxinet.mobile.utils.WakeLocker;
@@ -210,7 +211,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		// Building the GoogleApi client
 		buildGoogleApiClient();
 		// startLocationUpdates();
-
+		receiver = new mHandleMessageReceiver();
 		// set up broadcast receiver
 		IntentFilter filter = new IntentFilter(
 				Constants.BroadcastAction.DISPLAY_REQUEST);
@@ -220,7 +221,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 		handler = new DatabaseHandler(this);
 	}
-
+	
 	private void initilizeMap() {
 		if (googleMap == null) {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
@@ -247,6 +248,18 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		}
 	}
 
+	public class mHandleMessageReceiver extends BroadcastReceiver { 
+		@Override public void onReceive(Context context, Intent intent) {
+			// lấy trạng thái của trip 
+			String status = intent.getStringExtra("status");
+			if (status.equalsIgnoreCase(TripStatus.CANCELLED)) {
+				rider_send_request_waiting_step.setVisibility(View.GONE);
+				alert.showAlertDialog(MapActivity.this, "Cancel", "Cancel", false);
+			}
+			
+		}
+	}
+	
 	private void displayMarker() {
 
 	}
@@ -280,6 +293,12 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		pick_start_point_value.setVisibility(View.GONE);
 		pick_end_point_value.setVisibility(View.GONE);
 
+		Button cancelWaitingRequest, cancelAcceptedRequest;
+		cancelWaitingRequest = (Button) findViewById(R.id.btn_rider_cancel_waiting_request);
+		cancelAcceptedRequest = (Button) findViewById(R.id.btn_rider_cancel_driver_accept_request);
+		
+		tripBO = new TripBO();
+		
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
 
@@ -350,13 +369,15 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 							.show();
 					List<Driver> drivers = AppController.getListDrivers();
 					for (int i = 0; i < drivers.size(); i++) {
-						LatLng latLng = new LatLng(drivers.get(i).getLatitude(), drivers.get(i).getLongitude());
+						LatLng latLng = new LatLng(
+								drivers.get(i).getLatitude(), drivers.get(i)
+										.getLongitude());
 						if (latLng.equals(maker.getPosition())) {
 							driver = drivers.get(i);
 						}
 					}
 					System.out.println("Name : " + driver.getFirstName());
-					
+
 					// Getting URL to the Google Directions API
 					// String url = getDirectionsUrl(rider_current_position,
 					// arg0.getPosition());
@@ -379,6 +400,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 						public void onClick(View v) {
 							pick_start_point_value.setVisibility(View.VISIBLE);
 							// googleMap.clear();
+							PointLongitude = null;
+							PointLatitude = null;
 							googleMap
 									.setOnMapClickListener(new OnMapClickListener() {
 
@@ -413,12 +436,20 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 										@Override
 										public void onClick(View v) {
-											Toast.makeText(getApplicationContext(), ""+PointLatitude, Toast.LENGTH_SHORT).show();
-											if(PointLatitude!=null & PointLongitude!=null){
+											Toast.makeText(
+													getApplicationContext(),
+													"" + PointLatitude,
+													Toast.LENGTH_SHORT).show();
+											if (PointLatitude != null
+													& PointLongitude != null) {
 												start_lat = PointLatitude;
 												start_lng = PointLongitude;
-											}
-											else Toast.makeText(getApplicationContext(), "Please pick Start Point", Toast.LENGTH_LONG).show();
+											} else
+												Toast.makeText(
+														getApplicationContext(),
+														"Please pick Start Point",
+														Toast.LENGTH_LONG)
+														.show();
 											pick_start_point_value
 													.setVisibility(View.GONE);
 											pick_start_point.setText("Repick");
@@ -437,6 +468,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 						public void onClick(View v) {
 							pick_end_point_value.setVisibility(View.VISIBLE);
 							// googleMap.clear();
+							PointLongitude = null;
+							PointLatitude = null;
 							googleMap
 									.setOnMapClickListener(new OnMapClickListener() {
 
@@ -465,11 +498,16 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 										@Override
 										public void onClick(View v) {
-											if(PointLatitude!=null & PointLongitude!=null){
-											end_lat = PointLatitude;
-											end_lng = PointLongitude;
-											}
-											else Toast.makeText(getApplicationContext(), "Please pick End Point", Toast.LENGTH_LONG).show();
+											if (PointLatitude != null
+													& PointLongitude != null) {
+												end_lat = PointLatitude;
+												end_lng = PointLongitude;
+											} else
+												Toast.makeText(
+														getApplicationContext(),
+														"Please pick End Point",
+														Toast.LENGTH_LONG)
+														.show();
 											pick_end_point_value
 													.setVisibility(View.GONE);
 											pick_end_point.setText("Repick");
@@ -485,10 +523,10 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 						@Override
 						public void onClick(View v) {
-							tripBO = new TripBO();
 							if (Utils
 									.isConnectingToInternet(getApplicationContext())) {
-								DatabaseHandler handler = new DatabaseHandler(getApplicationContext());
+								DatabaseHandler handler = new DatabaseHandler(
+										getApplicationContext());
 								Rider rider = handler.findRider();
 								driverid = driver.getId();
 								riderid = rider.getId();
@@ -496,7 +534,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 										driverid, "" + start_lat, ""
 												+ start_lng, "" + end_lat, ""
 												+ end_lng);
-								Toast.makeText(getApplicationContext(), ""+start_lat, 5).show();
+								Toast.makeText(getApplicationContext(),
+										"" + start_lat, 5).show();
 								rider_send_request_first_step
 										.setVisibility(View.GONE);
 								removeLayout();
@@ -519,6 +558,43 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 					});
 
 					return false;
+				}
+			});
+
+			// Cancel Waiting Request
+
+			cancelWaitingRequest.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					
+					DatabaseHandler handler = new DatabaseHandler(
+							getApplicationContext());
+					Rider rider = handler.findRider();
+					riderid = rider.getId();
+					tripBO.UpdateTrip(MapActivity.this, AppController.getTripID(), riderid,
+							TripStatus.CANCELLED);
+					rider_send_request_waiting_step.setVisibility(View.GONE);
+					
+					//rider_send_request_driver_accept.setVisibility(View.VISIBLE);
+
+				}
+			});
+
+			// Cancel Accepted Request
+
+			cancelAcceptedRequest.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					DatabaseHandler handler = new DatabaseHandler(
+							getApplicationContext());
+					Rider rider = handler.findRider();
+					riderid = rider.getId();
+					tripBO.UpdateTrip(MapActivity.this, AppController.getTripID(), riderid,
+							TripStatus.CANCELLED);
+					rider_send_request_driver_accept.setVisibility(View.GONE);
+
 				}
 			});
 
