@@ -97,7 +97,7 @@ public class GcmIntentService extends IntentService {
 				intent2.putExtra(Constants.LATITUDE, latitude);
 				intent2.putExtra(Constants.ID, id);
 				intent2.putExtra(Constants.PHONE, phone);
-				intent2.putExtra(Constants.PHONE, status);
+				intent2.putExtra(Constants.STATUS, status);
 
 				sendBroadcast(intent2);
 
@@ -122,12 +122,9 @@ public class GcmIntentService extends IntentService {
 		mNotificationManager = (NotificationManager) this
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				new Intent(this, MapActivity.class), 0);
 
-		
-		
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				this).setSmallIcon(R.drawable.ic_launcher)
 				.setContentTitle("GCM Notification")
@@ -135,8 +132,8 @@ public class GcmIntentService extends IntentService {
 				.setContentText(msg);
 
 		mBuilder.setContentIntent(contentIntent);
-//		long[] vi = { 0, 100, 0, 2000, 0, 3000, 0, 4000 };
-//		mBuilder.setVibrate(vi);
+		// long[] vi = { 0, 100, 0, 2000, 0, 3000, 0, 4000 };
+		// mBuilder.setVibrate(vi);
 		mBuilder.setAutoCancel(true);
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 	}

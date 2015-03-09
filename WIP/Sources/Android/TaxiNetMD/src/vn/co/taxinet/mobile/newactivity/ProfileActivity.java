@@ -10,10 +10,13 @@ import vn.co.taxinet.mobile.utils.Utils;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -166,8 +169,9 @@ public class ProfileActivity extends Activity {
 	public void deleteAndLogout() {
 		// delete database
 		handler.deleteDriverById();
+		// clear shared preferences
+		clearRegistrationId();
 		// move to login screen
-
 		Intent it = new Intent(ProfileActivity.this, LoginActivity.class);
 		startActivity(it);
 		finish();
@@ -196,5 +200,13 @@ public class ProfileActivity extends Activity {
 						});
 			}
 		}
+	}
+
+	private void clearRegistrationId() {
+		final SharedPreferences prefs = getSharedPreferences(
+				MapActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.clear();
+		editor.commit();
 	}
 }
