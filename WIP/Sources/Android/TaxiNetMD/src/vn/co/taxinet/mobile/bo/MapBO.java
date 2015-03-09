@@ -146,6 +146,8 @@ public class MapBO extends AsyncTask<String, Void, String> {
 			String message = jsonObject.getString("message");
 			if (message.equalsIgnoreCase(Constants.TripStatus.PICKED)) {
 				Intent it = new Intent(activity, PaymentActivity.class);
+				it.putExtra("requestId", "");
+				it.putExtra("price", "");
 				activity.startActivity(it);
 				return;
 			}
