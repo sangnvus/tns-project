@@ -36,10 +36,72 @@ public class TripBO {
 	private String account, password;
 	private ProgressDialog pd;
 	
-	public void UpdateTrip() {
-		
+	public void UpdateTrip(Activity context, String requestID, String userID, String status) {
+		this.activity = context;
+		String[] params = {requestID,userID,status};
+		new UpdateTripAsyncTask().execute(params);
+	}
+	
+	public class UpdateTripAsyncTask extends AsyncTask<String, Void, String> {
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			pd = new ProgressDialog(activity);
+			pd.setTitle("Sending Cancel Request");
+			pd.setMessage("Please wait!");
+			pd.setCancelable(false);
+			pd.show();
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			return postDataUpdateTrip(params);
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			if (result != null) {
+				parseJson(result);
+			}
+			if (pd.isShowing()) {
+				pd.dismiss();
+			}
+		}
+
 	}
 
+	public String postDataUpdateTrip(String[] params) {
+		// Create a new HttpClient and Post Header
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(Constants.URL.UPDATE_TRIP);
+		try {
+			// Add your data
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			nameValuePairs.add(new BasicNameValuePair("requestId", params[0]));
+			nameValuePairs.add(new BasicNameValuePair("userId", params[1]));
+			nameValuePairs.add(new BasicNameValuePair("status", params[2]));
+			
+			// httppost.setHeader("Content-Type","application/json;charset=UTF-8");
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+
+			// Execute HTTP Post Request
+			HttpResponse response = httpclient.execute(httppost);
+			int respnseCode = response.getStatusLine().getStatusCode();
+			if (respnseCode == 200) {
+				HttpEntity entity = response.getEntity();
+				return EntityUtils.toString(entity);
+			}
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+		}
+		return null;
+	}
+	
 	public void CreateTrip(Activity context, String riderid, String driverid,
 			String start_lat, String start_lng, String end_lat, String end_lng) {
 		this.activity = context;
@@ -84,7 +146,9 @@ public class TripBO {
 			JSONObject jsonObject = new JSONObject(response);
 			// get message from json
 			System.out.println(response);
-			String message = jsonObject.getString("message");
+			String tripID = jsonObject.getString("message");
+			Toast.makeText(activity, tripID, Toast.LENGTH_LONG).show();
+			AppController.setTripID(tripID);
 			//AppController.setTripID(message);
 		} catch (JSONException e) {
 			e.printStackTrace();

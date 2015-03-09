@@ -81,21 +81,11 @@ public class GcmIntentService extends IntentService {
 				// If it's a regular GCM message, do some work.
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
 					.equals(messageType)) {
-				String riderName = intent.getStringExtra("name");
-				String riderImage = intent.getStringExtra("image");
-				String longitude = intent.getStringExtra("longitude");
-				String latitude = intent.getStringExtra("latitude");
-				String id = intent.getStringExtra("id");
-				String phone = intent.getStringExtra("phone");
+				String status = intent.getStringExtra("status");
 
 				Intent intent2 = new Intent(
 						Constants.BroadcastAction.DISPLAY_REQUEST);
-				intent2.putExtra(Constants.IMAGE, riderImage);
-				intent2.putExtra(Constants.NAME, riderName);
-				intent2.putExtra(Constants.LONGITUDE, longitude);
-				intent2.putExtra(Constants.LATITUDE, latitude);
-				intent2.putExtra(Constants.ID, id);
-				intent2.putExtra(Constants.PHONE, phone);
+				intent2.putExtra("status", status);
 
 				sendBroadcast(intent2);
 

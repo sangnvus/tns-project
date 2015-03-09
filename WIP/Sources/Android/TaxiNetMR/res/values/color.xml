@@ -9,5 +9,6 @@
     <color name="counter_text_color">#c5c4c4</color>
     <color name="light_green">#90EE90</color>
     <color name="red">#FF0000</color>
-
+	<color name="white">#FFFFFF</color>
+	
 </resources>
