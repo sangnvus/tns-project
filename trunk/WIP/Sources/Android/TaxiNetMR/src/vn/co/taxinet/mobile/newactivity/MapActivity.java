@@ -254,15 +254,19 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 			String status = intent.getStringExtra("status");
 			if (status.equalsIgnoreCase(TripStatus.CANCELLED)) {
 				rider_send_request_waiting_step.setVisibility(View.GONE);
+				alert = new AlertDialogManager();
 				alert.showAlertDialog(MapActivity.this, "Cancel", "Cancel", false);
 			}
-			
+			if (status.equalsIgnoreCase(TripStatus.PICKING)) {
+				rider_send_request_waiting_step.setVisibility(View.GONE);
+				rider_send_request_driver_accept.setVisibility(View.VISIBLE);
+			}
+			if (status.equalsIgnoreCase(TripStatus.PICKED)) {
+				rider_send_request_driver_accept.setVisibility(View.GONE);
+			}
 		}
 	}
 	
-	private void displayMarker() {
-
-	}
 
 	// Display Location
 	private void displayLocation() {
@@ -425,6 +429,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 											startPoint
 													.icon(BitmapDescriptorFactory
 															.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+											startPoint.title("Start Point");
 											Marker marker = googleMap
 													.addMarker(startPoint);
 											lastMarker2 = marker;
@@ -482,13 +487,14 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 											if (lastMarker3 != null) {
 												lastMarker3.remove();
 											}
-											MarkerOptions startPoint = new MarkerOptions();
-											startPoint.position(arg0);
-											startPoint
+											MarkerOptions endPoint = new MarkerOptions();
+											endPoint.position(arg0);
+											endPoint
 													.icon(BitmapDescriptorFactory
 															.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+											endPoint.title("End Point");
 											Marker marker = googleMap
-													.addMarker(startPoint);
+													.addMarker(endPoint);
 											lastMarker3 = marker;
 
 										}

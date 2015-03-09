@@ -30,6 +30,7 @@ import vn.co.taxinet.mobile.utils.Constants;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 public class GetDriverBO {
 
@@ -100,6 +101,7 @@ public class GetDriverBO {
 			}
 			for (int i = 0; i < listDriver.size(); i++) {
 				Driver driver = listDriver.get(i);
+				Toast.makeText(activity, ""+driver.getLatitude(), 5).show();
 				System.out.println(driver.getFirstName());
 				LatLng latLng = new LatLng(driver.getLatitude(),
 						driver.getLongitude());
