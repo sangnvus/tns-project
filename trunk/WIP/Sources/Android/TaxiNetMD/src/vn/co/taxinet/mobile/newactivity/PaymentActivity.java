@@ -47,6 +47,7 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 	private GooglePlayService googlePlayService;
 	private float distance, price, cost;
 	private String requestId;
+	private boolean firstTime = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 		}
 		Bundle bd = getIntent().getExtras();
 		requestId = bd.getString("requestId");
-		price = bd.getFloat("price");
+		// price = bd.getFloat("price");
 	}
 
 	public void pay(View v) {
@@ -178,9 +179,15 @@ public class PaymentActivity extends Activity implements ConnectionCallbacks,
 	@Override
 	public void onLocationChanged(Location location) {
 		// Assign the new location
+		if (firstTime) {
+			newLocation = location;
+			firstTime = false;
+			return;
+		}
+		System.out.println("aaaaaaaaaaaa");
 		oldLocation = newLocation;
 		newLocation = location;
-
+		distance = 0;
 		distance += oldLocation.distanceTo(newLocation);
 
 		cost = distance * price / 1000;
