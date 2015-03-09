@@ -295,6 +295,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		mReqestLayout.setVisibility(View.GONE);
 		mapBO = new MapBO(MapActivity.this, true);
 		mapBO.execute(params);
+		googleMap.clear();
 	}
 
 	public class mHandleMessageReceiver extends BroadcastReceiver {
@@ -303,12 +304,12 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 			// lấy trạng thái của trip
 			String status = intent.getStringExtra(Constants.STATUS);
+			System.out.println(intent);
 			// nếu trạng thái là new trip
 			if (status.equalsIgnoreCase(TripStatus.NEW_TRIP)) {
 
 				rider = new Rider();
-				rider.setId(Integer.parseInt(intent
-						.getStringExtra(Constants.ID)));
+				rider.setId(intent.getStringExtra(Constants.ID));
 				rider.setName(intent.getStringExtra(Constants.NAME));
 				rider.setImage(intent.getStringExtra(Constants.IMAGE));
 				rider.setLongitude(Double.parseDouble(intent
@@ -361,6 +362,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 				manager.showCancelRequestAlert(mContext,
 						getString(R.string.cancel_request_title),
 						getString(R.string.cancel_request_message));
+				googleMap.clear();
 			}
 		}
 	};
@@ -617,8 +619,6 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 	@Override
 	public void onConnected(Bundle arg0) {
-
-		// Once connected with google api, get the location
 
 		if (mRequestingLocationUpdates) {
 			startLocationUpdates();

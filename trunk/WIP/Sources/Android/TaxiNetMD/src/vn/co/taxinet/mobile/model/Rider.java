@@ -1,34 +1,18 @@
 package vn.co.taxinet.mobile.model;
 
 public class Rider {
-	private int id;
+	private String id;
 	private String name;
 	private String image;
 	private double longitude;
 	private double latitude;
 	private String phone;
 
-	public Rider(int id, String name, String image, double longitude,
-			double latitude, String phone) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.image = image;
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.phone = phone;
-	}
-
-	public Rider() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -70,6 +54,22 @@ public class Rider {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Rider(String id, String name, String image, double longitude,
+			double latitude, String phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.image = image;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.phone = phone;
+	}
+
+	public Rider() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 }

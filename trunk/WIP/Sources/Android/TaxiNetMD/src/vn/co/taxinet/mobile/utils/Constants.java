@@ -59,7 +59,7 @@ public interface Constants {
 	public static final String IMAGE = "image";
 	public static final String NAME = "name";
 	public static final String PHONE = "phone";
-	public static final String STATUS = "STATUS";
+	public static final String STATUS = "status";
 	public static final String ID = "id";
 	public static final String RESPONSE_REQUEST = "RESPONSE_REQUEST";
 	public static final String UPDATE_CURRENT_STATUS = "UPDATE_CURRENT_STATUS";
