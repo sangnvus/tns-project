@@ -93,7 +93,7 @@
 		</p:dataTable>
 		<br></br>
 		<p:commandButton value="#{msg['driver.driverAdd']}"
-			action="#{driverListBean.redirectToAddNewDriver}" />
+			actionListener="#{driverListBean.redirectToAddNewDriver}" />
 
 		<p:dialog id="info-form" widgetVar="driver-info-dialog"
 			resizable="false" modal="true"
@@ -101,25 +101,25 @@
 			<h2>#{msg['feeAgent.personalInfo']}</h2>
 			<h:panelGrid id="driver-info-grid" columns="3">
 				<p:outputLabel value="#{msg['driver.firstName']}" />
-				<p:inputText disabled="true"
+				<p:inputText readonly="true"
 					value="#{driverListBean.driverDTO.firstName} " />
 				<p:outputLabel />
 				<p:outputLabel value="#{msg['driver.lastName']}" />
-				<p:inputText disabled="true"
+				<p:inputText readonly="true"
 					value="#{driverListBean.driverDTO.lastName}" />
 				<p:outputLabel />
 				<p:outputLabel value="Email : " />
 				<p:inputText id="selected-driver-email"
-					disabled="#{driverListBean.readOnly}" required="true"
+					readonly="#{driverListBean.readOnly}" required="true"
 					value="#{driverListBean.driverDTO.email}" />
 				<p:message for="selected-driver-email" />
 				<p:outputLabel value="#{msg['feeAgent.nation']}" />
-				<p:inputText disabled="true"
+				<p:inputText readonly="true"
 					value="#{driverListBean.driverDTO.country}" />
 				<p:outputLabel />
 				<p:outputLabel value="#{msg['riderRegister.phoneNo']} : " />
 				<p:inputText id="selected-driver-phone"
-					disabled="#{driverListBean.readOnly}" required="true"
+					readonly="#{driverListBean.readOnly}" required="true"
 					value="#{driverListBean.driverDTO.phoneNumber}" />
 				<p:message for="selected-driver-phone" />
 			</h:panelGrid>
@@ -127,7 +127,7 @@
 			<h:panelGrid id="account-info-grid" columns="3">
 				<p:outputLabel value="#{msg['riderRegister.languages']} : " />
 				<p:selectOneMenu id="selected-driver-language"
-					disabled="#{driverListBean.readOnly}"
+					readonly="#{driverListBean.readOnly}"
 					value="#{driverListBean.driverDTO.language}" required="true">
 					<f:selectItem itemLabel="" itemValue="" />
 					<f:selectItems value="#{driverListBean.langList}" var="lang"
@@ -143,10 +143,11 @@
 			<h:panelGrid columns="3" id="vehicle-info-grid">
 				<p:outputLabel value="#{msg['driver.car']} : " />
 				<p:selectOneMenu id="selected-driver-carMaker"
-					disabled="#{driverListBean.readOnly}" required="true" value="">
+					readonly="#{driverListBean.readOnly}" required="true"
+					value="#{driverListBean.driverDTO.carTypeID}">
 					<f:selectItem itemLabel="" itemValue="" />
-					<f:selectItems value="#{driverListBean.carMakerList}" var="car"
-						itemLabel="#{car.carMaker}" itemValue="#{car.carMakerId}" />
+					<f:selectItems value="#{driverListBean.carTypeList}" var="car"
+						itemLabel="#{car.carTitle}" itemValue="#{car.carTypeId}" />
 				</p:selectOneMenu>
 				<p:message for="selected-driver-carMaker" />
 				<p:outputLabel value="#{msg['driver.licensePlate']} : " />
@@ -161,6 +162,7 @@
 				</p:commandButton>
 			</center>
 		</p:dialog>
+
 		<p:growl id="growl" />
 	</h:form>
 </h:body>
