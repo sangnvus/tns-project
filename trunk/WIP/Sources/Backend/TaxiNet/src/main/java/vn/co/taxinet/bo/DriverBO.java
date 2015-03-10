@@ -196,6 +196,16 @@ public interface DriverBO {
 	public String removeDriver(String driverID);
 	
 	public List<CarType> listAllCarType();
+
+	/**
+	 * @author Hieu-Gie
+	 * 
+	 * @param id
+	 * @return
+	 * @throws TNException
+	 */
+	public MessageDTO logout(String id) throws TNException;
+
 }
 
 
