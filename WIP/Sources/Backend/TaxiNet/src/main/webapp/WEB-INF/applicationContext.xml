@@ -47,7 +47,8 @@
 				<value>classpath:vn/co/taxinet/orm/mapping/Address.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Agent.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Bank.hbm.xml</value>
-				<value>classpath:vn/co/taxinet/orm/mapping/Bussinessunit.hbm.xml</value>
+				<value>classpath:vn/co/taxinet/orm/mapping/Bussinessunit.hbm.xml
+				</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Carmaker.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/Cartype.hbm.xml</value>
 				<value>classpath:vn/co/taxinet/orm/mapping/City.hbm.xml</value>
@@ -104,6 +105,9 @@
 	</bean>
 	<bean id="carMakerDAO" class="vn.co.taxinet.dao.impl.CarMakerDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="carTypeDAO" class="vn.co.taxinet.dao.impl.CarTypeDAOImplement">
+		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="cityDAO" class="vn.co.taxinet.dao.impl.CityDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -173,9 +177,8 @@
 	<bean id="termBO" class="vn.co.taxinet.bo.impl.TermBOImpl">
 		<property name="termDAO" ref="termDAO" />
 	</bean>
-	<!-- <bean id="CurrentStatusBO" class="vn.co.taxinet.bo.impl.CurrentStatusBOImpl">
-		<property name="CurrentStatusDAO" ref="CurrentStatusBO" />
-	</bean> -->
+	<!-- <bean id="CurrentStatusBO" class="vn.co.taxinet.bo.impl.CurrentStatusBOImpl"> 
+		<property name="CurrentStatusDAO" ref="CurrentStatusBO" /> </bean> -->
 	<bean id="agentBO" class="vn.co.taxinet.bo.impl.AgentBOImpl">
 		<property name="taxiNetUserDAO" ref="taxiNetUserDAO" />
 	</bean>
@@ -192,6 +195,7 @@
 		<property name="vehicleDAO" ref="vehicleDAO" />
 		<property name="taxiNetUserDAO" ref="taxiNetUserDAO" />
 		<property name="currentStatusDAO" ref="currentStatusDAO" />
+		<property name="carTypeDAO" ref="carTypeDAO" />
 	</bean>
 	<bean id="tripBO" class="vn.co.taxinet.bo.impl.TripBOImpl">
 		<property name="tripDAO" ref="tripDAO" />
