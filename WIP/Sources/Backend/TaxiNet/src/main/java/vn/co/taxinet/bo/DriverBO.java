@@ -194,6 +194,8 @@ public interface DriverBO {
 	 * @return
 	 */
 	public String removeDriver(String driverID);
+	
+	public List<CarType> listAllCarType();
 }
 
 

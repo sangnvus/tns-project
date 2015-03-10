@@ -242,8 +242,10 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 				driverDTO.setUsername(driverList.get(i).getTaxinetusers()
 						.getUsername());
 				driverDTO.setLanguage(driverList.get(i).getTaxinetusers()
-						.getLanguage().getLanguage());
+						.getLanguage().getLanguageCode());
 				driverDTO.setId(driverList.get(i).getDriverId());
+				driverDTO.setCarTypeID(String.valueOf(driverList.get(0)
+						.getVehicle().getCartype().getCarTypeId()));
 				listDriverDTO.add(driverDTO);
 			}
 			return listDriverDTO;
@@ -279,21 +281,28 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 	 */
 	public String editDriverInfo(DriverDTO driverDTO) {
 		Session session = getSessionFactory().getCurrentSession();
-		
-		//TODO edit language code and email in taxinetusers table
+
+		// TODO edit language code and email in taxinetusers table
 		String hql = "UPDATE TaxiNetUsers U set U.email = :email AND U.language.languageCode = :langCode WHERE U.userId = :userId";
 		Query query = session.createQuery(hql);
 		query.setParameter("email", driverDTO.getEmail());
 		query.setParameter("langCode", driverDTO.getLanguage());
 		query.setParameter("userId", driverDTO.getId());
 		int result = query.executeUpdate();
-		
-		//TODO edit mobileNo in driver table
+
+		// TODO edit mobileNo in driver table
 		String hql1 = "UPDATE Driver D set D.mobileNo = :mobileNo WHERE D.driverId = :driverId";
 		Query query1 = session.createQuery(hql1);
 		query1.setParameter("driverId", driverDTO.getId());
-		
-		//TODO edit vehicle info
+		query1.executeUpdate();
+
+		// TODO edit vehicle info
+		String hql2 = "UPDATE Vehicle V set V.carType.carTypeId = :carTypeID WHERE V.plate = :plate";
+		Query query2 = session.createQuery(hql2);
+		query2.setParameter("carTypeID",
+				Integer.parseInt(driverDTO.getCarTypeID()));
+		query2.setParameter("plate", driverDTO.getPlate());
+		query2.executeUpdate();
 		
 		return String.valueOf(result);
 	}
@@ -307,7 +316,7 @@ public class DriverDAOImpl extends BaseDAOImpl implements DriverDAO {
 		Session session = getSessionFactory().getCurrentSession();
 		String hql = "UPDATE TaxiNetUsers U set U.company.companyId = null WHERE U.userId = :userId";
 		Query query = session.createQuery(hql);
-		query.setParameter("userID", driverID);
+		query.setParameter("userId", driverID);
 		query.executeUpdate();
 		return Constants.SUCCESS;
 	}
