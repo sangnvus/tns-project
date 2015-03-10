@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import vn.co.taxinet.bo.AuthenticationBO;
 import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.common.ResourceKeys;
+import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
  * 
@@ -51,26 +52,26 @@ public class LoginBean extends BaseBean implements ResourceKeys {
 		userBean.setUserName(userName);
 		userBean.setPassword(password);
 		try {
-			TNUser user = authenticationBO.login(userBean);
+			TaxiNetUsers user = authenticationBO.login(userName,password);
 			if (user != null) {
 				HttpServletRequest request = (HttpServletRequest) FacesContext
 						.getCurrentInstance().getExternalContext().getRequest();
 				HttpSession session = request.getSession();
-				session.setAttribute("UserID", user.getUserID());
-				session.setAttribute("Username", user.getUserName());
+				session.setAttribute("UserID", user.getUserId());
+				session.setAttribute("Username", user.getUsername());
 				session.setAttribute("Password", user.getPassword());
 				if ((Constants.GroupUser.RIDER)
-						.equalsIgnoreCase(user.getRole())) {
+						.equalsIgnoreCase(user.getUserGroup().getGroupCode())) {
 					FacesContext.getCurrentInstance().getExternalContext()
-							.redirect("/xhtml/rider/MyTrips.xhtml");
+							.redirect("/TN/faces/xhtml/rider/MyTrips.xhtml");
 					return null;
 				} else if ((Constants.GroupUser.DRIVER).equalsIgnoreCase(user
-						.getRole())) {
+						.getUserGroup().getGroupCode())) {
 					FacesContext.getCurrentInstance().getExternalContext()
-							.redirect("/xhtml/driver/Dashboard.xhtml");
+							.redirect("/TN/faces/xhtml/driver/Dashboard.xhtml");
 					return null;
-				} else if ((Constants.GroupUser.AGENT).equalsIgnoreCase(user.getRole())) {
-					FacesContext.getCurrentInstance().getExternalContext().redirect("/xhtml/feeagent/AgentHome.xhtml");
+				} else if ((Constants.GroupUser.AGENT).equalsIgnoreCase(user.getUserGroup().getGroupCode())) {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("/TN/faces/xhtml/feeagent/AgentHome.xhtml");
 					return null;
 				} 
 				return null;
