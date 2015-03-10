@@ -3,26 +3,32 @@ package vn.co.taxinet.dao.impl;
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
 import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.CompanyDAO;
 import vn.co.taxinet.orm.Company;
+import vn.co.taxinet.orm.TaxiNetUsers;
 import static org.hibernate.criterion.Example.create;
 
 /**
  * Home object for domain model class Company.
+ * 
  * @see vn.co.taxinet.dao.Company
  * @author Hibernate Tools
  */
-@Service(value="companyDAO")
+@Service(value = "companyDAO")
 @Transactional
-public class CompanyDAOImpl extends BaseDAOImpl implements CompanyDAO{
+public class CompanyDAOImpl extends BaseDAOImpl implements CompanyDAO {
 
-	private static final Logger log = LogManager.getLogger(CompanyDAOImpl.class);
+	private static final Logger log = LogManager
+			.getLogger(CompanyDAOImpl.class);
 
 	public void persist(Company transientInstance) {
 		log.debug("persisting Company instance");
@@ -49,7 +55,8 @@ public class CompanyDAOImpl extends BaseDAOImpl implements CompanyDAO{
 	public void attachClean(Company instance) {
 		log.debug("attaching clean Company instance");
 		try {
-			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance,
+					LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -84,8 +91,8 @@ public class CompanyDAOImpl extends BaseDAOImpl implements CompanyDAO{
 	public Company findById(java.lang.Integer id) {
 		log.debug("getting Company instance with id: " + id);
 		try {
-			Company instance = (Company) getSessionFactory().getCurrentSession()
-					.get("vn.co.taxinet.orm.Company", id);
+			Company instance = (Company) getSessionFactory()
+					.getCurrentSession().get("vn.co.taxinet.orm.Company", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -112,5 +119,23 @@ public class CompanyDAOImpl extends BaseDAOImpl implements CompanyDAO{
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+
+	public Company findCompanyByDriverId(String id) {
+		StringBuilder hql = new StringBuilder();
+		String hql1 = "FROM Company c ";
+		String hql2 = "WHERE c.taxinetuserses.userId = :id ";
+		hql.append(hql1);
+		hql.append(hql2);
+		
+		Session session = getSessionFactory().getCurrentSession();
+		Query query = session.createQuery(hql.toString());
+		query.setParameter("id", id);
+		List<Company> result = query.list();
+		Company company = new Company();
+		if (!result.isEmpty()) {
+			company = result.get(0);
+		}
+		return company;
 	}
 }

@@ -36,10 +36,9 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 	@Transactional(readOnly = true)
 	public TaxiNetUsers select(String uid) {
 		Session session = getSessionFactory().getCurrentSession();
-		String hql = " FROM TaxiNetUsers U WHERE U.username = :userName";
+		String hql = " FROM TaxiNetUsers U WHERE U.username = :username";
 		Query query = session.createQuery(hql);
-		query.setParameter("userName", uid);
-		// TODO Auto-generated method stub
+		query.setParameter("username", uid);
 		List<TaxiNetUsers> result = query.list();
 		TaxiNetUsers user = new TaxiNetUsers();
 		if (!result.isEmpty()) {

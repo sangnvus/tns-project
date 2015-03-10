@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.co.taxinet.dao.CityNameDAO;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.CityNameID;
+import vn.co.taxinet.orm.Company;
 
 /**
  * Home object for domain model class CityName.
@@ -122,7 +123,9 @@ public class CityNameDAOImpl extends BaseDAOImpl implements CityNameDAO {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.dao.CityNameDAO#selectAllCityName(java.lang.String)
 	 */
 	public List<CityName> selectAllCityName(String countryCode) {
@@ -132,5 +135,24 @@ public class CityNameDAOImpl extends BaseDAOImpl implements CityNameDAO {
 		query.setParameter("countryCode", countryCode);
 		List<CityName> cityNameList = query.list();
 		return cityNameList;
+	}
+
+	public CityName findCityNameByIdAndLanguageCode(int id, String langCode) {
+		StringBuilder hql = new StringBuilder();
+		String hql1 = "FROM CityName c ";
+		String hql2 = "WHERE c.id = :id AND c.language.languageCode = :langCode";
+		hql.append(hql1);
+		hql.append(hql2);
+
+		Session session = getSessionFactory().getCurrentSession();
+		Query query = session.createQuery(hql.toString());
+		query.setParameter("id", id);
+		query.setParameter("langCode", langCode);
+		List<CityName> result = query.list();
+		CityName cityName = new CityName();
+		if (!result.isEmpty()) {
+			cityName = result.get(0);
+		}
+		return cityName;
 	}
 }
