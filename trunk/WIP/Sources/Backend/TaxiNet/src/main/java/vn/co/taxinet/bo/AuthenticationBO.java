@@ -42,5 +42,5 @@ public interface AuthenticationBO {
 	 * @param tnUser
 	 * @return
 	 */
-	public TNUser login(TNUser tnUser);
+	public TaxiNetUsers login(String username,String password);
 }

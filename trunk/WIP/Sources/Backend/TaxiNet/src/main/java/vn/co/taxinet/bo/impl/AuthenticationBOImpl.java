@@ -86,22 +86,18 @@ public class AuthenticationBOImpl implements AuthenticationBO {
 		return registered;
 	}
 
-	public TNUser login(TNUser tnUser) {
+	public TaxiNetUsers login(String username,String password) {
 		final String begin = " BEGIN: params ({}, {}) ";
-		logger.info(begin, tnUser.getUserName(), tnUser.getPassword());
-		System.out.println("Authenticate():");
+		logger.info(begin, username, password);
 		try {
-			TaxiNetUsers user = taxiNetUserDAO.select(tnUser.getUserName());
-			if (user != null && user.getPassword().equals(tnUser.getPassword())) {
-				tnUser.setRole(user.getUsergroup().getGroupName());
-				tnUser.setUserID(user.getUserId());
-				return tnUser;
+			TaxiNetUsers user = taxiNetUserDAO.select(username);
+			if (user != null && user.getPassword().equals(password)) {
+				return user;
 			}
 		} catch (Exception ex) {
 			logger.error(ex);
 		}
-		logger.info(" END: params ({}, {})", tnUser.getUserName(),
-				tnUser.getPassword());
+		logger.info(" END: params ({}, {})", username, password);
 		return null;
 	}
 
