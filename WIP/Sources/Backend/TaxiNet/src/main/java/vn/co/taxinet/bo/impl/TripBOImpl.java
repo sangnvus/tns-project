@@ -21,6 +21,7 @@ import vn.co.taxinet.dao.PaymentDAO;
 import vn.co.taxinet.dao.RiderDAO;
 import vn.co.taxinet.dao.TripDAO;
 import vn.co.taxinet.dto.MessageDTO;
+import vn.co.taxinet.dto.TripDTO;
 import vn.co.taxinet.gcm.Content;
 import vn.co.taxinet.gcm.POST2GCM;
 import vn.co.taxinet.orm.CurrentStatus;
@@ -71,7 +72,7 @@ public class TripBOImpl implements TripBO {
 	}
 
 	@Transactional
-	public MessageDTO createTrip(String riderId, String driverId,
+	public TripDTO createTrip(String riderId, String driverId,
 			String startLongitude, String startLatitude, String stopLongitude,
 			String stopLatitude) throws TNException {
 		if (driverId == null || driverId.equalsIgnoreCase("")) {
@@ -97,6 +98,12 @@ public class TripBOImpl implements TripBO {
 		if (driver == null) {
 			throw new TNException(Message.DATA_NOT_FOUND);
 		}
+		if (!driver.getCurrentstatus().getCurrentStatus()
+				.equalsIgnoreCase(DriverStatus.AVAIABLE)) {
+			TripDTO tripDTO = new TripDTO();
+			tripDTO.setMessage(Message.FAIL);
+			return tripDTO;
+		}
 		Trip trip = new Trip();
 		UUID id = UUID.randomUUID();
 		trip.setRequestId(id.toString());
@@ -120,14 +127,20 @@ public class TripBOImpl implements TripBO {
 
 		tripDAO.insert(trip);
 
-		Content content = createNotification(rider.getRiderId(), rider
-				.getTaxinetusers().getImage(), rider.getFirstName() + " "
-				+ rider.getLastName(), startLongitude, startLatitude,
-				String.valueOf(id), TripStatus.NEW_TRIP);
+		driver.getCurrentstatus().setCurrentStatus(DriverStatus.OUT_OF_SERVICE);
+
+		Content content = createNotification(driver.getRegId(),
+				rider.getFirstName() + " " + rider.getLastName(), rider
+						.getTaxinetusers().getImage(), startLongitude,
+				startLatitude, String.valueOf(id), TripStatus.NEW_TRIP,
+				rider.getMobileNo());
 
 		String message = POST2GCM.post(Constants.apiKey, content);
 		if (message.equals(Constants.Message.SUCCESS)) {
-			return new MessageDTO(message);
+			TripDTO tripDTO = new TripDTO();
+			tripDTO.setId(String.valueOf(id));
+			tripDTO.setMessage(Message.SUCCESS);
+			return tripDTO;
 		}
 		throw new TNException(Constants.Message.FAIL);
 	}
@@ -149,11 +162,12 @@ public class TripBOImpl implements TripBO {
 			throw new TNException(Message.DATA_NOT_FOUND);
 		}
 
-		// nếu người thay upadte trip là driver
+		// náº¿u ngÆ°á»�i thay upadte trip lÃ  driver
 		if (userId.equalsIgnoreCase(trip.getDriver().getDriverId())) {
 			// update trip
 			int result = tripDAO.updateTripStatus(requestId, userId, status);
-			// nếu status là cancel thì gửi thông báo cancel đến rider
+			// náº¿u status lÃ  cancel thÃ¬ gá»­i thÃ´ng bÃ¡o cancel Ä‘áº¿n
+			// rider
 			if (result == 0) {
 				return new MessageDTO(Constants.Message.REQUEST_NOT_FOUND);
 			} else if (result > 1) {
@@ -165,54 +179,64 @@ public class TripBOImpl implements TripBO {
 				// currentStatus.setCurrentStatus(DriverStatus.BUSY);
 				// currentStatusDAO.update(currentStatus);
 				// send notification to rider
-				createNotification(trip.getRider().getRegId(), null, null,
-						null, null, null, TripStatus.CANCELLED);
+				Content content = createNotification(
+						trip.getRider().getRegId(), null, null, null, null,
+						null, TripStatus.CANCELLED, null);
+				POST2GCM.post(Constants.apiKey, content);
 			} else {
-				// nếu k thì cập nhật trang thái của driver
+				// náº¿u k thÃ¬ cáº­p nháº­t trang thÃ¡i cá»§a driver
 				CurrentStatus currentStatus = currentStatusDAO.findById(userId);
 				if (currentStatus == null) {
 					throw new TNException(Message.DATA_NOT_FOUND);
 				}
 
-				// nếu là picking thì trạng thái là BUSY
-				if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)) {
+				// náº¿u lÃ  picking thÃ¬ tráº¡ng thÃ¡i lÃ  BUSY
+				if (status.equalsIgnoreCase(Constants.TripStatus.PICKING)
+						|| status.equalsIgnoreCase(Constants.TripStatus.PICKED)) {
 					currentStatus.setCurrentStatus(Constants.DriverStatus.BUSY);
 					currentStatusDAO.update(currentStatus);
-					// rồi gửi trạng thái picking cho rider
-					createNotification(trip.getRider().getRegId(), null, null,
-							null, null, null, TripStatus.PICKING);
+					// rá»“i gá»­i tráº¡ng thÃ¡i picking cho rider
+					Content content = createNotification(trip.getRider()
+							.getRegId(), null, null, null, null, null, status,
+							null);
+					String message = POST2GCM.post(Constants.apiKey, content);
 				}
 			}
 
 			return new MessageDTO(status);
 		}
 		if (userId.equalsIgnoreCase(trip.getRider().getRiderId())) {
-			// nếu người gửi là rider hủy chuyến đi
-			// thì gửi thông báo đến cho driver
+			// náº¿u ngÆ°á»�i gá»­i lÃ  rider há»§y chuyáº¿n Ä‘i
+			// thÃ¬ gá»­i thÃ´ng bÃ¡o Ä‘áº¿n cho driver
 
-			createNotification(trip.getDriver().getRegId(), null, null, null,
-					null, requestId, TripStatus.CANCELLED);
 			int result = tripDAO.updateTripStatus(requestId, userId, status);
-
+			Content content = createNotification(trip.getDriver().getRegId(),
+					null, null, null, null, requestId, TripStatus.CANCELLED,
+					null);
+			String message = POST2GCM.post(Constants.apiKey, content);
 			if (result == 0) {
 				return new MessageDTO(Constants.Message.REQUEST_NOT_FOUND);
-			} else if (result > 1) {
-				return new MessageDTO(Constants.Message.ERROR);
-			} else {
-				return new MessageDTO(status);
 			}
+			if (result > 1) {
+				return new MessageDTO(Constants.Message.ERROR);
+			}
+			if (message.equalsIgnoreCase(Constants.FAILED)) {
+				return new MessageDTO(Constants.Message.ERROR);
+			}
+			return new MessageDTO(status);
+
 		}
 		throw new TNException(Message.DATA_NOT_FOUND);
 	}
 
 	public static Content createNotification(String regId, String name,
 			String image, String longitude, String latitude, String requestId,
-			String status) {
+			String status, String phone) {
 
 		Content c = new Content();
 		c.addRegId(regId);
 		c.createNotification(image, name, longitude, latitude, requestId,
-				status);
+				status, phone);
 
 		return c;
 	}
