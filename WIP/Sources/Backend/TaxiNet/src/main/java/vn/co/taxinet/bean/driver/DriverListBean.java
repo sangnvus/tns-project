@@ -68,7 +68,7 @@ public class DriverListBean implements Serializable {
 			UserID = session.getAttribute("UserID").toString();
 			Username = session.getAttribute("Username").toString();
 			Password = session.getAttribute("Password").toString();
-
+			
 			TaxiNetUsers user = taxiNetUserBO.getUserInfo(UserID);
 			companyID = String.valueOf(user.getCompany().getCompanyId());
 			// end of getting value
