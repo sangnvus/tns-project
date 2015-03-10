@@ -1,5 +1,6 @@
 package vn.co.taxinet.dto;
 
+
 public class DriverDTO {
 	private String username;
 	private String id;
@@ -17,7 +18,16 @@ public class DriverDTO {
 	private double longitude;
 	private double latitude;
 	private double price;
-	
+	private String carTypeID;
+
+	public String getCarTypeID() {
+		return carTypeID;
+	}
+
+	public void setCarTypeID(String carTypeID) {
+		this.carTypeID = carTypeID;
+	}
+
 	public double getPrice() {
 		return price;
 	}
