@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import vn.co.taxinet.bo.DriverBO;
+import vn.co.taxinet.bo.TaxiNetUserBO;
 import vn.co.taxinet.orm.CarMaker;
 import vn.co.taxinet.orm.CarType;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
+import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
  * @author Ecchi
@@ -46,21 +48,31 @@ public class VehiclesBean implements Serializable {
 	String userID;
 	String username;
 	String password;
+	int companyID;
 
 	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
+
+	@ManagedProperty(value = "#{taxiNetUserBO}")
+	private TaxiNetUserBO taxiNetUserBO;
 
 	/**
 	 * init data when load page
 	 */
 	public void init() {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
+			// TODO get value from session
 			HttpServletRequest request = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			HttpSession session = request.getSession();
 			userID = session.getAttribute("UserID").toString();
 			username = session.getAttribute("Username").toString();
 			password = session.getAttribute("Password").toString();
+			// get user detail from userID
+
+			TaxiNetUsers user = taxiNetUserBO.getUserInfo(userID);
+			companyID = user.getCompany().getCompanyId();
+			
 			setCountryLicense("");
 			setCarMaker("");
 			setCarModel("");
@@ -355,4 +367,17 @@ public class VehiclesBean implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public void setTaxiNetUserBO(TaxiNetUserBO taxiNetUserBO) {
+		this.taxiNetUserBO = taxiNetUserBO;
+	}
+
+	public int getCompanyID() {
+		return companyID;
+	}
+
+	public void setCompanyID(int companyID) {
+		this.companyID = companyID;
+	}
+
 }
