@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.co.taxinet.bo.TripBO;
 import vn.co.taxinet.common.exception.TNException;
 import vn.co.taxinet.dto.MessageDTO;
+import vn.co.taxinet.dto.TripDTO;
 
 @RestController
 @RequestMapping("/TripController")
@@ -27,7 +28,7 @@ public class TripController {
 	}
 
 	@RequestMapping(value = "/CreateTrip", method = RequestMethod.POST)
-	public MessageDTO createTrip(@RequestParam Map<String, String> requestParams)
+	public TripDTO createTrip(@RequestParam Map<String, String> requestParams)
 			throws TNException {
 		String riderId = requestParams.get("riderId");
 		String driverId = requestParams.get("driverId");
@@ -48,10 +49,10 @@ public class TripController {
 		String status = requestParams.get("status");
 		return tripBO.updateTrip(requestId, userId, status);
 	}
-	
+
 	@RequestMapping(value = "/CompleteTrip", method = RequestMethod.POST)
-	public MessageDTO completeTrip(@RequestParam Map<String, String> requestParams)
-			throws TNException {
+	public MessageDTO completeTrip(
+			@RequestParam Map<String, String> requestParams) throws TNException {
 		String requestId = requestParams.get("requestId");
 		String driverId = requestParams.get("driverId");
 		String cost = requestParams.get("cost");

@@ -36,6 +36,8 @@ public class DriverController {
 			@RequestParam Map<String, String> requestParams) throws TNException {
 		String longitude = requestParams.get("longitude");
 		String latitude = requestParams.get("latitude");
+		System.out.println(latitude);
+		System.out.println(longitude);
 		List<DriverDTO> listDriverDTO = driverBO.getNearListDriver(longitude,
 				latitude);
 
@@ -84,7 +86,7 @@ public class DriverController {
 
 	}
 	
-	@RequestMapping(value = "/ChangePassword", method = RequestMethod.GET)
+	@RequestMapping(value = "/ChangePassword", method = RequestMethod.POST)
 	@ResponseBody
 	public MessageDTO changePassword(
 			@RequestParam Map<String, String> requestParams) throws TNException {
@@ -93,6 +95,17 @@ public class DriverController {
 		String newPassword = requestParams.get("newpassword");
 
 		MessageDTO result = driverBO.changePassword(id, oldPassword, newPassword);
+		return result;
+
+	}
+	
+	@RequestMapping(value = "/Logout", method = RequestMethod.POST)
+	@ResponseBody
+	public MessageDTO logout(
+			@RequestParam Map<String, String> requestParams) throws TNException {
+		String id = requestParams.get("id");
+
+		MessageDTO result = driverBO.logout(id);
 		return result;
 
 	}
