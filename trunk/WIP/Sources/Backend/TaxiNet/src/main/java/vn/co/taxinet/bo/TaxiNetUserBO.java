@@ -7,6 +7,7 @@ import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.dto.TaxiNetUserDTO;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Language;
+import vn.co.taxinet.orm.TaxiNetUsers;
 
 
 /**
@@ -37,4 +38,11 @@ public interface TaxiNetUserBO {
 	public List<Language> listAllLanguage();
 	
 	public MessageDTO updateRegId(String id, String groupUser, String regId) throws TNException;
+	
+	/**
+	 * @author Ecchi
+	 * @param userId
+	 * @return
+	 */
+	public TaxiNetUsers getUserInfo(String userId);
 }
