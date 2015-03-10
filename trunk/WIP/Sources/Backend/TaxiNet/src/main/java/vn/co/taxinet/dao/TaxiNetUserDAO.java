@@ -22,6 +22,7 @@ import vn.co.taxinet.orm.TaxiNetUsers;
 public interface TaxiNetUserDAO extends BaseDAO {
 
 	TaxiNetUsers select(String uid);
+	
 	public TaxiNetUsers findById(java.lang.String id);
 	
 	/**
