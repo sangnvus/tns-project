@@ -33,6 +33,7 @@ import vn.co.taxinet.dto.MessageDTO;
 import vn.co.taxinet.orm.CarMaker;
 import vn.co.taxinet.orm.CarType;
 import vn.co.taxinet.orm.CityName;
+import vn.co.taxinet.orm.Company;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
@@ -72,10 +73,6 @@ public class DriverBOImpl implements DriverBO {
 
 	@Autowired
 	private CurrentStatusDAO currentStatusDAO;
-
-	public CurrentStatusDAO getCurrentStatusDAO() {
-		return currentStatusDAO;
-	}
 
 	public void setCurrentStatusDAO(CurrentStatusDAO currentStatusDAO) {
 		this.currentStatusDAO = currentStatusDAO;
@@ -260,7 +257,10 @@ public class DriverBOImpl implements DriverBO {
 		// get RANDOM UUID for vehicles ID
 		UUID id = UUID.randomUUID();
 		// check ID exist or not
-
+		Vehicle oldVehicle = vehicleDAO.getVehicleFromID(id.toString());
+		if (oldVehicle != null) {
+			id = UUID.randomUUID();
+		}
 		// set value for new Object
 		vehicles.setPlate(plate);
 		vehicles.setExteriorColor(exColor);
@@ -270,6 +270,8 @@ public class DriverBOImpl implements DriverBO {
 		vehicles.setLastModifiedBy(userID);
 		vehicles.setCreatedDate(Utility.getCurrentDate());
 		vehicles.setLastModifiedDate(Utility.getCurrentDate());
+		vehicles.setCartype(new CarType());
+		vehicles.getCartype().setCarTypeId(Integer.valueOf(carModel));
 		// TODO hardcode Level
 		vehicles.setLevel("4");
 		// 1. select companyID from User ID
@@ -279,6 +281,8 @@ public class DriverBOImpl implements DriverBO {
 			return null;
 		} else {
 			int companyId = user.getCompany().getCompanyId();
+			vehicles.setCompany(new Company());
+			vehicles.getCompany().setCompanyId(companyId);
 			// 2. select PricePanelID from car model ID and company ID
 			PricePanel pricePanel = new PricePanel();
 			pricePanel = pricePanelDAO.selectPricePanel(carModel,

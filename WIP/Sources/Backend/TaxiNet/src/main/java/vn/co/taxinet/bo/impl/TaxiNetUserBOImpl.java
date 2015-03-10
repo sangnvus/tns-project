@@ -216,4 +216,12 @@ public class TaxiNetUserBOImpl implements TaxiNetUserBO {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.TaxiNetUserBO#getUserInfo(java.lang.String)
+	 */
+	@Transactional
+	public TaxiNetUsers getUserInfo(String userId) {
+		return taxiNetUserDAO.findById(userId);
+	}
+
 }
