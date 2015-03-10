@@ -23,13 +23,14 @@ import org.primefaces.model.map.Marker;
 
 import vn.co.taxinet.bean.BaseBean;
 import vn.co.taxinet.bo.DriverBO;
+import vn.co.taxinet.bo.TaxiNetUserBO;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.CurrentStatus;
 import vn.co.taxinet.orm.Driver;
+import vn.co.taxinet.orm.TaxiNetUsers;
 
 /**
- * @author Ecchi
- * controller for live status 
+ * @author Ecchi controller for live status
  *
  */
 @ManagedBean(name = "liveStatusBean", eager = true)
@@ -57,27 +58,29 @@ public class LiveStatusBean extends BaseBean {
 	@ManagedProperty(value = "#{driverBO}")
 	private DriverBO driverBO;
 
+	@ManagedProperty(value = "#{taxiNetUserBO}")
+	private TaxiNetUserBO taxiNetUserBO;
+
 	@PostConstruct
 	public void init() {
 		HttpServletRequest request = (HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = request.getSession();
-		// UserID = session.getAttribute("UserID").toString();
-		// username = session.getAttribute("Username").toString();
-		// password = session.getAttribute("Password").toString();
-		// TODO : need usergroup value for validate permission to access this
-		// page
+		UserID = session.getAttribute("UserID").toString();
+		username = session.getAttribute("Username").toString();
+		password = session.getAttribute("Password").toString();
 		driverList = new ArrayList<Driver>();
 		simpleModel = new DefaultMapModel();
-		// TaxiNetUsers user = taxiNetUserDAO.findByID(UserID);
-		// final int companyID = user.getCompany().getCompanyId();
+		TaxiNetUsers user = taxiNetUserBO.getUserInfo(UserID);
+		companyID = user.getCompany().getCompanyId();
 		driverList = driverBO.countAllDriverByCompanyID("1");
 		lazyDriverList = new LazyDataModel<DriverDTO>() {
 			private static final long serialVersionUID = -8351117462011564508L;
 
 			@Override
-			public List<DriverDTO> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, Object> filters) {
+			public List<DriverDTO> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, Object> filters) {
 				List<DriverDTO> listDrivers = new ArrayList<DriverDTO>();
 				int pageIndex = first;
 				// TODO hardcode for testing
@@ -107,8 +110,7 @@ public class LiveStatusBean extends BaseBean {
 	 * function refresh Map and Taxi locations
 	 */
 	public void refreshMap() {
-		driverList = driverBO.countAllDriverByCompanyID(String
-				.valueOf("1"));
+		driverList = driverBO.countAllDriverByCompanyID(String.valueOf("1"));
 		for (int i = 0; i < driverList.size(); i++) {
 			Driver driver = (Driver) driverList.get(i);
 			CurrentStatus currentLocation = driver.getCurrentstatus();
@@ -122,17 +124,18 @@ public class LiveStatusBean extends BaseBean {
 			}
 		}
 	}
-	
+
 	/**
 	 * action refresh table result and pagination
 	 */
-	public void refreshTableView(){
+	public void refreshTableView() {
 		lazyDriverList = new LazyDataModel<DriverDTO>() {
 			private static final long serialVersionUID = -8351117462011564508L;
 
 			@Override
-			public List<DriverDTO> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, Object> filters) {
+			public List<DriverDTO> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, Object> filters) {
 				List<DriverDTO> listDrivers = new ArrayList<DriverDTO>();
 				int pageIndex = first;
 				// TODO hardcode for testing
@@ -146,21 +149,23 @@ public class LiveStatusBean extends BaseBean {
 		lazyDriverList.setRowCount(count);
 
 	}
-	
+
 	/**
 	 * event refresh result when change tab
+	 * 
 	 * @param event
 	 */
-	public void onTabChange(TabChangeEvent event){
+	public void onTabChange(TabChangeEvent event) {
 		refreshMap();
 		refreshTableView();
 	}
-	
+
 	/**
 	 * event refresh pagination
+	 * 
 	 * @param event
 	 */
-	public void paginationAction(PageEvent event){
+	public void paginationAction(PageEvent event) {
 		refreshTableView();
 	}
 
@@ -235,4 +240,17 @@ public class LiveStatusBean extends BaseBean {
 	public LazyDataModel<DriverDTO> getLazyDriverList() {
 		return lazyDriverList;
 	}
+
+	public void setTaxiNetUserBO(TaxiNetUserBO taxiNetUserBO) {
+		this.taxiNetUserBO = taxiNetUserBO;
+	}
+
+	public int getCompanyID() {
+		return companyID;
+	}
+
+	public void setCompanyID(int companyID) {
+		this.companyID = companyID;
+	}
+
 }
