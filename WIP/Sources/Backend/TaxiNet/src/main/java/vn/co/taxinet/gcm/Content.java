@@ -40,15 +40,16 @@ public class Content implements Serializable {
 
 	public void createNotification(String image,
 			String name, String longitude, String latitude,
-			String requestId,String status) {
+			String requestId,String status, String phone) {
 		if (data == null)
 			data = new HashMap<String, String>();
-		data.put("riderimage", image);
-		data.put("ridername", name);
+		data.put("image", image);
+		data.put("name", name);
 		data.put("longitude", longitude);
 		data.put("latitude", latitude);
-		data.put("requestId", requestId);
+		data.put("id", requestId);
 		data.put("status", status);
+		data.put("phone", phone);
 	}
 
 	public void createNotificationSendToRider(String status, String requestId) {
