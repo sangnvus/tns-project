@@ -11,4 +11,10 @@ public interface CarTypeDAO extends BaseDAO{
 	 * @return
 	 */
 	public List<CarType> getAllCarTypeByCarMaker(String carMakerID);
+	
+	/**
+	 * @author Ecchi
+	 * @return
+	 */
+	public List<CarType> getAllCarType();
 }

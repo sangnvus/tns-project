@@ -23,7 +23,14 @@ import vn.co.taxinet.bo.TaxiNetUserBO;
 import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.CarMaker;
+import vn.co.taxinet.orm.CarType;
+import vn.co.taxinet.orm.Company;
+import vn.co.taxinet.orm.Country;
+import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.Language;
+import vn.co.taxinet.orm.TaxiNetUsers;
+import vn.co.taxinet.orm.UserGroup;
+import vn.co.taxinet.utils.Utility;
 
 /**
  * @author Ecchi
@@ -45,6 +52,7 @@ public class DriverListBean implements Serializable {
 
 	public List<Language> langList;
 	public List<CarMaker> carMakerList;
+	public List<CarType> carTypeList;
 
 	private boolean isReadOnly;
 
@@ -74,9 +82,9 @@ public class DriverListBean implements Serializable {
 	 * get Default value for nation, language, carmaker
 	 */
 	public void getDefaultValue() {
-		carMakerList = driverBO.getCarMakerList();
+		// carMakerList = driverBO.getCarMakerList();
 		langList = taxiNetUserBO.listAllLanguage();
-
+		carTypeList = driverBO.listAllCarType();
 	}
 
 	/**
@@ -310,6 +318,14 @@ public class DriverListBean implements Serializable {
 
 	public void setTaxiNetUserBO(TaxiNetUserBO taxiNetUserBO) {
 		this.taxiNetUserBO = taxiNetUserBO;
+	}
+
+	public List<CarType> getCarTypeList() {
+		return carTypeList;
+	}
+
+	public void setCarTypeList(List<CarType> carTypeList) {
+		this.carTypeList = carTypeList;
 	}
 
 }

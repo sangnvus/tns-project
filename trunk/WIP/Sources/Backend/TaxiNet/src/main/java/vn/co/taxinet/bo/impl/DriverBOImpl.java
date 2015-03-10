@@ -95,6 +95,8 @@ public class DriverBOImpl implements DriverBO {
 	public void setDriverDAO(DriverDAO driverDAO) {
 		this.driverDAO = driverDAO;
 	}
+	
+	
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void register(Driver Driver) throws TNSException {
@@ -603,11 +605,18 @@ public class DriverBOImpl implements DriverBO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.DriverBO#editDriverInfo(vn.co.taxinet.dto.DriverDTO)
+	 */
+	@Transactional
 	public String editDriverInfo(DriverDTO driverDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		return driverDAO.editDriverInfo(driverDTO);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.DriverBO#removeDriver(java.lang.String)
+	 */
+	@Transactional
 	public String removeDriver(String driverID) {
 		return driverDAO.removeDriver(driverID);
 	}
@@ -636,5 +645,13 @@ public class DriverBOImpl implements DriverBO {
 		}
 
 		return new MessageDTO(Message.PASSWORD_ERROR);
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.DriverBO#listAllCarType()
+	 */
+	@Transactional
+	public List<CarType> listAllCarType() {
+		return carTypeDAO.getAllCarType();
 	}
 }
