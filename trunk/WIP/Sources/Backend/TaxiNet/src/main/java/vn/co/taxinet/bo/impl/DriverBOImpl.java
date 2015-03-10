@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.common.Constants;
+import vn.co.taxinet.common.Constants.DriverStatus;
 import vn.co.taxinet.common.Constants.Message;
 import vn.co.taxinet.common.exception.FunctionalException;
 import vn.co.taxinet.common.exception.SystemException;
@@ -95,8 +96,6 @@ public class DriverBOImpl implements DriverBO {
 	public void setDriverDAO(DriverDAO driverDAO) {
 		this.driverDAO = driverDAO;
 	}
-	
-	
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void register(Driver Driver) throws TNSException {
@@ -160,13 +159,13 @@ public class DriverBOImpl implements DriverBO {
 			}
 
 			// calculate distance
-			double theta = log1
-					- driver.getCurrentstatus().getCurrentLongtitude();
+			double theta = log1 - log2;
 			double dist = Math.sin(Utility.deg2rad(lat1))
 					* Math.sin(Utility.deg2rad(lat2))
 					+ Math.cos(Utility.deg2rad(lat1))
 					* Math.cos(Utility.deg2rad(lat2))
 					* Math.cos(Utility.deg2rad(theta));
+
 			dist = Math.acos(dist);
 			dist = Utility.rad2deg(dist);
 			dist = dist * 60 * 1.1515 * 1.609344;
@@ -605,15 +604,20 @@ public class DriverBOImpl implements DriverBO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see vn.co.taxinet.bo.DriverBO#editDriverInfo(vn.co.taxinet.dto.DriverDTO)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * vn.co.taxinet.bo.DriverBO#editDriverInfo(vn.co.taxinet.dto.DriverDTO)
 	 */
 	@Transactional
 	public String editDriverInfo(DriverDTO driverDTO) {
 		return driverDAO.editDriverInfo(driverDTO);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.bo.DriverBO#removeDriver(java.lang.String)
 	 */
 	@Transactional
@@ -647,11 +651,27 @@ public class DriverBOImpl implements DriverBO {
 		return new MessageDTO(Message.PASSWORD_ERROR);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.bo.DriverBO#listAllCarType()
 	 */
 	@Transactional
 	public List<CarType> listAllCarType() {
 		return carTypeDAO.getAllCarType();
+	}
+
+	public MessageDTO logout(String id) throws TNException {
+		if (id == null || id.equalsIgnoreCase("")) {
+			throw new TNException(Message.NULL_PARAMS);
+		}
+		Driver driver = driverDAO.findDriverById(id);
+		if (driver == null) {
+			throw new TNException(Message.DATA_NOT_FOUND);
+		}
+		CurrentStatus currentStatus = driver.getCurrentstatus();
+		currentStatus.setCurrentStatus(DriverStatus.NOT_AVAIABLE);
+		currentStatusDAO.update(currentStatus);
+		return new MessageDTO(Message.SUCCESS);
 	}
 }
