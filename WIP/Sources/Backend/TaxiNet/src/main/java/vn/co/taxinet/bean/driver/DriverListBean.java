@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.data.PageEvent;
@@ -24,13 +25,8 @@ import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.dto.DriverDTO;
 import vn.co.taxinet.orm.CarMaker;
 import vn.co.taxinet.orm.CarType;
-import vn.co.taxinet.orm.Company;
-import vn.co.taxinet.orm.Country;
-import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.Language;
 import vn.co.taxinet.orm.TaxiNetUsers;
-import vn.co.taxinet.orm.UserGroup;
-import vn.co.taxinet.utils.Utility;
 
 /**
  * @author Ecchi
@@ -45,7 +41,7 @@ public class DriverListBean implements Serializable {
 	public String UserID;
 	public String Password;
 	public String Username;
-	public String companyID = "1";
+	public String companyID;
 	public LazyDataModel<DriverDTO> driverList;
 	public DriverDTO selectedDriver;
 	public DriverDTO driverDTO;
@@ -68,11 +64,18 @@ public class DriverListBean implements Serializable {
 			HttpServletRequest request = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			// TODO get value from sessions
+			HttpSession session = request.getSession();
+			UserID = session.getAttribute("UserID").toString();
+			Username = session.getAttribute("Username").toString();
+			Password = session.getAttribute("Password").toString();
 
+			TaxiNetUsers user = taxiNetUserBO.getUserInfo(UserID);
+			companyID = String.valueOf(user.getCompany().getCompanyId());
 			// end of getting value
 			findAllDriver();
 			getDefaultValue();
 			setReadOnly(true);
+			// set new value to constructor
 			driverDTO = new DriverDTO();
 			selectedDriver = new DriverDTO();
 		}
@@ -224,7 +227,7 @@ public class DriverListBean implements Serializable {
 							Constants.Message.EMAIL_ERROR));
 			return null;
 		} else {
-			String result = driverBO.editDriverInfo(driverDTO);
+			driverBO.editDriverInfo(driverDTO);
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO,
