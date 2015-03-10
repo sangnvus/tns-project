@@ -213,4 +213,9 @@
 		<property name="riderDAO" ref="riderDAO" />
 		<property name="driverDAO" ref="driverDAO" />
 	</bean>
+	<bean id="companyBO" class="vn.co.taxinet.bo.impl.CompanyBOImpl">
+		<property name="companyDAO" ref="companyDAO" />
+		<property name="taxiNetUserDAO" ref="taxiNetUserDAO" />
+		<property name="cityNameDAO" ref="cityNameDAO" />
+	</bean>
 </beans>
