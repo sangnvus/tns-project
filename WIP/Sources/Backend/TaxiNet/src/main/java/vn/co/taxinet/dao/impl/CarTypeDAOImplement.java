@@ -134,4 +134,16 @@ public class CarTypeDAOImplement extends BaseDAOImpl implements CarTypeDAO {
 		List<CarType> carTypeList = query.list();
 		return carTypeList;
 	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.dao.CarTypeDAO#getAllCarType()
+	 */
+	@Transactional
+	public List<CarType> getAllCarType() {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "FROM CarType";
+		Query query = session.createQuery(hql);
+		List<CarType> carTypeList = query.list();
+		return carTypeList;
+	}
 }
