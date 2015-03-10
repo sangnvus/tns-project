@@ -35,6 +35,9 @@
         <property name="mobileNo" type="string">
             <column name="MobileNo" length="20" />
         </property>
+        <property name="postalCode" type="string">
+            <column name="PostalCode" length="5" />
+        </property>
         <property name="serviceCharge" type="string">
             <column name="ServiceCharge" length="5" />
         </property>
