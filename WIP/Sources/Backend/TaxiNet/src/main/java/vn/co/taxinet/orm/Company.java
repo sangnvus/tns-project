@@ -21,6 +21,7 @@ public class Company implements java.io.Serializable {
 	private Double balance;
 	private String vatnumber;
 	private String mobileNo;
+	private String postalCode;
 	private String serviceCharge;
 	private Double rate;
 	private String bankNo;
@@ -310,6 +311,14 @@ public class Company implements java.io.Serializable {
 
 	public void setCompanyparkareas_1(Set<CompanyParkArea> companyparkareas_1) {
 		this.companyparkareas_1 = companyparkareas_1;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 }
