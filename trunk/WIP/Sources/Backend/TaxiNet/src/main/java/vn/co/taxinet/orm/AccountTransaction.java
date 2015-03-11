@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class AccountTransaction implements java.io.Serializable {
 
-	private Integer transactionId;
+	private String transactionId;
 	private TaxiNetUsers taxiNetUsers;
 	private int dateTime;
 	private Double amount;
@@ -22,9 +22,10 @@ public class AccountTransaction implements java.io.Serializable {
 	public AccountTransaction() {
 	}
 
-	public AccountTransaction(TaxiNetUsers taxiNetUsers, int dateTime,
+	public AccountTransaction(String transactionId, TaxiNetUsers taxiNetUsers, int dateTime,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate) {
+		this.transactionId = transactionId;
 		this.taxiNetUsers = taxiNetUsers;
 		this.dateTime = dateTime;
 		this.createdBy = createdBy;
@@ -33,9 +34,10 @@ public class AccountTransaction implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public AccountTransaction(TaxiNetUsers taxiNetUsers, int dateTime,
+	public AccountTransaction(String transactionId, TaxiNetUsers taxiNetUsers, int dateTime,
 			Double amount, String type, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate) {
+		this.transactionId = transactionId;
 		this.taxiNetUsers = taxiNetUsers;
 		this.dateTime = dateTime;
 		this.amount = amount;
@@ -46,11 +48,11 @@ public class AccountTransaction implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Integer getTransactionId() {
+	public String getTransactionId() {
 		return this.transactionId;
 	}
 
-	public void setTransactionId(Integer transactionId) {
+	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
 
