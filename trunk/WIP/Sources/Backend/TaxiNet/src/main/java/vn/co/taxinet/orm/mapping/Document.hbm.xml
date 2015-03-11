@@ -32,6 +32,12 @@
         <property name="lastModifiedDate" type="timestamp">
             <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
+        <set name="vehiclesForLisencePlatState" table="vehicle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="LisencePlatState" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Vehicle" />
+        </set>
         <set name="companiesForBusinessRegistration" table="company" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="BusinessRegistration" />
@@ -49,6 +55,12 @@
                 <column name="DriverLisense" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Driver" />
+        </set>
+        <set name="vehiclesForLisencePlatCountry" table="vehicle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="LisencePlatCountry" />
+            </key>
+            <one-to-many class="vn.co.taxinet.orm.Vehicle" />
         </set>
         <set name="driversForDriverLisense_1" table="driver" inverse="true" lazy="true" fetch="select">
             <key>

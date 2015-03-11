@@ -4,9 +4,9 @@
 <!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="vn.co.taxinet.orm.PricePanel" table="pricepanel" catalog="taxinet">
-        <id name="pricePanelId" type="java.lang.Integer">
-            <column name="PricePanelID" />
-            <generator class="identity" />
+        <id name="pricePanelId" type="string">
+            <column name="PricePanelID" length="50" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
             <column name="CompanyID" not-null="true" />
@@ -58,7 +58,7 @@
         </property>
         <set name="vehicles" table="vehicle" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="PricePanelID" />
+                <column name="PricePanelID" length="50" />
             </key>
             <one-to-many class="vn.co.taxinet.orm.Vehicle" />
         </set>
