@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>TaxiNet</title>
+</h:head>
+<h:body>
+	<f:view>
+		<h:form id="price-panel-form" prependId="false">
+			<h2>#{msg['driver.pricePanel']}</h2>
+			<p:dataTable>
+				<p:column headerText="#{msg['driver.pricePanelTitle']}"
+					style="text-align:left;">
+				</p:column>
+				<p:column headerText="#{msg['driver.openPrice']}"
+					style="text-align:left;">
+				</p:column>
+				<p:column headerText="#{msg['driver.firstPRPrice']}"
+					style="text-align:left;">
+				</p:column>
+				<p:column headerText="#{msg['driver.waitingPrice']}"
+					style="text-align:left;">
+				</p:column>
+				<p:column headerText="#{msg['driver.startDate']}"
+					style="text-align:left;">
+				</p:column>
+				<p:column>
+					<p:commandButton icon="ui-icon-search">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</f:view>
+</h:body>
+</html>
