@@ -3,6 +3,7 @@ package vn.co.taxinet.dao;
 import java.util.List;
 
 import vn.co.taxinet.orm.CityName;
+import vn.co.taxinet.orm.CityNameID;
 
 public interface CityNameDAO extends BaseDAO {
 
@@ -12,6 +13,7 @@ public interface CityNameDAO extends BaseDAO {
 	 * @return name of city
 	 */
 	public List<CityName> selectAllCityName(String countryCode);
+	public CityName findById(CityNameID id);
 
 	/**
 	 * @author Hieu-Gie

@@ -21,7 +21,7 @@ import vn.co.taxinet.orm.TaxiNetUsers;
  */
 public interface TaxiNetUserDAO extends BaseDAO {
 
-	TaxiNetUsers select(String uid);
+	TaxiNetUsers select(String username);
 	
 	public TaxiNetUsers findById(java.lang.String id);
 	
@@ -62,7 +62,8 @@ public interface TaxiNetUserDAO extends BaseDAO {
 	String changePassword(String userID, String newPassword);
 
 	List<TaxiNetUsers> listAllUsers(String username, String email);
-	List<TaxiNetUsers> paginationList(int page, int numberOfElement);
+	List<TaxiNetUsers> searchPaginationList(String username, String name, int page, int numberOfElement);
+	int countDriverCompany(String username, String name);
 	
 	/**
 	 * @author Ecchi
