@@ -40,9 +40,9 @@ public class ChangePasswordBean implements Serializable {
 			HttpServletRequest request = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			HttpSession session = request.getSession();
-			// UserID = session.getAttribute("UserID").toString();
-			// Username = session.getAttribute("Username").toString();
-			// Password = session.getAttribute("Password").toString();
+			 UserID = session.getAttribute("UserID").toString();
+			 Username = session.getAttribute("Username").toString();
+			 Password = session.getAttribute("Password").toString();
 			newPass = "";
 			renewPass = "";
 		} catch (Exception ex) {
@@ -50,7 +50,7 @@ public class ChangePasswordBean implements Serializable {
 				// TODO if UserID/ Username / Password null -> redirect to login
 				// page
 				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect("/TN/faces/xhtml/Login.xhtml");
+						.redirect("/TN/faces/Login.xhtml");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
