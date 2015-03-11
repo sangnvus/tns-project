@@ -678,4 +678,28 @@ public class DriverBOImpl implements DriverBO {
 		currentStatusDAO.update(currentStatus);
 		return new MessageDTO(Message.SUCCESS);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.DriverBO#countPricePanel(int, java.lang.String)
+	 */
+	@Transactional
+	public int countPricePanel(int companyID, String currentDateTime) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.bo.DriverBO#getAllPricePanel(int, java.lang.String,
+	 * int, int)
+	 */
+	@Transactional
+	public List<PricePanel> getAllPricePanel(int companyID,
+			String currentDateTime, int pageIndex, int pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
