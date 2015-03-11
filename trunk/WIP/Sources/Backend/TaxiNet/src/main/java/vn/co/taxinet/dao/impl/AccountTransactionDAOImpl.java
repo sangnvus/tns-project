@@ -20,17 +20,20 @@ import static org.hibernate.criterion.Example.create;
 
 /**
  * Home object for domain model class AccountTransaction.
+ * 
  * @see vn.co.taxinet.dao.AccountTransaction
  * @author Hibernate Tools
  */
 @Service("accountTransactionDAO")
 @Transactional
-public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTransactionDAO{
+public class AccountTransactionDAOImpl extends BaseDAOImpl implements
+		AccountTransactionDAO {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 582893727580502426L;
-	private static final Logger log = LogManager.getLogger(AccountTransactionDAOImpl.class);
+	private static final Logger log = LogManager
+			.getLogger(AccountTransactionDAOImpl.class);
 
 	public void persist(AccountTransaction transientInstance) {
 		log.debug("persisting AccountTransaction instance");
@@ -57,7 +60,8 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 	public void attachClean(AccountTransaction instance) {
 		log.debug("attaching clean AccountTransaction instance");
 		try {
-			getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
+			getSessionFactory().getCurrentSession().lock(instance,
+					LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -123,27 +127,29 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 		}
 	}
 
-	public List<AccountTransaction> pagination(String username,
-			int page, int numberOfElement, Date fromDate, Date toDate) {
+	public List<AccountTransaction> pagination(String username, int page,
+			int numberOfElement, Date fromDate, Date toDate) {
 		Session session = getSessionFactory().getCurrentSession();
 		StringBuilder stringBuilder = new StringBuilder();
-		String hql1 = "FROM AccountTransaction AT ";
-		String hql2 = "WHERE AT.transactionId is not null ";
+		String hql1 = "FROM AccountTransaction ACC ";
+		String hql2 = "WHERE ACC.transactionId is not null ";
 		String hql3 = "";
 		String hql4 = "";
-		if(fromDate !=null){
-			hql3= "AND AT.createdDate >" + Utility.dateToString(fromDate, "yyyy-MM-dd");
+		if (fromDate != null) {
+			String fromdate = Utility.dateToString(fromDate, "yyyy-MM-dd");
+			hql3 = "AND ACC.createdDate > '" + fromdate + "'";
 		}
-		if(toDate !=null){
-			hql4 = "AND AT.createdDate <" + Utility.dateToString(toDate, "yyyy-MM-dd");
+		if (toDate != null) {
+			String todate = Utility.dateToString(toDate, "yyyy-MM-dd");
+			hql4 = "AND ACC.createdDate <'" + todate + "'";
 		}
-		
+
 		stringBuilder.append(hql1);
 		stringBuilder.append(hql2);
 		stringBuilder.append(hql3);
 		stringBuilder.append(hql4);
 		Query query = session.createQuery(stringBuilder.toString());
-		query.setFirstResult((page - 1) * numberOfElement);
+		query.setFirstResult((page) * numberOfElement);
 		query.setMaxResults(numberOfElement);
 		List<AccountTransaction> result;
 		result = query.list();

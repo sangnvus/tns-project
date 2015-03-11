@@ -93,7 +93,7 @@ public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO {
 		}
 	}
 
-	public PricePanel findById(java.lang.Integer id) {
+	public PricePanel findById(String id) {
 		log.debug("getting PricePanel instance with id: " + id);
 		try {
 			PricePanel instance = (PricePanel) getSessionFactory()
