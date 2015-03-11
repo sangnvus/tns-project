@@ -1,5 +1,6 @@
 package vn.co.taxinet.bean.feeagent;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -59,15 +60,27 @@ public class FeeAgentHomeBean extends BaseBean implements Serializable {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
 			// lazyListUser.setRowCount(agentBO.countDriverCompany(accountSearchName,
 			// userSearchName));
-			HttpServletRequest request = (HttpServletRequest) FacesContext
-					.getCurrentInstance().getExternalContext().getRequest();
-			HttpSession session = request.getSession();
-			agentId =  session.getAttribute("UserID").toString();
-			agentname = session.getAttribute("Username").toString();
-			agentRole = session.getAttribute("Role").toString();
-			accountSearchName = "";
-			userSearchName = "";
-			doSearchAllUser();
+			try {
+				HttpServletRequest request = (HttpServletRequest) FacesContext
+						.getCurrentInstance().getExternalContext().getRequest();
+				HttpSession session = request.getSession();
+				agentId =  session.getAttribute("UserID").toString();
+				agentname = session.getAttribute("Username").toString();
+				agentRole = session.getAttribute("Role").toString();
+				accountSearchName = "";
+				userSearchName = "";
+				doSearchAllUser();
+			} catch (Exception ex) {
+				try {
+					// TODO if UserID/ Username / Password null -> redirect to login
+					// page
+					FacesContext.getCurrentInstance().getExternalContext()
+							.redirect("/TN/faces/Login.xhtml");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
 		}
 	}
 
