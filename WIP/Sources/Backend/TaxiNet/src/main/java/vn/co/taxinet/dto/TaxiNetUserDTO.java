@@ -14,7 +14,25 @@ public class TaxiNetUserDTO {
 	private String countryCode;
 	private String userGroup;
 	private String language;
+	private String companyName;
+	private String Address;
+	private String city;
+	private double balance;
+	private Long count;
 	
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public String getAddress() {
+		return Address;
+	}
+	public void setAddress(String address) {
+		Address = address;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -92,6 +110,24 @@ public class TaxiNetUserDTO {
 	}
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public double getBalance() {
+		return balance;
+	}
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+	public Long getCount() {
+		return count;
+	}
+	public void setCount(Long count) {
+		this.count = count;
 	}
 	
 	
