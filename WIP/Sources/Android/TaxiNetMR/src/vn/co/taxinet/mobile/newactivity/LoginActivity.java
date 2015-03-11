@@ -4,7 +4,6 @@ import vn.co.taxinet.mobile.R;
 import vn.co.taxinet.mobile.app.AppController;
 import vn.co.taxinet.mobile.bo.LoginBO;
 import vn.co.taxinet.mobile.database.DatabaseHandler;
-import vn.co.taxinet.mobile.model.Driver;
 import vn.co.taxinet.mobile.model.Rider;
 import vn.co.taxinet.mobile.utils.Utils;
 import android.app.Activity;
@@ -12,12 +11,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
 	private EditText mEmail, mPassword;
+	private Button register;
 	private LoginBO loginBO;
 	private SharedPreferences prefs = null;
 	private DatabaseHandler handler;
@@ -43,6 +45,18 @@ public class LoginActivity extends Activity {
 			Intent it = new Intent(LoginActivity.this, MapActivity.class);
 			startActivity(it);
 		}
+		
+		//Register Button
+		register = (Button) findViewById(R.id.bt_register);
+		register.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent it = new Intent(LoginActivity.this, RegisterActivity.class);
+				startActivity(it);
+				
+			}
+		});
 
 	}
 

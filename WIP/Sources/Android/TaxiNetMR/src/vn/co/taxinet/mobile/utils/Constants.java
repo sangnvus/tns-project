@@ -31,15 +31,15 @@ public interface Constants {
 	 * define url
 	 */
 	public interface URL {
-		public static final String GET_TERM = "http://192.168.0.114:8080/TN/restServices/TermController/GetTerm";
-		public static final String LOGIN_AUTHEN = "http://192.168.0.114:8080/TN/restServices/riderController/Login";
-		public static final String UPDATE_DRIVER = "http://192.168.0.114:8080/TN/restServices/DriverController/UpdateDriver";
-		public static final String UPDATE_REG_ID = "http://192.168.0.114:8080/TN/restServices/CommonController/UpdateRegId";
-		public static final String REGISTER_DRIVER = "http://192.168.0.114:8080/TN/restServices/CommonController/register";
-		public static final String UPDATE_CURRENT_STATUS = "http://192.168.0.114:8080/TN/restServices/DriverController/UpdateCurrentStatus";
-		public static final String UPDATE_TRIP = "http://192.168.0.114:8080/TN/restServices/TripController/UpdateTrip";
-		public static final String CREATE_TRIP = "http://192.168.0.114:8080/TN/restServices/TripController/CreateTrip";	
-		public static final String GET_DRIVER = "http://192.168.0.114:8080/TN/restServices/DriverController/getNearDriver";
+		public static final String GET_TERM = "http://192.168.234.1:8080/TN/restServices/TermController/GetTerm";
+		public static final String LOGIN_AUTHEN = "http://192.168.234.1:8080/TN/restServices/riderController/Login";
+		public static final String UPDATE_DRIVER = "http://192.168.234.1:8080/TN/restServices/DriverController/UpdateDriver";
+		public static final String UPDATE_REG_ID = "http://192.168.234.1:8080/TN/restServices/CommonController/UpdateRegId";
+		public static final String REGISTER_RIDER = "http://192.168.234.1:8080/TN/restServices/CommonController/register";
+		public static final String UPDATE_CURRENT_STATUS = "http://192.168.234.1:8080/TN/restServices/DriverController/UpdateCurrentStatus";
+		public static final String UPDATE_TRIP = "http://192.168.234.1:8080/TN/restServices/TripController/UpdateTrip";
+		public static final String CREATE_TRIP = "http://192.168.234.1:8080/TN/restServices/TripController/CreateTrip";	
+		public static final String GET_DRIVER = "http://192.168.234.1:8080/TN/restServices/DriverController/getNearDriver";
 	}
 
 	/*
