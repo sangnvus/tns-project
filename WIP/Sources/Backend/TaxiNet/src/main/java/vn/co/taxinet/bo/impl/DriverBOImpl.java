@@ -290,7 +290,7 @@ public class DriverBOImpl implements DriverBO {
 			if (pricePanel == null) {
 				return null;
 			} else {
-				int pricePanelID = pricePanel.getPricePanelId();
+				String pricePanelID = pricePanel.getPricePanelId();
 				vehicles.setPricepanel(new PricePanel());
 				vehicles.getPricepanel().setPricePanelId(pricePanelID);
 				vehicleDAO.insert(vehicles);
