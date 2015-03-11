@@ -11,6 +11,7 @@ import vn.co.taxinet.orm.CarType;
 import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.Driver;
+import vn.co.taxinet.orm.PricePanel;
 import vn.co.taxinet.orm.Vehicle;
 
 /**
@@ -19,14 +20,15 @@ import vn.co.taxinet.orm.Vehicle;
  *
  */
 public interface DriverBO {
-	
+
 	public void register(Driver driver) throws TNSException;
 
 	public String register(String driverId, String firstName, String lastName,
 			String mobileNo);
 
-	public MessageDTO changePassword(String id, String oldpassword, String newpassword) throws TNException;
-	
+	public MessageDTO changePassword(String id, String oldpassword,
+			String newpassword) throws TNException;
+
 	/**
 	 * @author Hieu-Gie
 	 * 
@@ -133,16 +135,16 @@ public interface DriverBO {
 	 * @param pageSize
 	 * @return
 	 */
-	public List<DriverDTO> findDriverByCompanyID(String companyID, int pageIndex,
-			int pageSize);
-	
+	public List<DriverDTO> findDriverByCompanyID(String companyID,
+			int pageIndex, int pageSize);
+
 	/**
 	 * @author Ecchi
 	 * @param companyID
 	 * @return
 	 */
 	public List<Driver> countAllDriverByCompanyID(String companyID);
-	
+
 	/**
 	 * @author Ecchi
 	 * @category dummy functions
@@ -150,19 +152,17 @@ public interface DriverBO {
 	 * @return vehicle
 	 */
 	public Vehicle getVehicleFromVehicleID(String vehicleID);
-	
-	
+
 	/**
-	 * @author Ecchi
-	 * function to list all of driver
+	 * @author Ecchi function to list all of driver
 	 * @param companyID
 	 * @return
 	 */
-	public List<DriverDTO> getAllDriverOfCompany(String companyID, int pageIndex, int pageSize);
-	
+	public List<DriverDTO> getAllDriverOfCompany(String companyID,
+			int pageIndex, int pageSize);
+
 	/**
-	 * @author Ecchi
-	 * function to count the number of company's driver
+	 * @author Ecchi function to count the number of company's driver
 	 * @param companyID
 	 * @return number of the company's driver
 	 */
@@ -171,7 +171,7 @@ public interface DriverBO {
 	public Driver findDriverByUsername(String Username) throws TNSException;
 
 	public void update(Driver updateDriver) throws TNSException;
-	
+
 	/**
 	 * @author Ecchi
 	 * @category Add New Driver
@@ -179,22 +179,25 @@ public interface DriverBO {
 	 * @return result
 	 */
 	public String addNewDriver(Driver driver);
-	
-	
+
 	/**
 	 * @author Ecchi
 	 * @param driverDTO
 	 * @return
 	 */
 	public String editDriverInfo(DriverDTO driverDTO);
-	
+
 	/**
 	 * @author Ecchi
 	 * @param driverID
 	 * @return
 	 */
 	public String removeDriver(String driverID);
-	
+
+	/**
+	 * @author Ecchi
+	 * @return
+	 */
 	public List<CarType> listAllCarType();
 
 	/**
@@ -206,7 +209,22 @@ public interface DriverBO {
 	 */
 	public MessageDTO logout(String id) throws TNException;
 
+	/**
+	 * @author Ecchi
+	 * @param companyID
+	 * @param currentDateTime
+	 * @return
+	 */
+	public int countPricePanel(int companyID, String currentDateTime);
+
+	/**
+	 * @author Ecchi
+	 * @param companyID
+	 * @param currentDateTime
+	 * @param pageIndex
+	 * @param pageSize
+	 * @return
+	 */
+	public List<PricePanel> getAllPricePanel(int companyID,
+			String currentDateTime, int pageIndex, int pageSize);
 }
-
-
-
