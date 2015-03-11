@@ -36,9 +36,13 @@ public class TripController {
 		String startLatitude = requestParams.get("startlatitude");
 		String stopLongitude = requestParams.get("stoplongitude");
 		String stopLatitude = requestParams.get("stoplatitude");
+		String estimateCost = requestParams.get("estimateCost");
+		String paymentMethod = requestParams.get("paymentMethod");
+		String estimateDistance = requestParams.get("estimateDistance");
 
 		return tripBO.createTrip(riderId, driverId, startLongitude,
-				startLatitude, stopLongitude, stopLatitude);
+				startLatitude, stopLongitude, stopLatitude, estimateCost,
+				estimateDistance, paymentMethod);
 	}
 
 	@RequestMapping(value = "/UpdateTrip", method = RequestMethod.POST)
