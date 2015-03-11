@@ -51,7 +51,6 @@ public class GetDriverBO {
 	public class getDriverAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			super.onPreExecute();
 			pd = new ProgressDialog(activity);
 			pd.setTitle("Sending Request");
@@ -67,7 +66,6 @@ public class GetDriverBO {
 
 		@Override
 		protected void onPostExecute(String result) {
-			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			if (result != null) {
 				parseJson(result);
@@ -101,7 +99,6 @@ public class GetDriverBO {
 			}
 			for (int i = 0; i < listDriver.size(); i++) {
 				Driver driver = listDriver.get(i);
-				Toast.makeText(activity, ""+driver.getLatitude(), 5).show();
 				System.out.println(driver.getFirstName());
 				LatLng latLng = new LatLng(driver.getLatitude(),
 						driver.getLongitude());

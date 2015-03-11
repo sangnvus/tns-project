@@ -92,7 +92,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
  * Main UI for the demo app.
  */
 @SuppressWarnings("deprecation")
-public class MapActivity extends Activity  {
+public class MapActivity extends Activity {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -163,13 +163,14 @@ public class MapActivity extends Activity  {
 	RelativeLayout rider_send_request_driver_accept;
 	RelativeLayout pick_point;
 	RelativeLayout pick_point_new_screen;
-	
+
 	DatabaseHandler databaseHandler;
 
 	private Button send_request, pick_start_point, pick_end_point,
 			pick_start_point_value, pick_end_point_value;
 	private double start_lat = 1, start_lng = 2, end_lat = 3, end_lng = 4;
 	LatLng rider_current_position;
+	Location lastLocation;
 
 	ArrayList<Driver> listDriver;
 
@@ -191,7 +192,7 @@ public class MapActivity extends Activity  {
 		displayLocation();
 
 		initialize();
-		
+
 		databaseHandler = new DatabaseHandler(getApplicationContext());
 	}
 
@@ -207,7 +208,7 @@ public class MapActivity extends Activity  {
 
 		handler = new DatabaseHandler(this);
 	}
-	
+
 	private void initilizeMap() {
 		if (googleMap == null) {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
@@ -234,28 +235,32 @@ public class MapActivity extends Activity  {
 		}
 	}
 
-	public class mHandleMessageReceiver extends BroadcastReceiver { 
-		@Override public void onReceive(Context context, Intent intent) {
-			// lấy trạng thái của trip 
+	public class mHandleMessageReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// lấy trạng thái của trip
 			String status = intent.getStringExtra("status");
 			if (status.equalsIgnoreCase(TripStatus.CANCELLED)) {
 				rider_send_request_waiting_step.setVisibility(View.GONE);
 				alert = new AlertDialogManager();
-				alert.showAlertDialog(MapActivity.this, "Cancel", "Cancel", false);
-				//databaseHandler.updateTrip(AppController.getTripID(), TripStatus.CANCELLED);
+				alert.showAlertDialog(MapActivity.this, "Cancel", "Cancel",
+						false);
+				// databaseHandler.updateTrip(AppController.getTripID(),
+				// TripStatus.CANCELLED);
 			}
 			if (status.equalsIgnoreCase(TripStatus.PICKING)) {
 				rider_send_request_waiting_step.setVisibility(View.GONE);
 				rider_send_request_driver_accept.setVisibility(View.VISIBLE);
-				//databaseHandler.updateTrip(AppController.getTripID(), TripStatus.PICKING);
+				// databaseHandler.updateTrip(AppController.getTripID(),
+				// TripStatus.PICKING);
 			}
 			if (status.equalsIgnoreCase(TripStatus.PICKED)) {
 				rider_send_request_driver_accept.setVisibility(View.GONE);
-				//databaseHandler.updateTrip(AppController.getTripID(), TripStatus.PICKED);
+				// databaseHandler.updateTrip(AppController.getTripID(),
+				// TripStatus.PICKED);
 			}
 		}
 	}
-	
 
 	// Display Location
 	private void displayLocation() {
@@ -289,17 +294,16 @@ public class MapActivity extends Activity  {
 		Button cancelWaitingRequest, cancelAcceptedRequest;
 		cancelWaitingRequest = (Button) findViewById(R.id.btn_rider_cancel_waiting_request);
 		cancelAcceptedRequest = (Button) findViewById(R.id.btn_rider_cancel_driver_accept_request);
-		
-		//Trip trip = databaseHandler.getTripStatus(); 
-		
+
+		// Trip trip = databaseHandler.getTripStatus();
+
 		tripBO = new TripBO();
-		
+
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
 
-		final Location lastLocation = locationManager
-				.getLastKnownLocation(locationManager.getBestProvider(criteria,
-						true));
+		lastLocation = locationManager.getLastKnownLocation(locationManager
+				.getBestProvider(criteria, true));
 		Toast.makeText(getApplicationContext(), "111", Toast.LENGTH_SHORT)
 				.show();
 		if (lastLocation != null) {
@@ -319,12 +323,13 @@ public class MapActivity extends Activity  {
 			// googleMap.addMarker(markerOptions);
 			// }
 
-			// rider_current_position = 4new LatLng(lastLocation.getLatitude(),
-			// lastLocation.getLongitude());
-			//
-			// riderPosition.title("U stand here");
-			// riderPosition.position(rider_current_position);
-			// googleMap.addMarker(riderPosition);
+			rider_current_position = new LatLng(lastLocation.getLatitude(),
+					lastLocation.getLongitude());
+
+			riderPosition = new MarkerOptions();
+			riderPosition.title("U stand here");
+			riderPosition.position(rider_current_position);
+			googleMap.addMarker(riderPosition);
 
 			// LatLng Taxi1 = new LatLng(21.009809, 105.523515);
 			// LatLng Taxi2 = new LatLng(21.014917, 105.530317);
@@ -357,30 +362,29 @@ public class MapActivity extends Activity  {
 			googleMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 
 				@Override
-				public boolean onMarkerClick(Marker maker) {
+				public boolean onMarkerClick(Marker marker) {
 					// TODO Auto-generated method stub
-					Toast.makeText(getApplicationContext(),
-							maker.getPosition().toString(), Toast.LENGTH_SHORT)
-							.show();
 					List<Driver> drivers = AppController.getListDrivers();
 					for (int i = 0; i < drivers.size(); i++) {
 						LatLng latLng = new LatLng(
 								drivers.get(i).getLatitude(), drivers.get(i)
 										.getLongitude());
-						if (latLng.equals(maker.getPosition())) {
+						if (latLng.equals(marker.getPosition())) {
 							driver = drivers.get(i);
 						}
 					}
-					System.out.println("Name : " + driver.getFirstName());
-
+					
 					// Getting URL to the Google Directions API
-					// String url = getDirectionsUrl(rider_current_position,
-					// arg0.getPosition());
+					String url = getDirectionsUrl(rider_current_position,
+							marker.getPosition());
 
-					// DownloadTask downloadTask = new DownloadTask();
+					DownloadTask downloadTask = new DownloadTask();
 
 					// Start downloading json data from Google Directions API
-					// downloadTask.execute(url);
+					downloadTask.execute(url);
+					Toast.makeText(getApplicationContext(), ""+AppController.getDistance(), 3)
+					.show();
+					
 					rider_send_request_information.setVisibility(View.VISIBLE);
 					rider_send_request_first_step.setVisibility(View.VISIBLE);
 					pick_point.setVisibility(View.VISIBLE);
@@ -480,9 +484,8 @@ public class MapActivity extends Activity  {
 											}
 											MarkerOptions endPoint = new MarkerOptions();
 											endPoint.position(arg0);
-											endPoint
-													.icon(BitmapDescriptorFactory
-															.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+											endPoint.icon(BitmapDescriptorFactory
+													.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
 											endPoint.title("End Point");
 											Marker marker = googleMap
 													.addMarker(endPoint);
@@ -536,7 +539,8 @@ public class MapActivity extends Activity  {
 								removeLayout();
 								rider_send_request_waiting_step
 										.setVisibility(View.VISIBLE);
-								handler.createTrip(AppController.getTripID(), TripStatus.NEW_TRIP);
+								handler.createTrip(AppController.getTripID(),
+										TripStatus.NEW_TRIP);
 							} else {
 								// show error message
 								alert.showAlertDialog(
@@ -563,16 +567,17 @@ public class MapActivity extends Activity  {
 
 				@Override
 				public void onClick(View v) {
-					
+
 					DatabaseHandler handler = new DatabaseHandler(
 							getApplicationContext());
 					Rider rider = handler.findRider();
 					riderid = rider.getId();
-					tripBO.UpdateTrip(MapActivity.this, AppController.getTripID(), riderid,
+					tripBO.UpdateTrip(MapActivity.this,
+							AppController.getTripID(), riderid,
 							TripStatus.CANCELLED);
 					rider_send_request_waiting_step.setVisibility(View.GONE);
-					
-					//rider_send_request_driver_accept.setVisibility(View.VISIBLE);
+
+					// rider_send_request_driver_accept.setVisibility(View.VISIBLE);
 
 				}
 			});
@@ -587,7 +592,8 @@ public class MapActivity extends Activity  {
 							getApplicationContext());
 					Rider rider = handler.findRider();
 					riderid = rider.getId();
-					tripBO.UpdateTrip(MapActivity.this, AppController.getTripID(), riderid,
+					tripBO.UpdateTrip(MapActivity.this,
+							AppController.getTripID(), riderid,
 							TripStatus.CANCELLED);
 					rider_send_request_driver_accept.setVisibility(View.GONE);
 
@@ -604,26 +610,26 @@ public class MapActivity extends Activity  {
 					rider_send_request_first_step.setVisibility(View.GONE);
 					rider_send_request_information.setVisibility(View.GONE);
 
-//					Location targetLocation = new Location("");
-//					targetLocation.setLatitude(arg0.latitude);
-//					targetLocation.setLongitude(arg0.longitude);
-//
-//					float distanceInMeters = targetLocation
-//							.distanceTo(lastLocation);
-//					if (distanceInMeters > 1000) {
-//						Toast.makeText(getApplicationContext(), "Out of range",
-//								Toast.LENGTH_SHORT).show();
-//					}
-//					Toast.makeText(getApplicationContext(),
-//							" " + arg0.latitude + "  " + arg0.longitude,
-//							Toast.LENGTH_SHORT).show();
-//					if (lastMarker != null) {
-//						lastMarker.remove();
-//					}
-//					MarkerOptions hereIStand = new MarkerOptions();
-//					hereIStand.position(arg0);
-//					Marker marker = googleMap.addMarker(hereIStand);
-//					lastMarker = marker;
+					// Location targetLocation = new Location("");
+					// targetLocation.setLatitude(arg0.latitude);
+					// targetLocation.setLongitude(arg0.longitude);
+					//
+					// float distanceInMeters = targetLocation
+					// .distanceTo(lastLocation);
+					// if (distanceInMeters > 1000) {
+					// Toast.makeText(getApplicationContext(), "Out of range",
+					// Toast.LENGTH_SHORT).show();
+					// }
+					// Toast.makeText(getApplicationContext(),
+					// " " + arg0.latitude + "  " + arg0.longitude,
+					// Toast.LENGTH_SHORT).show();
+					// if (lastMarker != null) {
+					// lastMarker.remove();
+					// }
+					// MarkerOptions hereIStand = new MarkerOptions();
+					// hereIStand.position(arg0);
+					// Marker marker = googleMap.addMarker(hereIStand);
+					// lastMarker = marker;
 
 				}
 			});
@@ -789,10 +795,7 @@ public class MapActivity extends Activity  {
 				List<HashMap<String, String>> path = result.get(i);
 
 				// Fetching all the points in i-th route
-				HashMap<String, String> point2 = path.get(path.size());
-				distance = point2.get("distance");
-				// TODO
-				for (int j = 0; j < path.size() - 1; j++) {
+				for (int j = 0; j < path.size(); j++) {
 					HashMap<String, String> point = path.get(j);
 
 					double lat = Double.parseDouble(point.get("lat"));
@@ -804,7 +807,7 @@ public class MapActivity extends Activity  {
 
 				// Adding all the points in the route to LineOptions
 				lineOptions.addAll(points);
-				lineOptions.width(5);
+				lineOptions.width(2);
 				lineOptions.color(Color.RED);
 			}
 
@@ -817,7 +820,6 @@ public class MapActivity extends Activity  {
 			}
 		}
 	}
-
 
 	@Override
 	protected void onPause() {
@@ -1040,5 +1042,4 @@ public class MapActivity extends Activity  {
 		}
 	}
 
-	
 }
