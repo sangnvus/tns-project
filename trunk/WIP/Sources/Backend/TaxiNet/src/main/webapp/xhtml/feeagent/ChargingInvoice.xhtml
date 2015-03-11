@@ -14,81 +14,80 @@
 	<title>TaxiNet</title>
 </h:head>
 <h:body>
-	<p:megaMenu orientation="horizontal">
-		<p:menuitem value="#{msg['feeAgent.homePage']}"
-			url="../feeagent/AgentHome.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.transactionHistory']}"
-			url="../feeagent/TransactionHistory.xhtml"></p:menuitem>
-	</p:megaMenu>
-	<p:megaMenu orientation="vertical">
-		<p:menuitem value="#{msg['feeAgent.dashboard']}"
-			url="../feeagent/Dashboard.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
-			url="../feeagent/ContactInfo.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.accountCharging']}"
-			url="../feeagent/AgentHome.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.agentInvoice']}"
-			url="../feeagent/AgentHome.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.transactionInvoice']}"
-			url="../feeagent/ChargingInvoice.xhtml" style="background:orange"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
-			url="../feeagent/AgentHome.xhtml"></p:menuitem>
-	</p:megaMenu>
+	<h:form>
+		<p:megaMenu orientation="horizontal">
+			<p:menuitem value="#{msg['feeAgent.homePage']}"
+				url="../feeagent/AgentHome.xhtml"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.transactionHistory']}"
+				url="../feeagent/TransactionHistory.xhtml"></p:menuitem>
+		</p:megaMenu>
+		<p:megaMenu orientation="vertical">
+			<p:menuitem value="#{msg['feeAgent.dashboard']}"
+				url="../feeagent/Dashboard.xhtml"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.contactInfo']}"
+				url="../feeagent/ContactInfo.xhtml"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.accountCharging']}"
+				url="../feeagent/AgentHome.xhtml"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.agentInvoice']}"
+				url="../feeagent/AgentHome.xhtml"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.transactionInvoice']}"
+				url="../feeagent/ChargingInvoice.xhtml" style="background:orange"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.supportQnA']}"
+				url="../feeagent/AgentHome.xhtml"></p:menuitem>
+		</p:megaMenu>
 
-	<br></br>
-
-	<center>
-		<h1>#{msg['feeAgent.chargeInvoice']}</h1>
-		<h:panelGrid columns="2">
-			<p:outputLabel for="accountName" value="#{msg['feeAgent.account']}" />
-			<p:inputText id="accountName"
-				value="#{feeAgentChargingInvoicesController.accountSearchName}" />
-			<p:outputLabel for="from-date" value="#{msg['feeAgent.fromDate']}" />
-			<p:calendar id="from-date"
-				value="#{feeAgentChargingInvoicesController.fromDate}">
-				<f:convertDateTime pattern="dd-MM-yyyy" />
-			</p:calendar>
-			<p:outputLabel for="to-date" value="#{msg['feeAgent.toDate']}" />
-			<p:calendar id="to-date"
-				value="#{feeAgentChargingInvoicesController.toDate}">
-				<f:convertDateTime pattern="dd-MM-yyyy" />
-			</p:calendar>
-		</h:panelGrid>
 		<br></br>
-		<p:commandButton value="#{msg['feeAgent.invoiceFilter']}" />
-	</center>
 
-	<br></br>
+		<center>
+			<h1>#{msg['feeAgent.chargeInvoice']}</h1>
+			<h:panelGrid columns="2">
+				<p:outputLabel for="accountName" value="#{msg['feeAgent.account']}" />
+				<p:inputText id="accountName"
+					value="#{feeAgentChargingInvoicesController.accountSearchName}" />
+				<p:outputLabel for="from-date" value="#{msg['feeAgent.fromDate']}" />
+				<p:calendar id="from-date" pattern="dd/MM/yyyy"
+					value="#{feeAgentChargingInvoicesController.fromDate}">
+				</p:calendar>
+				<p:outputLabel for="to-date" value="#{msg['feeAgent.toDate']}" />
+				<p:calendar id="to-date" pattern="dd/MM/yyyy"
+					value="#{feeAgentChargingInvoicesController.toDate}">
+				</p:calendar>
+			</h:panelGrid>
+			<br></br>
+			<p:commandButton value="#{msg['feeAgent.invoiceFilter']}"
+				actionListener="#{feeAgentChargingInvoicesController.searchInvoice}" />
+		</center>
 
-	<p:dataTable id="invoice-list" paginator="true" rows="10"
-		paginatorPosition="top"
-		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		rowsPerPageTemplate="5,10,15">
-		<f:facet name="header">
+		<br></br>
+
+		<p:dataTable id="invoice-list" paginator="true" rows="10"
+			paginatorPosition="top"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<f:facet name="header">
         #{msg['feeAgent.invoiceList']}
     	</f:facet>
-		<p:column headerText="#{msg['feeAgent.autonumber']}"
-			style="text-align:left" width="35">
-		</p:column>
-		<p:column headerText="#{msg['feeAgent.invoiceNo']}"
-			style="text-align:left">
-		</p:column>
-		<p:column headerText="#{msg['feeAgent.invoiceDate']}"
-			style="text-align:left">
-		</p:column>
-		<p:column headerText="#{msg['feeAgent.chargeAmount']}(VND)"
-			style="text-align:left">
-		</p:column>
-		<p:column headerText="#{msg['feeAgent.account']}"
-			style="text-align:left">
-		</p:column>
-		<p:column headerText="#{msg['feeAgent.download']}"
-			style="text-align:left">
-		</p:column>
-		<f:facet name="footer">
+			<p:column headerText="#{msg['feeAgent.autonumber']}"
+				style="text-align:left" width="35">
+			</p:column>
+			<p:column headerText="#{msg['feeAgent.invoiceNo']}"
+				style="text-align:left">
+			</p:column>
+			<p:column headerText="#{msg['feeAgent.invoiceDate']}"
+				style="text-align:left">
+			</p:column>
+			<p:column headerText="#{msg['feeAgent.chargeAmount']}(VND)"
+				style="text-align:left">
+			</p:column>
+			<p:column headerText="#{msg['feeAgent.account']}"
+				style="text-align:left">
+			</p:column>
+			<p:column headerText="#{msg['feeAgent.download']}"
+				style="text-align:left">
+			</p:column>
+			<f:facet name="footer">
         #{msg['feeAgent.show']}#{msg['feeAgent.of']}#{msg['feeAgent.invoice']}
     	</f:facet>
-	</p:dataTable>
-
+		</p:dataTable>
+	</h:form>
 </h:body>
 </html>
