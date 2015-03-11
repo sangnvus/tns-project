@@ -17,6 +17,7 @@ import vn.co.taxinet.dao.AccountTransactionDAO;
 import vn.co.taxinet.dao.AgentDAO;
 import vn.co.taxinet.dao.CityNameDAO;
 import vn.co.taxinet.dao.TaxiNetUserDAO;
+import vn.co.taxinet.dto.AccountTransactionDTO;
 import vn.co.taxinet.dto.TaxiNetUserDTO;
 import vn.co.taxinet.orm.AccountTransaction;
 import vn.co.taxinet.orm.Agent;
@@ -146,10 +147,24 @@ public class AgentBOImpl implements AgentBO, Serializable {
 		return taxiNetUserDAO.countDriverCompany(username, name);
 	}
 
-	public List<AccountTransaction> listAccountTransaction(String username,
+	public List<AccountTransactionDTO> listAccountTransaction(String username,
 			int page, int pageSize, Date fromDate, Date toDate) {
-		List<AccountTransaction> result = accountTransactionDAO.pagination(username, page, pageSize, fromDate, toDate);
+		List<AccountTransaction> listAcountTransaction = accountTransactionDAO.pagination(username, page, pageSize, fromDate, toDate);
+		List<AccountTransactionDTO> result = new ArrayList();
+		for (int i = 0; i < listAcountTransaction.size(); i++) {
+			AccountTransactionDTO accountTransactionDTO = new AccountTransactionDTO();
+			accountTransactionDTO.setInvoiceNumber(listAcountTransaction.get(i).getTransactionId());
+			accountTransactionDTO.setChargeDate(listAcountTransaction.get(i).getCreatedDate());
+			accountTransactionDTO.setAmount(listAcountTransaction.get(i).getAmount());
+			accountTransactionDTO.setUsername(listAcountTransaction.get(i).getTaxinetusers().getUsername());
+			result.add(accountTransactionDTO);
+		}
 		return result;
+	}
+
+	public int countAcountTransaction() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
