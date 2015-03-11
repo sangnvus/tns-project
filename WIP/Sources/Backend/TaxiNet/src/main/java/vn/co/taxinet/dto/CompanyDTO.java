@@ -4,9 +4,9 @@ public class CompanyDTO {
 	private String name;
 	private String address;
 	private String city;
-	private String zip_code;
+	private String postalCode;
 	private String phone;
-	private String vat_number;
+	private String vatNumber;
 
 	public String getName() {
 		return name;
@@ -32,12 +32,12 @@ public class CompanyDTO {
 		this.city = city;
 	}
 
-	public String getZip_code() {
-		return zip_code;
+	public String getPostalCode() {
+		return postalCode;
 	}
 
-	public void setZip_code(String zip_code) {
-		this.zip_code = zip_code;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public String getPhone() {
@@ -48,27 +48,28 @@ public class CompanyDTO {
 		this.phone = phone;
 	}
 
-	public String getVat_number() {
-		return vat_number;
+	public String getVatNumber() {
+		return vatNumber;
 	}
 
-	public void setVat_number(String vat_number) {
-		this.vat_number = vat_number;
-	}
-
-	public CompanyDTO(String name, String address, String city,
-			String zip_code, String phone, String vat_number) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.city = city;
-		this.zip_code = zip_code;
-		this.phone = phone;
-		this.vat_number = vat_number;
+	public void setVatNumber(String vatNumber) {
+		this.vatNumber = vatNumber;
 	}
 
 	public CompanyDTO() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public CompanyDTO(String name, String address, String city,
+			String postalCode, String phone, String vatNumber) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.postalCode = postalCode;
+		this.phone = phone;
+		this.vatNumber = vatNumber;
 	}
 
 }
