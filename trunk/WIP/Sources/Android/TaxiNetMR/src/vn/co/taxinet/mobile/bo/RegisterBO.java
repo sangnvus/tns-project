@@ -32,7 +32,7 @@ import android.widget.Toast;
 public class RegisterBO {
 
 	private Activity activity;
-	private String driver = "driver";
+	private String rider = "rider";
 
 	public void checkRegisterInfo(Activity context, String email,
 			String password, String confirmPassword, String firstName,
@@ -74,20 +74,20 @@ public class RegisterBO {
 		String countryCode = Locale.getDefault().getCountry();
 		String languageCode = Locale.getDefault().getLanguage();
 		String[] params = { email, password, firstName, lastName, phoneNumber,
-				languageCode, Constants.UserGroup.DRIVER, countryCode };
+				languageCode, Constants.UserGroup.RIDER, countryCode };
 		new RegisterAsyncTask().execute(params);
 
 	}
 
 	public void parseJson(String response) {
 		try {
-			JSONObject jsonObject = new JSONObject(response);
-			// get message from json
-			System.out.println(response);
-			String message = jsonObject.getString("mesage");
+//			JSONObject jsonObject = new JSONObject(response);
+//			// get message from json
+//			System.out.println(response);
+//			String message = jsonObject.getString("mesage");
 			// success
 			// move to mapactivity and save to database offline
-			if (!response.equalsIgnoreCase("")) {
+			if (response!=null && !response.isEmpty()) {
 				// save to database offline
 
 				// move to map activity
@@ -95,7 +95,7 @@ public class RegisterBO {
 				activity.startActivity(it);
 				activity.finish();
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			Toast.makeText(activity,
 					activity.getString(R.string.wrong_email_or_password),
 					Toast.LENGTH_LONG).show();
@@ -138,7 +138,7 @@ public class RegisterBO {
 	public String postData(String[] params) {
 		// Create a new HttpClient and Post Header
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(Constants.URL.REGISTER_DRIVER);
+		HttpPost httppost = new HttpPost(Constants.URL.REGISTER_RIDER);
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -147,13 +147,13 @@ public class RegisterBO {
 			nameValuePairs.add(new BasicNameValuePair("firstname", params[2]));
 			nameValuePairs.add(new BasicNameValuePair("lastname", params[3]));
 			nameValuePairs
-					.add(new BasicNameValuePair("phonenumber", params[4]));
+					.add(new BasicNameValuePair("phone", params[4]));
 			nameValuePairs.add(new BasicNameValuePair("language", params[5]));
 			nameValuePairs.add(new BasicNameValuePair("usergroup", params[6]));
 			nameValuePairs
 					.add(new BasicNameValuePair("countrycode", params[7]));
 
-			nameValuePairs.add(new BasicNameValuePair("role", driver));
+			nameValuePairs.add(new BasicNameValuePair("role", rider));
 			// httppost.setHeader("Content-Type","application/json;charset=UTF-8");
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 
