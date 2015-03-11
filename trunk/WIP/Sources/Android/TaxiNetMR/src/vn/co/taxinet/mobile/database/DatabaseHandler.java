@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import vn.co.taxinet.mobile.model.Rider;
+import vn.co.taxinet.mobile.model.Trip;
+import vn.co.taxinet.mobile.utils.Constants.TripStatus;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -24,6 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Table Names
 	private static final String TABLE_RIDER = "Driver";
 	private static final String TABLE_TERM = "term";
+	private static final String TABLE_TRIP_STATUS = "trip_status";
 
 	// DRIVER Table - column names
 	private static final String COLUMN_RIDER_ID = "COLUMN_DRIVER_ID";
@@ -38,19 +41,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String COLUMN_TERM_ID = "COLUMN_TERM_ID";
 	private static final String COLUMN_TERM_CONTENT = "COLUMN_TERM_CONTENT";
 
+	// TRIP STATUS Table - column names
+	private static final String COLUMN_TRIP_STATUS_ID = "COLUMN_TRIP_STATUS_ID";
+	private static final String COLUMN_TRIP_STATUS_STATUS = "COLUMN_TRIP_STATUS_STATUS";
+
 	// DRIVER table create statement
 	private static final String CREATE_TABLE_DRIVER = "CREATE TABLE "
-			+ TABLE_RIDER + "(" + COLUMN_RIDER_ID
-			+ " TEXT," + COLUMN_RIDER_IMAGES
-			+ " TEXT," + COLUMN_RIDER_FIRST_NAME + " TEXT,"
-			+ COLUMN_DRIVER_LAST_NAME + " TEXT," + COLUMN_RIDER_EMAIL
-			+ " TEXT," + COLUMN_DRIVER_PASSWORD + " TEXT,"
+			+ TABLE_RIDER + "(" + COLUMN_RIDER_ID + " TEXT,"
+			+ COLUMN_RIDER_IMAGES + " TEXT," + COLUMN_RIDER_FIRST_NAME
+			+ " TEXT," + COLUMN_DRIVER_LAST_NAME + " TEXT,"
+			+ COLUMN_RIDER_EMAIL + " TEXT," + COLUMN_DRIVER_PASSWORD + " TEXT,"
 			+ COLUMN_RIDER_PHONE_NUMBER + " TEXT" + ")";
 
 	// TERM table create statement
 	private static final String CREATE_TABLE_TERM = "CREATE TABLE "
 			+ TABLE_TERM + "(" + COLUMN_TERM_ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_TERM_CONTENT
+			+ " TEXT" + ")";
+
+	private static final String CREATE_TABLE_TRIP_STATUS = "CREATE TABLE "
+			+ TABLE_TRIP_STATUS + "(" + COLUMN_TRIP_STATUS_ID
+			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_TRIP_STATUS_STATUS
 			+ " TEXT" + ")";
 
 	public DatabaseHandler(Context context) {
@@ -72,6 +83,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// creating required tables
 		db.execSQL(CREATE_TABLE_DRIVER);
 		db.execSQL(CREATE_TABLE_TERM);
+		db.execSQL(CREATE_TABLE_TRIP_STATUS);
 	}
 
 	@Override
@@ -80,6 +92,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RIDER);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_TERM);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRIP_STATUS);
 		// create new tables
 		onCreate(db);
 	}
@@ -120,6 +133,57 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		if (db != null && db.isOpen())
 			db.close();
 
+	}
+
+	public long createTrip(String id, String content) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(COLUMN_TRIP_STATUS_ID, id);
+		values.put(COLUMN_TRIP_STATUS_STATUS, content);
+
+		// Inserting Row
+		long _id = db.insert(TABLE_TRIP_STATUS, null, values);
+		if (db != null && db.isOpen())
+			db.close();
+		return _id;
+	}
+
+	public void deleteTrip(String id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("delete from " + TABLE_TRIP_STATUS
+				+ "where TRIP_STATUS_ID = " + id);
+
+		if (db != null && db.isOpen())
+			db.close();
+	}
+
+	public int updateTrip(String id, String content) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(COLUMN_TRIP_STATUS_ID, id);
+		values.put(COLUMN_TRIP_STATUS_STATUS, content);
+		db.execSQL("delete from " + TABLE_TRIP_STATUS);
+
+		// updating row
+		int temp = db.update(TABLE_TRIP_STATUS, values, COLUMN_TRIP_STATUS_ID
+				+ " = ?", new String[] { String.valueOf(id) });
+		if (db != null && db.isOpen())
+			db.close();
+		return temp;
+	}
+
+	public Trip getTripStatus() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQuery = "SELECT  * FROM " + TABLE_TRIP_STATUS;
+		Trip trip = new Trip();
+		Cursor c = db.rawQuery(selectQuery, null);
+		if (c.moveToFirst()) {
+			trip.setId(c.getString(c.getColumnIndex(COLUMN_TRIP_STATUS_ID)));
+			trip.setStatus(c.getString(c.getColumnIndex(COLUMN_TRIP_STATUS_STATUS)));
+		}
+		return trip;
 	}
 
 	public long createRider(Rider rider) {
@@ -221,8 +285,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 						.getColumnIndex(COLUMN_RIDER_FIRST_NAME))));
 				rider.setImage(c.getString(c
 						.getColumnIndex(COLUMN_RIDER_IMAGES)));
-				rider.setEmail(c.getString(c
-						.getColumnIndex(COLUMN_RIDER_EMAIL)));
+				rider.setEmail(c.getString(c.getColumnIndex(COLUMN_RIDER_EMAIL)));
 				rider.setPhone(c.getString(c
 						.getColumnIndex(COLUMN_RIDER_PHONE_NUMBER)));
 				listRiders.add(rider);

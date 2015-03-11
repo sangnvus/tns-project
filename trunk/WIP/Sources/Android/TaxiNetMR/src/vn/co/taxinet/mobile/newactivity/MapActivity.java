@@ -40,11 +40,10 @@ import vn.co.taxinet.mobile.googleapi.DirectionsJSONParser;
 import vn.co.taxinet.mobile.model.Driver;
 import vn.co.taxinet.mobile.model.NavDrawerItem;
 import vn.co.taxinet.mobile.model.Rider;
+import vn.co.taxinet.mobile.model.Trip;
 import vn.co.taxinet.mobile.utils.Constants;
 import vn.co.taxinet.mobile.utils.Constants.TripStatus;
-import vn.co.taxinet.mobile.utils.LruBitmapCache;
 import vn.co.taxinet.mobile.utils.Utils;
-import vn.co.taxinet.mobile.utils.WakeLocker;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -53,7 +52,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.database.MergeCursor;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
@@ -75,17 +73,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.internal.bt;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -103,8 +92,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
  * Main UI for the demo app.
  */
 @SuppressWarnings("deprecation")
-public class MapActivity extends Activity implements ConnectionCallbacks,
-		OnConnectionFailedListener, LocationListener {
+public class MapActivity extends Activity  {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -147,10 +135,6 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 
 	private LocationRequest mLocationRequest;
 
-	// Location updates intervals in sec
-	private static int UPDATE_INTERVAL = 60000; // 60 sec
-	private static int FATEST_INTERVAL = 30000; // 30 sec
-	private static int DISPLACEMENT = 100; // 100 meters
 	private String requestId;
 	private String status;
 	private DatabaseHandler handler;
@@ -179,6 +163,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 	RelativeLayout rider_send_request_driver_accept;
 	RelativeLayout pick_point;
 	RelativeLayout pick_point_new_screen;
+	
+	DatabaseHandler databaseHandler;
 
 	private Button send_request, pick_start_point, pick_end_point,
 			pick_start_point_value, pick_end_point_value;
@@ -205,11 +191,11 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		displayLocation();
 
 		initialize();
+		
+		databaseHandler = new DatabaseHandler(getApplicationContext());
 	}
 
 	private void initialize() {
-		// Building the GoogleApi client
-		buildGoogleApiClient();
 		// startLocationUpdates();
 		receiver = new mHandleMessageReceiver();
 		// set up broadcast receiver
@@ -256,13 +242,16 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 				rider_send_request_waiting_step.setVisibility(View.GONE);
 				alert = new AlertDialogManager();
 				alert.showAlertDialog(MapActivity.this, "Cancel", "Cancel", false);
+				//databaseHandler.updateTrip(AppController.getTripID(), TripStatus.CANCELLED);
 			}
 			if (status.equalsIgnoreCase(TripStatus.PICKING)) {
 				rider_send_request_waiting_step.setVisibility(View.GONE);
 				rider_send_request_driver_accept.setVisibility(View.VISIBLE);
+				//databaseHandler.updateTrip(AppController.getTripID(), TripStatus.PICKING);
 			}
 			if (status.equalsIgnoreCase(TripStatus.PICKED)) {
 				rider_send_request_driver_accept.setVisibility(View.GONE);
+				//databaseHandler.updateTrip(AppController.getTripID(), TripStatus.PICKED);
 			}
 		}
 	}
@@ -301,6 +290,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		cancelWaitingRequest = (Button) findViewById(R.id.btn_rider_cancel_waiting_request);
 		cancelAcceptedRequest = (Button) findViewById(R.id.btn_rider_cancel_driver_accept_request);
 		
+		//Trip trip = databaseHandler.getTripStatus(); 
+		
 		tripBO = new TripBO();
 		
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -328,7 +319,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 			// googleMap.addMarker(markerOptions);
 			// }
 
-			// rider_current_position = new LatLng(lastLocation.getLatitude(),
+			// rider_current_position = 4new LatLng(lastLocation.getLatitude(),
 			// lastLocation.getLongitude());
 			//
 			// riderPosition.title("U stand here");
@@ -540,13 +531,12 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 										driverid, "" + start_lat, ""
 												+ start_lng, "" + end_lat, ""
 												+ end_lng);
-								Toast.makeText(getApplicationContext(),
-										"" + start_lat, 5).show();
 								rider_send_request_first_step
 										.setVisibility(View.GONE);
 								removeLayout();
 								rider_send_request_waiting_step
 										.setVisibility(View.VISIBLE);
+								handler.createTrip(AppController.getTripID(), TripStatus.NEW_TRIP);
 							} else {
 								// show error message
 								alert.showAlertDialog(
@@ -614,28 +604,26 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 					rider_send_request_first_step.setVisibility(View.GONE);
 					rider_send_request_information.setVisibility(View.GONE);
 
-					Location targetLocation = new Location("");// provider name
-																// is unecessary
-					targetLocation.setLatitude(arg0.latitude);// your coords of
-																// course
-					targetLocation.setLongitude(arg0.longitude);
-
-					float distanceInMeters = targetLocation
-							.distanceTo(lastLocation);
-					if (distanceInMeters > 1000) {
-						Toast.makeText(getApplicationContext(), "Out of range",
-								Toast.LENGTH_SHORT).show();
-					}
-					Toast.makeText(getApplicationContext(),
-							" " + arg0.latitude + "  " + arg0.longitude,
-							Toast.LENGTH_SHORT).show();
-					if (lastMarker != null) {
-						lastMarker.remove();
-					}
-					MarkerOptions hereIStand = new MarkerOptions();
-					hereIStand.position(arg0);
-					Marker marker = googleMap.addMarker(hereIStand);
-					lastMarker = marker;
+//					Location targetLocation = new Location("");
+//					targetLocation.setLatitude(arg0.latitude);
+//					targetLocation.setLongitude(arg0.longitude);
+//
+//					float distanceInMeters = targetLocation
+//							.distanceTo(lastLocation);
+//					if (distanceInMeters > 1000) {
+//						Toast.makeText(getApplicationContext(), "Out of range",
+//								Toast.LENGTH_SHORT).show();
+//					}
+//					Toast.makeText(getApplicationContext(),
+//							" " + arg0.latitude + "  " + arg0.longitude,
+//							Toast.LENGTH_SHORT).show();
+//					if (lastMarker != null) {
+//						lastMarker.remove();
+//					}
+//					MarkerOptions hereIStand = new MarkerOptions();
+//					hereIStand.position(arg0);
+//					Marker marker = googleMap.addMarker(hereIStand);
+//					lastMarker = marker;
 
 				}
 			});
@@ -830,18 +818,10 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		}
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		if (mGoogleApiClient != null) {
-			mGoogleApiClient.connect();
-		}
-	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		// stopLocationUpdates();
 	}
 
 	@Override
@@ -850,10 +830,6 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		// Check device for Play Services APK.
 		googlePlayService.checkPlayServices(MapActivity.this);
 
-		if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
-			startLocationUpdates();
-		}
-		System.out.println("notifi");
 	}
 
 	@Override
@@ -1064,85 +1040,5 @@ public class MapActivity extends Activity implements ConnectionCallbacks,
 		}
 	}
 
-	/**
-	 * Creating google api client object
-	 * */
-	protected synchronized void buildGoogleApiClient() {
-		mGoogleApiClient = new GoogleApiClient.Builder(this)
-				.addConnectionCallbacks(this)
-				.addOnConnectionFailedListener(this)
-				.addApi(LocationServices.API).build();
-	}
-
-	/**
-	 * Creating location request object
-	 * */
-	protected void createLocationRequest() {
-		mLocationRequest = new LocationRequest();
-		mLocationRequest.setInterval(UPDATE_INTERVAL);
-		mLocationRequest.setFastestInterval(FATEST_INTERVAL);
-		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-		mLocationRequest.setSmallestDisplacement(DISPLACEMENT);
-	}
-
-	/**
-	 * Stopping location updates
-	 */
-	protected void stopLocationUpdates() {
-		LocationServices.FusedLocationApi.removeLocationUpdates(
-				mGoogleApiClient, this);
-	}
-
-	/**
-	 * Starting the location updates
-	 * */
-	protected void startLocationUpdates() {
-
-		LocationServices.FusedLocationApi.requestLocationUpdates(
-				mGoogleApiClient, mLocationRequest, this);
-
-	}
-
-	@Override
-	public void onConnected(Bundle arg0) {
-
-		if (mRequestingLocationUpdates) {
-			// startLocationUpdates();
-		}
-
-	}
-
-	@Override
-	public void onConnectionSuspended(int arg0) {
-		mGoogleApiClient.connect();
-
-	}
-
-	@Override
-	public void onConnectionFailed(ConnectionResult arg0) {
-	}
-
-	@Override
-	public void onLocationChanged(Location location) {
-		// // Assign the new location
-		// mLastLocation = location;
-		//
-		// Toast.makeText(getApplicationContext(), "Location changed!",
-		// Toast.LENGTH_SHORT).show();
-		//
-		// // Displaying the new location on UI
-		// String[] params = { Constants.UPDATE_CURRENT_STATUS,
-		// String.valueOf(mLastLocation.getLongitude()),
-		// String.valueOf(mLastLocation.getLatitude()) };
-		//
-		// mapBO.execute(params);
-
-		double latitude = location.getLatitude();
-		double longitude = location.getLongitude();
-		LatLng latLng = new LatLng(latitude, longitude);
-		googleMap.addMarker(new MarkerOptions().position(latLng));
-		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-		googleMap.animateCamera(CameraUpdateFactory.zoomTo(14));
-
-	}
+	
 }
