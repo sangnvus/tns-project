@@ -7,147 +7,173 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<f:metadata>
-		<f:event listener="#{feeAgentHomeController.initData}"
-			type="preRenderView"></f:event>
-	</f:metadata>
 	<title>TaxiNet</title>
 </h:head>
 <h:body>
-	<p:megaMenu orientation="horizontal">
-		<p:menuitem value="#{msg['feeAgent.homePage']}"
-			url="../feeagent/AgentHome.xhtml" style="background:orange"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.transactionHistory']}"
-			url="../feeagent/TransactionHistory.xhtml"></p:menuitem>
-	</p:megaMenu>
-	<p:megaMenu orientation="vertical">
-		<p:menuitem value="#{msg['feeAgent.dashboard']}"
-			url="../feeagent/Dashboard.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.contactInfo']}"
-			url="../feeagent/ContactInfo.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.accountCharging']}"
-			url="../feeagent/AgentHome.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.agentInvoice']}"
-			url="../feeagent/AgentHome.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.transactionInvoice']}"
-			url="../feeagent/ChargingInvoice.xhtml"></p:menuitem>
-		<p:menuitem value="#{msg['feeAgent.supportQnA']}"
-			url="../feeagent/AgentHome.xhtml"></p:menuitem>
-	</p:megaMenu>
-
-	<br></br>
-
-	<center>
-		<h1>#{msg['feeAgent.accountSearching']}</h1>
-		<h:panelGrid columns="2">
-			<p:outputLabel for="accountName" value="#{msg['feeAgent.account']}" />
-			<p:inputText id="accountName"
-				value="#{feeAgentHomeController.accountSearchName}" />
-			<p:outputLabel for="userName" value="#{msg['feeAgent.customerName']}" />
-			<p:inputText id="userName"
-				value="#{feeAgentHomeController.userSearchName}" />
-		</h:panelGrid>
+	<h:form id="agent-home" prependId="false">
+		<p:megaMenu orientation="horizontal">
+			<p:menuitem value="#{msg['feeAgent.homePage']}"
+				url="../feeagent/AgentHome.xhtml" style="background:orange"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.transactionHistory']}"
+				url="../feeagent/TransactionHistory.xhtml"></p:menuitem>
+		</p:megaMenu>
+		<p:megaMenu orientation="vertical">
+			<p:menuitem value="#{msg['feeAgent.dashboard']}"
+				url="../feeagent/Dashboard.xhtml"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.contactInfo']}"
+				url="../feeagent/ContactInfo.xhtml"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.accountCharging']}"
+				url="../feeagent/AgentHome.xhtml"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.agentInvoice']}"
+				url="../feeagent/AgentHome.xhtml"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.transactionInvoice']}"
+				url="../feeagent/ChargingInvoice.xhtml"></p:menuitem>
+			<p:menuitem value="#{msg['feeAgent.supportQnA']}"
+				url="../feeagent/AgentHome.xhtml"></p:menuitem>
+		</p:megaMenu>
 
 		<br></br>
 
-		<p:commandButton value="#{msg['feeAgent.search']}"
-			actionListener="#{feeAgentHomeController.doSearchAllUser}"
-			update="account-list"></p:commandButton>
-	</center>
+		<center>
+			<h1>#{msg['feeAgent.accountSearching']}</h1>
+			<h:panelGrid columns="2">
+				<p:outputLabel for="accountName" value="#{msg['feeAgent.account']}" />
+				<p:inputText id="accountName"
+					value="#{feeAgentHomeController.accountSearchName}" />
+				<p:outputLabel for="userName"
+					value="#{msg['feeAgent.customerName']}" />
+				<p:inputText id="userName"
+					value="#{feeAgentHomeController.userSearchName}" />
+			</h:panelGrid>
 
-	<br></br>
+			<br></br>
 
-	<p:dataTable id="account-list" paginator="true" rows="10"
-		paginatorPosition="top"
-		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		rowsPerPageTemplate="5,10,15"
-		var = "taxinetuser" value = "#{feeAgentHomeController.listUser}"
-		>
-		<f:facet name="header">
-        #{msg['feeAgent.accountList']}
-    	</f:facet>
-		<p:column headerText="#{msg['feeAgent.autonumber']}"
-			style="text-align:left" width="35">
-		</p:column>
-		<p:column headerText="#{msg['feeAgent.account']}"
-			style="text-align:left">
-			<h:outputText value="#{taxinetuser.username}" />
-		</p:column>
-		<p:column headerText="#{msg['feeAgent.customerName']}"
-			style="text-align:left">
-			<h:outputText value="#{taxinetuser.rider.firstName} #{taxinetuser.rider.lastName} / #{taxinetuser.company.name}" />
-		</p:column>
-		<p:column headerText="#{msg['feeAgent.address']}"
-			style="text-align:left">
-			<h:outputText value="#{taxinetuser.rider.addressByHomeAddressId}" />
-		</p:column>
-		<p:column headerText="#{msg['riderRegister.phoneNo']}"
-			style="text-align:left">
-			<h:outputText value="#{taxinetuser.rider.mobileNo}" />
-		</p:column>
-		<p:column headerText="#{msg['feeAgent.task']}" style="text-align:left">
-		</p:column>
-		<f:facet name="footer">
+			<p:commandButton value="#{msg['feeAgent.search']}"
+				actionListener="#{feeAgentHomeController.doSearchAllUser}"
+				update=":agent-home:account-list"></p:commandButton>
+		</center>
+
+		<br></br>
+
+		<p:dataTable id="account-list" paginator="true" rows="1"
+			paginatorPosition="bottom" lazy="true"
+			selection="#{feeAgentHomeController.selectedUser}"
+			rowKey="#{taxinetuser.userId}"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			var="taxinetuser" value="#{feeAgentHomeController.lazyListUser}">
+			<f:facet name="header">
+        		#{msg['feeAgent.accountList']}
+    		</f:facet>
+			<p:column headerText="#{msg['feeAgent.account']}"
+				style="text-align:left">
+				<h:outputText value="#{taxinetuser.userName}" />
+			</p:column>
+			<p:column headerText="#{msg['feeAgent.customerName']}"
+				style="text-align:left">
+				<h:outputText
+					value="#{taxinetuser.firstName} #{taxinetuser.lastName}" />
+			</p:column>
+			<p:column headerText="#{msg['feeAgent.customerName']}"
+				style="text-align:left">
+				<h:outputText value="#{taxinetuser.companyName}" />
+			</p:column>
+			<p:column headerText="#{msg['feeAgent.address']}"
+				style="text-align:left">
+				<h:outputText value="#{taxinetuser.address}" />
+			</p:column>
+			<p:column headerText="#{msg['riderRegister.phoneNo']}"
+				style="text-align:left">
+				<h:outputText value="#{taxinetuser.phone}" />
+			</p:column>
+			<p:column headerText="#{msg['feeAgent.task']}"
+				style="text-align:left">
+				<p:commandLink value="Chi tiết"
+					actionListener="#{feeAgentHomeController.selectUser(taxinetuser)}"
+					update=":agent-home:charge-dialog"
+					oncomplete="PF('charge-dialog').show();">
+					<f:setPropertyActionListener value="#{taxinetuser}"
+						target="#{feeAgentHomeController.selectedUser}" />
+				</p:commandLink>
+			</p:column>
+			<f:facet name="footer">
         #{msg['feeAgent.show']}#{msg['feeAgent.of']}#{msg['login.userName']}
     	</f:facet>
-	</p:dataTable>
+		</p:dataTable>
 
-	<!-- dialog for charge  -->
-	<p:dialog widgetVar="charge-dialog" resizable="false" modal="true"
-		header="#{msg['feeAgent.customerAccountCharging']}">
+		<!-- dialog for charge  -->
+		<p:dialog id="charge-dialog" widgetVar="charge-dialog"
+			resizable="false" modal="true"
+			header="#{msg['feeAgent.customerAccountCharging']}">
 
-		<h:panelGrid columns="3">
-			<p:outputLabel for="dialog-invoiceNo"
-				value="#{msg['feeAgent.invoiceNo']} :" />
-			<p:inputText id="dialog-invoiceNo" readonly="true" />
-			<p:outputLabel />
-			<p:outputLabel for="dialog-accountname"
-				value="#{msg['feeAgent.account']} :" />
-			<p:inputText id="dialog-accountname" readonly="true" />
-			<p:outputLabel />
-			<p:outputLabel for="dialog-username"
-				value="#{msg['feeAgent.customerName']} :" />
-			<p:inputText id="dialog-username" readonly="true" />
-			<p:outputLabel />
-			<p:outputLabel for="dialog-city" value="#{msg['feeAgent.city']} :" />
-			<p:inputText id="dialog-city" readonly="true" />
-			<p:outputLabel />
-			<p:outputLabel for="dialog-address"
-				value="#{msg['feeAgent.address']} :" />
-			<p:inputText id="dialog-address" readonly="true" />
-			<p:outputLabel />
-			<p:outputLabel for="dialog-phoneno"
-				value="#{msg['riderRegister.phoneNo']} :" />
-			<p:inputText id="dialog-phoneno" readonly="true" />
-			<p:outputLabel />
-			<p:outputLabel for="dialog-balance"
-				value="#{msg['feeAgent.balance']} :" />
-			<p:inputText id="dialog-balance" readonly="true" />
-			<p:outputLabel />
-			<p:outputLabel for="dialog-staff"
-				value="#{msg['feeAgent.cashier']} :" />
-			<p:inputText id="dialog-staff" readonly="true" />
-			<p:outputLabel />
-			<p:outputLabel for="dialog-charge-fee"
-				value="#{msg['feeAgent.chargeAmount']} :" />
-			<p:inputText id="dialog-charge-fee" />VND
+			<h:panelGrid columns="3">
+				<p:outputLabel for="dialog-invoiceNo"
+					value="#{msg['feeAgent.invoiceNo']} :" />
+				<p:inputText id="dialog-invoiceNo" readonly="true"
+					value="#{feeAgentHomeController.invoiceNumber}" />
+				<p:outputLabel />
+				<p:outputLabel for="dialog-accountname"
+					value="#{msg['feeAgent.account']} :" />
+				<p:inputText id="dialog-accountname" readonly="true"
+					value="#{feeAgentHomeController.selectedUser.userName}" />
+				<p:outputLabel />
+				<p:outputLabel for="dialog-username"
+					value="#{msg['feeAgent.customerName']} :" />
+				<p:inputText id="dialog-username" readonly="true"
+					value="#{feeAgentHomeController.selectedUser.firstName} #{feeAgentHomeController.selectedUser.lastName}" />
+				<p:outputLabel />
+				<p:outputLabel for="dialog-city" value="#{msg['feeAgent.city']} :" />
+				<p:inputText id="dialog-city" readonly="true"
+					value="#{feeAgentHomeController.selectedUser.city}" />
+				<p:outputLabel />
+				<p:outputLabel for="dialog-address"
+					value="#{msg['feeAgent.address']} :" />
+				<p:inputText id="dialog-address" readonly="true"
+					value="#{feeAgentHomeController.selectedUser.address}" />
+				<p:outputLabel />
+				<p:outputLabel for="dialog-phoneno"
+					value="#{msg['riderRegister.phoneNo']} :" />
+				<p:inputText id="dialog-phoneno" readonly="true"
+					value="#{feeAgentHomeController.selectedUser.phone}" />
+				<p:outputLabel />
+				<p:outputLabel for="dialog-balance"
+					value="#{msg['feeAgent.balance']} :" />
+				<p:inputText id="dialog-balance" readonly="true"
+					value="#{feeAgentHomeController.selectedUser.balance}" />
+				<p:outputLabel />
+				<p:outputLabel for="dialog-staff"
+					value="#{msg['feeAgent.cashier']} :" />
+				<p:inputText id="dialog-staff" readonly="true"
+					value="#{feeAgentHomeController.agentname}" />
+				<p:outputLabel />
+				<p:outputLabel for="dialog-charge-fee"
+					value="#{msg['feeAgent.chargeAmount']} :" />
+				<p:inputText id="dialog-charge-fee"
+					value="#{feeAgentHomeController.chargeAmount}">
+					<p:ajax event="keyup" update="dialog-afterChargeBalance"
+						listener="#{feeAgentHomeController.canculateAmount()}" />
+				</p:inputText>VND
 		<p:outputLabel for="dialog-chargeDate"
-				value="#{msg['feeAgent.chargeDate']} :" />
-			<p:inputText id="dialog-chargeDate"
-				value="#{feeAgentHomeController.chargeDate}" readonly="true">
-				<f:convertDateTime pattern="dd-MM-yyyy" />
-			</p:inputText>
-			<p:outputLabel />
-			<p:outputLabel for="dialog-afterChargeBalance"
-				value="#{msg['feeAgent.afterChargeBalance']} :" />
-			<p:inputText id="dialog-afterChargeBalance" readonly="true" />
-			<p:outputLabel />
-		</h:panelGrid>
-		<p:commandButton align="center" value="#{msg['feeAgent.confirm']}"
-			actionListener="#{feeAgentHomeController.doChargeFeeForSelectedUser}"></p:commandButton>
-		<p:commandButton value="#{msg['feeAgent.print']}" />
-		<p:commandButton value="#{msg['feeAgent.cancel']}" />
-	</p:dialog>
-	<!-- @author Duong -->
+					value="#{msg['feeAgent.chargeDate']} :" />
+				<p:inputText id="dialog-chargeDate"
+					value="#{feeAgentHomeController.chargeDate}" readonly="true">
+					<f:convertDateTime pattern="dd-MM-yyyy" />
+				</p:inputText>
+				<p:outputLabel />
+				<p:outputLabel for="dialog-afterChargeBalance"
+					value="#{msg['feeAgent.afterChargeBalance']} :" />
+				<p:inputText id="dialog-afterChargeBalance" readonly="true"
+					value="#{feeAgentHomeController.chargedAmount}" />
+				<p:outputLabel />
+			</h:panelGrid>
+			<center>
+				<p:commandButton id="charge" align="center"
+					value="#{msg['feeAgent.confirm']}"
+					actionListener="#{feeAgentHomeController.doChargeFeeForSelectedUser}"></p:commandButton>
+				<p:commandButton value="#{msg['feeAgent.print']}" />
+				<p:commandButton value="#{msg['feeAgent.cancel']}" />
+			</center>
+		</p:dialog>
+		<!-- @author Duong -->
+	</h:form>
 </h:body>
 </html>
