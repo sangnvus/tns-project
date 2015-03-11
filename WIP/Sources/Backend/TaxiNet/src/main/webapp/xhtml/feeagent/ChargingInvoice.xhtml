@@ -14,7 +14,7 @@
 	<title>TaxiNet</title>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form id = "agentChargingInvoice">
 		<p:megaMenu orientation="horizontal">
 			<p:menuitem value="#{msg['feeAgent.homePage']}"
 				url="../feeagent/AgentHome.xhtml"></p:menuitem>
@@ -45,23 +45,26 @@
 				<p:inputText id="accountName"
 					value="#{feeAgentChargingInvoicesController.accountSearchName}" />
 				<p:outputLabel for="from-date" value="#{msg['feeAgent.fromDate']}" />
-				<p:calendar id="from-date" pattern="dd/MM/yyyy"
+				<p:calendar id="from-date" pattern="yyyy-MM-dd"
 					value="#{feeAgentChargingInvoicesController.fromDate}">
 				</p:calendar>
 				<p:outputLabel for="to-date" value="#{msg['feeAgent.toDate']}" />
-				<p:calendar id="to-date" pattern="dd/MM/yyyy"
+				<p:calendar id="to-date" pattern="yyyy-MM-dd"
 					value="#{feeAgentChargingInvoicesController.toDate}">
 				</p:calendar>
 			</h:panelGrid>
 			<br></br>
 			<p:commandButton value="#{msg['feeAgent.invoiceFilter']}"
-				actionListener="#{feeAgentChargingInvoicesController.searchInvoice}" />
+				actionListener="#{feeAgentChargingInvoicesController.searchInvoice}" 
+				update =":agentChargingInvoice:invoice-list"/>
 		</center>
 
 		<br></br>
 
 		<p:dataTable id="invoice-list" paginator="true" rows="10"
-			paginatorPosition="top"
+			lazy = "true"
+			paginatorPosition="top" var="accountTransaction" value="#{feeAgentChargingInvoicesController.lazyDataModel}"
+			rowKey="#{accountTransaction.invoiceNumber}"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 			<f:facet name="header">
         #{msg['feeAgent.invoiceList']}
@@ -71,15 +74,20 @@
 			</p:column>
 			<p:column headerText="#{msg['feeAgent.invoiceNo']}"
 				style="text-align:left">
+				<h:outputText
+					value="#{accountTransaction.invoiceNumber}" />
 			</p:column>
 			<p:column headerText="#{msg['feeAgent.invoiceDate']}"
 				style="text-align:left">
+				<h:outputText value="#{accountTransaction.chargeDate}" />
 			</p:column>
 			<p:column headerText="#{msg['feeAgent.chargeAmount']}(VND)"
 				style="text-align:left">
+				<h:outputText value="#{accountTransaction.amount}" />
 			</p:column>
 			<p:column headerText="#{msg['feeAgent.account']}"
 				style="text-align:left">
+				<h:outputText value="#{accountTransaction.username}" />
 			</p:column>
 			<p:column headerText="#{msg['feeAgent.download']}"
 				style="text-align:left">
