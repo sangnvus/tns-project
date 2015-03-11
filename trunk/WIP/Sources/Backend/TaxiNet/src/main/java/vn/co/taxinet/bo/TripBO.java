@@ -10,6 +10,9 @@ public interface TripBO {
 	 * 
 	 * @param riderId
 	 * @param driverId
+	 * @param paymentMethod
+	 * @param paymentMethod
+	 * @param paymentMethod2 
 	 * @param longitude
 	 * @param latitude
 	 * @return MessageDTO
@@ -17,7 +20,8 @@ public interface TripBO {
 	 */
 	public TripDTO createTrip(String riderId, String driverId,
 			String startLongitude, String startLlatitude, String stopLongitude,
-			String stopLatitude) throws TNException;
+			String stopLatitude, String estimateCode,String estimateDistance, String paymentMethod)
+			throws TNException;
 
 	/**
 	 * @author Hieu-Gie
