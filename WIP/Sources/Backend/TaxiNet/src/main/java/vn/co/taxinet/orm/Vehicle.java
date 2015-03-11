@@ -12,6 +12,8 @@ import java.util.Set;
 public class Vehicle implements java.io.Serializable {
 
 	private Integer vehicleId;
+	private Document documentByLisencePlatState;
+	private Document documentByLisencePlatCountry;
 	private Company company;
 	private CarType carType;
 	private PricePanel pricePanel;
@@ -19,8 +21,6 @@ public class Vehicle implements java.io.Serializable {
 	private String interiorColor;
 	private String exteriorColor;
 	private String produceYear;
-	private Integer lisencePlatCountry;
-	private Integer lisencePlatState;
 	private String level;
 	private String createdBy;
 	private Date createdDate;
@@ -56,8 +56,6 @@ public class Vehicle implements java.io.Serializable {
 		this.interiorColor = interiorColor;
 		this.exteriorColor = exteriorColor;
 		this.produceYear = produceYear;
-		this.lisencePlatCountry = lisencePlatCountry;
-		this.lisencePlatState = lisencePlatState;
 		this.level = level;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
@@ -74,6 +72,24 @@ public class Vehicle implements java.io.Serializable {
 
 	public void setVehicleId(Integer vehicleId) {
 		this.vehicleId = vehicleId;
+	}
+
+	public Document getDocumentByLisencePlatState() {
+		return this.documentByLisencePlatState;
+	}
+
+	public void setDocumentByLisencePlatState(
+			Document documentByLisencePlatState) {
+		this.documentByLisencePlatState = documentByLisencePlatState;
+	}
+
+	public Document getDocumentByLisencePlatCountry() {
+		return this.documentByLisencePlatCountry;
+	}
+
+	public void setDocumentByLisencePlatCountry(
+			Document documentByLisencePlatCountry) {
+		this.documentByLisencePlatCountry = documentByLisencePlatCountry;
 	}
 
 	public Company getCompany() {
@@ -130,22 +146,6 @@ public class Vehicle implements java.io.Serializable {
 
 	public void setProduceYear(String produceYear) {
 		this.produceYear = produceYear;
-	}
-
-	public Integer getLisencePlatCountry() {
-		return this.lisencePlatCountry;
-	}
-
-	public void setLisencePlatCountry(Integer lisencePlatCountry) {
-		this.lisencePlatCountry = lisencePlatCountry;
-	}
-
-	public Integer getLisencePlatState() {
-		return this.lisencePlatState;
-	}
-
-	public void setLisencePlatState(Integer lisencePlatState) {
-		this.lisencePlatState = lisencePlatState;
 	}
 
 	public String getLevel() {

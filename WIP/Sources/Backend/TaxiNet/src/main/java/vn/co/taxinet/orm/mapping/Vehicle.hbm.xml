@@ -8,6 +8,12 @@
             <column name="VehicleID" />
             <generator class="identity" />
         </id>
+        <many-to-one name="documentByLisencePlatState" class="vn.co.taxinet.orm.Document" fetch="select">
+            <column name="LisencePlatState" />
+        </many-to-one>
+        <many-to-one name="documentByLisencePlatCountry" class="vn.co.taxinet.orm.Document" fetch="select">
+            <column name="LisencePlatCountry" />
+        </many-to-one>
         <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
             <column name="CompanyID" />
         </many-to-one>
@@ -15,7 +21,7 @@
             <column name="CarTypeID" not-null="true" />
         </many-to-one>
         <many-to-one name="pricepanel" class="vn.co.taxinet.orm.PricePanel" fetch="select">
-            <column name="PricePanelID" />
+            <column name="PricePanelID" length="50" />
         </many-to-one>
         <property name="plate" type="string">
             <column name="Plate" length="20" not-null="true" unique="true" />
@@ -28,12 +34,6 @@
         </property>
         <property name="produceYear" type="string">
             <column name="ProduceYear" length="4" />
-        </property>
-        <property name="lisencePlatCountry" type="java.lang.Integer">
-            <column name="LisencePlatCountry" />
-        </property>
-        <property name="lisencePlatState" type="java.lang.Integer">
-            <column name="LisencePlatState" />
         </property>
         <property name="level" type="string">
             <column name="Level" length="4" />

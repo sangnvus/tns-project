@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class PricePanel implements java.io.Serializable {
 
-	private Integer pricePanelId;
+	private String pricePanelId;
 	private Company company;
 	private String tittle;
 	private Date startDate;
@@ -34,9 +34,10 @@ public class PricePanel implements java.io.Serializable {
 	public PricePanel() {
 	}
 
-	public PricePanel(Company company, Date startDate,
+	public PricePanel(String pricePanelId, Company company, Date startDate,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate) {
+		this.pricePanelId = pricePanelId;
 		this.company = company;
 		this.startDate = startDate;
 		this.createdBy = createdBy;
@@ -45,13 +46,14 @@ public class PricePanel implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public PricePanel(Company company, String tittle,
+	public PricePanel(String pricePanelId, Company company, String tittle,
 			Date startDate, Date endDate, Double openKm, Double openPrice,
 			Double firstKm, Double firstKmprice, Double nextKm,
 			Double nextKmprice, Double waitingPrice, Double returnTripPrice,
 			String createdBy, Date createdDate, String lastModifiedBy,
 			Date lastModifiedDate, Set<Vehicle> vehicles,
 			Set<Vehicle> vehicles_1) {
+		this.pricePanelId = pricePanelId;
 		this.company = company;
 		this.tittle = tittle;
 		this.startDate = startDate;
@@ -72,11 +74,11 @@ public class PricePanel implements java.io.Serializable {
 		this.vehicles_1 = vehicles_1;
 	}
 
-	public Integer getPricePanelId() {
+	public String getPricePanelId() {
 		return this.pricePanelId;
 	}
 
-	public void setPricePanelId(Integer pricePanelId) {
+	public void setPricePanelId(String pricePanelId) {
 		this.pricePanelId = pricePanelId;
 	}
 

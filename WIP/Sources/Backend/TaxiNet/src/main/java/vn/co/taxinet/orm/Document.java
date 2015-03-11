@@ -20,10 +20,12 @@ public class Document implements java.io.Serializable {
 	private Date createdDate;
 	private String lastModifiedBy;
 	private Date lastModifiedDate;
+	private Set<Vehicle> vehiclesForLisencePlatState = new HashSet<Vehicle>(0);
 	private Set<Company> companiesForBusinessRegistration = new HashSet<Company>(
 			0);
 	private Set<Company> companiesForOperatingLisence = new HashSet<Company>(0);
 	private Set<Driver> driversForDriverLisense = new HashSet<Driver>(0);
+	private Set<Vehicle> vehiclesForLisencePlatCountry = new HashSet<Vehicle>(0);
 	private Set<Driver> driversForDriverLisense_1 = new HashSet<Driver>(0);
 	private Set<Driver> driversForDriveExperience = new HashSet<Driver>(0);
 	private Set<Driver> driversForDriveExperience_1 = new HashSet<Driver>(0);
@@ -51,9 +53,11 @@ public class Document implements java.io.Serializable {
 	public Document(String fileName, String link, String expiredMonth,
 			String expiredYear, String createdBy, Date createdDate,
 			String lastModifiedBy, Date lastModifiedDate,
+			Set<Vehicle> vehiclesForLisencePlatState,
 			Set<Company> companiesForBusinessRegistration,
 			Set<Company> companiesForOperatingLisence,
 			Set<Driver> driversForDriverLisense,
+			Set<Vehicle> vehiclesForLisencePlatCountry,
 			Set<Driver> driversForDriverLisense_1,
 			Set<Driver> driversForDriveExperience,
 			Set<Driver> driversForDriveExperience_1,
@@ -67,9 +71,11 @@ public class Document implements java.io.Serializable {
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
 		this.lastModifiedDate = lastModifiedDate;
+		this.vehiclesForLisencePlatState = vehiclesForLisencePlatState;
 		this.companiesForBusinessRegistration = companiesForBusinessRegistration;
 		this.companiesForOperatingLisence = companiesForOperatingLisence;
 		this.driversForDriverLisense = driversForDriverLisense;
+		this.vehiclesForLisencePlatCountry = vehiclesForLisencePlatCountry;
 		this.driversForDriverLisense_1 = driversForDriverLisense_1;
 		this.driversForDriveExperience = driversForDriveExperience;
 		this.driversForDriveExperience_1 = driversForDriveExperience_1;
@@ -149,6 +155,15 @@ public class Document implements java.io.Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
+	public Set<Vehicle> getVehiclesForLisencePlatState() {
+		return this.vehiclesForLisencePlatState;
+	}
+
+	public void setVehiclesForLisencePlatState(
+			Set<Vehicle> vehiclesForLisencePlatState) {
+		this.vehiclesForLisencePlatState = vehiclesForLisencePlatState;
+	}
+
 	public Set<Company> getCompaniesForBusinessRegistration() {
 		return this.companiesForBusinessRegistration;
 	}
@@ -173,6 +188,15 @@ public class Document implements java.io.Serializable {
 
 	public void setDriversForDriverLisense(Set<Driver> driversForDriverLisense) {
 		this.driversForDriverLisense = driversForDriverLisense;
+	}
+
+	public Set<Vehicle> getVehiclesForLisencePlatCountry() {
+		return this.vehiclesForLisencePlatCountry;
+	}
+
+	public void setVehiclesForLisencePlatCountry(
+			Set<Vehicle> vehiclesForLisencePlatCountry) {
+		this.vehiclesForLisencePlatCountry = vehiclesForLisencePlatCountry;
 	}
 
 	public Set<Driver> getDriversForDriverLisense_1() {
