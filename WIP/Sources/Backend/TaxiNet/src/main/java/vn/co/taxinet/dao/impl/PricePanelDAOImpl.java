@@ -127,8 +127,11 @@ public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see vn.co.taxinet.dao.PricePanelDAO#selectPricePanel(java.lang.String, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.dao.PricePanelDAO#selectPricePanel(java.lang.String,
+	 * java.lang.String)
 	 */
 	@Transactional
 	public PricePanel selectPricePanel(String carModel, String companyId) {
@@ -141,8 +144,54 @@ public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO {
 		priceList = query1.list();
 		if (!priceList.isEmpty()) {
 			return priceList.get(0);
-		} else { 
+		} else {
 			return null;
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.dao.PricePanelDAO#countPricePanel(int,
+	 * java.lang.String)
+	 */
+	@Transactional
+	public int countPricePanel(int companyID, String currentDateTime) {
+		int count = 0;
+		Session session = getSessionFactory().getCurrentSession();
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder
+				.append("SELECT COUNT(DISTINCT P.pricePanelId) FROM PricePanel P WHERE");
+		stringBuilder
+				.append(" P.company.companyId = :companyID AND P.startDate <= :currentDateTime");
+		System.out.println("Query : " + stringBuilder.toString());
+		Query query = session.createQuery(stringBuilder.toString());
+		query.setParameter("companyID", companyID);
+		query.setParameter("currentDateTime", currentDateTime);
+		count = ((Number) query.uniqueResult()).intValue();
+		return count;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.dao.PricePanelDAO#getAllPricePanel(int,
+	 * java.lang.String, int, int)
+	 */
+	@Transactional
+	public List<PricePanel> getAllPricePanel(int companyID,
+			String currentDateTime, int pageIndex, int pageSize) {
+		Session session = getSessionFactory().getCurrentSession();
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder
+				.append("FROM PricePanel P WHERE P.company.companyId = :companyId");
+		stringBuilder.append(" AND P.startDate <= :currentDateTime");
+		Query query = session.createQuery(stringBuilder.toString());
+		query.setParameter("companyId", companyID);
+		query.setParameter("currentDateTime", currentDateTime);
+		query.setFirstResult(pageIndex);
+		query.setMaxResults(pageSize);
+		List<PricePanel> pricePanelList = query.list();
+		return pricePanelList;
 	}
 }
