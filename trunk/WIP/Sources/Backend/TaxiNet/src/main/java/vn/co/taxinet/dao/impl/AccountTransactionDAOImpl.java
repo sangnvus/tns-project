@@ -2,15 +2,20 @@ package vn.co.taxinet.dao.impl;
 
 // Generated Jan 29, 2015 12:52:24 AM by Hibernate Tools 4.0.0
 
+import java.util.Date;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.co.taxinet.dao.AccountTransactionDAO;
 import vn.co.taxinet.orm.AccountTransaction;
+import vn.co.taxinet.orm.TaxiNetUsers;
+import vn.co.taxinet.utils.Utility;
 import static org.hibernate.criterion.Example.create;
 
 /**
@@ -116,5 +121,32 @@ public class AccountTransactionDAOImpl extends BaseDAOImpl implements AccountTra
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+
+	public List<AccountTransaction> pagination(String username,
+			int page, int numberOfElement, Date fromDate, Date toDate) {
+		Session session = getSessionFactory().getCurrentSession();
+		StringBuilder stringBuilder = new StringBuilder();
+		String hql1 = "FROM AccountTransaction AT ";
+		String hql2 = "WHERE AT.transactionId is not null ";
+		String hql3 = "";
+		String hql4 = "";
+		if(fromDate !=null){
+			hql3= "AND AT.createdDate >" + Utility.dateToString(fromDate, "yyyy-MM-dd");
+		}
+		if(toDate !=null){
+			hql4 = "AND AT.createdDate <" + Utility.dateToString(toDate, "yyyy-MM-dd");
+		}
+		
+		stringBuilder.append(hql1);
+		stringBuilder.append(hql2);
+		stringBuilder.append(hql3);
+		stringBuilder.append(hql4);
+		Query query = session.createQuery(stringBuilder.toString());
+		query.setFirstResult((page - 1) * numberOfElement);
+		query.setMaxResults(numberOfElement);
+		List<AccountTransaction> result;
+		result = query.list();
+		return result;
 	}
 }

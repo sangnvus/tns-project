@@ -34,11 +34,12 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 			.getLogger(TaxiNetUserDAOImpl.class);
 
 	@Transactional(readOnly = true)
-	public TaxiNetUsers select(String uid) {
+	public TaxiNetUsers select(String username) {
 		Session session = getSessionFactory().getCurrentSession();
 		String hql = " FROM TaxiNetUsers U WHERE U.username = :username";
 		Query query = session.createQuery(hql);
-		query.setParameter("username", uid);
+		query.setParameter("username", username);
+		// TODO Auto-generated method stub
 		List<TaxiNetUsers> result = query.list();
 		TaxiNetUsers user = new TaxiNetUsers();
 		if (!result.isEmpty()) {
@@ -103,12 +104,27 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		return null;
 	}
 
-	public List<TaxiNetUsers> paginationList(int page, int numberOfElement) {
+	public List<TaxiNetUsers> searchPaginationList(String username, String name, int page, int numberOfElement) {
 		// TODO Auto-generated method stub
 		Session session = getSessionFactory().getCurrentSession();
-		String hql = "from TaxiNetUsers";
-		Query query = session.createQuery(hql);
-		query.setFirstResult((page - 1) * numberOfElement + 1);
+		String hql = "FROM TaxiNetUsers U WHERE U.usergroup.groupCode = 'DR' ";
+		StringBuilder stringBuilder = new StringBuilder();
+		String hql1 = "FROM TaxiNetUsers U ";
+		String hql2 = "WHERE (U.usergroup.groupCode = 'DR' OR U.usergroup.groupCode = 'CO') ";
+		String hql3 = "";
+		String hql4 = "";
+		if(username !=null && !username.equals("")){
+			hql3 = "AND U.username like '%" + username + "%' ";
+		}
+		if(name !=null && !name.equals("")){
+			hql4 = "AND concat(U.driver.firstName, ' ' ,U.driver.lastName) like '%" + name + "%'";
+		}
+		stringBuilder.append(hql1);
+		stringBuilder.append(hql2);
+		stringBuilder.append(hql3);
+		stringBuilder.append(hql4);
+		Query query = session.createQuery(stringBuilder.toString());
+		query.setFirstResult((page - 1) * numberOfElement);
 		query.setMaxResults(numberOfElement);
 		List<TaxiNetUsers> result;
 		result = query.list();
@@ -248,6 +264,30 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		return String.valueOf(result);
 	}
 
+	public int countDriverCompany(String username, String name) {
+		// TODO Auto-generated method stub
+		Session session = getSessionFactory().getCurrentSession();
+//		String hql = "SELECT COUNT (U) FROM TaxiNetUsers U WHERE U.usergroup.groupCode = 'DR' ";
+		StringBuilder stringBuilder = new StringBuilder();
+		String hql1 = "SELECT COUNT (U) FROM TaxiNetUsers U ";
+		String hql2 = "WHERE (U.usergroup.groupCode = 'DR' OR U.usergroup.groupCode = 'CO') ";
+		String hql3 = "";
+		String hql4 = "";
+		if(username !=null && !username.equals("")){
+			hql3 = "AND U.username like '%" + username + "%' ";
+		}
+		if(name !=null && !name.equals("")){
+			hql4 = "AND concat(U.driver.firstName, ' ' ,U.driver.lastName) like '%" + name + "%'";
+		}
+		stringBuilder.append(hql1);
+		stringBuilder.append(hql2);
+		stringBuilder.append(hql3);
+		stringBuilder.append(hql4);
+		Query query = session.createQuery(stringBuilder.toString());
+		
+		return  ((Number) query.uniqueResult()).intValue();
+	}
+
 	/* (non-Javadoc)
 	 * @see vn.co.taxinet.dao.TaxiNetUserDAO#listUsersByEmail(java.lang.String)
 	 */
@@ -260,4 +300,5 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		List<TaxiNetUsers> userList = query.list();
 		return userList;
 	}
+
 }
