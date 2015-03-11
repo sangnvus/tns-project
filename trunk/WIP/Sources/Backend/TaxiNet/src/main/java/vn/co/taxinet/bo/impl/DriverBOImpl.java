@@ -281,6 +281,8 @@ public class DriverBOImpl implements DriverBO {
 			return null;
 		} else {
 			int companyId = user.getCompany().getCompanyId();
+			vehicles.setCreatedBy(user.getUsername());
+			vehicles.setLastModifiedBy(user.getUsername());
 			vehicles.setCompany(new Company());
 			vehicles.getCompany().setCompanyId(companyId);
 			// 2. select PricePanelID from car model ID and company ID
