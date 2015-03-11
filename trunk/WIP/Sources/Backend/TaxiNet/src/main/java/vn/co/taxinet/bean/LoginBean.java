@@ -60,6 +60,7 @@ public class LoginBean extends BaseBean implements ResourceKeys {
 				session.setAttribute("UserID", user.getUserId());
 				session.setAttribute("Username", user.getUsername());
 				session.setAttribute("Password", user.getPassword());
+				session.setAttribute("Role", user.getUserGroup().getGroupCode());
 				if ((Constants.GroupUser.RIDER)
 						.equalsIgnoreCase(user.getUserGroup().getGroupCode())) {
 					FacesContext.getCurrentInstance().getExternalContext()
