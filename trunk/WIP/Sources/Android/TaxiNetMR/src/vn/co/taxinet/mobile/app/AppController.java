@@ -28,6 +28,15 @@ public class AppController extends Application {
 	
 	public static String tripID;
 	
+	public static Double distance;
+
+	public static Double getDistance() {
+		return distance;
+	}
+
+	public static void setDistance(Double distance) {
+		AppController.distance = distance;
+	}
 
 	public static String getTripID() {
 		return tripID;
