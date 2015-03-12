@@ -39,24 +39,6 @@
          	<value>#{authenticationService}</value>
       	</managed-property>
    	</managed-bean>
-   	 	<managed-bean>
-      	<managed-bean-name>riderRegisterController</managed-bean-name>
-      	<managed-bean-class>vn.co.taxinet.bean.rider.RiderRegisterBean</managed-bean-class>
-      	<managed-bean-scope>session</managed-bean-scope>
-      	<managed-property>
-         	<property-name>riderBO</property-name>
-         	<value>#{riderBO}</value>
-      	</managed-property>
-   	</managed-bean>
-   	 <managed-bean>
-      	<managed-bean-name>vehiclesController</managed-bean-name>
-      	<managed-bean-class>vn.co.taxinet.bean.driver.VehiclesBean</managed-bean-class>
-      	<managed-bean-scope>session</managed-bean-scope>
-      	<managed-property>
-         	<property-name>driverBO</property-name>
-         	<value>#{driverBO}</value>
-      	</managed-property>
-   	</managed-bean>
   	<navigation-rule>
   		<display-name>Login</display-name>
   		<from-view-id>/Login.xhtml</from-view-id>

@@ -202,6 +202,7 @@
 		<property name="taxiNetUserDAO" ref="taxiNetUserDAO" />
 		<property name="currentStatusDAO" ref="currentStatusDAO" />
 		<property name="carTypeDAO" ref="carTypeDAO" />
+		<property name="pricePanelDAO" ref="pricePanelDAO" />
 	</bean>
 	<bean id="tripBO" class="vn.co.taxinet.bo.impl.TripBOImpl">
 		<property name="tripDAO" ref="tripDAO" />
