@@ -1,5 +1,6 @@
 package vn.co.taxinet.bean.driver;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -55,10 +55,9 @@ public class PricePanelListBean implements Serializable {
 	/**
 	 * functions init load
 	 */
-	@PostConstruct
 	public void initData() {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
-
+			try {
 			// TODO set default value
 			selectedPricePanel = new PricePanel();
 			pricePanel = new PricePanel();
@@ -82,7 +81,14 @@ public class PricePanelListBean implements Serializable {
 
 			// TODO get pricepanel list detail
 			listAllPricePanel();
-
+			}catch (Exception ex){
+				try {
+					FacesContext.getCurrentInstance().getExternalContext()
+							.redirect("/TN/faces/Login.xhtml");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
