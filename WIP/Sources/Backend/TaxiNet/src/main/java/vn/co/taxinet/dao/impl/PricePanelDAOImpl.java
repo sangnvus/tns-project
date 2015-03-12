@@ -137,7 +137,7 @@ public class PricePanelDAOImpl extends BaseDAOImpl implements PricePanelDAO {
 	public PricePanel selectPricePanel(String carModel, String companyId) {
 		Session session = getSessionFactory().getCurrentSession();
 		List<PricePanel> priceList = new ArrayList<PricePanel>();
-		String hql1 = "FROM pricepanel WHERE carModelId = :carModelId and companyId = :companyId";
+		String hql1 = "FROM PricePanel WHERE carModelId = :carModelId and companyId = :companyId";
 		Query query1 = session.createQuery(hql1);
 		query1.setParameter("carModelId", carModel);
 		query1.setParameter("companyId", companyId);

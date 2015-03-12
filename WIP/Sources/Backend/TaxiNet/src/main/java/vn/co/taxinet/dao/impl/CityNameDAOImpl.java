@@ -128,15 +128,17 @@ public class CityNameDAOImpl extends BaseDAOImpl implements CityNameDAO {
 	 * 
 	 * @see vn.co.taxinet.dao.CityNameDAO#selectAllCityName(java.lang.String)
 	 */
+	@Transactional
 	public List<CityName> selectAllCityName(String countryCode) {
 		Session session = getSessionFactory().getCurrentSession();
-		String hql = "FROM City C, CityName D WHERE C.cityId = D.cityId AND C.countryCode = :countryCode";
+		String hql = "SELECT D FROM City C, CityName D WHERE C.cityId = D.city.cityId AND C.country.code = :countryCode";
 		Query query = session.createQuery(hql);
 		query.setParameter("countryCode", countryCode);
 		List<CityName> cityNameList = query.list();
 		return cityNameList;
 	}
-
+	
+	@Transactional
 	public CityName findCityNameByIdAndLanguageCode(int id, String langCode) {
 		StringBuilder hql = new StringBuilder();
 		String hql1 = "FROM CityName c ";

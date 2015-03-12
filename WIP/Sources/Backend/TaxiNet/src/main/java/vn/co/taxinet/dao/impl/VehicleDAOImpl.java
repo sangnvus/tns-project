@@ -125,7 +125,9 @@ public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.dao.VehicleDAO#getVehicleFromID(java.lang.String)
 	 */
 	public Vehicle getVehicleFromID(String vehicleID) {
@@ -135,5 +137,24 @@ public class VehicleDAOImpl extends BaseDAOImpl implements VehicleDAO {
 			return null;
 		}
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see vn.co.taxinet.dao.VehicleDAO#getVehicleFromPlate(java.lang.String)
+	 */
+	@Transactional
+	public Vehicle getVehicleFromPlate(String plate) {
+		Session session = getSessionFactory().getCurrentSession();
+		String hql = "FROM Vehicle V WHERE V.plate = :plate";
+		Query query = session.createQuery(hql);
+		query.setParameter("plate", plate);
+		List<Vehicle> listVehicle = query.list();
+		if (listVehicle != null) {
+			return null;
+		} else {
+			return listVehicle.get(0);
+		}
 	}
 }

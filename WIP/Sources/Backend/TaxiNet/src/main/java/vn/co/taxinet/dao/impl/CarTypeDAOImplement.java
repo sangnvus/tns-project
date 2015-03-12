@@ -128,14 +128,21 @@ public class CarTypeDAOImplement extends BaseDAOImpl implements CarTypeDAO {
 	@Transactional
 	public List<CarType> getAllCarTypeByCarMaker(String carMakerID) {
 		Session session = getSessionFactory().getCurrentSession();
-		String hql = "FROM CarType U WHERE U.CarMaker.carMakerId = :carMakerID";
-		Query query = session.createQuery(hql);
-		query.setParameter("carMakerID", carMakerID);
-		List<CarType> carTypeList = query.list();
-		return carTypeList;
+		try {
+			int carMakerId = Integer.parseInt(carMakerID);
+			String hql = "FROM CarType U WHERE U.carMaker.carMakerId = :carMakerID";
+			Query query = session.createQuery(hql);
+			query.setParameter("carMakerID", carMakerId);
+			List<CarType> carTypeList = query.list();
+			return carTypeList;
+		} catch (NumberFormatException ex) {
+			return null;
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see vn.co.taxinet.dao.CarTypeDAO#getAllCarType()
 	 */
 	@Transactional
