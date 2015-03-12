@@ -1,5 +1,6 @@
 package vn.co.taxinet.bean.driver;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +33,12 @@ import vn.co.taxinet.utils.Utility;
 @SessionScoped
 public class AddNewDriverBean implements Serializable {
 	private static final long serialVersionUID = 1506603768350639642L;
-	//session value
+	// session value
 	String UserID;
 	String username;
 	String password;
 	String companyID;
-	//UI value
+	// UI value
 	public String newUsername;
 	public String newCountry;
 	public String newEmail;
@@ -63,22 +64,32 @@ public class AddNewDriverBean implements Serializable {
 	@PostConstruct
 	public void initData() {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
-			refreshField();
-			// TODO get value from session
-			HttpServletRequest request = (HttpServletRequest) FacesContext
-					.getCurrentInstance().getExternalContext().getRequest();
-			HttpSession session = request.getSession();
-			UserID = session.getAttribute("UserID").toString();
-			username = session.getAttribute("Username").toString();
-			password = session.getAttribute("Password").toString();
-			// TODO get user informations from UserID
-			TaxiNetUsers user = taxiNetUserBO.getUserInfo(UserID);
-			companyID = String.valueOf(user.getCompany().getCompanyId());
-			// TODO get default value for drop down list
-			languageList = new ArrayList<Language>();
-			countryList = new ArrayList<Country>();
-			languageList = taxiNetUserBO.listAllLanguage();
-			countryList = taxiNetUserBO.listAllCountry();
+			try {
+				// TODO refresh all field
+				refreshField();
+				// TODO get value from session
+				HttpServletRequest request = (HttpServletRequest) FacesContext
+						.getCurrentInstance().getExternalContext().getRequest();
+				HttpSession session = request.getSession();
+				UserID = session.getAttribute("UserID").toString();
+				username = session.getAttribute("Username").toString();
+				password = session.getAttribute("Password").toString();
+				// TODO get user informations from UserID
+				TaxiNetUsers user = taxiNetUserBO.getUserInfo(UserID);
+				companyID = String.valueOf(user.getCompany().getCompanyId());
+				// TODO get default value for drop down list
+				languageList = new ArrayList<Language>();
+				countryList = new ArrayList<Country>();
+				languageList = taxiNetUserBO.listAllLanguage();
+				countryList = taxiNetUserBO.listAllCountry();
+			} catch (Exception ex) {
+				try {
+					FacesContext.getCurrentInstance().getExternalContext()
+							.redirect("/TN/faces/Login.xhtml");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -154,20 +165,20 @@ public class AddNewDriverBean implements Serializable {
 					Utility.getCurrentDateTime());
 			driver.getTaxinetusers().setLastModifiedDate(
 					Utility.getCurrentDateTime());
-			
+
 			// add new driver to DB by addNewDriver function
 			String result = driverBO.addNewDriver(driver);
 			if ((result).equalsIgnoreCase(Constants.SUCCESS)) {
-				//TODO push message to UI 
+				// TODO push message to UI
 				FacesContext.getCurrentInstance().addMessage(
 						null,
 						new FacesMessage(FacesMessage.SEVERITY_INFO,
 								"Successful", "Add new driver successful"));
-				//refresh all value
+				// refresh all value
 				refreshField();
 				return null;
 			} else {
-				//TODO push message to UI
+				// TODO push message to UI
 				FacesContext.getCurrentInstance().addMessage(
 						null,
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
