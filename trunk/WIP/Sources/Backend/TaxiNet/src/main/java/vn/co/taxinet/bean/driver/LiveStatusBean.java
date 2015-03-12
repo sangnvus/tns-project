@@ -1,5 +1,6 @@
 package vn.co.taxinet.bean.driver;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -63,45 +64,55 @@ public class LiveStatusBean extends BaseBean {
 
 	@PostConstruct
 	public void init() {
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-				.getCurrentInstance().getExternalContext().getRequest();
-		HttpSession session = request.getSession();
-		UserID = session.getAttribute("UserID").toString();
-		username = session.getAttribute("Username").toString();
-		password = session.getAttribute("Password").toString();
-		driverList = new ArrayList<Driver>();
-		simpleModel = new DefaultMapModel();
-		TaxiNetUsers user = taxiNetUserBO.getUserInfo(UserID);
-		companyID = user.getCompany().getCompanyId();
-		driverList = driverBO.countAllDriverByCompanyID("1");
-		lazyDriverList = new LazyDataModel<DriverDTO>() {
-			private static final long serialVersionUID = -8351117462011564508L;
+		try {
+			HttpServletRequest request = (HttpServletRequest) FacesContext
+					.getCurrentInstance().getExternalContext().getRequest();
+			HttpSession session = request.getSession();
+			UserID = session.getAttribute("UserID").toString();
+			username = session.getAttribute("Username").toString();
+			password = session.getAttribute("Password").toString();
+			driverList = new ArrayList<Driver>();
+			simpleModel = new DefaultMapModel();
+			TaxiNetUsers user = taxiNetUserBO.getUserInfo(UserID);
+			companyID = user.getCompany().getCompanyId();
+			driverList = driverBO.countAllDriverByCompanyID("1");
+			lazyDriverList = new LazyDataModel<DriverDTO>() {
+				private static final long serialVersionUID = -8351117462011564508L;
 
-			@Override
-			public List<DriverDTO> load(int first, int pageSize,
-					String sortField, SortOrder sortOrder,
-					Map<String, Object> filters) {
-				List<DriverDTO> listDrivers = new ArrayList<DriverDTO>();
-				int pageIndex = first;
-				// TODO hardcode for testing
-				listDrivers = driverBO.findDriverByCompanyID(String.valueOf(1),
-						pageIndex, pageSize);
-				return listDrivers;
+				@Override
+				public List<DriverDTO> load(int first, int pageSize,
+						String sortField, SortOrder sortOrder,
+						Map<String, Object> filters) {
+					List<DriverDTO> listDrivers = new ArrayList<DriverDTO>();
+					int pageIndex = first;
+					// TODO hardcode for testing
+					listDrivers = driverBO.findDriverByCompanyID(
+							String.valueOf(1), pageIndex, pageSize);
+					return listDrivers;
+				}
+			};
+			int count = driverList.size();
+			lazyDriverList.setRowCount(count);
+
+			// TODO set value to GMap's marker
+			for (int i = 0; i < count; i++) {
+				Driver driver = (Driver) driverList.get(i);
+				CurrentStatus currentLocation = driver.getCurrentstatus();
+				if (currentLocation.getCurrentLatitude() != null
+						&& currentLocation.getCurrentLongtitude() != null) {
+					LatLng location = new LatLng(
+							currentLocation.getCurrentLatitude(),
+							currentLocation.getCurrentLongtitude());
+					simpleModel.addOverlay(new Marker(location, driver
+							.getFirstName() + " " + driver.getLastName()));
+				}
 			}
-		};
-		int count = driverList.size();
-		lazyDriverList.setRowCount(count);
-
-		for (int i = 0; i < count; i++) {
-			Driver driver = (Driver) driverList.get(i);
-			CurrentStatus currentLocation = driver.getCurrentstatus();
-			if (currentLocation.getCurrentLatitude() != null
-					&& currentLocation.getCurrentLongtitude() != null) {
-				LatLng location = new LatLng(
-						currentLocation.getCurrentLatitude(),
-						currentLocation.getCurrentLongtitude());
-				simpleModel.addOverlay(new Marker(location, driver
-						.getFirstName() + " " + driver.getLastName()));
+		} catch (Exception ex) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect("/TN/faces/Login.xhtml");
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}

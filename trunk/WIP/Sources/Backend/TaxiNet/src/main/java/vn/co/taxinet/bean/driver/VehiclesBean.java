@@ -1,9 +1,11 @@
 package vn.co.taxinet.bean.driver;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -59,33 +61,45 @@ public class VehiclesBean implements Serializable {
 	/**
 	 * init data when load page
 	 */
+	@PostConstruct
 	public void init() {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
-			// TODO get value from session
-			HttpServletRequest request = (HttpServletRequest) FacesContext
-					.getCurrentInstance().getExternalContext().getRequest();
-			HttpSession session = request.getSession();
-			userID = session.getAttribute("UserID").toString();
-			username = session.getAttribute("Username").toString();
-			password = session.getAttribute("Password").toString();
-			// get user detail from userID
+			try {
+				// TODO get value from session
+				HttpServletRequest request = (HttpServletRequest) FacesContext
+						.getCurrentInstance().getExternalContext().getRequest();
+				HttpSession session = request.getSession();
+				userID = session.getAttribute("UserID").toString();
+				username = session.getAttribute("Username").toString();
+				password = session.getAttribute("Password").toString();
+				// get user detail from userID
 
-			TaxiNetUsers user = taxiNetUserBO.getUserInfo(userID);
-			companyID = user.getCompany().getCompanyId();
-			
-			setCountryLicense("");
-			setCarMaker("");
-			setCarModel("");
-			setPlate("");
-			setStateLicense("");
-			setInColor("");
-			setExColor("");
-			carMakerList = new ArrayList<CarMaker>();
-			countryList = new ArrayList<Country>();
-			carTypeList = new ArrayList<CarType>();
-			cityList = new ArrayList<CityName>();
-			carMakerList = driverBO.getCarMakerList();
-			countryList = driverBO.getCountryList();
+				TaxiNetUsers user = taxiNetUserBO.getUserInfo(userID);
+				companyID = user.getCompany().getCompanyId();
+
+				setCountryLicense("");
+				setCarMaker("");
+				setCarModel("");
+				setPlate("");
+				setStateLicense("");
+				setInColor("");
+				setExColor("");
+
+				carMakerList = new ArrayList<CarMaker>();
+				countryList = new ArrayList<Country>();
+				carTypeList = new ArrayList<CarType>();
+				cityList = new ArrayList<CityName>();
+				carMakerList = driverBO.getCarMakerList();
+				countryList = driverBO.getCountryList();
+			} catch (Exception ex) {
+				try {
+					FacesContext.getCurrentInstance().getExternalContext()
+							.redirect("/TN/faces/Login.xhtml");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
 		}
 	}
 
@@ -340,10 +354,6 @@ public class VehiclesBean implements Serializable {
 		this.cityList = cityList;
 	}
 
-	public void setDriverBO(DriverBO driverBO) {
-		this.driverBO = driverBO;
-	}
-
 	public String getUserID() {
 		return userID;
 	}
@@ -368,16 +378,20 @@ public class VehiclesBean implements Serializable {
 		this.password = password;
 	}
 
-	public void setTaxiNetUserBO(TaxiNetUserBO taxiNetUserBO) {
-		this.taxiNetUserBO = taxiNetUserBO;
-	}
-
 	public int getCompanyID() {
 		return companyID;
 	}
 
 	public void setCompanyID(int companyID) {
 		this.companyID = companyID;
+	}
+
+	public void setDriverBO(DriverBO driverBO) {
+		this.driverBO = driverBO;
+	}
+
+	public void setTaxiNetUserBO(TaxiNetUserBO taxiNetUserBO) {
+		this.taxiNetUserBO = taxiNetUserBO;
 	}
 
 }

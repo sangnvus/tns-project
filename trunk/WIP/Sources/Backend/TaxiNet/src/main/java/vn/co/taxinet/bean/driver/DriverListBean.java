@@ -1,5 +1,6 @@
 package vn.co.taxinet.bean.driver;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,23 +62,32 @@ public class DriverListBean implements Serializable {
 	@PostConstruct
 	public void initData() {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
-			HttpServletRequest request = (HttpServletRequest) FacesContext
-					.getCurrentInstance().getExternalContext().getRequest();
-			// TODO get value from sessions
-			HttpSession session = request.getSession();
-			UserID = session.getAttribute("UserID").toString();
-			Username = session.getAttribute("Username").toString();
-			Password = session.getAttribute("Password").toString();
-			
-			TaxiNetUsers user = taxiNetUserBO.getUserInfo(UserID);
-			companyID = String.valueOf(user.getCompany().getCompanyId());
-			// end of getting value
-			findAllDriver();
-			getDefaultValue();
-			setReadOnly(true);
-			// set new value to constructor
-			driverDTO = new DriverDTO();
-			selectedDriver = new DriverDTO();
+			try {
+				HttpServletRequest request = (HttpServletRequest) FacesContext
+						.getCurrentInstance().getExternalContext().getRequest();
+				// TODO get value from sessions
+				HttpSession session = request.getSession();
+				UserID = session.getAttribute("UserID").toString();
+				Username = session.getAttribute("Username").toString();
+				Password = session.getAttribute("Password").toString();
+
+				TaxiNetUsers user = taxiNetUserBO.getUserInfo(UserID);
+				companyID = String.valueOf(user.getCompany().getCompanyId());
+				// end of getting value
+				findAllDriver();
+				getDefaultValue();
+				setReadOnly(true);
+				// set new value to constructor
+				driverDTO = new DriverDTO();
+				selectedDriver = new DriverDTO();
+			} catch (Exception ex) {
+				try {
+					FacesContext.getCurrentInstance().getExternalContext()
+							.redirect("/TN/faces/Login.xhtml");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
