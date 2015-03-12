@@ -62,7 +62,7 @@ public class LiveStatusBean extends BaseBean {
 	private TaxiNetUserBO taxiNetUserBO;
 
 	public void init() {
-		try {
+		if (!FacesContext.getCurrentInstance().isPostback()) {
 			HttpServletRequest request = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			HttpSession session = request.getSession();
@@ -73,7 +73,8 @@ public class LiveStatusBean extends BaseBean {
 			simpleModel = new DefaultMapModel();
 			TaxiNetUsers user = taxiNetUserBO.getUserInfo(UserID);
 			companyID = user.getCompany().getCompanyId();
-			driverList = driverBO.countAllDriverByCompanyID("1");
+			driverList = driverBO.countAllDriverByCompanyID(String
+					.valueOf(companyID));
 			lazyDriverList = new LazyDataModel<DriverDTO>() {
 				private static final long serialVersionUID = -8351117462011564508L;
 
@@ -104,13 +105,6 @@ public class LiveStatusBean extends BaseBean {
 					simpleModel.addOverlay(new Marker(location, driver
 							.getFirstName() + " " + driver.getLastName()));
 				}
-			}
-		} catch (Exception ex) {
-			try {
-				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect("/TN/faces/Login.xhtml");
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 	}
