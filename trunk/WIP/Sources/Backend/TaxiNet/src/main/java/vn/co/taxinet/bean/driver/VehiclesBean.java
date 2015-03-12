@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -17,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import vn.co.taxinet.bo.DriverBO;
 import vn.co.taxinet.bo.TaxiNetUserBO;
+import vn.co.taxinet.common.Constants;
 import vn.co.taxinet.orm.CarMaker;
 import vn.co.taxinet.orm.CarType;
 import vn.co.taxinet.orm.CityName;
@@ -61,7 +61,6 @@ public class VehiclesBean implements Serializable {
 	/**
 	 * init data when load page
 	 */
-	@PostConstruct
 	public void init() {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
 			try {
@@ -157,7 +156,7 @@ public class VehiclesBean implements Serializable {
 	 * update Car Model value when select Car Maker
 	 */
 	public void handleSelectCarMaker() {
-		if (carMaker != null) {
+		if (!("").equals(carMaker)) {
 			carTypeList = driverBO.getCarModelList(carMaker);
 		}
 	}
@@ -166,7 +165,7 @@ public class VehiclesBean implements Serializable {
 	 * update State value when select Country
 	 */
 	public void handlSelectCountry() {
-		if (countryLicense != null) {
+		if (!("").equals(countryLicense)) {
 			cityList = driverBO.getCityNameList(countryLicense);
 		}
 	}
@@ -228,16 +227,34 @@ public class VehiclesBean implements Serializable {
 			String result = driverBO.persistVehicles(carMaker, carModel,
 					yearOfProduct, inColor, exColor, plate, countryLicense,
 					stateLicense, userID);
-			if (result != null) {
+			if ((Constants.Message.SUCCESS).equalsIgnoreCase(result)) {
 				FacesContext.getCurrentInstance().addMessage(
 						null,
-						new FacesMessage("Success",
-								"Thêm phương tiện thành công"));
+						new FacesMessage(Constants.Message.SUCCESS,
+								Constants.Message.SUCCESS));
+				return null;
+			} else if ((Constants.Errors.CANT_FIND_USER)
+					.equalsIgnoreCase(result)) {
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_FATAL,
+								Constants.FacesMess.FATAL,
+								Constants.Errors.CANT_FIND_USER));
+				return null;
+			} else if ((Constants.Errors.DUPLICATE_VEHICLE_PLATE)
+					.equalsIgnoreCase(result)) {
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_FATAL,
+								Constants.FacesMess.FATAL,
+								Constants.Errors.DUPLICATE_VEHICLE_PLATE));
+				return null;
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("Error", "Thêm phương tiện thất bại"));
+				return null;
 			}
-			return null;
+
 		}
 	}
 
