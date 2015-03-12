@@ -36,6 +36,7 @@ import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Company;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.CurrentStatus;
+import vn.co.taxinet.orm.Document;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.PricePanel;
 import vn.co.taxinet.orm.TaxiNetUsers;
@@ -254,49 +255,37 @@ public class DriverBOImpl implements DriverBO {
 			String yearOfProduct, String inColor, String exColor, String plate,
 			String countryCode, String cityCode, String userID) {
 		Vehicle vehicles = new Vehicle();
-		// get RANDOM UUID for vehicles ID
-		UUID id = UUID.randomUUID();
-		// check ID exist or not
-		Vehicle oldVehicle = vehicleDAO.getVehicleFromID(id.toString());
+		// check plate exist or not
+		Vehicle oldVehicle = vehicleDAO.getVehicleFromPlate(plate);
 		if (oldVehicle != null) {
-			id = UUID.randomUUID();
-		}
-		// set value for new Object
-		vehicles.setPlate(plate);
-		vehicles.setExteriorColor(exColor);
-		vehicles.setInteriorColor(inColor);
-		vehicles.setProduceYear(yearOfProduct);
-		vehicles.setCreatedBy(userID);
-		vehicles.setLastModifiedBy(userID);
-		vehicles.setCreatedDate(Utility.getCurrentDate());
-		vehicles.setLastModifiedDate(Utility.getCurrentDate());
-		vehicles.setCartype(new CarType());
-		vehicles.getCartype().setCarTypeId(Integer.valueOf(carModel));
-		// TODO hardcode Level
-		vehicles.setLevel("4");
-		// 1. select companyID from User ID
-		TaxiNetUsers user = new TaxiNetUsers();
-		user = taxiNetUserDAO.findByID(userID);
-		if (user == null) {
-			return null;
+			return Constants.Errors.DUPLICATE_VEHICLE_PLATE;
 		} else {
-			int companyId = user.getCompany().getCompanyId();
-			vehicles.setCreatedBy(user.getUsername());
-			vehicles.setLastModifiedBy(user.getUsername());
-			vehicles.setCompany(new Company());
-			vehicles.getCompany().setCompanyId(companyId);
-			// 2. select PricePanelID from car model ID and company ID
-			PricePanel pricePanel = new PricePanel();
-			pricePanel = pricePanelDAO.selectPricePanel(carModel,
-					String.valueOf(companyId));
-			if (pricePanel == null) {
-				return null;
+			// set value for new Object
+			vehicles.setPlate(plate);
+			vehicles.setExteriorColor(exColor);
+			vehicles.setInteriorColor(inColor);
+			vehicles.setProduceYear(yearOfProduct);
+			vehicles.setCreatedBy(userID);
+			vehicles.setLastModifiedBy(userID);
+			vehicles.setCreatedDate(Utility.getCurrentDate());
+			vehicles.setLastModifiedDate(Utility.getCurrentDate());
+			vehicles.setCartype(new CarType());
+			vehicles.getCartype().setCarTypeId(Integer.valueOf(carModel));
+			// TODO hardcode Level
+			vehicles.setLevel("4");
+			// 1. select companyID from User ID
+			TaxiNetUsers user = new TaxiNetUsers();
+			user = taxiNetUserDAO.findByID(userID);
+			if (user == null) {
+				return Constants.Errors.CANT_FIND_USER;
 			} else {
-				String pricePanelID = pricePanel.getPricePanelId();
-				vehicles.setPricepanel(new PricePanel());
-				vehicles.getPricepanel().setPricePanelId(pricePanelID);
+				int companyId = user.getCompany().getCompanyId();
+				vehicles.setCreatedBy(user.getUsername());
+				vehicles.setLastModifiedBy(user.getUsername());
+				vehicles.setCompany(new Company());
+				vehicles.getCompany().setCompanyId(companyId);
 				vehicleDAO.insert(vehicles);
-				return "OKAY";
+				return Constants.Message.SUCCESS;
 			}
 		}
 	}
