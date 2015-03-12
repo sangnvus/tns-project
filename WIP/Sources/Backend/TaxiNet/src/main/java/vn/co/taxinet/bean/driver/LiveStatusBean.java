@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -62,7 +61,6 @@ public class LiveStatusBean extends BaseBean {
 	@ManagedProperty(value = "#{taxiNetUserBO}")
 	private TaxiNetUserBO taxiNetUserBO;
 
-	@PostConstruct
 	public void init() {
 		try {
 			HttpServletRequest request = (HttpServletRequest) FacesContext
