@@ -7,10 +7,10 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<title>TaxiNet</title>
 	<f:metadata>
 		<f:event listener="#{vehiclesController.init}" type="preRenderView"></f:event>
 	</f:metadata>
-	<title>TaxiNet</title>
 </h:head>
 <h:body>
 	<h:form id="vehicles-form" prependId="false">
@@ -91,7 +91,7 @@
 			<p:outputLabel />
 			<p:outputLabel for="licensePlate"
 				value="#{msg['driver.licensePlate']}:" />
-			<p:inputText id="licensePlate" />
+			<p:inputText id="licensePlate" value="#{vehiclesController.plate}"/>
 			<p:outputLabel />
 			<p:outputLabel for="licensePlatCountry"
 				value="#{msg['driver.licensePlatCountry']}:" />
@@ -100,7 +100,7 @@
 				<f:selectItem itemLabel="Hãy chọn quốc gia" itemValue="" />
 				<f:selectItems value="#{vehiclesController.countryList}" var="item"
 					itemLabel="#{item.name}" itemValue="#{item.code}" />
-				<p:ajax listener="#{vehiclesController.handlSelectCountry()}"
+				<p:ajax listener="#{vehiclesController.handlSelectCountry}"
 					update="licensePlatState"></p:ajax>
 			</p:selectOneMenu>
 			<p:outputLabel />
@@ -110,7 +110,7 @@
 				value="#{vehiclesController.stateLicense}">
 				<f:selectItem itemLabel="Hãy chọn thành phố" itemValue="" />
 				<f:selectItems value="#{vehiclesController.cityList}" var="item"
-					itemLabel="#{item.cityName}" itemValue="#{item.id}" />
+					itemLabel="#{item.cityName}" itemValue="#{item.city.cityId}" />
 			</p:selectOneMenu>
 			<p:outputLabel />
 			<br></br>

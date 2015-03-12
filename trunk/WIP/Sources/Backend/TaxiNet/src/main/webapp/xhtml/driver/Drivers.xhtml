@@ -8,8 +8,9 @@
 
 <h:head>
 	<title>TaxiNet</title>
-	<link rel="stylesheet"
-		href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+	<f:metadata>
+		<f:event listener="#{driverListBean.initData}" type="preRenderView" />
+	</f:metadata>
 </h:head>
 <h:body>
 	<h:form id="driver-form" prependId="false">
