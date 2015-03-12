@@ -115,6 +115,8 @@ public interface Constants {
 		public static final String INVALID_PATH = "";
 		public static final String WRITTING_FILE_ERROR = "";
 		public static final String CANT_GET_REQUEST = "System can't receive user request";
+		public static final String CANT_FIND_USER = "Can't find user";
+		public static final String DUPLICATE_VEHICLE_PLATE = "Plate is existed";
 	}
 
 	public interface MailKeys {
