@@ -9,4 +9,11 @@ public interface VehicleDAO extends BaseDAO {
 	 * @return 
 	 */
 	public Vehicle getVehicleFromID(String vehicleID);
+	
+	/**
+	 * @author Ecchi
+	 * @param plate
+	 * @return
+	 */
+	public Vehicle getVehicleFromPlate(String plate);
 }
