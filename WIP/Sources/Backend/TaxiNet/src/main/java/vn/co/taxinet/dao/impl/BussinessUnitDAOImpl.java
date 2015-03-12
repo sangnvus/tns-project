@@ -4,8 +4,8 @@ package vn.co.taxinet.dao.impl;
 
 import java.util.List;
 import javax.naming.InitialContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 
@@ -20,7 +20,7 @@ import static org.hibernate.criterion.Example.create;
  */
 public class BussinessUnitDAOImpl extends BaseDAOImpl implements BussinessUnitDAO{
 
-	private static final Log log = LogFactory.getLog(BussinessUnitDAOImpl.class);
+	private static final Logger log = LogManager.getLogger(BussinessUnitDAOImpl.class);
 
 	public void persist(BussinessUnit transientInstance) {
 		log.debug("persisting BussinessUnit instance");
