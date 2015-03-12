@@ -7,80 +7,88 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-		<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript" ></script>
+	<script src="http://maps.google.com/maps/api/js?sensor=false"
+		type="text/javascript"></script>
 	<title>TaxiNet</title>
+	<f:metadata>
+		<f:event listener="#{liveStatusBean.init}" type="preRenderView"></f:event>
+	</f:metadata>
 </h:head>
 <h:body>
 	<f:view contentType="text/html">
-	<h:form id="live-status-form" prependId="false">
-		<p:megaMenu orientation="horizontal">
-			<p:menuitem value="#{msg['feeAgent.homePage']}"
-				url="../driver/Dashboard.xhtml"></p:menuitem>
-		</p:megaMenu>
-		<p:megaMenu orientation="vertical">
-			<p:menuitem value="#{msg['feeAgent.dashboard']}"
-				url="../driver/Dashboard.xhtml"></p:menuitem>
-			<p:menuitem value="#{msg['feeAgent.contactInfo']}"
-				url="../driver/ContactInfo.xhtml"></p:menuitem>
-			<p:menuitem value="#{msg['driver.document']}"
-				url="../driver/Document.xhtml"></p:menuitem>
-			<p:menuitem value="#{msg['driver.vehicle']}"
-				url="../driver/Vehicles.xhtml"></p:menuitem>
-			<p:menuitem value="#{msg['driver.partnerInvoice']}"
-				url="../driver/PartnerInvoices.xhtml"></p:menuitem>
-			<p:menuitem value="#{msg['driver.tripsInvoice']}"
-				url="../driver/TripInvoices.xhtml"></p:menuitem>
-			<p:menuitem value="#{msg['driver.driver']}"
-				url="../driver/Drivers.xhtml"></p:menuitem>
-			<p:menuitem value="#{msg['driver.liveStatus']}"
-				url="../driver/LiveStatus.xhtml" style="background:orange"></p:menuitem>
-			<p:menuitem value="#{msg['driver.promotionRegister']}"
-				url="../driver/Dashboard.xhtml"></p:menuitem>
-			<p:menuitem value="#{msg['feeAgent.supportQnA']}"
-				url="../driver/Dashboard.xhtml"></p:menuitem>
-		</p:megaMenu>
+		<h:form id="live-status-form" prependId="false">
+			<p:megaMenu orientation="horizontal">
+				<p:menuitem value="#{msg['feeAgent.homePage']}"
+					url="../driver/Dashboard.xhtml"></p:menuitem>
+			</p:megaMenu>
+			<p:megaMenu orientation="vertical">
+				<p:menuitem value="#{msg['feeAgent.dashboard']}"
+					url="../driver/Dashboard.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['feeAgent.contactInfo']}"
+					url="../driver/ContactInfo.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['driver.document']}"
+					url="../driver/Document.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['driver.vehicle']}"
+					url="../driver/Vehicles.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['driver.partnerInvoice']}"
+					url="../driver/PartnerInvoices.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['driver.tripsInvoice']}"
+					url="../driver/TripInvoices.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['driver.driver']}"
+					url="../driver/Drivers.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['driver.liveStatus']}"
+					url="../driver/LiveStatus.xhtml" style="background:orange"></p:menuitem>
+				<p:menuitem value="#{msg['driver.promotionRegister']}"
+					url="../driver/Dashboard.xhtml"></p:menuitem>
+				<p:menuitem value="#{msg['feeAgent.supportQnA']}"
+					url="../driver/Dashboard.xhtml"></p:menuitem>
+			</p:megaMenu>
 
-		<br></br>
+			<br></br>
 
-		<h1>#{msg['driver.liveStatus']}</h1>
-		<p:tabView id="main-menu" dynamic="true">
-			<p:ajax event="tabChange" listener="#{liveStatusBean.onTabChange}" update="table-view gmap-view"></p:ajax>
-			<p:tab title="#{msg['driver.list']}" id="table-view">
-				<p:dataTable id="driverPosition-list" paginator="true" rows="10"
-					paginatorPosition="bottom" lazy="true"
-					paginatorAlwaysVisible="false"
-					value="#{liveStatusBean.lazyDriverList}" var="driver"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} ">
-				<p:ajax event="page" listener="#{liveStatusBean.paginationAction}"/>
-					<p:column headerText="#{msg['feeAgent.autonumber']}"
-						style="text-align:left;">
-						<h:outputText value="#{liveStatusBean.lazyDriverList.rowIndex + 1}" />
-					</p:column>
-					<p:column headerText="#{msg['riderRegister.name']}"
-						style="text-align:left">
-						<h:outputText value="#{driver.firstName} #{driver.lastName}" />
-					</p:column>
-					<p:column headerText="#{msg['driver.currentPosition']}"
-						style="text-align:left">
-						<h:outputText value="#{driver.currentLocation}" />
-					</p:column>
-					<p:column headerText="#{msg['driver.car']}" style="text-align:left">
-						<h:outputText value="#{driver.plate}" />
-					</p:column>
-					<p:column headerText="#{msg['driver.status']}"
-						style="text-align:left">
-					</p:column>
-					<f:facet name="footer">
+			<h1>#{msg['driver.liveStatus']}</h1>
+			<p:tabView id="main-menu" dynamic="true">
+				<p:ajax event="tabChange" listener="#{liveStatusBean.onTabChange}"
+					update="table-view gmap-view"></p:ajax>
+				<p:tab title="#{msg['driver.list']}" id="table-view">
+					<p:dataTable id="driverPosition-list" paginator="true" rows="10"
+						paginatorPosition="bottom" lazy="true"
+						paginatorAlwaysVisible="false"
+						value="#{liveStatusBean.lazyDriverList}" var="driver"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} ">
+						<p:ajax event="page" listener="#{liveStatusBean.paginationAction}" />
+						<p:column headerText="#{msg['feeAgent.autonumber']}"
+							style="text-align:left;">
+							<h:outputText
+								value="#{liveStatusBean.lazyDriverList.rowIndex + 1}" />
+						</p:column>
+						<p:column headerText="#{msg['riderRegister.name']}"
+							style="text-align:left">
+							<h:outputText value="#{driver.firstName} #{driver.lastName}" />
+						</p:column>
+						<p:column headerText="#{msg['driver.currentPosition']}"
+							style="text-align:left">
+							<h:outputText value="#{driver.currentLocation}" />
+						</p:column>
+						<p:column headerText="#{msg['driver.car']}"
+							style="text-align:left">
+							<h:outputText value="#{driver.plate}" />
+						</p:column>
+						<p:column headerText="#{msg['driver.status']}"
+							style="text-align:left">
+						</p:column>
+						<f:facet name="footer">
         		#{msg['feeAgent.show']}#{msg['feeAgent.of']}#{msg['driver.driver']}
     			</f:facet>
-				</p:dataTable>
-			</p:tab>
-			<p:tab title="#{msg['driver.map']}" id="gmap-view">
-				<p:gmap center="21.0333333, 105.8500000" style="width:100%;height:800px"
-					zoom="15" type="ROADMAP" model="#{liveStatusBean.simpleModel}"></p:gmap>
-			</p:tab>
-		</p:tabView>
-	</h:form>
+					</p:dataTable>
+				</p:tab>
+				<p:tab title="#{msg['driver.map']}" id="gmap-view">
+					<p:gmap center="21.0333333, 105.8500000"
+						style="width:100%;height:800px" zoom="15" type="ROADMAP"
+						model="#{liveStatusBean.simpleModel}"></p:gmap>
+				</p:tab>
+			</p:tabView>
+		</h:form>
 	</f:view>
 </h:body>
 </html>

@@ -8,6 +8,9 @@
 
 <h:head>
 	<title>TaxiNet</title>
+	<f:metadata>
+		<f:event listener="#{addNewDriverBean.initData}" type="preRenderView"></f:event>
+	</f:metadata>
 </h:head>
 <h:body>
 	<h:form prependId="false">
