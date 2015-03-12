@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"> <h:head>
+	<title>TaxiNet</title>
+</h:head> <h:body>
+	<h:form id="findFreeTrip" prependId="false">
+		<p:megaMenu orientation="horizontal">
+			<p:menuitem value="#{msg['feeAgent.homePage']}"
+				url="../rider/FindFreeTrip.xhtml" style="background:orange"></p:menuitem>
+		</p:megaMenu>
+
+		<br></br>
+
+		<center> <h1>Chuyến Đi Rẻ</h1> <h:panelGrid
+			columns="2">
+			<p:outputLabel for="time" value="Thời gian: " />
+			<p:inputText id="time"
+				value="#{riderFindFreeTripController.searchDate}" />
+			<p:outputLabel for="userName" value="Điểm Đi: " />
+			<p:inputText id="userName"
+				value="#{riderFindFreeTripController.searchFromAddress}" />
+			<p:outputLabel for="userName" value="Điểm Đến " />
+			<p:inputText id="userName"
+				value="#{riderFindFreeTripController.searchToAddress}" />
+		</h:panelGrid> <br></br> <p:commandButton value="#{msg['feeAgent.search']}"
+			actionListener="#{riderFindFreeTripController.doSearchAllUser}"
+			update=":findFreeTrip:account-list"></p:commandButton> </center>
+
+		<br></br>
+
+		<p:dataTable id="account-list" paginator="true" rows="1"
+			paginatorPosition="bottom" lazy="true"
+			selection="#{riderFindFreeTripController.selectedUser}"
+			rowKey="#{taxinetuser.userId}"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			var="taxinetuser" value="#{riderFindFreeTripController.lazyListUser}">
+			<f:facet name="header">
+        		#{msg['feeAgent.accountList']}
+    		</f:facet>
+			<p:column headerText="Ngày "
+				style="text-align:left">
+				<h:outputText value="#{taxinetuser.timeStart}" />
+			</p:column>
+			<p:column headerText="Điểm đi "
+				style="text-align:left">
+				<h:outputText value="#{taxinetuser.fromAddress}" />
+			</p:column>
+			<p:column headerText="Điểm đến "
+				style="text-align:left">
+				<h:outputText value="#{taxinetuser.toAddress}" />
+			</p:column>
+			<p:column headerText="Lái xe "
+				style="text-align:left">
+				<h:outputText
+					value="#{taxinetuser.firstName} #{taxinetuser.lastName}" />
+			</p:column>
+			<p:column headerText="Phí "
+				style="text-align:left">
+				<h:outputText value="#{taxinetuser.fee}" />
+			</p:column>
+			<p:column headerText="Xe ô tô "
+				style="text-align:left">
+				<h:outputText value="#{taxinetuser.plate}" />
+			</p:column>
+			<f:facet name="footer">
+        #{msg['feeAgent.show']}#{msg['feeAgent.of']}#{msg['login.userName']}
+    	</f:facet>
+		</p:dataTable>
+
+	</h:form>
+</h:body> </html>
