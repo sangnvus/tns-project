@@ -21,7 +21,7 @@
             <column name="CarTypeID" not-null="true" />
         </many-to-one>
         <many-to-one name="pricepanel" class="vn.co.taxinet.orm.PricePanel" fetch="select">
-            <column name="PricePanelID" length="50" />
+            <column name="PricePanelID" />
         </many-to-one>
         <property name="plate" type="string">
             <column name="Plate" length="20" not-null="true" unique="true" />
