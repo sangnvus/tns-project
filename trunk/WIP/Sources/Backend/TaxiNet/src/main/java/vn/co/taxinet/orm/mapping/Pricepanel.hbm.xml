@@ -4,8 +4,8 @@
 <!-- Generated Jan 28, 2015 9:41:06 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="vn.co.taxinet.orm.PricePanel" table="pricepanel" catalog="taxinet">
-        <id name="pricePanelId" type="string">
-            <column name="PricePanelID" length="50" />
+        <id name="pricePanelId" type="int">
+            <column name="PricePanelID" />
             <generator class="assigned" />
         </id>
         <many-to-one name="company" class="vn.co.taxinet.orm.Company" fetch="select">
@@ -57,12 +57,6 @@
             <column name="LastModifiedDate" length="0" not-null="true" />
         </property>
         <set name="vehicles" table="vehicle" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="PricePanelID" length="50" />
-            </key>
-            <one-to-many class="vn.co.taxinet.orm.Vehicle" />
-        </set>
-        <set name="vehicles_1" table="vehicle" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="PricePanelID" />
             </key>
