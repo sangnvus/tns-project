@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>TaxiNet</title>
+	<f:metadata>
+		<f:event listener="#{addPricePanelController.initData}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+</h:head>
+<h:body>
+	<f:view>
+		<h:form id="add-price-panel-form" prependId="false">
+			<h1>#{msg['driver.pricePanel']}</h1>
+			<h3>You must add atleast one price panel</h3>
+			<h:panelGrid columns="3" id="price-Title">
+				<p:outputLabel for="pricePanelTitle"
+					value="#{msg['driver.pricePanelTitle']}" />
+				<p:inputText id="pricePanelTitle"
+					value="#{addPricePanelController.priceTitle}" required="true" />
+				<p:message for="pricePanelTitle" />
+			</h:panelGrid>
+			<h:panelGrid columns="7" id="price-info">
+				<p:outputLabel for="openPrice" value="#{msg['driver.openPrice']}" />
+				<p:inputText id="openPrice" required="true"
+					value="#{addPricePanelController.openPrice}">
+					<f:validateDoubleRange minimum="0" />
+				</p:inputText>
+				<p:message for="openPrice" display="icon" />
+				<p:outputLabel for="openKm" value="#{msg['driver.for']}" />
+				<p:inputText id="openKm" required="true"
+					value="#{addPricePanelController.openKM}">
+					<f:validateDoubleRange minimum="0" />
+				</p:inputText>
+				<p:outputLabel value="KM" />
+				<p:message for="openKm" display="icon" />
+				<p:outputLabel for="nextPrice" value="#{msg['driver.price']}" />
+				<p:inputText id="nextPrice" required="true"
+					value="#{addPricePanelController.firstPrice}">
+					<f:validateDoubleRange minimum="0" />
+				</p:inputText>
+				<p:message for="nextPrice" />
+				<p:outputLabel for="nextPrice" value="#{msg['driver.for']}" />
+				<p:inputText id="nextKm" required="true"
+					value="#{addPricePanelController.firstKM}">
+					<f:validateDoubleRange minimum="0" />
+				</p:inputText>
+				<p:outputLabel value="KM" />
+				<p:message for="nextKm" display="icon" />
+			</h:panelGrid>
+			<h:panelGrid columns="3" id="price-info-ex">
+				<p:outputLabel for="price" value="#{msg['driver.price']}" />
+				<p:inputText id="price" required="true"
+					value="#{addPricePanelController.nextPrice}">
+					<f:validateDoubleRange minimum="0" />
+				</p:inputText>
+				<p:message for="price" />
+				<p:outputLabel for="waitingPrice"
+					value="#{msg['driver.waitingPrice']}" />
+				<p:inputText id="waitingPrice" required="true"
+					value="#{addPricePanelController.waitingPrice}">
+					<f:validateDoubleRange minimum="0" />
+				</p:inputText>
+				<p:message for="waitingPrice" display="icon" />
+				<p:outputLabel for="returnTripPrice"
+					value="#{msg['driver.returnTripPrice']}" />
+				<p:inputText id="returnTripPrice" required="true"
+					value="#{addPricePanelController.returnPrice}">
+					<f:validateDoubleRange minimum="0" />
+				</p:inputText>
+				<p:message for="returnTripPrice" />
+				<p:outputLabel for="startDate" value="#{msg['driver.startDate']}" />
+				<p:calendar id="startDate" required="true"
+					value="#{addPricePanelController.startDate}" pattern="dd/MM/yyyy" />
+				<p:message for="startDate" />
+			</h:panelGrid>
+			<p:commandButton value="#{msg['driver.sent']}" validateClient="true"
+				update="price-Title price-info price-info-ex growl"
+				actionListener="#{addPricePanelController.addPricePanelButton}">
+			</p:commandButton>
+			<p:commandButton value="#{msg['feeAgent.cancel']}"
+				validateClient="false" update="price-Title price-info price-info-ex"
+				actionListener="#{addPricePanelController.cancelButton}">
+			</p:commandButton>
+			<p:growl id="growl" showDetail="true" />
+		</h:form>
+	</f:view>
+</h:body>
+</html>

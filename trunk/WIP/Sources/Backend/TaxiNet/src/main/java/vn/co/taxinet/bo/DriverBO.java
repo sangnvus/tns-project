@@ -227,4 +227,10 @@ public interface DriverBO {
 	 */
 	public List<PricePanel> getAllPricePanel(int companyID,
 			String currentDateTime, int pageIndex, int pageSize);
+
+	/**
+	 * @param pricePanel
+	 * @return
+	 */
+	public int addPricePanel(PricePanel pricePanel);
 }

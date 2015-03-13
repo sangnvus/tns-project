@@ -36,7 +36,6 @@ import vn.co.taxinet.orm.CityName;
 import vn.co.taxinet.orm.Company;
 import vn.co.taxinet.orm.Country;
 import vn.co.taxinet.orm.CurrentStatus;
-import vn.co.taxinet.orm.Document;
 import vn.co.taxinet.orm.Driver;
 import vn.co.taxinet.orm.PricePanel;
 import vn.co.taxinet.orm.TaxiNetUsers;
@@ -692,5 +691,18 @@ public class DriverBOImpl implements DriverBO {
 			String currentDateTime, int pageIndex, int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see vn.co.taxinet.bo.DriverBO#addPricePanel(vn.co.taxinet.orm.PricePanel)
+	 */
+	@Transactional
+	public int addPricePanel(PricePanel pricePanel) {
+		if (pricePanel != null) {
+			pricePanelDAO.insert(pricePanel);
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }
