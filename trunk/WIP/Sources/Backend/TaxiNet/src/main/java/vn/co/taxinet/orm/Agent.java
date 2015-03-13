@@ -13,6 +13,9 @@ public class Agent implements java.io.Serializable {
 	private Address addressByHomeAddressId;
 	private TaxiNetUsers taxinetusers;
 	private Address addressByOfficeAddressId;
+	private String agentCode;
+	private String agentName;
+	private Double shareRate;
 	private String firstName;
 	private String lastName;
 	private String mobileNo;
@@ -75,7 +78,7 @@ public class Agent implements java.io.Serializable {
 	public void setAddressByHomeAddressId(Address addressByHomeAddressId) {
 		this.addressByHomeAddressId = addressByHomeAddressId;
 	}
-	
+
 	public TaxiNetUsers getTaxinetusers() {
 		return taxinetusers;
 	}
@@ -90,6 +93,30 @@ public class Agent implements java.io.Serializable {
 
 	public void setAddressByOfficeAddressId(Address addressByOfficeAddressId) {
 		this.addressByOfficeAddressId = addressByOfficeAddressId;
+	}
+
+	public String getAgentCode() {
+		return this.agentCode;
+	}
+
+	public void setAgentCode(String agentCode) {
+		this.agentCode = agentCode;
+	}
+
+	public String getAgentName() {
+		return this.agentName;
+	}
+
+	public void setAgentName(String agentName) {
+		this.agentName = agentName;
+	}
+
+	public Double getShareRate() {
+		return this.shareRate;
+	}
+
+	public void setShareRate(Double shareRate) {
+		this.shareRate = shareRate;
 	}
 
 	public String getFirstName() {

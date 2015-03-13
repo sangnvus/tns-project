@@ -17,6 +17,15 @@
         <many-to-one name="addressByOfficeAddressId" class="vn.co.taxinet.orm.Address" fetch="select">
             <column name="OfficeAddressID" length="50" />
         </many-to-one>
+        <property name="agentCode" type="string">
+            <column name="AgentCode" length="50" />
+        </property>
+        <property name="agentName" type="string">
+            <column name="AgentName" length="75" />
+        </property>
+        <property name="shareRate" type="java.lang.Double">
+            <column name="ShareRate" precision="22" scale="0" />
+        </property>
         <property name="firstName" type="string">
             <column name="FirstName" length="30" not-null="true" />
         </property>
