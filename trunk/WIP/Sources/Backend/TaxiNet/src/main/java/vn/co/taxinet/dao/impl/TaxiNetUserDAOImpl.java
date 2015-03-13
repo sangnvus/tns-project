@@ -124,7 +124,7 @@ public class TaxiNetUserDAOImpl extends BaseDAOImpl implements TaxiNetUserDAO {
 		stringBuilder.append(hql3);
 		stringBuilder.append(hql4);
 		Query query = session.createQuery(stringBuilder.toString());
-		query.setFirstResult((page - 1) * numberOfElement);
+		query.setFirstResult((page) * numberOfElement);
 		query.setMaxResults(numberOfElement);
 		List<TaxiNetUsers> result;
 		result = query.list();
